@@ -1,0 +1,18 @@
+title Delete Menu Item
+
+Employee->Store:initDeleteMenuItem(Employee e)
+Store->Store: isManager = e.isManager()
+
+alt isManager = False
+    Store-->Employee: Access Denied
+else isManager = True
+    Store-->Employee: availableMenus
+    Employee->Store: editMenu(Menu m)
+    
+    Store->Menu: Set<Item> items = getCurrentItems(m)
+    Store-->Employee: items
+    
+    Employee->Store: deleteMenuItems(Set<Item> itemsToDelete)
+    
+    Store->Menu: m.removeItems(itemsToDelete) 
+end

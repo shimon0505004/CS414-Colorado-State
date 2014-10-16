@@ -1,0 +1,14 @@
+title Delete Menu
+
+Employee->Store:initDeleteMenuItem(Employee e)
+Store->Store: isManager = e.isManager()
+
+alt isManager = False
+    Store-->Employee: Access Denied
+else isManager = True
+    loop Employee cancels Delete Menu
+        Store-->Employee: availableMenus()
+        Employee->Store: deleteMenu(Menu m)
+        Store->Store: deleteMenu(m) 
+    end
+end
