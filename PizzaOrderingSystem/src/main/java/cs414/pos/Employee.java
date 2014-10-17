@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package cs414.pos;
 
@@ -12,17 +12,17 @@ import java.util.UUID;
 public class Employee {
 
 	/**
-	 * 
+	 *
 	 */
 	private String employeeID;
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
-	
+
 	public Employee() {
 		// TODO Auto-generated constructor stub
-		
+
 	}
-	
+
 	public Employee(String name) {
 		// TODO Auto-generated constructor stub
 		setEmployeeName(name);
@@ -59,7 +59,7 @@ public class Employee {
 
 	public void setLoginInfo(LoginInfo newLoginInfo) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Employee {
 	}
 
 	/**
-	 * @param employeeInfo the employeeInfo to set
+	 * @param loginInfo the loginInfo to set
 	 */
 	public void setEmployeeLoginInfo(LoginInfo loginInfo) {
 		this.employeeLoginInfo = loginInfo;
@@ -80,12 +80,11 @@ public class Employee {
 	public boolean matchLoginInfo(String loginID, String password) {
 		// TODO Auto-generated method stub
 		//return this.getEmployeeLoginInfo().getLoginId().equals(loginID) && 		this.getEmployeeLoginInfo().getPassword().equals(password) ;
-		if(this.getEmployeeLoginInfo().getLoginId().equals(loginID))
-		{
+		if(this.getEmployeeLoginInfo().getLoginId().equals(loginID)) {
 			return this.getEmployeeLoginInfo().matchPassword(password);
+		} else {
+			return false;
 		}
-		else return false;
 	}
-	
-	
+
 }
