@@ -46,6 +46,7 @@ public class Store {
 		// TODO Auto-generated method stub
 		employeeSet = new HashSet<Employee>();
 		loginSet = new HashSet<LoginInfo>();
+        setOfMenus = new HashSet<>();
 	}
 
 	public Store(String name, String phone , String location) {
@@ -143,6 +144,24 @@ public class Store {
 		}
 		
 		return returnVal;
-	} 
+	}
 
+    private Set<Menu> getSetOfMenus() { return this.setOfMenus; }
+    public Set<Menu> getAvailableMenus(Employee e) { //initDeleteMenu
+        //if(e.isManager())
+            return getSetOfMenus();
+        // else return null;
+    }
+
+    public Set<Item> editMenu(Employee e, Menu menu) {
+        //if(e.isManager())
+            return menu.getMenuItems();
+        // else return null;
+    }
+
+    public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
+        //if(e.isManager())
+            for(Item i : items)
+                menu.deleteItem(i);
+    }
 }
