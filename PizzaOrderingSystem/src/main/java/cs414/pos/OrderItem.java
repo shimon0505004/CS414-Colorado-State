@@ -12,7 +12,7 @@ public class OrderItem {
 	}
 	
 	public double computeSubtotal(){
-		setSubTotal(quantity*(item.getItemBasePrice()));
+		setSubTotal(quantity*(item.getCurrentPrice()));
 		return getSubTotal();
 	}
 	
@@ -22,8 +22,8 @@ public class OrderItem {
 		return getQuantity();
 	}
 	
-	public int incrementQuantitybyAmount(int amonunt){
-		for(int i=1;i<=amonunt;i++){
+	public int incrementQuantitybyAmount(int amount){
+		for(int i=1;i<=amount;i++){
 			incrementQuantity();
 		}			
 		return getQuantity();
@@ -36,8 +36,8 @@ public class OrderItem {
 		return getQuantity();
 	}
 	
-	public int decrementQuantitybyAmount(int amonunt){
-		for(int i=1;i<=amonunt;i++){
+	public int decrementQuantitybyAmount(int amount){
+		for(int i=1;i<=amount;i++){
 			decrementQuantity();
 		}
 
@@ -55,7 +55,7 @@ public class OrderItem {
 	/**
 	 * @param item the item to set
 	 */
-	public void setItem(Item item) {
+	private void setItem(Item item) {
 		this.item = item;
 	}
 	/**
@@ -84,7 +84,7 @@ public class OrderItem {
 	/**
 	 * @param subTotal the subTotal to set
 	 */
-	public void setSubTotal(double subTotal) {
+	private void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
 	}
 
