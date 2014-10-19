@@ -21,4 +21,11 @@ public class Menu {
     public boolean deleteItem(Item i) {
         return menuItemsSet.remove(i);
     }
+
+    @Override public boolean equals(Object o) {
+        if(o == this) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+
+        return ((Menu) o).getMenuName().equals(this.getMenuName());
+    }
 }

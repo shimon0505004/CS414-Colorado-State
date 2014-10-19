@@ -146,6 +146,18 @@ public class Store {
 		return returnVal;
 	}
 
+    public boolean initDefineMenu(Employee e) {
+        //if(e.isManager())
+            return true;
+        // else return false;
+    }
+
+    public boolean defineMenu(Employee e, String name, String desc) {
+        //if(e.isManager())
+        return setOfMenus.add(new Menu(name, desc)); // true if menu.name not already taken
+        // else return false;
+    }
+
     private Set<Menu> getSetOfMenus() { return this.setOfMenus; }
     public Set<Menu> getAvailableMenus(Employee e) { //initDeleteMenu
         //if(e.isManager())
