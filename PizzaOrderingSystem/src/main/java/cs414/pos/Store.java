@@ -159,7 +159,7 @@ public class Store {
     }
 
     private Set<Menu> getSetOfMenus() { return this.setOfMenus; }
-    public Set<Menu> getAvailableMenus(Employee e) { //initDeleteMenu
+    public Set<Menu> authorizeEditMenus(Employee e) { //initDeleteMenu
         //if(e.isManager())
             return getSetOfMenus();
         // else return null;
@@ -169,6 +169,11 @@ public class Store {
         //if(e.isManager())
             return menu.getMenuItems();
         // else return null;
+    }
+
+    public void setSpecial(Employee e, Item i, double percentOff) {
+        //if(e.isManager())
+            i.setSpecialPercentageOffPrice(percentOff);
     }
 
     public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
