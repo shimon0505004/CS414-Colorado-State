@@ -12,7 +12,7 @@ public class OrderItem {
 	}
 	
 	public double computeSubtotal(){
-		setSubTotal(quantity*(item.getItemPrice()));
+		setSubTotal(quantity*(item.getItemBasePrice()));
 		return getSubTotal();
 	}
 	

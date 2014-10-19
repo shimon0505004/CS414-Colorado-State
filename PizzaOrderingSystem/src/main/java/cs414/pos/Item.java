@@ -7,31 +7,32 @@ public class Item {
 	private int itemID;
 	private String itemDescription;
 	private boolean isSpecial;
-	private double specialPrice;
+	private double specialPercentageOffPrice;
 	
 	
 	public Item(String name, double price, int ID) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
 		this.setItemPrice(price);
-		this.setSpecial(false);
 		this.setItemDescription("");
 		this.setItemID(ID);
+        removeSpecial(); // item not a special by default
 	}
 	
 	public Item(String name, double price , String itemDescription, int ID) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
 		this.setItemPrice(price);
-		this.setSpecial(false);
 		this.setItemDescription(itemDescription);
 		this.setItemID(ID);
+        removeSpecial();
 	}
-	
-	
-	public double getPrice(){
-		if(isSpecial) return getSpecialPrice();
-		else return getItemPrice();
+
+    /**
+     * @return item.price - specialPercentage (0.0 if not a special)
+     */
+	public double getCurrentPrice(){
+        return getItemBasePrice() - (getSpecialPercentageOffPrice()*getItemBasePrice());
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class Item {
 	/**
 	 * @return the itemPrice
 	 */
-	public double getItemPrice() {
+	public double getItemBasePrice() {
 		return itemPrice;
 	}
 
@@ -98,28 +99,30 @@ public class Item {
 	}
 
 	/**
-	 * @param isSpecial the isSpecial to set
+	 * @param percentOff percentage off this special item's price
 	 */
-	public void setSpecial(boolean isSpecial) {
-		this.isSpecial = isSpecial;
-		if(!isSpecial)
-		{
-			setSpecialPrice(0.0);
-		}
+	public void setSpecial(double percentOff) {
+		this.isSpecial = true;
+        setSpecialPercentageOffPrice(percentOff);
+	}
+
+    public void removeSpecial() {
+        this.isSpecial = false;
+        setSpecialPercentageOffPrice(0.0);
+    }
+
+	/**
+	 * @return the specialPercentageOffPrice
+	 */
+	public double getSpecialPercentageOffPrice() {
+		return specialPercentageOffPrice;
 	}
 
 	/**
-	 * @return the specialPrice
+	 * @param specialPercentageOffPrice the specialPercentageOffPrice to set
 	 */
-	public double getSpecialPrice() {
-		return specialPrice;
-	}
-
-	/**
-	 * @param specialPrice the specialPrice to set
-	 */
-	public void setSpecialPrice(double specialPrice) {
-		this.specialPrice = specialPrice;
+	public void setSpecialPercentageOffPrice(double specialPercentageOffPrice) {
+		this.specialPercentageOffPrice = specialPercentageOffPrice;
 	}
 	
 }
