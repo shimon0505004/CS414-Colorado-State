@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package cs414.pos;
 
@@ -8,11 +8,6 @@ package cs414.pos;
  *
  */
 public class Chef extends Role {
-
-	/**
-	 * @param roleName
-	 * @param Description
-	 */
 	public Chef() {
 		super("Chef", "-Chef-Description-");
 		// TODO Auto-generated constructor stub
