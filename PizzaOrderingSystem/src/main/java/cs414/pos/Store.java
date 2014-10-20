@@ -294,6 +294,10 @@ public class Store {
                 menu.deleteItem(i);
     }
 
+    public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
+        //if(e.isManager())
+    }
+
 	/**
 	 * @return the setOfKiosk
 	 */

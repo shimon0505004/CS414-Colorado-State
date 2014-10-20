@@ -18,6 +18,10 @@ public class Menu {
     public String getMenuDescription()  { return this.menuDescription; }
     public Set<Item> getMenuItems()     { return this.menuItemsSet; }
 
+    public boolean addItem(Item i) {
+        return menuItemsSet.add(i);
+    }
+
     public boolean deleteItem(Item i) {
         return menuItemsSet.remove(i);
     }

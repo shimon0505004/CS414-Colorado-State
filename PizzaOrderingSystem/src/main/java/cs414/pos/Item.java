@@ -4,27 +4,24 @@ public class Item {
 
 	private String itemName;
 	private double itemPrice;
-	private int itemID;
 	private String itemDescription;
 	private boolean isSpecial;
 	private double specialPercentageOffPrice;
 	
 	
-	public Item(String name, double price, int ID) {
+	public Item(String name, double price) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
 		this.setItemPrice(price);
 		this.setItemDescription("");
-		this.setItemID(ID);
         removeSpecial(); // item not a special by default
 	}
 	
-	public Item(String name, double price , String itemDescription, int ID) {
+	public Item(String name, double price , String itemDescription) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
 		this.setItemPrice(price);
 		this.setItemDescription(itemDescription);
-		this.setItemID(ID);
         removeSpecial();
 	}
 
@@ -61,20 +58,6 @@ public class Item {
 	 */
 	public void setItemPrice(double itemPrice) {
 		this.itemPrice = itemPrice;
-	}
-
-	/**
-	 * @return the itemID
-	 */
-	public int getItemID() {
-		return itemID;
-	}
-
-	/**
-	 * @param itemID the itemID to set
-	 */
-	public void setItemID(int itemID) {
-		this.itemID = itemID;
 	}
 
 	/**
