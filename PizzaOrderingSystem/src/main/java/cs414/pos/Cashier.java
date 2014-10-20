@@ -13,7 +13,7 @@ public class Cashier extends Role {
 	 * @param roleName
 	 * @param Description
 	 */
-	public Cashier(String roleName, String Description) {
+	public Cashier() {
 		super("Cashier", "-Cashier-Description-");
 		// TODO Auto-generated constructor stub
 	}

@@ -18,11 +18,20 @@ public class Employee {
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
 	private Role performsRole;
-	
+	private Store worksForStore;
 	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 
+	}
+
+	public Employee(String name, Store Employee) {
+		// TODO Auto-generated constructor stub
+		setEmployeeName(name);
+		setEmployeeID(UUID.randomUUID().toString());
+		setEmployeeLoginInfo(null);
+		setPerformsRole(null);
+		setWorksForStore(Employee);
 	}
 
 	public Employee(String name) {
@@ -31,8 +40,10 @@ public class Employee {
 		setEmployeeID(UUID.randomUUID().toString());
 		setEmployeeLoginInfo(null);
 		setPerformsRole(null);
+		setWorksForStore(null);
 	}
 
+	
 	/**
 	 * @return the employeeID
 	 */
@@ -103,6 +114,20 @@ public class Employee {
 	 */
 	public void setPerformsRole(Role performsRole) {
 		this.performsRole = performsRole;
+	}
+
+	/**
+	 * @return the worksForStore
+	 */
+	public Store getWorksForStore() {
+		return worksForStore;
+	}
+
+	/**
+	 * @param worksForStore the worksForStore to set
+	 */
+	public void setWorksForStore(Store worksForStore) {
+		this.worksForStore = worksForStore;
 	}
 
 }

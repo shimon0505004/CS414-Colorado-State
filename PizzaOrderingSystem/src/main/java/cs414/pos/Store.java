@@ -19,6 +19,7 @@ public class Store {
 	private String storeName;
 	private String phoneNumber;
 	private Address address;
+	
 	private Set<Employee> employeeSet;
 	private Set<LoginInfo> loginSet;
 	
@@ -31,7 +32,7 @@ public class Store {
 	private Set<Menu> setOfMenus;
 	private Set<Item> setOfItems;
 	
-	
+	private Role[] roles; 
 	
 	
 	public Store() {
@@ -40,13 +41,28 @@ public class Store {
 		this.setPhoneNumber("000-000-0000");
 		address = new Address();
 		initializeSetElements();
+		initializeRoles();
 	}
 	
+	private void initializeRoles() {
+		// Implement this in a better way.
+		roles = new Role[3];
+		
+		roles[0] = new Manager();
+		roles[1] = new Chef();
+		roles[2] = new Cashier();
+	}
+
 	private void initializeSetElements() {
 		// TODO Auto-generated method stub
 		employeeSet = new HashSet<Employee>();
 		loginSet = new HashSet<LoginInfo>();
-        setOfMenus = new HashSet<>();
+        setOfMenus = new HashSet<Menu>();
+        setSetOfItems(new HashSet<Item>());
+        setSetOfKiosk(new HashSet<Kiosk>());
+        setSetOfRegister(new HashSet<Register>());
+        setSetOfPlacedOrder(new HashSet<Order>());
+        setMembers(new HashSet<Customer>());
 	}
 
 	public Store(String name, String phone , String location) {
@@ -55,6 +71,7 @@ public class Store {
 		this.setPhoneNumber(phone);
 		address = new Address(location,AddressType.Business);
 		initializeSetElements();
+		initializeRoles();
 	}
 	
 	public Store(String name, String location) {
@@ -63,6 +80,7 @@ public class Store {
 		this.setPhoneNumber("000-000-0000");
 		address = new Address(location,AddressType.Business);
 		initializeSetElements();
+		initializeRoles();
 	}
 	
 	public Store(String name) {
@@ -71,6 +89,7 @@ public class Store {
 		this.setPhoneNumber("000-000-0000");
 		address = new Address();
 		initializeSetElements();
+		initializeRoles();
 	}
 	
 	/**
@@ -123,7 +142,7 @@ public class Store {
 	}
 	
 	public String addEmployee(String name, String loginID, String password){
-		Employee newEmployee = new Employee(name);
+		Employee newEmployee = new Employee(name,this);
 		String employeeID = newEmployee.getEmployeeID();
 		
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
@@ -134,6 +153,99 @@ public class Store {
 		return employeeID;
 	}
 	
+
+	public void setEmployeeRole(String employeeID,int option){
+		Iterator<Employee> iterEmployee= employeeSet.iterator();
+		boolean returnVal = false;
+		Employee testEmployee = new Employee();
+		while(iterEmployee.hasNext() && !returnVal){
+			testEmployee = iterEmployee.next();
+			if(employeeID.equals(testEmployee.getEmployeeID())){
+				returnVal = true;
+				break;
+			}
+		}
+		if(returnVal){
+			// means employee found
+			employeeSet.remove(testEmployee);
+			switch (option) {
+			case 0:
+				testEmployee.setPerformsRole(roles[option]);
+				employeeSet.add(testEmployee);
+				break;
+			case 1:
+				testEmployee.setPerformsRole(roles[option]);
+				employeeSet.add(testEmployee);
+				break;
+			case 2:
+				testEmployee.setPerformsRole(roles[option]);
+				employeeSet.add(testEmployee);				
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
+
+	/*	
+	public void setEmployeeToManager(String employeeID){
+		Iterator<Employee> iterEmployee= employeeSet.iterator();
+		boolean returnVal = false;
+		Employee testEmployee = new Employee();
+		while(iterEmployee.hasNext() && !returnVal){
+			testEmployee = iterEmployee.next();
+			if(employeeID.equals(testEmployee.getEmployeeID())){
+				returnVal = true;
+				break;
+			}
+		}
+		if(returnVal){
+			// means employee found
+			employeeSet.remove(testEmployee);
+			testEmployee.setPerformsRole(roles[0]);
+		}
+	} 
+
+	
+	public void setEmployeeToChef(String employeeID){
+		Iterator<Employee> iterEmployee= employeeSet.iterator();
+		boolean returnVal = false;
+		Employee testEmployee = new Employee();
+		while(iterEmployee.hasNext() && !returnVal){
+			testEmployee = iterEmployee.next();
+			if(employeeID.equals(testEmployee.getEmployeeID())){
+				returnVal = true;
+				break;
+			}
+		}
+		if(returnVal){
+			// means employee found
+			employeeSet.remove(testEmployee);
+			testEmployee.setPerformsRole(roles[1]);
+		}
+	} 
+	
+
+	public void setEmployeeToCashier(String employeeID){
+		Iterator<Employee> iterEmployee= employeeSet.iterator();
+		boolean returnVal = false;
+		Employee testEmployee = new Employee();
+		while(iterEmployee.hasNext() && !returnVal){
+			testEmployee = iterEmployee.next();
+			if(employeeID.equals(testEmployee.getEmployeeID())){
+				returnVal = true;
+				break;
+			}
+		}
+		if(returnVal){
+			// means employee found
+			employeeSet.remove(testEmployee);
+			testEmployee.setPerformsRole(roles[2]);
+		}
+	} 
+	
+*/	
 	public boolean loginAttempt(String loginID, String password){
 		Iterator<Employee> iterEmployee= employeeSet.iterator();
 		boolean returnVal = false;
@@ -250,5 +362,19 @@ public class Store {
 	 */
 	public void setSetOfItems(Set<Item> setOfItems) {
 		this.setOfItems = setOfItems;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public Role[] getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(Role[] roles) {
+		this.roles = roles;
 	}
 }
