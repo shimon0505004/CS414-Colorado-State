@@ -181,4 +181,74 @@ public class Store {
             for(Item i : items)
                 menu.deleteItem(i);
     }
+
+	/**
+	 * @return the setOfKiosk
+	 */
+	public Set<Kiosk> getSetOfKiosk() {
+		return setOfKiosk;
+	}
+
+	/**
+	 * @param setOfKiosk the setOfKiosk to set
+	 */
+	public void setSetOfKiosk(Set<Kiosk> setOfKiosk) {
+		this.setOfKiosk = setOfKiosk;
+	}
+
+	/**
+	 * @return the setOfRegister
+	 */
+	public Set<Register> getSetOfRegister() {
+		return setOfRegister;
+	}
+
+	/**
+	 * @param setOfRegister the setOfRegister to set
+	 */
+	public void setSetOfRegister(Set<Register> setOfRegister) {
+		this.setOfRegister = setOfRegister;
+	}
+
+	/**
+	 * @return the setOfPlacedOrder
+	 */
+	public Set<Order> getSetOfPlacedOrder() {
+		return setOfPlacedOrder;
+	}
+
+	/**
+	 * @param setOfPlacedOrder the setOfPlacedOrder to set
+	 */
+	public void setSetOfPlacedOrder(Set<Order> setOfPlacedOrder) {
+		this.setOfPlacedOrder = setOfPlacedOrder;
+	}
+
+	/**
+	 * @return the members
+	 */
+	public Set<Customer> getMembers() {
+		return members;
+	}
+
+	/**
+	 * @param members the members to set
+	 */
+	public void setMembers(Set<Customer> members) {
+		this.members = members;
+	}
+
+	/**
+	 * @return the setOfItems
+	 */
+	public Set<Item> getSetOfItems() {
+		return setOfItems;
+	}
+
+	/**
+	 * @param setOfItems the setOfItems to set
+	 */
+	public void setSetOfItems(Set<Item> setOfItems) {
+		this.setOfItems = setOfItems;
+	}
 }

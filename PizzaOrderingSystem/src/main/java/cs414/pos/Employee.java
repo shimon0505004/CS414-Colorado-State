@@ -17,7 +17,9 @@ public class Employee {
 	private String employeeID;
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
-
+	private Role performsRole;
+	
+	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 
@@ -27,6 +29,8 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 		setEmployeeName(name);
 		setEmployeeID(UUID.randomUUID().toString());
+		setEmployeeLoginInfo(null);
+		setPerformsRole(null);
 	}
 
 	/**
@@ -85,6 +89,20 @@ public class Employee {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * @return the performsRole
+	 */
+	public Role getPerformsRole() {
+		return performsRole;
+	}
+
+	/**
+	 * @param performsRole the performsRole to set
+	 */
+	public void setPerformsRole(Role performsRole) {
+		this.performsRole = performsRole;
 	}
 
 }
