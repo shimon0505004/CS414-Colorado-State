@@ -1,5 +1,8 @@
 package cs414.pos;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Customer {
 
 	private String firstName;
@@ -7,13 +10,15 @@ public class Customer {
 	private String customerPhoneNumber;
 	private int memberShipNumber;
 	private int rewardsPoint;
-
+	private Set<Order> customerOrders;
+	private Set<Address> customerAddresses;
+	
 	public Customer(String firstName, String lastName, int memberShipNumber) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setMemberShipNumber(memberShipNumber);
 		setCustomerPhoneNumber("000-000-0000");
-		setRewardsPoint(0);
+		initializeOrdersPointAddress();
 	}
 
 	public Customer(String firstName, String lastName, int memberShipNumber, String phoneNumber) {
@@ -21,12 +26,16 @@ public class Customer {
 		setLastName(lastName);
 		setMemberShipNumber(memberShipNumber);
 		setCustomerPhoneNumber(phoneNumber);
-		setRewardsPoint(0);
+		initializeOrdersPointAddress();
 	}
 
-	public void addToRewardsPoint(int point) {
-		setRewardsPoint(getRewardsPoint() + point);
+	private void initializeOrdersPointAddress(){
+		setRewardsPoint(0);
+		setCustomerOrders(new HashSet<Order>());
+		setCustomerAddresses(new HashSet<Address>());
 	}
+	
+
 
 	/**
 	 * @return the firstName
@@ -39,7 +48,12 @@ public class Customer {
 	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		if(firstName!=null){
+			this.firstName = firstName;			
+		}else{
+			this.firstName = "";
+		}
+		
 	}
 
 	/**
@@ -53,7 +67,11 @@ public class Customer {
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		if(lastName!=null){
+			this.lastName = lastName;			
+		}else{
+			this.lastName = "";
+		}
 	}
 
 	/**
@@ -95,7 +113,103 @@ public class Customer {
 	 * @param customerPhoneNumber the customerPhoneNumber to set
 	 */
 	public void setCustomerPhoneNumber(String customerPhoneNumber) {
-		this.customerPhoneNumber = customerPhoneNumber;
+		if(customerPhoneNumber!=null){
+			this.customerPhoneNumber = customerPhoneNumber;			
+		}else{
+			this.customerPhoneNumber = "000-000-0000";			
+		}
 	}
 
+	/**
+	 * @return the customerOrders
+	 */
+	public Set<Order> getCustomerOrders() {
+		return customerOrders;
+	}
+
+	/**
+	 * @param customerOrders the customerOrders to set
+	 */
+	public void setCustomerOrders(Set<Order> customerOrders) {
+		this.customerOrders = customerOrders;
+	}
+
+	/**
+	 * @return the customerAddresses
+	 */
+	public Set<Address> getCustomerAddresses() {
+		return customerAddresses;
+	}
+
+	/**
+	 * @param customerAddresses the customerAddresses to set
+	 */
+	public void setCustomerAddresses(Set<Address> customerAddresses) {
+		this.customerAddresses = customerAddresses;
+	}
+
+	/**
+	 * 
+	 * @param address adds a new customer address
+	 */
+	public boolean addNewAddress(Address address){
+		int previousSize = getCustomerAddresses().size();
+		getCustomerAddresses().add(address);
+		if(previousSize == getCustomerAddresses().size()-1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param address removes a new customer address
+	 */
+	public boolean removeAddress(Address address){
+		int previousSize = getCustomerAddresses().size();
+		getCustomerAddresses().remove(address);
+		if(previousSize == getCustomerAddresses().size()+1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean addOrder(Order order){
+		int previousSize = getCustomerOrders().size();
+		getCustomerOrders().add(order);
+		calculateCustomerRewardPoints();
+		if(previousSize == getCustomerOrders().size()-1){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean removeOrder(Order order){
+		int previousSize = getCustomerOrders().size();
+		getCustomerOrders().remove(order);
+		calculateCustomerRewardPoints();
+		if(previousSize == getCustomerOrders().size()+1){
+			return true;
+		}
+		else{
+			return false;
+		}		
+	}
+	
+	private void calculateCustomerRewardPoints(){
+		int accumulatedPoints = 0;
+		for(Order customerOrder:getCustomerOrders()){
+			accumulatedPoints+=customerOrder.getRewardPointGenerated();
+		}
+		setRewardsPoint(accumulatedPoints);
+	}
+	
 }
