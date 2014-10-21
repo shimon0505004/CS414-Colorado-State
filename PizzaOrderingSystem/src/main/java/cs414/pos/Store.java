@@ -191,9 +191,9 @@ public class Store {
 	 */
 	
     public boolean initDefineMenu(Employee e) {
-        //if(e.isManager())
+        if(e.getPrivilege().canEditMenu())
             return true;
-        // else return false;
+        else return false;
     }
 
     /**
@@ -205,11 +205,12 @@ public class Store {
      */
     
     public Menu defineMenu(Employee e, String name, String desc) {
-        //if(e.isManager())
-        Menu m = new Menu(name, desc);
-        setOfMenus.add(m);
-        return m;
-        // else return false;
+        if(e.getPrivilege().canEditMenu()) {
+            Menu m = new Menu(name, desc);
+            setOfMenus.add(m);
+            return m;
+        }
+        else return null;
     }
 
     /**
@@ -224,9 +225,9 @@ public class Store {
      * @return
      */
     public Set<Menu> authorizeEditMenus(Employee e) { //initDeleteMenu
-        //if(e.isManager())
+        if(e.getPrivilege().canEditMenu())
             return getSetOfMenus();
-        // else return null;
+        else return null;
     }
     
     /**
@@ -236,9 +237,9 @@ public class Store {
      * @return
      */
     public Set<Item> editMenu(Employee e, Menu menu) {
-        //if(e.isManager())
+        if(e.getPrivilege().canEditMenu())
             return menu.getMenuItems();
-        // else return null;
+        else return null;
     }
 
     /**
@@ -248,7 +249,7 @@ public class Store {
      * @param percentOff
      */
     public void setSpecial(Employee e, Item i, double percentOff) {
-        //if(e.isManager())
+        if(e.getPrivilege().canEditMenu())
             i.setSpecialPercentageOffPrice(percentOff);
     }
 
@@ -259,7 +260,7 @@ public class Store {
      * @param items
      */
     public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
-        //if(e.isManager())
+        if(e.getPrivilege().canEditMenu())
             for(Item i : items)
                 menu.deleteItem(i);
     }
@@ -273,7 +274,9 @@ public class Store {
      * @param desc
      */
     public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
-        //if(e.isManager())
+        if(e.getPrivilege().canEditMenu() && setOfMenus.contains(menu))
+            menu.addItem(new Item(name, price, desc));
+
     }
 
 	/**
