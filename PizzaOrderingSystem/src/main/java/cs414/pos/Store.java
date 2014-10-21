@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package cs414.pos;
 
@@ -15,28 +15,28 @@ import java.util.Set;
 public class Store {
 
 	/**
-	 * 
+	 *
 	 */
 	private String storeName;
 	private String phoneNumber;
 	private Address address;
-	
+
 	private Set<Employee> employeeSet;
 	private Set<LoginInfo> loginSet;
-	
+
 	private Set<Kiosk> setOfKiosk;
 	private Set<Register> setOfRegister;
-	
+
 	private Set<Order> setOfPlacedOrder;
 	private Set<Customer> members;
-	
+
 	private Set<Menu> setOfMenus;
 	private Set<Item> setOfItems;
-	
-	private Role[] roles; 
-	
+
+	private IEmployeeFactory employeeFactory = EmployeeFactory.getInstance();
+
 	/**
-	 * 
+	 *
 	 */
 	public Store() {
 		// TODO Auto-generated constructor stub
@@ -44,50 +44,39 @@ public class Store {
 		this.setPhoneNumber("000-000-0000");
 		address = new Address();
 		initializeSetElements();
-		initializeRoles();
 	}
+
 	/**
-	 * 
-	 */
-			
-	private void initializeRoles() {
-		// Implement this in a better way.
-		roles = new Role[3];
-		
-		roles[0] = new Manager();
-		roles[1] = new Chef();
-		roles[2] = new Cashier();
-	}
-	/**
-	 * 
+	 *
 	 */
 	private void initializeSetElements() {
 		// TODO Auto-generated method stub
 		employeeSet = new HashSet<Employee>();
 		loginSet = new HashSet<LoginInfo>();
-        setOfMenus = new HashSet<Menu>();
-        setSetOfItems(new HashSet<Item>());
-        setSetOfKiosk(new HashSet<Kiosk>());
-        setSetOfRegister(new HashSet<Register>());
-        setSetOfPlacedOrder(new HashSet<Order>());
-        setMembers(new HashSet<Customer>());
+		setOfMenus = new HashSet<Menu>();
+		setSetOfItems(new HashSet<Item>());
+		setSetOfKiosk(new HashSet<Kiosk>());
+		setSetOfRegister(new HashSet<Register>());
+		setSetOfPlacedOrder(new HashSet<Order>());
+		setMembers(new HashSet<Customer>());
 	}
+
 	/**
-	 * 
+	 *
 	 * @param name
 	 * @param phone
 	 * @param location
 	 */
-	public Store(String name, String phone , String location) {
+	public Store(String name, String phone, String location) {
 		// TODO Auto-generated constructor stub
 		this.setStoreName(name);
 		this.setPhoneNumber(phone);
-		address = new Address(location,AddressType.Business);
+		address = new Address(location, AddressType.Business);
 		initializeSetElements();
-		initializeRoles();
 	}
+
 	/**
-	 * 
+	 *
 	 * @param name
 	 * @param location
 	 */
@@ -95,12 +84,12 @@ public class Store {
 		// TODO Auto-generated constructor stub
 		this.setStoreName(name);
 		this.setPhoneNumber("000-000-0000");
-		address = new Address(location,AddressType.Business);
+		address = new Address(location, AddressType.Business);
 		initializeSetElements();
-		initializeRoles();
 	}
+
 	/**
-	 * 
+	 *
 	 * @param name
 	 */
 	public Store(String name) {
@@ -109,9 +98,8 @@ public class Store {
 		this.setPhoneNumber("000-000-0000");
 		address = new Address();
 		initializeSetElements();
-		initializeRoles();
 	}
-	
+
 	/**
 	 * @return the storeName
 	 */
@@ -160,141 +148,76 @@ public class Store {
 	public void setAddress(String address) {
 		this.address.setLocation(address);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param name
 	 * @param loginID
 	 * @param password
 	 * @return
 	 */
-	public String addEmployee(String name, String loginID, String password){
-		Employee newEmployee = new Employee(name,this);
+	public String addEmployee(String name, String loginID, String password) {
+		Employee newEmployee = employeeFactory.createCashier(name);
 		String employeeID = newEmployee.getEmployeeID();
-		
+
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
-		
+
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
-		employeeSet.add(newEmployee);		
+		employeeSet.add(newEmployee);
 		return employeeID;
 	}
-	
+
 	/**
-	 * 
-	 * @param employeeID
-	 * @param option
-	 */
-	public void setEmployeeRole(String employeeID,int option){
-		Iterator<Employee> iterEmployee= employeeSet.iterator();
-		boolean returnVal = false;
-		Employee testEmployee = new Employee();
-		while(iterEmployee.hasNext() && !returnVal){
-			testEmployee = iterEmployee.next();
-			if(employeeID.equals(testEmployee.getEmployeeID())){
-				returnVal = true;
-				break;
-			}
-		}
-		if(returnVal){
-			// means employee found
-			employeeSet.remove(testEmployee);
-			switch (option) {
-			case 0:
-				testEmployee.setPerformsRole(roles[option]);
-				employeeSet.add(testEmployee);
-				break;
-			case 1:
-				testEmployee.setPerformsRole(roles[option]);
-				employeeSet.add(testEmployee);
-				break;
-			case 2:
-				testEmployee.setPerformsRole(roles[option]);
-				employeeSet.add(testEmployee);				
-				break;
-
-			default:
-				break;
-			}
-		}
-	}
-
-	/*	
-	public void setEmployeeToManager(String employeeID){
-		Iterator<Employee> iterEmployee= employeeSet.iterator();
-		boolean returnVal = false;
-		Employee testEmployee = new Employee();
-		while(iterEmployee.hasNext() && !returnVal){
-			testEmployee = iterEmployee.next();
-			if(employeeID.equals(testEmployee.getEmployeeID())){
-				returnVal = true;
-				break;
-			}
-		}
-		if(returnVal){
-			// means employee found
-			employeeSet.remove(testEmployee);
-			testEmployee.setPerformsRole(roles[0]);
-		}
-	} 
-
-	
-	public void setEmployeeToChef(String employeeID){
-		Iterator<Employee> iterEmployee= employeeSet.iterator();
-		boolean returnVal = false;
-		Employee testEmployee = new Employee();
-		while(iterEmployee.hasNext() && !returnVal){
-			testEmployee = iterEmployee.next();
-			if(employeeID.equals(testEmployee.getEmployeeID())){
-				returnVal = true;
-				break;
-			}
-		}
-		if(returnVal){
-			// means employee found
-			employeeSet.remove(testEmployee);
-			testEmployee.setPerformsRole(roles[1]);
-		}
-	} 
-	
-
-	public void setEmployeeToCashier(String employeeID){
-		Iterator<Employee> iterEmployee= employeeSet.iterator();
-		boolean returnVal = false;
-		Employee testEmployee = new Employee();
-		while(iterEmployee.hasNext() && !returnVal){
-			testEmployee = iterEmployee.next();
-			if(employeeID.equals(testEmployee.getEmployeeID())){
-				returnVal = true;
-				break;
-			}
-		}
-		if(returnVal){
-			// means employee found
-			employeeSet.remove(testEmployee);
-			testEmployee.setPerformsRole(roles[2]);
-		}
-	} 
-	
-*/	
-	/**
-	 * 
+	 *
 	 * @param loginID
 	 * @param password
 	 * @return
 	 */
-	public boolean loginAttempt(String loginID, String password){
-		Iterator<Employee> iterEmployee= employeeSet.iterator();
+	public boolean loginAttempt(String loginID, String password) {
+		Iterator<Employee> iterEmployee = employeeSet.iterator();
 		boolean returnVal = false;
-		while(iterEmployee.hasNext() && !returnVal)
-		{
+		while(iterEmployee.hasNext() && !returnVal) {
 			Employee testEmployee = iterEmployee.next();
-			returnVal = testEmployee.matchLoginInfo(loginID,password);
+			returnVal = testEmployee.matchLoginInfo(loginID, password);
 		}
-		
+
 		return returnVal;
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @return
+	 */
+	public boolean initDefineMenu(Employee e) {
+		//if(e.isManager())
+		return true;
+		// else return false;
+	}
+
+	/**
+	 *
+	 * @param e
+	 * @param name
+	 * @param desc
+	 * @return
+	 */
+	public boolean defineMenu(Employee e, String name, String desc) {
+		//if(e.isManager())
+		return setOfMenus.add(new Menu(name, desc)); // true if menu.name not already taken
+		// else return false;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	private Set<Menu> getSetOfMenus() {
+		return this.setOfMenus;
+	}
+
+<<<<<<< HEAD
     /**
 	 * 
 	 * @param e
@@ -456,36 +379,4 @@ public class Store {
 	public void setSetOfItems(Set<Item> setOfItems) {
 		this.setOfItems = setOfItems;
 	}
-
-	/**
-	 * @return the roles
-	 */
-	public Role[] getRoles() {
-		return roles;
-	}
-
-	/**
-	 * @param roles the roles to set
-	 */
-	public void setRoles(Role[] roles) {
-
-		this.roles = roles;
-	}
-
-    public void saveState(String fname) throws IOException {
-        FileOutputStream fos = new FileOutputStream(fname);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        oos.writeObject(this.getSetOfMenus());
-        oos.close();
-    }
-
-    public static Store openState(String fPath) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fPath);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        Store s = new Store();
-        s.setOfMenus = (Set<Menu>) ois.readObject();
-        ois.close();
-        return s;
-    }
 }
