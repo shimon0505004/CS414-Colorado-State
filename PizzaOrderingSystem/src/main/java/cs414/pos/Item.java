@@ -1,13 +1,14 @@
 package cs414.pos;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
 	private String itemName;
 	private double itemPrice;
 	private String itemDescription;
 	private boolean isSpecial;
 	private double specialPercentageOffPrice;
-
 
     /**
      *

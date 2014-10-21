@@ -1,9 +1,10 @@
 package cs414.pos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Menu {
+public class Menu implements Serializable {
 
     private String menuName, menuDescription;
     Set<Item> menuItemsSet;

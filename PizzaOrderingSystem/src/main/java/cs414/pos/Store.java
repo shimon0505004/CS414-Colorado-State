@@ -3,6 +3,7 @@
  */
 package cs414.pos;
 
+import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -294,7 +295,7 @@ public class Store {
 		return returnVal;
 	}
 
-	/**
+    /**
 	 * 
 	 * @param e
 	 * @return
@@ -314,9 +315,11 @@ public class Store {
      * @return
      */
     
-    public boolean defineMenu(Employee e, String name, String desc) {
+    public Menu defineMenu(Employee e, String name, String desc) {
         //if(e.isManager())
-        return setOfMenus.add(new Menu(name, desc)); // true if menu.name not already taken
+        Menu m = new Menu(name, desc);
+        setOfMenus.add(m);
+        return m;
         // else return false;
     }
 
@@ -324,7 +327,7 @@ public class Store {
      * 
      * @return
      */
-    private Set<Menu> getSetOfMenus() { return this.setOfMenus; }
+    public Set<Menu> getSetOfMenus() { return this.setOfMenus; }
     
     /**
      * 
@@ -465,6 +468,24 @@ public class Store {
 	 * @param roles the roles to set
 	 */
 	public void setRoles(Role[] roles) {
+
 		this.roles = roles;
 	}
+
+    public void saveState(String fname) throws IOException {
+        FileOutputStream fos = new FileOutputStream(fname);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(this.getSetOfMenus());
+        oos.close();
+    }
+
+    public static Store openState(String fPath) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fPath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Store s = new Store();
+        s.setOfMenus = (Set<Menu>) ois.readObject();
+        ois.close();
+        return s;
+    }
 }
