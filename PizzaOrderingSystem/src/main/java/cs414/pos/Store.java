@@ -3,7 +3,6 @@
  */
 package cs414.pos;
 
-import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -185,39 +184,6 @@ public class Store {
 		return returnVal;
 	}
 
-	/**
-	 *
-	 * @param e
-	 * @return
-	 */
-	public boolean initDefineMenu(Employee e) {
-		//if(e.isManager())
-		return true;
-		// else return false;
-	}
-
-	/**
-	 *
-	 * @param e
-	 * @param name
-	 * @param desc
-	 * @return
-	 */
-	public boolean defineMenu(Employee e, String name, String desc) {
-		//if(e.isManager())
-		return setOfMenus.add(new Menu(name, desc)); // true if menu.name not already taken
-		// else return false;
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	private Set<Menu> getSetOfMenus() {
-		return this.setOfMenus;
-	}
-
-<<<<<<< HEAD
     /**
 	 * 
 	 * @param e
