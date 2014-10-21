@@ -34,7 +34,12 @@ public class Card {
 	 * @param cardNumber the cardNumber to set
 	 */
 	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
+		if(cardNumber!=null){
+			this.cardNumber = cardNumber;			
+		}
+		else{
+			this.cardNumber = "";			
+		}
 	}
 
 	/**
@@ -48,7 +53,12 @@ public class Card {
 	 * @param cardExpirationDate the cardExpirationDate to set
 	 */
 	public void setCardExpirationDate(String cardExpirationDate) {
-		this.cardExpirationDate = cardExpirationDate;
+		if(cardExpirationDate!=null){
+			this.cardExpirationDate = cardExpirationDate;
+		}
+		else{
+			this.cardExpirationDate = "";
+		}
 	}
 
 	/**
@@ -62,6 +72,11 @@ public class Card {
 	 * @param cv2 the cv2 to set
 	 */
 	public void setCv2(String cv2) {
-		this.cv2 = cv2;
+		if(cv2!= null){
+			this.cv2 = cv2;
+		}
+		else{
+			this.cv2 = "";			
+		}
 	}
 }

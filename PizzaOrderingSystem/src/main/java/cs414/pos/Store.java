@@ -34,6 +34,9 @@ public class Store {
 
 	private IEmployeeFactory employeeFactory = EmployeeFactory.getInstance();
 
+	/**
+	 *
+	 */
 	public Store() {
 		// TODO Auto-generated constructor stub
 		this.setStoreName("");
@@ -42,6 +45,9 @@ public class Store {
 		initializeSetElements();
 	}
 
+	/**
+	 *
+	 */
 	private void initializeSetElements() {
 		// TODO Auto-generated method stub
 		employeeSet = new HashSet<Employee>();
@@ -54,6 +60,12 @@ public class Store {
 		setMembers(new HashSet<Customer>());
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @param phone
+	 * @param location
+	 */
 	public Store(String name, String phone, String location) {
 		// TODO Auto-generated constructor stub
 		this.setStoreName(name);
@@ -62,6 +74,11 @@ public class Store {
 		initializeSetElements();
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @param location
+	 */
 	public Store(String name, String location) {
 		// TODO Auto-generated constructor stub
 		this.setStoreName(name);
@@ -70,6 +87,10 @@ public class Store {
 		initializeSetElements();
 	}
 
+	/**
+	 *
+	 * @param name
+	 */
 	public Store(String name) {
 		// TODO Auto-generated constructor stub
 		this.setStoreName(name);
@@ -127,6 +148,13 @@ public class Store {
 		this.address.setLocation(address);
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @param loginID
+	 * @param password
+	 * @return
+	 */
 	public String addEmployee(String name, String loginID, String password) {
 		Employee newEmployee = employeeFactory.createCashier(name);
 		String employeeID = newEmployee.getEmployeeID();
@@ -139,6 +167,12 @@ public class Store {
 		return employeeID;
 	}
 
+	/**
+	 *
+	 * @param loginID
+	 * @param password
+	 * @return
+	 */
 	public boolean loginAttempt(String loginID, String password) {
 		Iterator<Employee> iterEmployee = employeeSet.iterator();
 		boolean returnVal = false;
@@ -150,39 +184,78 @@ public class Store {
 		return returnVal;
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @return
+	 */
 	public boolean initDefineMenu(Employee e) {
 		//if(e.isManager())
 		return true;
 		// else return false;
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @param name
+	 * @param desc
+	 * @return
+	 */
 	public boolean defineMenu(Employee e, String name, String desc) {
 		//if(e.isManager())
 		return setOfMenus.add(new Menu(name, desc)); // true if menu.name not already taken
 		// else return false;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	private Set<Menu> getSetOfMenus() {
 		return this.setOfMenus;
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @return
+	 */
 	public Set<Menu> authorizeEditMenus(Employee e) { //initDeleteMenu
 		//if(e.isManager())
 		return getSetOfMenus();
 		// else return null;
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @param menu
+	 * @return
+	 */
 	public Set<Item> editMenu(Employee e, Menu menu) {
 		//if(e.isManager())
 		return menu.getMenuItems();
 		// else return null;
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @param i
+	 * @param percentOff
+	 */
 	public void setSpecial(Employee e, Item i, double percentOff) {
 		//if(e.isManager())
 		i.setSpecialPercentageOffPrice(percentOff);
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @param menu
+	 * @param items
+	 */
 	public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
 		//if(e.isManager())
 		for(Item i : items) {
@@ -190,6 +263,14 @@ public class Store {
 		}
 	}
 
+	/**
+	 *
+	 * @param e
+	 * @param menu
+	 * @param name
+	 * @param price
+	 * @param desc
+	 */
 	public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
 		//if(e.isManager())
 	}

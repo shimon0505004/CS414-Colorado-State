@@ -5,19 +5,29 @@ public class Address {
 	private String location;
 	private AddressType addressType;
 	
-	
+	/**
+	 * 
+	 */
 	public Address() {
 		// TODO Auto-generated constructor stub
 		this.setLocation("");
 		this.setAddressType(AddressType.Unknown);
 	}
 
-
+	/**
+	 * 
+	 * @param address
+	 * @param type
+	 */
 	public Address(String address, AddressType type) {
 		this.setLocation(address);
 		this.setAddressType(type);		
 	}
 	
+	/**
+	 * 
+	 * @param address
+	 */
 	public Address(String address) {
 		this.setLocation(address);
 		this.setAddressType(AddressType.Unknown);		
@@ -36,7 +46,12 @@ public class Address {
 	 * @param location the location to set
 	 */
 	public void setLocation(String location) {
-		this.location = location;
+		if(location!=null){
+			this.location = location;			
+		}
+		else{
+			this.location = "";			
+		}
 	}
 
 
@@ -54,5 +69,6 @@ public class Address {
 	public void setAddressType(AddressType addressType) {
 		this.addressType = addressType;
 	}
+	
 
 }
