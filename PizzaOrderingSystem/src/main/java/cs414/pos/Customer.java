@@ -1,14 +1,14 @@
 package cs414.pos;
 
 public class Customer {
-	
+
 	private String firstName;
 	private String lastName;
 	private String customerPhoneNumber;
 	private int memberShipNumber;
 	private int rewardsPoint;
-	
-	Customer(String firstName, String lastName , int memberShipNumber){
+
+	public Customer(String firstName, String lastName, int memberShipNumber) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setMemberShipNumber(memberShipNumber);
@@ -16,18 +16,18 @@ public class Customer {
 		setRewardsPoint(0);
 	}
 
-	Customer(String firstName, String lastName , int memberShipNumber, String phoneNumber){
+	public Customer(String firstName, String lastName, int memberShipNumber, String phoneNumber) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setMemberShipNumber(memberShipNumber);
 		setCustomerPhoneNumber(phoneNumber);
 		setRewardsPoint(0);
-	}	
-	
-	public void addToRewardsPoint (int point){
-		setRewardsPoint(getRewardsPoint()+point);
 	}
-	
+
+	public void addToRewardsPoint(int point) {
+		setRewardsPoint(getRewardsPoint() + point);
+	}
+
 	/**
 	 * @return the firstName
 	 */
@@ -97,5 +97,5 @@ public class Customer {
 	public void setCustomerPhoneNumber(String customerPhoneNumber) {
 		this.customerPhoneNumber = customerPhoneNumber;
 	}
-	
+
 }
