@@ -12,7 +12,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
         try {
-            Employee e = new Employee();
+            Employee e = new Employee("bob", Privilege.Manager);
             Store s = new Store();
 
             Menu m = s.defineMenu(e, "menu0", "menu0_desc");

@@ -3,6 +3,7 @@
  */
 package cs414.pos;
 
+import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -348,4 +349,21 @@ public class Store {
 	public void setSetOfItems(Set<Item> setOfItems) {
 		this.setOfItems = setOfItems;
 	}
+
+    public void saveState(String fname) throws IOException {
+        FileOutputStream fos = new FileOutputStream(fname);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(this.getSetOfMenus());
+        oos.close();
+    }
+
+    public static Store openState(String fPath) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fPath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Store s = new Store();
+        s.setOfMenus = (Set<Menu>) ois.readObject();
+        ois.close();
+        return s;
+    }
 }
