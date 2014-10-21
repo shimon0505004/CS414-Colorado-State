@@ -25,6 +25,11 @@ public class Employee {
 
 	}
 
+    /**
+     *
+     * @param name
+     * @param Employee
+     */
 	public Employee(String name, Store Employee) {
 		// TODO Auto-generated constructor stub
 		setEmployeeName(name);
@@ -34,6 +39,10 @@ public class Employee {
 		setWorksForStore(Employee);
 	}
 
+    /**
+     *
+     * @param name
+     */
 	public Employee(String name) {
 		// TODO Auto-generated constructor stub
 		setEmployeeName(name);
@@ -72,6 +81,10 @@ public class Employee {
 		this.employeeName = employeeName;
 	}
 
+    /**
+     *
+     * @param newLoginInfo
+     */
 	public void setLoginInfo(LoginInfo newLoginInfo) {
 		// TODO Auto-generated method stub
 
@@ -95,6 +108,12 @@ public class Employee {
 
 	}
 
+    /**
+     *
+     * @param loginID
+     * @param password
+     * @return
+     */
 	public boolean matchLoginInfo(String loginID, String password) {
 		// TODO Auto-generated method stub
 		//return this.getEmployeeLoginInfo().getLoginId().equals(loginID) && 		this.getEmployeeLoginInfo().getPassword().equals(password) ;

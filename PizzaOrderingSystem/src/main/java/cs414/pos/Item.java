@@ -7,8 +7,13 @@ public class Item {
 	private String itemDescription;
 	private boolean isSpecial;
 	private double specialPercentageOffPrice;
-	
-	
+
+
+    /**
+     *
+     * @param name
+     * @param price
+     */
 	public Item(String name, double price) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
@@ -16,7 +21,13 @@ public class Item {
 		this.setItemDescription("");
         removeSpecial(); // item not a special by default
 	}
-	
+
+    /**
+     *
+     * @param name
+     * @param price
+     * @param itemDescription
+     */
 	public Item(String name, double price , String itemDescription) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);

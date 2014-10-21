@@ -32,8 +32,12 @@ public class Order {
 	
 	private boolean isCardPayment;
 	private Card paysWithCard;
-	
-	
+
+
+    /**
+     *
+     * @param ID
+     */
 	public Order(int ID) {
 		// TODO Auto-generated constructor stub
 
@@ -50,39 +54,67 @@ public class Order {
 		createAsCashPayment();
 	}
 
+    /**
+     *
+     */
 	private void createAsInHouseOrder(){
 		setTypeOfOrder(OrderType.Inhouse);
 		setOrderedByCustomerWithMembership(false);
 		setCustomerWithMembership(new Customer("", "", -1));
 		setDeliveryAddress(new Address());
 	}
-	
+
+    /**
+     *
+     */
 	private void createAsCashPayment(){
 		setCardPayment(false);
 		Card blankCard = new Card();
 		setPaysWithCard(blankCard);
 	}
-	
+
+    /**
+     *
+     */
 	public void updateToInHouseOrder(){
 		setTypeOfOrder(OrderType.Inhouse);
 		setDeliveryAddress(new Address());
 	}
-	
+
+    /**
+     *
+     */
 	public void updateToTakeAwayOrder(){
 		setTypeOfOrder(OrderType.TakeAway);
 		setDeliveryAddress(new Address());		
 	}
 
+    /**
+     *
+     * @param deliveryAddress
+     */
 	public void updateToHomeDeliveryOrder(Address deliveryAddress){
 		setTypeOfOrder(OrderType.HomeDelivery);
 		setDeliveryAddress(deliveryAddress);		
 	}
-	
+
+    /**
+     *
+     * @param Address
+     */
 	public void updateToHomeDeliveryOrder(String Address){
 		setTypeOfOrder(OrderType.HomeDelivery);
 		setDeliveryAddress(new Address(Address));		
 	}
 
+    /**
+     *
+     * @param amountReceived
+     * @param cardNumber
+     * @param cardExpirationDate
+     * @param cv2
+     * @return
+     */
 	public boolean makeCardPayment(double amountReceived,String cardNumber,String cardExpirationDate, String cv2){
 		boolean returnVal = makeOrderPayment(amountReceived);
 		if(returnVal){
@@ -91,7 +123,13 @@ public class Order {
 		}
 		return returnVal;
 	}
-	
+
+    /**
+     *
+     * @param amountReceived
+     * @param paymentCard
+     * @return
+     */
 	public boolean makeCardPayment(double amountReceived, Card paymentCard){
 		boolean returnVal = makeOrderPayment(amountReceived);
 		if(returnVal){
@@ -101,7 +139,11 @@ public class Order {
 		return returnVal;
 		
 	}
-	
+
+    /**
+     *
+     * @param newItem
+     */
 	public void addItemToOrder(Item newItem){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		boolean found=false;
@@ -124,6 +166,11 @@ public class Order {
 		updateTotal();
 	}
 
+    /**
+     *
+     * @param newItem
+     * @param Count
+     */
 	public void addItemToOrderByAmount(Item newItem,int Count){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		boolean found=false;
@@ -146,6 +193,11 @@ public class Order {
 		updateTotal();
 	}
 
+    /**
+     *
+     * @param newItem
+     * @return
+     */
 	public boolean removeItemTotallyFromOrder(Item newItem){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		boolean found=false;
@@ -163,6 +215,11 @@ public class Order {
 		return found;
 	}
 
+    /**
+     *
+     * @param newItem
+     * @return
+     */
 	public boolean removeOneCountOfItemFromOrder(Item newItem){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		boolean found=false;
@@ -184,6 +241,12 @@ public class Order {
 		return found;
 	}
 
+    /**
+     *
+     * @param newItem
+     * @param Count
+     * @return
+     */
 	public boolean removeMultipleCountOfItemFromOrder(Item newItem, int Count){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		boolean found=false;
@@ -205,6 +268,11 @@ public class Order {
 		return found;
 	}
 
+    /**
+     *
+     * @param amountReceived
+     * @return
+     */
 	public boolean makeOrderPayment(double amountReceived){
 		double temp = amountReceived-getTotalPrice();
 		if(temp>=0.0)
@@ -225,7 +293,10 @@ public class Order {
 		}
 		return isOrderedByCustomerWithMembership();
 	}
-	
+
+    /**
+     *
+     */
 	private void updateTotal(){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		double tempTotal=0.0;
@@ -235,7 +306,11 @@ public class Order {
 		}
 		setTotalPrice(tempTotal);
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	private int calculateRewardPoints(){
 		updateTotal();
 		double total = getTotalPrice();
@@ -459,6 +534,4 @@ public class Order {
 			boolean isOrderedByCustomerWithMembership) {
 		this.isOrderedByCustomerWithMembership = isOrderedByCustomerWithMembership;
 	}
-	
-	
 }

@@ -5,37 +5,65 @@ public class OrderItem {
 	private Item item;
 	private int quantity;
 	private double subTotal;
+
+    /**
+     *
+     * @param orderedItem
+     * @param quantity
+     */
 	public OrderItem(Item orderedItem , int quantity) {
 		setItem(orderedItem);
 		setQuantity(quantity);
 		computeSubtotal();
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public double computeSubtotal(){
 		setSubTotal(quantity*(item.getCurrentPrice()));
 		return getSubTotal();
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int incrementQuantity(){
 		setQuantity(getQuantity()+1);
 		computeSubtotal();
 		return getQuantity();
 	}
-	
+
+    /**
+     *
+     * @param amount
+     * @return
+     */
 	public int incrementQuantitybyAmount(int amount){
 		for(int i=1;i<=amount;i++){
 			incrementQuantity();
 		}			
 		return getQuantity();
 	}
-	
+
+    /**
+     *
+     * @return
+     */
 	public int decrementQuantity(){
 		setQuantity(getQuantity()-1);
 		computeSubtotal();
 
 		return getQuantity();
 	}
-	
+
+    /**
+     *
+     * @param amount
+     * @return
+     */
 	public int decrementQuantitybyAmount(int amount){
 		for(int i=1;i<=amount;i++){
 			decrementQuantity();
