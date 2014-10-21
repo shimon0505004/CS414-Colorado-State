@@ -6,44 +6,23 @@ package cs414.pos;
 import java.util.UUID;
 
 /**
- * @author SHAIKHSHAWON
+ * Class that represents an Employee of the store.
  *
+ * @author SHAIKHSHAWON
  */
 public class Employee {
-
-	/**
-	 *
-	 */
 	private String employeeID;
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
-	private Role performsRole;
+	private Privilege privilege;
 	private Store worksForStore;
-	
-	public Employee() {
-		// TODO Auto-generated constructor stub
 
-	}
-
-	public Employee(String name, Store Employee) {
-		// TODO Auto-generated constructor stub
+	public Employee(String name, Privilege privilege) {
 		setEmployeeName(name);
 		setEmployeeID(UUID.randomUUID().toString());
-		setEmployeeLoginInfo(null);
-		setPerformsRole(null);
-		setWorksForStore(Employee);
+		setPrivilege(privilege);
 	}
 
-	public Employee(String name) {
-		// TODO Auto-generated constructor stub
-		setEmployeeName(name);
-		setEmployeeID(UUID.randomUUID().toString());
-		setEmployeeLoginInfo(null);
-		setPerformsRole(null);
-		setWorksForStore(null);
-	}
-
-	
 	/**
 	 * @return the employeeID
 	 */
@@ -72,11 +51,6 @@ public class Employee {
 		this.employeeName = employeeName;
 	}
 
-	public void setLoginInfo(LoginInfo newLoginInfo) {
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * @return the employeeInfo
 	 */
@@ -103,17 +77,24 @@ public class Employee {
 	}
 
 	/**
-	 * @return the performsRole
+	 * Returns the privilege of the employee.
+	 *
+	 * @return the privileges that this employee has
 	 */
-	public Role getPerformsRole() {
-		return performsRole;
+	public Privilege getPrivilege() {
+		return privilege;
 	}
 
 	/**
-	 * @param performsRole the performsRole to set
+	 * Sets the privilege of the employee.
+	 *
+	 * @param privilege the new privilege of the employee
 	 */
-	public void setPerformsRole(Role performsRole) {
-		this.performsRole = performsRole;
+	public void setPrivilege(Privilege privilege) {
+		if(privilege == null) {
+			privilege = Privilege.Cashier;
+		}
+		this.privilege = privilege;
 	}
 
 	/**
