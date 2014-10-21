@@ -89,7 +89,10 @@ public class Employee {
 	 */
 	public void setEmployeeLoginInfo(LoginInfo loginInfo) {
 		this.employeeLoginInfo = loginInfo;
-		loginInfo.setLoginEmployee(this);
+		if(loginInfo!=null){
+			employeeLoginInfo.setLoginEmployee(this);			
+		}
+
 	}
 
 	public boolean matchLoginInfo(String loginID, String password) {

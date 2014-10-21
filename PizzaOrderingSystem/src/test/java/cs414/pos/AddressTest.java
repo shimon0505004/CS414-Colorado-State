@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cs414.pos;
 
 import static org.junit.Assert.*;
@@ -9,56 +6,59 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author SHAIKHSHAWON
- *
- */
 public class AddressTest {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
+	private Address deliveryAddress1,deliveryAddress2,deliveryAddress3;
+	private String address2,address3;
 	@Before
 	public void setUp() throws Exception {
+		address2 = "121 south Street";
+		address3 = "122 south Street";
+		deliveryAddress1 = new Address();
+		deliveryAddress2 = new Address(address2);
+		deliveryAddress3 = new Address(address3,AddressType.Home);
+
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@After
 	public void tearDown() throws Exception {
 	}
 
-	/**
-	 * Test method for {@link cs414.a4.grp5.implementation.Address#getLocation()}.
-	 */
+
 	@Test
 	public void testGetLocation() {
-		fail("Not yet implemented");
+		assertEquals("", deliveryAddress1.getLocation());
+		assertEquals(address2, deliveryAddress2.getLocation());
+		assertEquals(address3, deliveryAddress3.getLocation());
+
 	}
 
-	/**
-	 * Test method for {@link cs414.a4.grp5.implementation.Address#setLocation(java.lang.String)}.
-	 */
 	@Test
 	public void testSetLocation() {
-		fail("Not yet implemented");
+		deliveryAddress1.setLocation(address3);
+		assertEquals(address3, deliveryAddress1.getLocation());
+		deliveryAddress2.setLocation(null);
+		assertEquals("", deliveryAddress2.getLocation());
+		
 	}
 
-	/**
-	 * Test method for {@link cs414.a4.grp5.implementation.Address#getAddressType()}.
-	 */
 	@Test
 	public void testGetAddressType() {
-		fail("Not yet implemented");
+		assertEquals(AddressType.Unknown, deliveryAddress1.getAddressType());
+		assertEquals(AddressType.Unknown, deliveryAddress2.getAddressType());
+		assertEquals(AddressType.Home, deliveryAddress3.getAddressType());
+
 	}
 
-	/**
-	 * Test method for {@link cs414.a4.grp5.implementation.Address#setAddressType(cs414.a4.grp5.implementation.AddressType)}.
-	 */
 	@Test
 	public void testSetAddressType() {
-		fail("Not yet implemented");
+		deliveryAddress1.setAddressType(AddressType.Home);
+		assertEquals(AddressType.Home, deliveryAddress1.getAddressType());
+		deliveryAddress2.setAddressType(AddressType.Unknown);
+		assertEquals(AddressType.Unknown, deliveryAddress2.getAddressType());
+		deliveryAddress3.setAddressType(AddressType.Business);
+		assertEquals(AddressType.Business, deliveryAddress3.getAddressType());
+		
 	}
 
 }

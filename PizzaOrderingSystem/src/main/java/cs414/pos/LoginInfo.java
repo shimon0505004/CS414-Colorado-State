@@ -20,6 +20,7 @@ public class LoginInfo {
 		// TODO Auto-generated constructor stub
 		setLoginId(ID);
 		setPassword(PW);
+		setLoginEmployee(null);
 	}
 	/**
 	 * @return the loginId
