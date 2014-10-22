@@ -15,13 +15,13 @@ public class ItemTest {
 
 	public void setUp() {
 		itemName1 = "N1";
-		itemPrice1 = "100";
+		itemPrice1 = 100.0;
 		itemDesc1 = "Cheese Pizza";
 		item1 = new Item(itemName1, itemPrice1, itemDesc1);
 	}
 
 	public void testGetName() {
-		assertEquals(itemName1, item1)
+		assertEquals(itemName1, item1);
 	}
 
 	public void testSetName() {
