@@ -350,19 +350,20 @@ public class Store {
 		this.setOfItems = setOfItems;
 	}
 
-    public void saveState(String fname) throws IOException {
-        FileOutputStream fos = new FileOutputStream(fname);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+    public void saveState(OutputStream os) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(os);
 
         oos.writeObject(this.getSetOfMenus());
+
         oos.close();
     }
 
-    public static Store openState(String fPath) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fPath);
-        ObjectInputStream ois = new ObjectInputStream(fis);
+    public static Store openState(InputStream is) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(is);
         Store s = new Store();
+
         s.setOfMenus = (Set<Menu>) ois.readObject();
+
         ois.close();
         return s;
     }
