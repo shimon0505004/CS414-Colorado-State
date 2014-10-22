@@ -36,13 +36,13 @@ public class Main {
     }
 
     public static void serialize(OutputStream os, Store s) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(os);
+        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(os));
         oos.writeObject(s);
         oos.close();
     }
 
     public static Store deserialize(InputStream is) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(is);
+        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(is));
         Store s = (Store) ois.readObject();
         ois.close();
         return s;
