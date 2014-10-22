@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 public class StoreTest {
@@ -93,7 +93,7 @@ public class StoreTest {
 		assertEquals(0, testStore1.getEmployeeSet().size());
 		assertEquals(0, testStore2.getEmployeeSet().size());
 		assertEquals(0, testStore3.getEmployeeSet().size());
-		assertEquals(3, testStore4.getEmployeeSet().size());
+		assertEquals(4, testStore4.getEmployeeSet().size());
 
 	}
 
@@ -233,7 +233,10 @@ public class StoreTest {
 	
 	@Test
 	public void testLoginAttempt() {
-		fail("Not yet implemented");
+		assertTrue(testStore4.loginAttempt(testLoginID1, testPassWord1));
+		assertFalse(testStore4.loginAttempt(testLoginID1, testPassWord2));
+		assertFalse(testStore3.loginAttempt(testLoginID1, testPassWord2));
+
 	}
 
 	@Test
