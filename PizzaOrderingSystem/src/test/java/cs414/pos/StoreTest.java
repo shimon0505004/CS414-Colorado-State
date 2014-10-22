@@ -6,12 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
 public class StoreTest {
 
 	Store testStore1 , testStore2, testStore3, testStore4;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		testStore1 = new Store();
@@ -19,7 +17,7 @@ public class StoreTest {
 		testStore3 = new Store("PizzaStore3","Stuart St.");		
 		testStore4 = new Store("PizzaStore4","206-953-5584","Stuart St.");		
 
-		testStore4.addEmployee("Shimon", "skshimon", "uda");
+		testStore4.addEmployee("Shimon", "skshimon", "uda");	
 	}
 
 	@After
@@ -58,25 +56,153 @@ public class StoreTest {
 		assertEquals(AddressType.Unknown,testStore2.getAddress().getAddressType());		
 	}
 
+	@Test
+	public void testGetEmployeeSet() {
+		assertEquals(0, testStore1.getEmployeeSet().size());
+		assertEquals(0, testStore2.getEmployeeSet().size());
+		assertEquals(0, testStore3.getEmployeeSet().size());
+		assertEquals(1, testStore4.getEmployeeSet().size());
+
+	}
+
+	@Test
+	public void testGetStoreName() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetStoreName() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetPhoneNumber() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetPhoneNumber() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAddress() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetAddress() {
+		fail("Not yet implemented");
+	}
 
 	@Test
 	public void testAddEmployee() {
-		assertEquals(false,testStore4.getEmployeeSet().isEmpty());
-		assertEquals(1,testStore4.getEmployeeSet().size());
-		testStore4.addEmployee("Hasan", "hasan", "tda");
-		assertEquals(false,testStore4.getEmployeeSet().isEmpty());
-		assertEquals(2,testStore4.getEmployeeSet().size());
-		
+		fail("Not yet implemented");
 	}
-	
+
 	@Test
-	public void testloginAttempt() {
-		assertEquals(true,testStore4.loginAttempt("skshimon", "uda"));
-		testStore4.addEmployee("Hasan", "hasan", "tda");
-		assertEquals(false,testStore4.loginAttempt("skshimon", "tda"));
-		assertEquals(false,testStore4.loginAttempt("hasan", "uda"));
-		assertEquals(true,testStore4.loginAttempt("hasan", "tda"));
-		
+	public void testLoginAttempt() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testInitDefineMenu() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDefineMenu() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSetOfMenus() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAuthorizeEditMenus() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testEditMenu() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetSpecial() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRemoveMenuItems() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddMenuItem() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSetOfKiosk() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetSetOfKiosk() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSetOfRegister() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetSetOfRegister() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSetOfPlacedOrder() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetSetOfPlacedOrder() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetMembers() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetMembers() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSetOfItems() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetSetOfItems() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSaveState() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testOpenState() {
+		fail("Not yet implemented");
 	}
 
 }
