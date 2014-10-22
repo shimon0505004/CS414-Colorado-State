@@ -118,7 +118,12 @@ public class Store implements Serializable {
 	 * @param storeName the storeName to set
 	 */
 	public void setStoreName(String storeName) {
-		this.storeName = storeName;
+		if(storeName!=null){
+			this.storeName = storeName;
+		}
+		else{
+			this.storeName = "";
+		}
 	}
 
 	/**
@@ -132,7 +137,11 @@ public class Store implements Serializable {
 	 * @param phoneNumber the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		if(phoneNumber!=null){
+			this.phoneNumber = phoneNumber;			
+		}else{
+			this.phoneNumber = "";
+		}
 	}
 
 	/**
@@ -160,12 +169,42 @@ public class Store implements Serializable {
 		Employee newEmployee = employeeFactory.createEmployee(name, privilege);
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
+		newEmployee.setWorksForStore(this);
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
 		employeeSet.add(newEmployee);
 		return newEmployee;
 	}
+	
+	/**
+	 *
+	 * @param name
+	 * @param loginID
+	 * @param password
+	 * @return
+	 */
+	public String addEmployee(String name, String loginID, String password,int option) {
+		Employee newEmployee;
+		if(option == Privilege.Chef.ordinal()){
+			newEmployee = employeeFactory.createChef(name);
+		}else if(option == Privilege.Manager.ordinal()){
+			newEmployee = employeeFactory.createManager(name);			
+		}else{
+			newEmployee = employeeFactory.createCashier(name);
+		}
+	
+		String employeeID = newEmployee.getEmployeeID();
 
+		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
+
+		newEmployee.setWorksForStore(this);
+		newEmployee.setEmployeeLoginInfo(newLoginInfo);
+		loginSet.add(newLoginInfo);
+		employeeSet.add(newEmployee);
+		return employeeID;
+	}
+	
+	
 	/**
 	 *
 	 * @param loginID
@@ -370,4 +409,42 @@ public class Store implements Serializable {
 		this.setOfItems = setOfItems;
 	}
 
+	
+	public Employee getEmployee(String employeeID){
+		if(employeeID==null){
+			return null;			
+		}
+		else{
+			for(Employee e:getEmployeeSet()){
+				if(e.getEmployeeID().equals(employeeID)){
+					return e;
+				}
+			}
+			return null;
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
+    public void saveState(String fname) throws IOException {
+        FileOutputStream fos = new FileOutputStream(fname);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(this.getSetOfMenus());
+        oos.close();
+    }
+
+    public static Store openState(String fPath) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fPath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Store s = new Store();
+        s.setOfMenus = (Set<Menu>) ois.readObject();
+        ois.close();
+        return s;
+    }
 }
