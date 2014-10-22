@@ -67,11 +67,7 @@ public class Address {
 	 * @param addressType the addressType to set
 	 */
 	public void setAddressType(AddressType addressType) {
-		if(addressType!=null){
-			this.addressType = addressType;			
-		}else{
-			this.addressType = AddressType.Unknown;			
-		}
+		this.addressType = addressType;
 	}
 	
 

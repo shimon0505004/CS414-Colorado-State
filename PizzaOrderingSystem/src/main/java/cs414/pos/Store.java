@@ -118,12 +118,7 @@ public class Store {
 	 * @param storeName the storeName to set
 	 */
 	public void setStoreName(String storeName) {
-		if(storeName!=null){
-			this.storeName = storeName;
-		}
-		else{
-			this.storeName = "";
-		}
+		this.storeName = storeName;
 	}
 
 	/**
@@ -137,11 +132,7 @@ public class Store {
 	 * @param phoneNumber the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
-		if(phoneNumber!=null){
-			this.phoneNumber = phoneNumber;			
-		}else{
-			this.phoneNumber = "";
-		}
+		this.phoneNumber = phoneNumber;
 	}
 
 	/**
@@ -171,42 +162,12 @@ public class Store {
 
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
-		newEmployee.setWorksForStore(this);
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
 		employeeSet.add(newEmployee);
 		return employeeID;
 	}
-	
-	/**
-	 *
-	 * @param name
-	 * @param loginID
-	 * @param password
-	 * @return
-	 */
-	public String addEmployee(String name, String loginID, String password,int option) {
-		Employee newEmployee;
-		if(option == Privilege.Chef.ordinal()){
-			newEmployee = employeeFactory.createChef(name);
-		}else if(option == Privilege.Manager.ordinal()){
-			newEmployee = employeeFactory.createManager(name);			
-		}else{
-			newEmployee = employeeFactory.createCashier(name);
-		}
-	
-		String employeeID = newEmployee.getEmployeeID();
 
-		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
-
-		newEmployee.setWorksForStore(this);
-		newEmployee.setEmployeeLoginInfo(newLoginInfo);
-		loginSet.add(newLoginInfo);
-		employeeSet.add(newEmployee);
-		return employeeID;
-	}
-	
-	
 	/**
 	 *
 	 * @param loginID
@@ -389,28 +350,6 @@ public class Store {
 		this.setOfItems = setOfItems;
 	}
 
-	
-	public Employee getEmployee(String employeeID){
-		if(employeeID==null){
-			return null;			
-		}
-		else{
-			for(Employee e:getEmployeeSet()){
-				if(e.getEmployeeID().equals(employeeID)){
-					return e;
-				}
-			}
-			return null;
-		}
-
-	}
-	
-	
-	
-	
-	
-	
-	
     public void saveState(String fname) throws IOException {
         FileOutputStream fos = new FileOutputStream(fname);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
