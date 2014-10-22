@@ -265,6 +265,28 @@ public class Store implements Serializable {
     }
 
     /**
+     *
+     * @param e
+     * @param id
+     * @return
+     */
+    public Kiosk addKiosk(Employee e, int id) {
+        if(e.getPrivilege().canEditMenu()) {
+            Kiosk k = new Kiosk(id, this);
+            setOfKiosk.add(k);
+            return k;
+        } else return null;
+    }
+
+    public Register addRegister(Employee e, int id) {
+        if(e.getPrivilege().canEditMenu()) {
+            Register r = new Register(id, this);
+            setOfRegister.add(r);
+            return r;
+        } else return null;
+    }
+
+    /**
      * 
      * @param e
      * @param menu

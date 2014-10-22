@@ -1,7 +1,6 @@
 package cs414.pos;
 
 import java.io.*;
-import java.util.Iterator;
 
 /**
  *
@@ -20,14 +19,22 @@ public class Main {
             Employee chef = s.addEmployee("billy", "billy", "pw_billy", Privilege.Chef);
             Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Privilege.Cashier);
 
-            Menu m = s.defineMenu(manager, "menu0", "menu0_desc");
-            System.out.println(m.getMenuName());
+            Kiosk k = s.addKiosk(manager, 1);
+            Register r = s.addRegister(manager, 1);
+
+            Menu m0 = s.defineMenu(manager, "menu0", "menu0_desc");
+            s.addMenuItem(manager, m0, "pizza0", 5.0, "cheesy");
+            s.addMenuItem(manager, m0, "pizza1", 5.0, "sausage");
+
+            Menu m1 = s.defineMenu(manager, "menu1", "menu1_desc");
+            s.addMenuItem(manager, m1, "soda", 5.0, "sprite");
+            s.addMenuItem(manager, m1, "beer", 5.0, "new belgium");
+
+            // save Store's state
             serialize(new FileOutputStream(f), s);
 
+            // open Store's state
             Store s2 = deserialize(new FileInputStream(f));
-            Iterator<Menu> i = s2.getSetOfMenus().iterator();
-            while(i.hasNext())
-                System.out.println(i.next().equals(m));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
