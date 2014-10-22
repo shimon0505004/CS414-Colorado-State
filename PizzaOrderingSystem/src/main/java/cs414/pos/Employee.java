@@ -18,12 +18,24 @@ public class Employee implements Serializable {
 	private Privilege privilege;
 	private Store worksForStore;
 
+	private static int employeeCounter=1;
+	public final int objectID ;
+	
 	public Employee(String name, Privilege privilege) {
 		setEmployeeName(name);
-		setEmployeeID(UUID.randomUUID().toString());
 		setPrivilege(privilege);
+		
+		this.objectID = employeeCounter++;
+		
+		setEmployeeID(generateEmployeeID());
+		setEmployeeLoginInfo(null);
+		setWorksForStore(null);
 	}
 
+	private String generateEmployeeID(){
+		return "Employee"+this.objectID;
+		
+	}
 	/**
 	 * @return the employeeID
 	 */
@@ -79,11 +91,17 @@ public class Employee implements Serializable {
 	public boolean matchLoginInfo(String loginID, String password) {
 		// TODO Auto-generated method stub
 		//return this.getEmployeeLoginInfo().getLoginId().equals(loginID) && 		this.getEmployeeLoginInfo().getPassword().equals(password) ;
-		if(this.getEmployeeLoginInfo().getLoginId().equals(loginID)) {
-			return this.getEmployeeLoginInfo().matchPassword(password);
-		} else {
+		try {
+			if(this.getEmployeeLoginInfo().getLoginId().equals(loginID)) {
+				return this.getEmployeeLoginInfo().matchPassword(password);
+			} else {
+				return false;
+			}
+		} catch (NullPointerException e) {
+			// TODO: handle exception
 			return false;
 		}
+		
 	}
 
 	/**

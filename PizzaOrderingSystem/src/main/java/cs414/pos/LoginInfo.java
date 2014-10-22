@@ -59,6 +59,7 @@ public class LoginInfo implements Serializable {
 	 */
 	public void setLoginEmployee(Employee loginEmployee) {
 		this.loginEmployee = loginEmployee;
+
 	}
 
 	public boolean matchPassword(String password){
