@@ -1,8 +1,7 @@
 package cs414.pos;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.Iterator;
 
 /**
  *
@@ -20,14 +19,29 @@ public class Main {
 
             Menu m = s.defineMenu(e, "menu0", "menu0_desc");
             System.out.println(m.getMenuName());
-            s.saveState(new FileOutputStream(f));
+            serialize(new FileOutputStream(f), s);
 
-            Store s2 = Store.openState(new FileInputStream(f));
-            System.out.println(s2.getSetOfMenus().size());
+            Store s2 = deserialize(new FileInputStream(f));
+            Iterator<Menu> i = s2.getSetOfMenus().iterator();
+            while(i.hasNext())
+                System.out.println(i.next().equals(m));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void serialize(OutputStream os, Store s) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeObject(s);
+        oos.close();
+    }
+
+    public static Store deserialize(InputStream is) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(is);
+        Store s = (Store) ois.readObject();
+        ois.close();
+        return s;
     }
 }

@@ -1,11 +1,13 @@
 package cs414.pos;
 
+import java.io.Serializable;
+
 /**
  * Implementation of the IEmployeeFactory.
  *
  * @author Nathan Lighthart
  */
-public class EmployeeFactory implements IEmployeeFactory {
+public class EmployeeFactory implements IEmployeeFactory, Serializable {
 	/**
 	 * Singleton instance
 	 */

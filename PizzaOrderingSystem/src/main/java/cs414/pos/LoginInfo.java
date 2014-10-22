@@ -3,11 +3,13 @@
  */
 package cs414.pos;
 
+import java.io.Serializable;
+
 /**
  * @author SHAIKHSHAWON
  *
  */
-public class LoginInfo {
+public class LoginInfo implements Serializable {
 
 	/**
 	 * 

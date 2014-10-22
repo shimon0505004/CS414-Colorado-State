@@ -12,7 +12,7 @@ import java.util.Set;
  * @author SHAIKHSHAWON
  *
  */
-public class Store {
+public class Store implements Serializable {
 
 	/**
 	 *
@@ -350,21 +350,4 @@ public class Store {
 		this.setOfItems = setOfItems;
 	}
 
-    public void saveState(OutputStream os) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(os);
-
-        oos.writeObject(this.getSetOfMenus());
-
-        oos.close();
-    }
-
-    public static Store openState(InputStream is) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(is);
-        Store s = new Store();
-
-        s.setOfMenus = (Set<Menu>) ois.readObject();
-
-        ois.close();
-        return s;
-    }
 }
