@@ -13,11 +13,14 @@ public class Main {
 	 */
 	public static void main(String[] args) {
         try {
-            Employee e = new Employee("bob", Privilege.Manager);
-            Store s = new Store();
             String f = "testSave.ser";
+            Store s = new Store();
 
-            Menu m = s.defineMenu(e, "menu0", "menu0_desc");
+            Employee manager = s.addEmployee("bob", "bob", "pw_bob", Privilege.Manager);
+            Employee chef = s.addEmployee("billy", "billy", "pw_billy", Privilege.Chef);
+            Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Privilege.Cashier);
+
+            Menu m = s.defineMenu(manager, "menu0", "menu0_desc");
             System.out.println(m.getMenuName());
             serialize(new FileOutputStream(f), s);
 

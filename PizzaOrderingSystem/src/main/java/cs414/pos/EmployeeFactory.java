@@ -50,4 +50,9 @@ public class EmployeeFactory implements IEmployeeFactory, Serializable {
 	public Employee createEmployee(String name, String privilege) {
 		return new Employee(name, Privilege.valueOf(privilege));
 	}
+
+    @Override
+    public Employee createEmployee(String name, Privilege privilege) {
+        return new Employee(name, privilege);
+    }
 }

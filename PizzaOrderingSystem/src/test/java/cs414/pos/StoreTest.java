@@ -1,10 +1,11 @@
 package cs414.pos;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class StoreTest {
 
@@ -17,7 +18,7 @@ public class StoreTest {
 		testStore3 = new Store("PizzaStore3","Stuart St.");		
 		testStore4 = new Store("PizzaStore4","206-953-5584","Stuart St.");		
 
-		testStore4.addEmployee("Shimon", "skshimon", "uda");	
+		testStore4.addEmployee("Shimon", "skshimon", "uda", Privilege.Cashier);
 	}
 
 	@After

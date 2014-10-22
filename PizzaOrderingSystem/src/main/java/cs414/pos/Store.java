@@ -156,16 +156,14 @@ public class Store implements Serializable {
 	 * @param password
 	 * @return
 	 */
-	public String addEmployee(String name, String loginID, String password) {
-		Employee newEmployee = employeeFactory.createCashier(name);
-		String employeeID = newEmployee.getEmployeeID();
-
+	public Employee addEmployee(String name, String loginID, String password, Privilege privilege) {
+		Employee newEmployee = employeeFactory.createEmployee(name, privilege);
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
 		employeeSet.add(newEmployee);
-		return employeeID;
+		return newEmployee;
 	}
 
 	/**
