@@ -3,6 +3,7 @@
  */
 package cs414.pos;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -10,7 +11,7 @@ import java.util.UUID;
  *
  * @author SHAIKHSHAWON
  */
-public class Employee {
+public class Employee implements Serializable {
 	private String employeeID;
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;

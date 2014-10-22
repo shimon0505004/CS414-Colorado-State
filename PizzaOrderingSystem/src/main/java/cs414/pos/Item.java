@@ -68,7 +68,7 @@ public class Item implements Serializable {
 	/**
 	 * @param itemPrice the itemPrice to set
 	 */
-	public void setItemPrice(double itemPrice) {
+	public void setItemPrice(double itemPrice) {//TODO: Should this be ItemBasePrice?
 		this.itemPrice = itemPrice;
 	}
 

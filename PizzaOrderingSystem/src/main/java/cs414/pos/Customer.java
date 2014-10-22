@@ -1,9 +1,10 @@
 package cs414.pos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Customer {
+public class Customer implements Serializable {
 
 	private String firstName;
 	private String lastName;

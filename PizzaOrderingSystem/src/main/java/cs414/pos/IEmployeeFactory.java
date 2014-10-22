@@ -16,6 +16,14 @@ public interface IEmployeeFactory {
 	 */
 	public Employee createEmployee(String name, String privilege);
 
+    /**
+     *
+     * @param name
+     * @param privilege
+     * @return
+     */
+    public Employee createEmployee(String name, Privilege privilege);
+
 	/**
 	 * Creates an employee that is a Manager.
 	 *

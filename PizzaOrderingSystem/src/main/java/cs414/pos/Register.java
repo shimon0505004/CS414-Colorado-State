@@ -1,9 +1,10 @@
 package cs414.pos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Register {
+public class Register implements Serializable {
 
 	private int registerID;
 	private Set<Order> allOrdersAtRegister;

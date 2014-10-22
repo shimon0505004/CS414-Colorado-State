@@ -1,5 +1,6 @@
 package cs414.pos;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Order {
+public class Order implements Serializable {
 
 	private int orderID;
 	private Date DateTime;

@@ -1,9 +1,10 @@
 package cs414.pos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Kiosk {
+public class Kiosk implements Serializable {
 	private int kioskID;
 	private Set<Order> allOrdersAtKiosk;
 	private Store pizzaStore;

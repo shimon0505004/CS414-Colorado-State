@@ -1,6 +1,6 @@
 package cs414.pos;
 
-import java.io.IOException;
+import java.io.*;
 
 /**
  *
@@ -12,19 +12,46 @@ public class Main {
 	 */
 	public static void main(String[] args) {
         try {
-            Employee e = new Employee("bob", Privilege.Manager);
+            String f = "testSave.ser";
             Store s = new Store();
 
-            Menu m = s.defineMenu(e, "menu0", "menu0_desc");
-            System.out.println(m.getMenuName());
-            s.saveState("testSave.ser");
+            Employee manager = s.addEmployee("bob", "bob", "pw_bob", Privilege.Manager);
+            Employee chef = s.addEmployee("billy", "billy", "pw_billy", Privilege.Chef);
+            Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Privilege.Cashier);
 
-            Store s2 = Store.openState("testSave.ser");
-            System.out.println(s2.getSetOfMenus().size());
+            Kiosk k = s.addKiosk(manager, 1);
+            Register r = s.addRegister(manager, 1);
+
+            Menu m0 = s.defineMenu(manager, "menu0", "menu0_desc");
+            s.addMenuItem(manager, m0, "pizza0", 5.0, "cheesy");
+            s.addMenuItem(manager, m0, "pizza1", 5.0, "sausage");
+
+            Menu m1 = s.defineMenu(manager, "menu1", "menu1_desc");
+            s.addMenuItem(manager, m1, "soda", 5.0, "sprite");
+            s.addMenuItem(manager, m1, "beer", 5.0, "new belgium");
+
+            // save Store's state
+            serialize(new FileOutputStream(f), s);
+
+            // open Store's state
+            Store s2 = deserialize(new FileInputStream(f));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void serialize(OutputStream os, Store s) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(os));
+        oos.writeObject(s);
+        oos.close();
+    }
+
+    public static Store deserialize(InputStream is) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(is));
+        Store s = (Store) ois.readObject();
+        ois.close();
+        return s;
     }
 }

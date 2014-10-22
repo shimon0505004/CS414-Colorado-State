@@ -12,7 +12,7 @@ import java.util.Set;
  * @author SHAIKHSHAWON
  *
  */
-public class Store {
+public class Store implements Serializable {
 
 	/**
 	 *
@@ -156,16 +156,14 @@ public class Store {
 	 * @param password
 	 * @return
 	 */
-	public String addEmployee(String name, String loginID, String password) {
-		Employee newEmployee = employeeFactory.createCashier(name);
-		String employeeID = newEmployee.getEmployeeID();
-
+	public Employee addEmployee(String name, String loginID, String password, Privilege privilege) {
+		Employee newEmployee = employeeFactory.createEmployee(name, privilege);
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
 		employeeSet.add(newEmployee);
-		return employeeID;
+		return newEmployee;
 	}
 
 	/**
@@ -267,6 +265,28 @@ public class Store {
     }
 
     /**
+     *
+     * @param e
+     * @param id
+     * @return
+     */
+    public Kiosk addKiosk(Employee e, int id) {
+        if(e.getPrivilege().canEditMenu()) {
+            Kiosk k = new Kiosk(id, this);
+            setOfKiosk.add(k);
+            return k;
+        } else return null;
+    }
+
+    public Register addRegister(Employee e, int id) {
+        if(e.getPrivilege().canEditMenu()) {
+            Register r = new Register(id, this);
+            setOfRegister.add(r);
+            return r;
+        } else return null;
+    }
+
+    /**
      * 
      * @param e
      * @param menu
@@ -350,20 +370,4 @@ public class Store {
 		this.setOfItems = setOfItems;
 	}
 
-    public void saveState(String fname) throws IOException {
-        FileOutputStream fos = new FileOutputStream(fname);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        oos.writeObject(this.getSetOfMenus());
-        oos.close();
-    }
-
-    public static Store openState(String fPath) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fPath);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        Store s = new Store();
-        s.setOfMenus = (Set<Menu>) ois.readObject();
-        ois.close();
-        return s;
-    }
 }

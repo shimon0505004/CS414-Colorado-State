@@ -1,11 +1,13 @@
 package cs414.pos;
 
+import java.io.Serializable;
+
 /**
  * Implementation of the IEmployeeFactory.
  *
  * @author Nathan Lighthart
  */
-public class EmployeeFactory implements IEmployeeFactory {
+public class EmployeeFactory implements IEmployeeFactory, Serializable {
 	/**
 	 * Singleton instance
 	 */
@@ -48,4 +50,9 @@ public class EmployeeFactory implements IEmployeeFactory {
 	public Employee createEmployee(String name, String privilege) {
 		return new Employee(name, Privilege.valueOf(privilege));
 	}
+
+    @Override
+    public Employee createEmployee(String name, Privilege privilege) {
+        return new Employee(name, privilege);
+    }
 }

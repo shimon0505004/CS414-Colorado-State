@@ -1,6 +1,8 @@
 package cs414.pos;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
 
 	private String location;
 	private AddressType addressType;
