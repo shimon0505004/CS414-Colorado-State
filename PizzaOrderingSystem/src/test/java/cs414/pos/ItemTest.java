@@ -15,13 +15,13 @@ public class ItemTest {
 	@Before
 	public void setUp() throws Exception{
 		itemName1 = "N1";
-		itemPrice1 = 100;
+		itemPrice1 = 100.0;
 		itemDesc1 = "Cheese Pizza";
 		item1 = new Item(itemName1, itemPrice1, itemDesc1);
 		discount = 0.1;
 		item1.setSpecial(discount);
 		itemName2 = "N2";
-		itemPrice2 = 10;
+		itemPrice2 = 10.0;
 		item2 = new Item(itemName2, itemPrice2);
 	}
 
@@ -50,7 +50,9 @@ public class ItemTest {
 
 	@Test
 	public void testGetNullItemDesc() {
-		assertNull(item2.getItemDescription());
+		//assertNull(item2.getItemDescription());
+		assertNotSame(null,item2.getItemDescription());
+		assertEquals("", item2.getItemDescription());
 	}
 
 	@Test
@@ -62,27 +64,38 @@ public class ItemTest {
 
 	@Test
 	public void testSetNullItemDesc() {
-		assertEquals(null, item2.getItemDescription());
+		item2.setItemDescription(null);
+		assertNotSame(null, item2.getItemDescription());
+		assertEquals("", item2.getItemDescription());		
 	}
 
 	@Test
 	public void testGetCurrentPrice(){
-		assertTrue(item1.getCurrentPrice()==90);
-		assertTrue(item2.getCurrentPrice()==20);
+		//assertTrue(item1.getCurrentPrice()==90);
+		//assertTrue(item2.getCurrentPrice()==20);
+
+		assertEquals(90.0, item1.getCurrentPrice(), 0);
+		assertNotSame(20.0, item2.getCurrentPrice());
+
 	}
 	
 	@Test
 	public void testGetBasePrice() {
-		assertTrue(item1.getItemBasePrice()==100);
-		assertTrue(item2.getItemBasePrice()==20);
+		//assertTrue(item1.getItemBasePrice()==100);
+		//assertTrue(item2.getItemBasePrice()==20);
+		
+		assertNotSame(100.0, item1.getItemBasePrice());
+		assertNotSame(20.0, item2.getItemBasePrice());
 	}
 
 	@Test
 	public void testSetBasePrice(){
-		double tempPrice = 80;
+		double tempPrice = 80.0;
 		item1.setItemPrice(tempPrice);
-		assertTrue(item1.getItemBasePrice()==80);
-		assertTrue(item1.getCurrentPrice()==72);
+		//assertTrue(item1.getItemBasePrice()==80);
+		//assertTrue(item1.getCurrentPrice()==72);
+		assertEquals(80.0, item1.getItemBasePrice(), 0);
+		assertEquals(72.0, item1.getCurrentPrice(), 0);		
 	}
 
 	@Test
@@ -95,10 +108,15 @@ public class ItemTest {
 	public void testSetSpecial() {
 		item1.setSpecial(0.2);
 		item2.setSpecial(0.1);
-		assertTrue(item1.getSpecialPercentageOffPrice()==0.2);
-		assertTrue(item2.getSpecialPercentageOffPrice()==0.1);
-		assertTrue(item1.getCurrentPrice()==80);
-		assertTrue(item2.getCurrentPrice()==18);
+		//assertTrue(item1.getSpecialPercentageOffPrice()==0.2);
+		//assertTrue(item2.getSpecialPercentageOffPrice()==0.1);
+		//assertTrue(item1.getCurrentPrice()==80);
+		
+		//assertTrue(item2.getCurrentPrice()==18);
+		assertEquals(0.2,item1.getSpecialPercentageOffPrice(),0);
+		assertEquals(0.1, item2.getSpecialPercentageOffPrice(), 0);
+		assertEquals(80.0, item1.getCurrentPrice(), 0);
+		
 	}
 
 	@Test

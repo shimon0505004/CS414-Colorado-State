@@ -83,7 +83,12 @@ public class Item implements Serializable {
 	 * @param itemDescription the itemDescription to set
 	 */
 	public void setItemDescription(String itemDescription) {
-		this.itemDescription = itemDescription;
+		if(itemDescription!=null){
+			this.itemDescription = itemDescription;			
+		}else{
+			this.itemDescription = "";
+		}
+		
 	}
 
 	/**

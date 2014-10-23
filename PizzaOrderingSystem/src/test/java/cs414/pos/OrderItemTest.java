@@ -15,8 +15,8 @@ public class OrderItemTest {
 
 	@Before
 	public void SetUp() {
-		itemPrice1 = 10;
-		itemPrice2 = 5;
+		itemPrice1 = 10.0;
+		itemPrice2 = 5.0;
 		item1 = new Item("item1", itemPrice1);
 		item2 = new Item("item2", itemPrice2);
 		quan1 = 2;
@@ -32,8 +32,11 @@ public class OrderItemTest {
 
 	@Test
 	public void testComputeSubTotal() {
-		assertTrue(orderItem1.computeSubtotal() == 20);
-		assertTrue(orderItem2.computeSubtotal() == 30);
+		//assertTrue(orderItem1.computeSubtotal() == 20);
+		//assertTrue(orderItem2.computeSubtotal() == 30);
+		assertEquals(20.0, orderItem1.computeSubtotal(),0);
+		assertEquals(30.0, orderItem2.computeSubtotal(),0);
+
 	}
 
 	@Test
@@ -62,12 +65,20 @@ public class OrderItemTest {
 
 	@Test
 	public void testOverDecrMultQuan() {
-		try {
+		/*try {
 			orderItem1.decrementQuantitybyAmount(3);
-			fail();
+			//fail();
 		} catch (Exception e) {
 			assertTrue(true);
-		}
+		}*/
+		int reducedQuantity = -1 ;
+		
+		try {
+			reducedQuantity = orderItem1.decrementQuantitybyAmount(3);
+		}catch (Exception e) {
+			assertTrue(true);
+		}		
+		assertEquals(0, reducedQuantity);
 	}
 
 	@Test
@@ -90,7 +101,8 @@ public class OrderItemTest {
 
 	@Test
 	public void getSubTotal() {
-		assertTrue(orderItem1.getSubTotal() == 20);
+		//assertTrue(orderItem1.getSubTotal() == 20);
+		assertEquals(20.0,orderItem1.getSubTotal(),0);
 	}
 
 }
