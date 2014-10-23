@@ -50,7 +50,7 @@ public class ItemTest {
 
 	@Test
 	public void testGetNullItemDesc() {
-		assertEquals(null, item2.getItemDescription());
+		assertNull(item2.getItemDescription());
 	}
 
 	@Test
