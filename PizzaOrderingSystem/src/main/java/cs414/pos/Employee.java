@@ -47,7 +47,12 @@ public class Employee implements Serializable {
 	 * @param employeeID the employeeID to set
 	 */
 	public void setEmployeeID(String employeeID) {
-		this.employeeID = employeeID;
+		if(employeeID!=null){
+			this.employeeID = employeeID;			
+		}
+		else{
+			; //do nothing
+		}
 	}
 
 	/**

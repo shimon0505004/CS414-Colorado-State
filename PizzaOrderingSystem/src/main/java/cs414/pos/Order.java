@@ -55,7 +55,7 @@ public class Order implements Serializable {
 	private void createAsInHouseOrder(){
 		setTypeOfOrder(OrderType.Inhouse);
 		setOrderedByCustomerWithMembership(false);
-		setCustomerWithMembership(new Customer("", "", -1));
+		setCustomerWithMembership(new Customer("", ""));
 		setDeliveryAddress(new Address());
 	}
 	

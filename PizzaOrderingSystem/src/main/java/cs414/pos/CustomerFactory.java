@@ -30,7 +30,13 @@ public class CustomerFactory implements ICustomerFactory {
 	}
 
 	@Override
-	public Customer createCustomer(String firstName, String lastName, int membershipNumber) {
-		return new Customer(firstName, lastName, membershipNumber);
+	public Customer createCustomer(String firstName, String lastName) {
+		return new Customer(firstName, lastName);
 	}
+	
+	@Override
+	public Customer createCustomer(String firstName, String lastName, String phoneNumber) {
+		return new Customer(firstName, lastName,phoneNumber);
+	}
+	
 }

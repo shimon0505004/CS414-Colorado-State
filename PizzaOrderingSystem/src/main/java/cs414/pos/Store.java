@@ -425,8 +425,26 @@ public class Store implements Serializable {
 
 	}
 	
+	public Customer getMember(String customerID){
+		if(customerID==null){
+			return null;
+		}
+		else{
+			for(Customer c:getMembers()){
+				if(c.getMemberShipNumber().equals(customerID)){
+					return c;
+				}
+			}
+			return null;
+		}
+	}
 	
-	
+	public Customer addNewMember(String firstName,String LastName,String customerPhoneNumber){
+		Customer newCustomer = new Customer(firstName,LastName,customerPhoneNumber);
+		getMembers().add(newCustomer);
+		
+		return newCustomer;
+	}
 	
 	
 	

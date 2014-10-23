@@ -14,5 +14,8 @@ public interface ICustomerFactory {
 	 * @param membershipNumber the membershipNumber
 	 * @return The created instance of the customer
 	 */
-	public Customer createCustomer(String firstName, String lastName, int membershipNumber);
+	public Customer createCustomer(String firstName, String lastName);
+
+	public Customer createCustomer(String firstName, String lastName, String phoneNumber);
+	
 }

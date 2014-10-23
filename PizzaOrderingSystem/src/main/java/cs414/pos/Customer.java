@@ -9,23 +9,32 @@ public class Customer implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String customerPhoneNumber;
-	private int memberShipNumber;
+	private String memberShipNumber;
 	private int rewardsPoint;
 	private Set<Order> customerOrders;
 	private Set<Address> customerAddresses;
 	
-	public Customer(String firstName, String lastName, int memberShipNumber) {
+	private static int customerCounter=1;
+	public final int objectID ;
+	
+	public Customer(String firstName, String lastName) {
 		setFirstName(firstName);
 		setLastName(lastName);
-		setMemberShipNumber(memberShipNumber);
+		
+		this.objectID = customerCounter++;
+		
+		setMemberShipNumber(generateCustomerID());
 		setCustomerPhoneNumber("000-000-0000");
 		initializeOrdersPointAddress();
 	}
 
-	public Customer(String firstName, String lastName, int memberShipNumber, String phoneNumber) {
+	public Customer(String firstName, String lastName, String phoneNumber) {
 		setFirstName(firstName);
 		setLastName(lastName);
-		setMemberShipNumber(memberShipNumber);
+		
+		this.objectID = customerCounter++;
+		
+		setMemberShipNumber(generateCustomerID());
 		setCustomerPhoneNumber(phoneNumber);
 		initializeOrdersPointAddress();
 	}
@@ -36,7 +45,10 @@ public class Customer implements Serializable {
 		setCustomerAddresses(new HashSet<Address>());
 	}
 	
-
+	private String generateCustomerID(){
+		return "Customer"+this.objectID;
+		
+	}
 
 	/**
 	 * @return the firstName
@@ -92,15 +104,19 @@ public class Customer implements Serializable {
 	/**
 	 * @return the memberShipNumber
 	 */
-	public int getMemberShipNumber() {
+	public String getMemberShipNumber() {
 		return memberShipNumber;
 	}
 
 	/**
 	 * @param memberShipNumber the memberShipNumber to set
 	 */
-	public void setMemberShipNumber(int memberShipNumber) {
-		this.memberShipNumber = memberShipNumber;
+	public void setMemberShipNumber(String memberShipNumber) {
+		if(memberShipNumber!=null){
+			this.memberShipNumber = memberShipNumber;			
+		}else{
+			//remain same
+		}
 	}
 
 	/**

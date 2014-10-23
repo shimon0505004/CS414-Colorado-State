@@ -228,9 +228,27 @@ public class StoreTest {
 
 	}
 	
+	@Test
+	public void testAddNewMember(){
+		String testFirstName1 = "Shimon";
+		String testLastName1 = "Shimon";
+		String phoneNumber = "888-888-8888";
+		assertEquals(0, testStore4.getMembers().size());
+		Customer newCustomer = testStore4.addNewMember(testFirstName1, testFirstName1, phoneNumber);
+		assertEquals(1, testStore4.getMembers().size());
+			
+		
+	}
 	
+	@Test
+	public void testGetMember(){
+		String testFirstName1 = "Shimon";
+		String testLastName1 = "Shimon";
+		String phoneNumber = "888-888-8888";
+		Customer newCustomer = testStore4.addNewMember(testFirstName1, testFirstName1, phoneNumber);
+		assertEquals(newCustomer,testStore4.getMember(newCustomer.getMemberShipNumber()));
+	}
 
-	
 	@Test
 	public void testLoginAttempt() {
 		assertTrue(testStore4.loginAttempt(testLoginID1, testPassWord1));
@@ -309,15 +327,6 @@ public class StoreTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testGetMembers() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMembers() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetSetOfItems() {

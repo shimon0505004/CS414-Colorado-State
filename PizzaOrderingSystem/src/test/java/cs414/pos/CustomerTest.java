@@ -32,8 +32,8 @@ public class CustomerTest {
 		phoneNumber1 = "000-000-0000";
 		phoneNumber2 = "201-222-1231";
 		
-		testCustomer1 = new Customer(firstName1, lastName1, membershipNumber1);
-		testCustomer2 = new Customer(firstName2, lastName2, membershipNumber2,phoneNumber2);
+		testCustomer1 = new Customer(firstName1, lastName1);
+		testCustomer2 = new Customer(firstName2, lastName2,phoneNumber2);
 		
 		testAddress1 = new Address("123 mason street", AddressType.Home);
 		testAddress2 = new Address("123 mason street", AddressType.Home);
@@ -108,17 +108,14 @@ public class CustomerTest {
 
 	@Test
 	public void testGetMemberShipNumber() {
-		assertEquals(membershipNumber1, testCustomer1.getMemberShipNumber());
-		assertEquals(membershipNumber2, testCustomer2.getMemberShipNumber());
+		assertNotSame(testCustomer1.getMemberShipNumber(), testCustomer2.getMemberShipNumber());
 
 	}
 
 	@Test
 	public void testSetMemberShipNumber() {
-		assertEquals(membershipNumber1, testCustomer1.getMemberShipNumber());
-		assertEquals(membershipNumber2, testCustomer2.getMemberShipNumber());
-		int membershipNumber1_edit = 1003;
-		int membershipNumber2_edit = 1004;
+		String membershipNumber1_edit = "1003";
+		String membershipNumber2_edit = "1004";
 		testCustomer1.setMemberShipNumber(membershipNumber1_edit);
 		testCustomer2.setMemberShipNumber(membershipNumber2_edit);
 		assertEquals(membershipNumber1_edit, testCustomer1.getMemberShipNumber());

@@ -110,8 +110,9 @@ public class EmployeeTest {
 
 	@Test
 	public void testSetWorksForStore() {
-		fail("Not yet implemented");
-		/*Store has not been tested fully yet*/
+		Store testStore4 = new Store("PizzaStore4","206-953-5584","Stuart St.");	
+		testEmployee1.setWorksForStore(testStore4);
+		
 	}
 
 }
