@@ -13,7 +13,7 @@ public class Kiosk implements Serializable {
 	Kiosk(int ID){
 		setKioskID(ID);
 		setAllOrdersAtKiosk(new HashSet<Order>());
-		pizzaStore = null;
+		setPizzaStore(null);
 	}
 
 	Kiosk(int ID,Store pizzaStore){
@@ -63,6 +63,8 @@ public class Kiosk implements Serializable {
 	public void setPizzaStore(Store pizzaStore) {
 		this.pizzaStore = pizzaStore;
 	}
+	
+
 	
 
 }
