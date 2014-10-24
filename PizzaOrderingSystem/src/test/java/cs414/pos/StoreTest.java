@@ -24,7 +24,8 @@ public class StoreTest {
 	String menuName1, menuName2, menuDesc1, menuDesc2;
 	Item test_item1, test_item2;
 	
-	Kiosk kiosk1, kiosk2;
+	Kiosk testKiosk1, testKiosk2;
+	Register testRegister1, testRegister2;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -59,8 +60,10 @@ public class StoreTest {
 		test_item1 = new Item("item1", 10, "Test Item 1");
 		test_item2 = new Item("item2", 5, "Test Item 2");
 	
-		kiosk1 = new Kiosk(1, testStore3);
-		kiosk2 = new Kiosk(2, testStore3);
+		testKiosk1 = new Kiosk(1, testStore3);
+		testKiosk2 = new Kiosk(2, testStore3);
+		testRegister1 = new Register(1, testStore3);
+		testRegister2 = new Register(2, testStore3);
 	}
 
 	@After
@@ -371,8 +374,9 @@ public class StoreTest {
 
 	@Test
 	public void testGetSetOfKiosk() {
-		assertEquals(0, testStore4.getSetOfKiosk().size());
-		assertEquals(2, testStore3.getSetOfKiosk());
+		assertEquals(2, testStore3.getSetOfKiosk().size());
+		assertTrue(testStore3.getSetOfKiosk().contains(testKiosk1));
+		assertTrue(testStore3.getSetOfKiosk().contains(testKiosk2));
 	}
 
 	@Test
@@ -396,27 +400,47 @@ public class StoreTest {
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
 		assertEquals(2, testStore3.getSetOfKiosk().size());
 		testStore3.addKiosk(test_Employee1, 3);
-		assertEquals(2, testStore4.getSetOfKiosk().size());
+		assertEquals(2, testStore3.getSetOfKiosk().size());
 		testStore3.addKiosk(test_Employee2, 4);
-		assertEquals(2, testStore4.getSetOfKiosk().size());
+		assertEquals(2, testStore3.getSetOfKiosk().size());
 		testStore3.addKiosk(test_Employee3, 5);
-		assertEquals(3, testStore4.getSetOfKiosk().size());
+		assertEquals(3, testStore3.getSetOfKiosk().size());
 	}
 	
 
 	@Test
 	public void testGetSetOfRegister() {
-		fail("Not yet implemented");
+		assertEquals(2, testStore3.getSetOfRegister().size());
+		assertTrue(testStore3.getSetOfRegister().contains(testRegister1));
+		assertTrue(testStore3.getSetOfRegister().contains(testRegister2));
 	}
 
 	@Test
 	public void testSetSetOfRegister() {
-		fail("Not yet implemented");
+		Register tempRegister1 = new Register(3);
+		Register tempRegister2 = new Register(4);
+		Set<Register> registerSet = new HashSet<Register>();
+		registerSet.add(tempRegister1);
+		registerSet.add(tempRegister2);
+		assertEquals(0, testStore4.getSetOfRegister());
+		testStore4.setSetOfRegister(registerSet);
+		assertEquals(2, testStore4.getSetOfRegister());
+		assertTrue(testStore4.getSetOfRegister().contains(tempRegister1));
+		assertTrue(testStore4.getSetOfRegister().contains(tempRegister2));	
 	}
 
 	@Test
 	public void testAddRegister(){
-		
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		assertEquals(2, testStore3.getSetOfRegister().size());
+		testStore3.addRegister(test_Employee1, 3);
+		assertEquals(2, testStore3.getSetOfRegister().size());
+		testStore3.addRegister(test_Employee2, 4);
+		assertEquals(2, testStore3.getSetOfRegister().size());
+		testStore3.addRegister(test_Employee3, 5);
+		assertEquals(3, testStore3.getSetOfRegister().size());
 	}
 	
 	
