@@ -35,21 +35,26 @@ public class Order implements Serializable {
 	private Card paysWithCard;
 	
 	private int rewardPointGenerated;
+	private boolean isPaid;
 	
 	public Order(int ID) {
 		// TODO Auto-generated constructor stub
 
-		dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		DateTime = new Date();
-		orderDateTime = dateFormat.format(DateTime);
+		setOrderID(ID);
+		setDateFormat(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
+		setDateTime(new Date());
+		setOrderDateTime(getDateFormat().format(DateTime));
 		setComplete(false);
 		totalPrice = 0.0 ;
 		amountReceived = 0.0;
 		setAmountReturned(amountReceived - totalPrice);
 		setOfItems = new HashSet<OrderItem>();
 		setRewardPointGenerated(0);
+		setCompletedBy(null);
 		createAsInHouseOrder();
 		createAsCashPayment();
+		
+		setIsPaid(false);
 	}
 
 	private void createAsInHouseOrder(){
@@ -89,7 +94,8 @@ public class Order implements Serializable {
 		boolean returnVal = makeOrderPayment(amountReceived);
 		if(returnVal){
 			setCardPayment(true);
-			paysWithCard.updateCardInfo(cardNumber,cardExpirationDate,cv2);			
+			paysWithCard.updateCardInfo(cardNumber,cardExpirationDate,cv2);		
+			setIsPaid(true);
 		}
 		return returnVal;
 	}
@@ -99,10 +105,24 @@ public class Order implements Serializable {
 		if(returnVal){
 			setCardPayment(true);
 			setPaysWithCard(paymentCard);
+			setIsPaid(true);
 		}
 		return returnVal;
 		
 	}
+	
+	public boolean makeCashPayment(double amountReceived){
+		boolean returnVal = makeOrderPayment(amountReceived);
+		if(returnVal){
+			setCardPayment(false);
+			setPaysWithCard(null);
+			setIsPaid(true);
+		}
+		return returnVal;
+		
+		
+	}
+	
 	
 	public void addItemToOrder(Item newItem){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
@@ -222,12 +242,13 @@ public class Order implements Serializable {
 		return found;
 	}
 
-	public boolean makeOrderPayment(double amountReceived){
+	private boolean makeOrderPayment(double amountReceived){
 		double temp = amountReceived-getTotalPrice();
 		if(temp>=0.0)
 		{
 			setAmountReceived(amountReceived);
 			setAmountReturned(temp);
+			setIsPaid(true);			
 			return true;
 		}
 		else return false;		
@@ -273,10 +294,22 @@ public class Order implements Serializable {
 		return completedBy;
 	}
 
+	public boolean setCompletedByEmployee(Employee completedBy) {
+		if(completedBy!=null){
+			if(completedBy.getPrivilege().equals(Privilege.Chef)){
+				//then order can be completed;
+				setCompletedBy(completedBy);
+				setComplete(true);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * @param completedBy the completedBy to set
 	 */
-	public void setCompletedBy(Employee completedBy) {
+	private void setCompletedBy(Employee completedBy) {
 		this.completedBy = completedBy;
 	}
 
@@ -304,7 +337,7 @@ public class Order implements Serializable {
 	/**
 	 * @param isComplete the isComplete to set
 	 */
-	public void setComplete(boolean isComplete) {
+	private void setComplete(boolean isComplete) {
 		this.isComplete = isComplete;
 	}
 
@@ -333,7 +366,7 @@ public class Order implements Serializable {
 	/**
 	 * @param totalPrice the totalPrice to set
 	 */
-	public void setTotalPrice(double totalPrice) {
+	private void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
@@ -347,7 +380,7 @@ public class Order implements Serializable {
 	/**
 	 * @param dateFormat the dateFormat to set
 	 */
-	public void setDateFormat(DateFormat dateFormat) {
+	private void setDateFormat(DateFormat dateFormat) {
 		this.dateFormat = dateFormat;
 	}
 
@@ -417,7 +450,7 @@ public class Order implements Serializable {
 	/**
 	 * @param deliveryAddress the deliveryAddress to set
 	 */
-	public void setDeliveryAddress(Address deliveryAddress) {
+	private void setDeliveryAddress(Address deliveryAddress) {
 		if(deliveryAddress!=null){
 			this.deliveryAddress = deliveryAddress;			
 		}else{
@@ -435,7 +468,7 @@ public class Order implements Serializable {
 	/**
 	 * @param typeOfOrder the typeOfOrder to set
 	 */
-	public void setTypeOfOrder(OrderType typeOfOrder) {
+	private void setTypeOfOrder(OrderType typeOfOrder) {
 		this.typeOfOrder = typeOfOrder;
 	}
 
@@ -449,7 +482,7 @@ public class Order implements Serializable {
 	/**
 	 * @param isCardPayment the isCardPayment to set
 	 */
-	public void setCardPayment(boolean isCardPayment) {
+	private void setCardPayment(boolean isCardPayment) {
 		this.isCardPayment = isCardPayment;
 	}
 
@@ -463,7 +496,7 @@ public class Order implements Serializable {
 	/**
 	 * @param paysWithCard the paysWithCard to set
 	 */
-	public void setPaysWithCard(Card paysWithCard) {
+	private void setPaysWithCard(Card paysWithCard) {
 		this.paysWithCard = paysWithCard;
 	}
 
@@ -498,5 +531,19 @@ public class Order implements Serializable {
 	
 	public Set<OrderItem> getSetOfItems() {
 		return setOfItems;
+	}
+
+	/**
+	 * @return the isPaid
+	 */
+	public boolean isPaid() {
+		return isPaid;
+	}
+
+	/**
+	 * @param isPaid the isPaid to set
+	 */
+	private void setIsPaid(boolean isPaid) {
+		this.isPaid = isPaid;
 	}
 }

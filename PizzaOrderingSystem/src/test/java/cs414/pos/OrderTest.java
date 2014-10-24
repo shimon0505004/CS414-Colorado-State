@@ -16,12 +16,22 @@ public class OrderTest {
 	private String address1_str,address2_str,address3_str,address4_str;
 	private Address address1,address2,address3,address4;
 	
+	private Employee testEmployee1,testEmployee2,testEmployee3;
+	private String employee1Name,employee2Name,employee3Name; 
+	
+	private double testPayment1,testPayment2,testPayment3;
+	private String testCardNumber1,testCardNumber2,testCardNumber3;
+	private String testCV2_1,testCV2_2,testCV2_3;
+	private String testEXPDate_1,testEXPDate_2,testEXPDate_3;
+	
+	private Card testCard1,testCard2,testCard3;
+	
 	@Before
 	public void setUp() throws Exception {
 		testOrder1ID = 1;
 		testOrder2ID = 2;
-		testOrder1ID = 3;
-		testOrder2ID = 4;
+		testOrder3ID = 3;
+		testOrder4ID = 4;
 		
 		testOrder1 = new Order(testOrder1ID);
 		testOrder2 = new Order(testOrder2ID);
@@ -44,8 +54,6 @@ public class OrderTest {
 		testOrder4.addItemToOrder(testItem4);
 		testOrder4.addItemToOrderByAmount(testItem2, 4);
 		
-		testOrder3.setTypeOfOrder(OrderType.HomeDelivery);
-		testOrder4.setTypeOfOrder(OrderType.TakeAway);
 		
 //		testOrder3.setDeliveryAddress(deliveryAddress);
 		
@@ -59,7 +67,37 @@ public class OrderTest {
 		address3 = new Address(address1_str,AddressType.Business);
 		address4 = new Address(address1_str,AddressType.Home);
 		
-		testOrder3.setDeliveryAddress(address3);
+		testOrder4.updateToTakeAwayOrder();
+		testOrder3.updateToHomeDeliveryOrder(address3);		
+		
+		
+		employee1Name = "testManager";
+		employee2Name = "testCashier";
+		employee3Name = "testChef";
+
+		testEmployee1 = new Employee(employee1Name, Privilege.Manager);
+		testEmployee2 = new Employee(employee1Name, Privilege.Cashier);		
+		testEmployee3 = new Employee(employee1Name, Privilege.Chef);
+		
+		testPayment1=34.5	;
+		testPayment2=45.2	;
+		testPayment3=67.1	;
+		
+		testCardNumber1="1111-1111-1111-1111"	;
+		testCardNumber2="1111-1111-2222-2222"	;
+		testCardNumber3="1111-3333-1111-3333"	;
+		
+		testCV2_1= "342";
+		testCV2_2= "351";
+		testCV2_3= "987";
+		
+		testEXPDate_1="AUG 2017"	;
+		testEXPDate_2="AUG 2018"	;
+		testEXPDate_3="AUG 2010"	;
+		
+		testCard1 = new Card(testCardNumber1,testEXPDate_1,testCV2_1);
+		testCard2 = new Card(testCardNumber2,testEXPDate_2,testCV2_2);
+		
 	}
 
 	@After
@@ -146,12 +184,15 @@ public class OrderTest {
 
 	@Test
 	public void testMakeCardPaymentDoubleStringStringString() {
-		fail("Not yet implemented");
+		assertEquals(false, testOrder3.makeCardPayment(4.0, testCardNumber3,testEXPDate_3,testCV2_3));
+		assertEquals(true, testOrder4.makeCardPayment(47.0, testCardNumber3,testEXPDate_3,testCV2_3));	
 	}
 
 	@Test
 	public void testMakeCardPaymentDoubleCard() {
-		fail("Not yet implemented");
+		assertEquals(false, testOrder3.makeCardPayment(4.0, testCard1));
+		assertEquals(true, testOrder4.makeCardPayment(47.0, testCard2));		
+		
 	}
 
 	@Test
@@ -204,22 +245,107 @@ public class OrderTest {
 
 	@Test
 	public void testRemoveItemTotallyFromOrder() {
-		fail("Not yet implemented");
+		testOrder1.addItemToOrderByAmount(testItem1,4);
+		testOrder1.addItemToOrder(testItem2);
+		testOrder1.addItemToOrder(testItem3);
+		testOrder1.addItemToOrder(testItem4);
+
+		assertEquals(4, testOrder1.getSetOfItems().size());
+		assertEquals(0, testOrder2.getSetOfItems().size());
+		assertEquals(1, testOrder3.getSetOfItems().size());
+		assertEquals(3, testOrder4.getSetOfItems().size());
+		
+		assertEquals(4, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem2).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+
+		testOrder1.removeItemTotallyFromOrder(testItem1);
+		assertEquals(3, testOrder1.getSetOfItems().size());
+
+		assertEquals(null, testOrder1.getOrderItem(testItem1));
+		assertEquals(1, testOrder1.getOrderItem(testItem2).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+		
+		
 	}
 
 	@Test
 	public void testRemoveOneCountOfItemFromOrder() {
-		fail("Not yet implemented");
+		
+		testOrder1.addItemToOrderByAmount(testItem1,4);
+		testOrder1.addItemToOrder(testItem2);
+		testOrder1.addItemToOrder(testItem3);
+		testOrder1.addItemToOrder(testItem4);
+
+		assertEquals(4, testOrder1.getSetOfItems().size());
+		assertEquals(0, testOrder2.getSetOfItems().size());
+		assertEquals(1, testOrder3.getSetOfItems().size());
+		assertEquals(3, testOrder4.getSetOfItems().size());
+		
+		assertEquals(4, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem2).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+
+		testOrder1.removeOneCountOfItemFromOrder(testItem1);
+		assertEquals(4, testOrder1.getSetOfItems().size());
+		assertEquals(3, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem2).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+
+		testOrder1.removeOneCountOfItemFromOrder(testItem2);
+		assertEquals(3, testOrder1.getSetOfItems().size());
+		assertEquals(3, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(null, testOrder1.getOrderItem(testItem2));
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+
 	}
 
 	@Test
 	public void testRemoveMultipleCountOfItemFromOrder() {
-		fail("Not yet implemented");
+		testOrder1.addItemToOrderByAmount(testItem1,4);
+		testOrder1.addItemToOrder(testItem2);
+		testOrder1.addItemToOrder(testItem3);
+		testOrder1.addItemToOrder(testItem4);
+
+		assertEquals(4, testOrder1.getSetOfItems().size());
+		assertEquals(0, testOrder2.getSetOfItems().size());
+		assertEquals(1, testOrder3.getSetOfItems().size());
+		assertEquals(3, testOrder4.getSetOfItems().size());
+		
+		assertEquals(4, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem2).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+
+		testOrder1.removeMultipleCountOfItemFromOrder(testItem1, 2);
+		assertEquals(4, testOrder1.getSetOfItems().size());
+		assertEquals(2, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem2).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
+
+		testOrder1.removeMultipleCountOfItemFromOrder(testItem2, 4);
+		assertEquals(3, testOrder1.getSetOfItems().size());
+		assertEquals(2, testOrder1.getOrderItem(testItem1).getQuantity());
+		assertEquals(null, testOrder1.getOrderItem(testItem2));
+		assertEquals(1, testOrder1.getOrderItem(testItem3).getQuantity());
+		assertEquals(1, testOrder1.getOrderItem(testItem4).getQuantity());
 	}
 
 	@Test
-	public void testMakeOrderPayment() {
-		fail("Not yet implemented");
+	public void testMakeCashPayment() {
+		assertEquals(false,testOrder3.makeCashPayment(3.0));
+		assertEquals(false,testOrder3.isPaid());
+		assertEquals(false, testOrder3.isCardPayment());
+
+		assertEquals(true,testOrder3.makeCashPayment(6.0));
+		assertEquals(true,testOrder3.isPaid());
+		assertEquals(false, testOrder3.isCardPayment());
 	}
 
 	@Test
@@ -231,12 +357,28 @@ public class OrderTest {
 	public void testGetCompletedBy() {
 		assertEquals(null, testOrder1.getCompletedBy());
 		assertEquals(null, testOrder2.getCompletedBy());
+		assertEquals(null, testOrder3.getCompletedBy());
+		assertEquals(null, testOrder4.getCompletedBy());		
 
 	}
 
 	@Test
-	public void testSetCompletedBy() {
-		fail("Not yet implemented");
+	public void testSetCompletedByEmployee() {
+		assertEquals(false, testOrder1.setCompletedByEmployee(testEmployee1));
+		assertEquals(false, testOrder2.setCompletedByEmployee(testEmployee2));
+		assertEquals(true, 	testOrder3.setCompletedByEmployee(testEmployee3));
+		assertEquals(true, 	testOrder4.setCompletedByEmployee(testEmployee3));
+		
+		assertEquals(null, testOrder1.getCompletedBy());
+		assertEquals(null, testOrder2.getCompletedBy());
+		assertEquals(testEmployee3, testOrder3.getCompletedBy());
+		assertEquals(testEmployee3, testOrder4.getCompletedBy());		
+
+		assertEquals(false, testOrder1.isComplete());
+		assertEquals(false, testOrder2.isComplete());
+		assertEquals(true, 	testOrder3.isComplete());
+		assertEquals(true, 	testOrder4.isComplete());
+		
 	}
 
 	@Test
@@ -247,19 +389,21 @@ public class OrderTest {
 		assertEquals(testReturn2, testOrder2.getAmountReturned(),0);
 	}
 
-	@Test
-	public void testSetAmountReturned() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testIsComplete() {
-		fail("Not yet implemented");
+		assertEquals(false, testOrder1.isComplete());
+		assertEquals(false, testOrder2.isComplete());
+		assertEquals(false, testOrder3.isComplete());
+		assertEquals(false, testOrder4.isComplete());
+
+		
 	}
 
 	@Test
 	public void testSetComplete() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
@@ -271,20 +415,18 @@ public class OrderTest {
 
 	}
 
-	@Test
-	public void testSetAmountReceived() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testGetTotalPrice() {
-		fail("Not yet implemented");
+		assertEquals(0.0, testOrder1.getTotalPrice(),0);
+		assertEquals(0.0, testOrder2.getTotalPrice(),0);
+		assertEquals(testItem3_price, testOrder3.getTotalPrice(),0);
+		assertEquals((testItem2_price*4 + testItem3_price + testItem4_price ), testOrder4.getTotalPrice(),0);
+
 	}
 
-	@Test
-	public void testSetTotalPrice() {
-		fail("Not yet implemented");
-	}
+
 
 
 
@@ -298,20 +440,21 @@ public class OrderTest {
 
 	}
 
-	@Test
-	public void testSetOrderDateTime() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testGetOrderID() {
 		assertEquals(testOrder1ID, testOrder1.getOrderID());
 		assertEquals(testOrder2ID, testOrder2.getOrderID());
+		assertEquals(testOrder3ID, testOrder3.getOrderID());
+		assertEquals(testOrder4ID, testOrder4.getOrderID());
 	}
 
 	@Test
 	public void testSetOrderID() {
-		fail("Not yet implemented");
+		int testOrder4ID_edit = 5;
+		testOrder4.setOrderID(testOrder4ID_edit);
+		assertEquals(testOrder4ID_edit, testOrder4.getOrderID());		
 	}
 
 	@Test
@@ -321,10 +464,7 @@ public class OrderTest {
 
 	}
 
-	@Test
-	public void testSetDateTime() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testGetCustomerWithMembership() {
@@ -347,40 +487,47 @@ public class OrderTest {
 
 	}
 
-	@Test
-	public void testSetDeliveryAddress() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetTypeOfOrder() {
-		fail("Not yet implemented");
+		assertEquals(testOrder1.getTypeOfOrder(), OrderType.Inhouse);
+		assertEquals(testOrder2.getTypeOfOrder(), OrderType.Inhouse);
+		assertEquals(testOrder3.getTypeOfOrder(), OrderType.HomeDelivery);
+		assertEquals(testOrder4.getTypeOfOrder(), OrderType.TakeAway);
+
 	}
 
-	@Test
-	public void testSetTypeOfOrder() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testIsCardPayment() {
-		fail("Not yet implemented");
+		assertEquals(false,testOrder1.isCardPayment());
+		assertEquals(false,testOrder2.isCardPayment());
+		assertEquals(false,testOrder3.isCardPayment());
+		assertEquals(false,testOrder4.isCardPayment());
+
 	}
 
-	@Test
-	public void testSetCardPayment() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testGetPaysWithCard() {
-		fail("Not yet implemented");
+		assertEquals(false,testOrder3.makeCashPayment(3.0));
+		assertEquals(false,testOrder3.isPaid());
+		assertEquals(false, testOrder3.isCardPayment());
+
+		assertEquals(true,testOrder3.makeCashPayment(6.0));
+		assertEquals(true,testOrder3.isPaid());
+		assertEquals(false, testOrder3.isCardPayment());
+		
+		assertEquals(false,testOrder4.makeCardPayment(20.0, testCard1));
+		assertEquals(false,testOrder4.isPaid());
+		assertEquals(false, testOrder4.isCardPayment());
+		
+		
 	}
 
-	@Test
-	public void testSetPaysWithCard() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testIsOrderedByCustomerWithMembership() {
