@@ -1,5 +1,8 @@
 package cs414.pos;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +21,8 @@ public class StoreTest {
 	String testLoginID1,testLoginID2,testLoginID3;
 	String testPassWord1,testPassWord2,testPassWord3;
 
-	
+	String menuName1, menuName2, menuDesc1, menuDesc2;
+	Item test_item1, test_item2;
 	@Before
 	public void setUp() throws Exception {
 		testStore1 = new Store();
@@ -45,10 +49,12 @@ public class StoreTest {
 		testStore4.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
 		testStore4.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);	
 		
-		
-
-		
-
+		menuName1 = "Menu1";
+		menuName2 = "Menu2";
+		menuDesc1 = "MenuDesc1";
+		menuDesc2 = "MenuDesc2";
+		Item test_item1 = new Item("item1", 10, "Test Item 1");
+		Item test_item2 = new Item("item2", 5, "Test Item 2");
 	}
 
 	@After
@@ -258,37 +264,86 @@ public class StoreTest {
 
 	@Test
 	public void testInitDefineMenu() {
-		fail("Not yet implemented");
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		assertFalse(testStore3.initDefineMenu(test_Employee1));
+		assertFalse(testStore3.initDefineMenu(test_Employee2));
+		assertTrue(testStore3.initDefineMenu(test_Employee3));
+		assertFalse(testStore4.initDefineMenu(test_Employee3));
 	}
 
 	@Test
 	public void testDefineMenu() {
-		fail("Not yet implemented");
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Menu m = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		assertEquals(menuName1, m.getMenuName());
+		assertEquals(menuDesc1, m.getMenuDescription());
+		assertNull(testStore3.defineMenu(test_Employee2, menuName1, menuDesc1));
+		assertNull(testStore3.defineMenu(test_Employee1, menuName1, menuDesc1));
 	}
 
 	@Test
 	public void testGetSetOfMenus() {
-		fail("Not yet implemented");
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		assertEquals(1, testStore3.getSetOfMenus().size());
+		testStore3.defineMenu(test_Employee3, menuName2, menuDesc2);
+		assertEquals(2, testStore3.getSetOfMenus().size());
 	}
 
 	@Test
 	public void testAuthorizeEditMenus() {
-		fail("Not yet implemented");
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+
+		testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		testStore3.defineMenu(test_Employee3, menuName2, menuDesc2);
+		assertNull(testStore3.authorizeEditMenus(test_Employee1));
+		assertNull(testStore3.authorizeEditMenus(test_Employee2));
+		assertEquals(2, testStore3.getSetOfMenus().size());
 	}
 
 	@Test
 	public void testEditMenu() {
-		fail("Not yet implemented");
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		m1.addItem(test_item1);
+		m1.addItem(test_item2);
+		assertTrue(testStore3.editMenu(test_Employee3, m1).contains(test_item1));
+		assertTrue(testStore3.editMenu(test_Employee3, m1).contains(test_item2));
 	}
 
 	@Test
 	public void testSetSpecial() {
-		fail("Not yet implemented");
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		m1.addItem(test_item1);
+		testStore3.setSpecial(test_Employee3, test_item1, 0.1);
+		assertTrue(test_item1.isSpecial());
+		
+		//TODO: to be determined...
+		//Not sure should I add this or not:
+		
+		/*testStore3.setSpecial(test_Employee3, test_item2, 0.2);
+		assertFalse(test_item2.isSpecial());
+		*/
 	}
 
 	@Test
 	public void testRemoveMenuItems() {
-		fail("Not yet implemented");
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		m1.addItem(test_item1);
+		m1.addItem(test_item2);
+		Set<Item> itemSet = new HashSet<Item>();
+		itemSet.add(test_item1);
+		testStore3.removeMenuItems(test_Employee3, m1, itemSet);
+		assertFalse(m1.getMenuItems().contains(test_item1));
+		assertTrue(m1.getMenuItems().contains(test_item2));
 	}
 
 	@Test

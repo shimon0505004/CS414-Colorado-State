@@ -304,6 +304,20 @@ public class Store implements Serializable {
     }
 
     /**
+     * 
+     * @param e
+     * @param menu
+     * @param name
+     * @param price
+     * @param desc
+     */
+    public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
+        if(e.getPrivilege().canEditMenu() && setOfMenus.contains(menu))
+            menu.addItem(new Item(name, price, desc));
+
+    }
+    
+    /**
      *
      * @param e
      * @param id
@@ -323,20 +337,6 @@ public class Store implements Serializable {
             setOfRegister.add(r);
             return r;
         } else return null;
-    }
-
-    /**
-     * 
-     * @param e
-     * @param menu
-     * @param name
-     * @param price
-     * @param desc
-     */
-    public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
-        if(e.getPrivilege().canEditMenu() && setOfMenus.contains(menu))
-            menu.addItem(new Item(name, price, desc));
-
     }
 
 	/**
