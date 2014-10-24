@@ -26,6 +26,12 @@ public class OrderTest {
 	
 	private Card testCard1,testCard2,testCard3;
 	
+	private Customer testCustomer1,testCustomer2,testCustomer3;
+	
+	private String testFirstName1,testFirstName2,testFirstName3;
+	private String testLastName1,testLastName2,testLastName3;
+	private String testPhoneNumber1,testPhoneNumber2,testPhoneNumber3;
+	
 	@Before
 	public void setUp() throws Exception {
 		testOrder1ID = 1;
@@ -95,9 +101,27 @@ public class OrderTest {
 		testEXPDate_2="AUG 2018"	;
 		testEXPDate_3="AUG 2010"	;
 		
+		testFirstName1 = "Shawon";
+		testFirstName2 = "Caleb";
+		testFirstName3 = "Nathan";
+
+		testLastName1 = "Arefin";
+		testLastName2 = "Tebbe";
+		testLastName3 = "LightHart";
+		
+		testPhoneNumber1 = "123-456-7890";
+		testPhoneNumber2 = "456-789-1230";
+		testPhoneNumber3 = "789-123-4560";
+
+		
 		testCard1 = new Card(testCardNumber1,testEXPDate_1,testCV2_1);
 		testCard2 = new Card(testCardNumber2,testEXPDate_2,testCV2_2);
 		
+		testCustomer1 = new Customer(testFirstName1,testLastName1,testPhoneNumber1);
+		testCustomer2 = new Customer(testFirstName2,testLastName2,testPhoneNumber2);
+		testCustomer3 = new Customer(testFirstName3,testLastName3,testPhoneNumber3);
+
+		testOrder1.updateMembershipHoldingCustomer(testCustomer1);
 	}
 
 	@After
@@ -350,7 +374,24 @@ public class OrderTest {
 
 	@Test
 	public void testUpdateMembershipHoldingCustomer() {
-		fail("Not yet implemented");
+		
+		assertEquals(testCustomer1,testOrder1.getCustomerWithMembership());
+		assertEquals(testCustomer1.getCustomerOrders().size(), 1);
+		assertEquals(testOrder1.getCustomerWithMembership().getCustomerOrders().size(),1);
+
+
+		assertEquals(testCustomer2.getCustomerOrders().size(), 0);
+		testOrder2.updateMembershipHoldingCustomer(testCustomer2);
+		assertEquals(testCustomer2.getCustomerOrders().size(), 1);
+		assertEquals(testOrder2.getCustomerWithMembership().getCustomerOrders().size(),1);
+	
+		testOrder1.updateMembershipHoldingCustomer(testCustomer2);
+
+		assertEquals(testCustomer2,testOrder1.getCustomerWithMembership());
+		assertEquals(testCustomer1.getCustomerOrders().size(), 0);
+		assertEquals(testOrder1.getCustomerWithMembership().getCustomerOrders().size(),2);
+
+		
 	}
 
 	@Test
@@ -468,15 +509,13 @@ public class OrderTest {
 
 	@Test
 	public void testGetCustomerWithMembership() {
-		assertEquals(null, testOrder1.getCustomerWithMembership());
-		assertEquals(null, testOrder2.getCustomerWithMembership());
+		assertEquals(testCustomer1, testOrder1.getCustomerWithMembership());
+		assertNotSame(testCustomer2, testOrder2.getCustomerWithMembership());
+		assertNotSame(testCustomer3, testOrder3.getCustomerWithMembership());
 
 	}
 
-	@Test
-	public void testSetCustomerWithMembership() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testGetDeliveryAddress() {
@@ -531,17 +570,21 @@ public class OrderTest {
 
 	@Test
 	public void testIsOrderedByCustomerWithMembership() {
-		assertEquals(false, testOrder1.isOrderedByCustomerWithMembership());
+		assertEquals(true, testOrder1.isOrderedByCustomerWithMembership());
 		assertEquals(false, testOrder2.isOrderedByCustomerWithMembership());
 		assertEquals(false, testOrder3.isOrderedByCustomerWithMembership());
 		assertEquals(false, testOrder4.isOrderedByCustomerWithMembership());
-
+		assertEquals(testCustomer1, testOrder1.getCustomerWithMembership());
+		assertEquals(testCustomer1.getCustomerOrders().size(), 1);
+		
+		assertEquals(testCustomer2.getCustomerOrders().size(), 0);
+		testOrder2.updateMembershipHoldingCustomer(testCustomer2);
+		assertEquals(testCustomer2.getCustomerOrders().size(), 1);
+		assertEquals(testOrder2.getCustomerWithMembership().getCustomerOrders().size(),1);
+		
+		
 	}
 
-	@Test
-	public void testSetOrderedByCustomerWithMembership() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetRewardPointGenerated() {

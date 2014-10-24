@@ -257,12 +257,25 @@ public class Order implements Serializable {
 	public boolean updateMembershipHoldingCustomer(Customer member){
 		if(member!=null)
 		{
-			setCustomerWithMembership(member);
-			setOrderedByCustomerWithMembership(true);
-			
+			removeMembershipHoldingCustomer();
+			if(member.addOrder(this)){
+				setCustomerWithMembership(member);
+				setOrderedByCustomerWithMembership(true);
+			}
 		}
+		
 		return isOrderedByCustomerWithMembership();
 	}
+	
+	public boolean removeMembershipHoldingCustomer(){
+			if(getCustomerWithMembership().removeOrder(this)){
+				setCustomerWithMembership(new Customer("", ""));
+				setOrderedByCustomerWithMembership(false);				
+			
+			}
+			return !isOrderedByCustomerWithMembership();
+	}
+	
 	
 	private void updateTotal(){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
@@ -436,7 +449,7 @@ public class Order implements Serializable {
 	/**
 	 * @param customerWithMembership the customerWithMembership to set
 	 */
-	public void setCustomerWithMembership(Customer customerWithMembership) {
+	private void setCustomerWithMembership(Customer customerWithMembership) {
 		this.customerWithMembership = customerWithMembership;
 	}
 
