@@ -24,7 +24,7 @@ public class Order implements Serializable {
 	private double amountReturned;
 	
 	private Set<OrderItem> setOfItems;
-	
+
 	private boolean isOrderedByCustomerWithMembership;
 	private Customer customerWithMembership;
 	
@@ -148,6 +148,21 @@ public class Order implements Serializable {
 		updateTotal();
 	}
 
+	public OrderItem getOrderItem(Item item){
+		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
+		boolean found=false;
+		while(iterOrderItem.hasNext())
+		{
+			OrderItem tempOrderItem = iterOrderItem.next();
+			if(tempOrderItem.getItem().equals(item)){
+				found = true;
+				return tempOrderItem;
+			}
+		}	
+		
+		return null;
+	}
+	
 	public boolean removeItemTotallyFromOrder(Item newItem){
 		Iterator<OrderItem> iterOrderItem = setOfItems.iterator();
 		boolean found=false;
@@ -403,7 +418,11 @@ public class Order implements Serializable {
 	 * @param deliveryAddress the deliveryAddress to set
 	 */
 	public void setDeliveryAddress(Address deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
+		if(deliveryAddress!=null){
+			this.deliveryAddress = deliveryAddress;			
+		}else{
+			this.deliveryAddress = new Address();			
+		}
 	}
 
 	/**
@@ -458,7 +477,7 @@ public class Order implements Serializable {
 	/**
 	 * @param isOrderedByCustomerWithMembership the isOrderedByCustomerWithMembership to set
 	 */
-	public void setOrderedByCustomerWithMembership(
+	private void setOrderedByCustomerWithMembership(
 			boolean isOrderedByCustomerWithMembership) {
 		this.isOrderedByCustomerWithMembership = isOrderedByCustomerWithMembership;
 	}
@@ -473,9 +492,11 @@ public class Order implements Serializable {
 	/**
 	 * @param rewardPointGenerated the rewardPointGenerated to set
 	 */
-	public void setRewardPointGenerated(int rewardPointGenerated) {
+	private void setRewardPointGenerated(int rewardPointGenerated) {
 		this.rewardPointGenerated = rewardPointGenerated;
 	}
 	
-	
+	public Set<OrderItem> getSetOfItems() {
+		return setOfItems;
+	}
 }
