@@ -1,15 +1,12 @@
 package cs414.pos.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 /**
  *
@@ -18,13 +15,9 @@ import javax.swing.JPanel;
 public class MainUI {
 	private UIController controller;
 	private JFrame frame;
-	private JMenuBar menuBar;
-	private JMenu fileMenu;
-	private JMenu helpMenu;
-	private JMenuItem editMenu;
-	private JMenuItem placeOrder;
-	private JMenuItem completeOrder;
-	private JMenuItem about;
+	private JButton editMenuButton;
+	private JButton placeOrderButton;
+	private JButton completeOrderButton;
 
 	public MainUI(UIController controller) {
 		this.controller = controller;
@@ -32,19 +25,16 @@ public class MainUI {
 
 	public void init() {
 		frame = new JFrame("Pizza Ordering System");
-		menuBar = new JMenuBar();
-		fileMenu = new JMenu("File");
-		helpMenu = new JMenu("Help");
-		editMenu = new JMenuItem("Edit Menu");
-		placeOrder = new JMenuItem("Place Order");
-		completeOrder = new JMenuItem("Complete Order");
-		about = new JMenuItem("About");
+		editMenuButton = new JButton("Edit Menu");
+		placeOrderButton = new JButton("Place Order");
+		completeOrderButton = new JButton("Complete Order");
 
 		layoutComponents();
 
 		addListeners();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(300, 300));
 		frame.pack();
 	}
 
@@ -52,48 +42,32 @@ public class MainUI {
 		frame.setVisible(visible);
 	}
 
-	public void setContent(JPanel panel) {
-		frame.add(panel, BorderLayout.CENTER);
-	}
-
 	private void layoutComponents() {
-		frame.setLayout(new BorderLayout());
+		GridLayout layout = new GridLayout(3, 1);
+		layout.setHgap(5);
+		layout.setVgap(5);
+		frame.setLayout(layout);
 
 		// Setup file menu
-		fileMenu.add(editMenu);
-		fileMenu.add(placeOrder);
-		fileMenu.add(completeOrder);
-		menuBar.add(fileMenu);
-
-		// setup help menu
-		helpMenu.add(about);
-		menuBar.add(helpMenu);
-
-		// finalize frame
-		frame.setJMenuBar(menuBar);
-		frame.setPreferredSize(new Dimension(800, 600));
+		frame.add(editMenuButton);
+		frame.add(placeOrderButton);
+		frame.add(completeOrderButton);
 	}
 
 	private void addListeners() {
-		editMenu.addActionListener(new ActionListener() {
+		editMenuButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
-		placeOrder.addActionListener(new ActionListener() {
+		placeOrderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
-		completeOrder.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
-			}
-		});
-		about.addActionListener(new ActionListener() {
+		completeOrderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				throw new UnsupportedOperationException("Not supported yet.");

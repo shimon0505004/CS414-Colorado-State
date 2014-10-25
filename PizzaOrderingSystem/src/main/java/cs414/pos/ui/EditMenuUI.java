@@ -1,10 +1,14 @@
 package cs414.pos.ui;
 
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -42,9 +46,9 @@ public class EditMenuUI {
 		menuComboBox = new JComboBox<>();
 		menuItemLabel = new JLabel("Menu Item:");
 		menuItemComboBox = new JComboBox<>();
-		name = new JTextField();
+		name = new JTextField(20);
 		priceLabel = new JLabel("Price:");
-		price = new JTextField();
+		price = new JTextField(20);
 		saveButton = new JButton("Save");
 		cancelButton = new JButton("Cancel");
 
@@ -53,13 +57,23 @@ public class EditMenuUI {
 		addListeners();
 
 		frame.pack();
-		frame.setResizable(false);
 		syncing = false;
 	}
 
 	public void setMenus(Iterable<String> menus) {
 		syncing = true;
+		setComboBoxItems(menuComboBox, menus);
+		syncing = false;
+	}
 
+	public void setMenuItems(Iterable<String> items) {
+		syncing = true;
+		setComboBoxItems(menuItemComboBox, items);
+		syncing = false;
+	}
+
+	public void setVisible(boolean visible) {
+		frame.setVisible(visible);
 	}
 
 	private void layoutComponents() {
@@ -136,6 +150,12 @@ public class EditMenuUI {
 	}
 
 	private void addListeners() {
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0); // temporary main menu should be shown.
+			}
+		});
 		menuComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -171,6 +191,21 @@ public class EditMenuUI {
 		for(String item : items) {
 			comboBox.addItem(item);
 		}
+	}
+
+	public static void main(String[] args) {
+		final UIController controller = new UIController();
+		final EditMenuUI view = new EditMenuUI(controller);
+
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				view.init();
+				view.setMenus(Arrays.asList(new String[]{"Test Menu"}));
+				view.setMenuItems(Arrays.asList(new String[]{"Test Item"}));
+				view.setVisible(true);
+			}
+		});
 	}
 
 }
