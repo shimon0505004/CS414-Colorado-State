@@ -4,7 +4,6 @@
 package cs414.pos;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Class that represents an Employee of the store.

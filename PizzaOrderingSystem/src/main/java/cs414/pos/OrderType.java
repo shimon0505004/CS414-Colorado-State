@@ -1,6 +1,8 @@
 package cs414.pos;
 
-public enum OrderType {
+import java.io.Serializable;
+
+public enum OrderType implements Serializable {
 	Inhouse,
 	TakeAway,
 	HomeDelivery

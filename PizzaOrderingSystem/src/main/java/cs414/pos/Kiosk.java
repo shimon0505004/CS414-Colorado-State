@@ -63,8 +63,11 @@ public class Kiosk implements Serializable {
 	public void setPizzaStore(Store pizzaStore) {
 		this.pizzaStore = pizzaStore;
 	}
-	
 
-	
+    @Override public boolean equals(Object o) {
+        if(o == this) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
 
+        return ((Kiosk) o).getKioskID() == this.getKioskID();
+    }
 }

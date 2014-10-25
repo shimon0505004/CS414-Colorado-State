@@ -1,6 +1,8 @@
 package cs414.pos;
 
-public class OrderItem {
+import java.io.Serializable;
+
+public class OrderItem implements Serializable {
 
 	private Item item;
 	private int quantity;

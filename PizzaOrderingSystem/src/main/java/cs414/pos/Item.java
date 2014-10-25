@@ -121,7 +121,7 @@ public class Item implements Serializable {
 	/**
 	 * @param specialPercentageOffPrice the specialPercentageOffPrice to set
 	 */
-	public void setSpecialPercentageOffPrice(double specialPercentageOffPrice) {
+	private void setSpecialPercentageOffPrice(double specialPercentageOffPrice) {
 		this.specialPercentageOffPrice = specialPercentageOffPrice;
 	}
 	

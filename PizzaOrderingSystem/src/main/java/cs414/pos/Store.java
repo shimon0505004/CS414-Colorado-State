@@ -288,7 +288,7 @@ public class Store implements Serializable {
      */
     public void setSpecial(Employee e, Item i, double percentOff) {
         if(e.getPrivilege().canEditMenu())
-            i.setSpecialPercentageOffPrice(percentOff);
+            i.setSpecial(percentOff);
     }
 
     /**

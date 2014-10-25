@@ -1,6 +1,8 @@
 package cs414.pos;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
 	private String cardNumber;
 	private String cardExpirationDate;
 	private String cv2;

@@ -64,4 +64,10 @@ public class Register implements Serializable {
 		this.pizzaStore = pizzaStore;
 	}
 
+    @Override public boolean equals(Object o) {
+        if(o == this) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+
+        return ((Register) o).getRegisterID() == this.getRegisterID();
+    }
 }
