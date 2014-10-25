@@ -299,8 +299,10 @@ public class Store implements Serializable {
      */
     public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
         if(e.getPrivilege().canEditMenu())
-            for(Item i : items)
+            for(Item i : items){
                 menu.deleteItem(i);
+                this.setOfItems.remove(i);
+            }
     }
 
     /**
@@ -312,9 +314,12 @@ public class Store implements Serializable {
      * @param desc
      */
     public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
-        if(e.getPrivilege().canEditMenu() && setOfMenus.contains(menu))
-            menu.addItem(new Item(name, price, desc));
-
+        if(e.getPrivilege().canEditMenu() && setOfMenus.contains(menu)){
+        	Item newItem = new Item(name, price, desc);
+            //menu.addItem(new Item(name, price, desc));
+            menu.addItem(newItem);
+        	this.setOfItems.add(newItem);
+        }
     }
     
     /**
@@ -368,6 +373,19 @@ public class Store implements Serializable {
 	}
 
 	/**
+	 * @param e
+	 * @param o
+	 * @return 
+	 */
+	public Order createOrder(Employee e, int orderID){
+		if(e.getPrivilege().canCreateOrder()){
+			Order newOrder = new Order(orderID);
+			setOfPlacedOrder.add(newOrder);
+			return newOrder;
+		}else return null;
+	}
+	
+	/**
 	 * @return the setOfPlacedOrder
 	 */
 	public Set<Order> getSetOfPlacedOrder() {
@@ -377,6 +395,7 @@ public class Store implements Serializable {
 	/**
 	 * @param setOfPlacedOrder the setOfPlacedOrder to set
 	 */
+	//TODO: privilege check?  And when do we need this?
 	public void setSetOfPlacedOrder(Set<Order> setOfPlacedOrder) {
 		this.setOfPlacedOrder = setOfPlacedOrder;
 	}
@@ -405,6 +424,7 @@ public class Store implements Serializable {
 	/**
 	 * @param setOfItems the setOfItems to set
 	 */
+	//TODO: privilege check? And when do we need this?
 	public void setSetOfItems(Set<Item> setOfItems) {
 		this.setOfItems = setOfItems;
 	}
