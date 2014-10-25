@@ -198,27 +198,30 @@ public class Customer implements Serializable {
 	
 	public boolean addOrder(Order order){
 		int previousSize = getCustomerOrders().size();
-		getCustomerOrders().add(order);
-		calculateCustomerRewardPoints();
-		if(previousSize == getCustomerOrders().size()-1){
-			return true;
+		if(getCustomerOrders().add(order)){
+			calculateCustomerRewardPoints();
+			if(previousSize == getCustomerOrders().size()-1){
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
-		else{
-			return false;
-		}
-			
+		else return false;
 	}
 	
 	public boolean removeOrder(Order order){
 		int previousSize = getCustomerOrders().size();
-		getCustomerOrders().remove(order);
-		calculateCustomerRewardPoints();
-		if(previousSize == getCustomerOrders().size()+1){
-			return true;
+		if(getCustomerOrders().remove(order)){
+			calculateCustomerRewardPoints();
+			if(previousSize == getCustomerOrders().size()+1){
+				return true;
+			}
+			else{
+				return false;
+			}		
 		}
-		else{
-			return false;
-		}		
+		else return false;
 	}
 	
 	private void calculateCustomerRewardPoints(){
