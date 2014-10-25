@@ -67,4 +67,21 @@ public enum Privilege {
 				return false;
 		}
 	}
+	
+
+	/**
+	 * Returns {@code true} if the privilege allows for adding an order.
+	 *
+	 * @return {@code true} if the privilege allows for adding an order,
+	 * otherwise returns {@code false}
+	 */
+	public boolean canCreateOrder(){
+		switch(this){
+		case Manager:
+		case Cashier:
+			return true;
+		default:
+			return false;
+		}
+	}
 }
