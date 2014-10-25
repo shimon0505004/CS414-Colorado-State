@@ -27,6 +27,8 @@ public class StoreTest {
 	Kiosk testKiosk1, testKiosk2;
 	Register testRegister1, testRegister2;
 	
+	Order testOrder1, testOrder2;
+	int testOrderID1, testOrderID2, testOrderID3;
 	@Before
 	public void setUp() throws Exception {
 		testStore1 = new Store();
@@ -64,6 +66,10 @@ public class StoreTest {
 		testKiosk2 = new Kiosk(2, testStore3);
 		testRegister1 = new Register(1, testStore3);
 		testRegister2 = new Register(2, testStore3);
+	
+		testOrderID1 = 1;
+		testOrderID2 = 2;
+		testOrderID3 = 3;
 	}
 
 	@After
@@ -350,6 +356,7 @@ public class StoreTest {
 		m1.addItem(test_item2);
 		Set<Item> itemSet = new HashSet<Item>();
 		itemSet.add(test_item1);
+		assertTrue(m1.getMenuItems().contains(test_item1));
 		testStore3.removeMenuItems(test_Employee3, m1, itemSet);
 		assertFalse(m1.getMenuItems().contains(test_item1));
 		assertTrue(m1.getMenuItems().contains(test_item2));
@@ -361,15 +368,15 @@ public class StoreTest {
 		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
 		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
-		assertEquals(0, testStore3.getSetOfMenus().size());
+		assertEquals(0, m1.getMenuItems().size());
 		testStore3.addMenuItem(test_Employee3, m1, "item1", 10, "test item 1");
-		assertEquals(1, testStore3.getSetOfMenus().size());
+		assertEquals(1, m1.getMenuItems().size());
 		testStore3.addMenuItem(test_Employee3, m1, "item2", 8, "test item 2");
-		assertEquals(2, testStore3.getSetOfMenus().size());
+		assertEquals(2, m1.getMenuItems().size());
 		testStore3.addMenuItem(test_Employee2, m1, "item3", 15, "test item 3");
-		assertEquals(2, testStore3.getSetOfMenus().size());
+		assertEquals(2, m1.getMenuItems().size());
 		testStore3.addMenuItem(test_Employee1, m1, "item4", 19, "test item 4");
-		assertEquals(2, testStore3.getSetOfMenus().size());
+		assertEquals(2, m1.getMenuItems().size());
 	}
 
 	@Test
@@ -443,26 +450,68 @@ public class StoreTest {
 		assertEquals(3, testStore3.getSetOfRegister().size());
 	}
 	
+	@Test
+	public void testCreateOrder(){
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Order newOrder1 = testStore3.createOrder(test_Employee1, testOrderID1);
+		Order newOrder2 = testStore3.createOrder(test_Employee2, testOrderID2);
+		Order newOrder3 = testStore3.createOrder(test_Employee3, testOrderID3);
+		assertEquals(testOrderID1, newOrder1.getOrderID());
+		assertNull(newOrder2);
+		assertEquals(testOrderID3, newOrder3.getOrderID());
+	}
 	
 	@Test
 	public void testGetSetOfPlacedOrder() {
-		fail("Not yet implemented");
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		assertEquals(0, testStore3.getSetOfPlacedOrder().size());
+		Order newOrder1 = testStore3.createOrder(test_Employee1, testOrderID1);
+		Order newOrder3 = testStore3.createOrder(test_Employee3, testOrderID3);
+		assertEquals(2, testStore3.getSetOfPlacedOrder().size());
+		assertTrue(testStore3.getSetOfPlacedOrder().contains(newOrder1));
+		assertTrue(testStore3.getSetOfPlacedOrder().contains(newOrder3));
 	}
 
 	@Test
 	public void testSetSetOfPlacedOrder() {
-		fail("Not yet implemented");
+		Order tempOrder1 = new Order(3);
+		Order tempOrder2 = new Order(4);
+		Set<Order> tempOrderSet = new HashSet<Order>();
+		tempOrderSet.add(tempOrder1);
+		tempOrderSet.add(tempOrder2);
+		assertEquals(0, testStore3.getSetOfPlacedOrder().size());
+		testStore3.setSetOfPlacedOrder(tempOrderSet);
+		assertEquals(2, testStore3.getSetOfPlacedOrder().size());
 	}
 
 
 	@Test
 	public void testGetSetOfItems() {
-		fail("Not yet implemented");
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
+		assertEquals(0, testStore3.getSetOfItems().size());
+		testStore3.addMenuItem(test_Employee3, m1, "item1", 10, "test item 1");
+		assertEquals(1, testStore3.getSetOfItems().size());
+		testStore3.addMenuItem(test_Employee3, m1, "item2", 8, "test item 2");
+		assertEquals(2, testStore3.getSetOfItems().size());
 	}
 
 	@Test
 	public void testSetSetOfItems() {
-		fail("Not yet implemented");
+		Set<Item> newItemSet = new HashSet<Item>();
+		newItemSet.add(test_item1);
+		newItemSet.add(test_item2);
+		/*
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		*/
+		assertEquals(0, testStore3.getSetOfItems().size());
+		testStore3.setSetOfItems(newItemSet);
+		assertEquals(2, testStore3.getSetOfItems().size());
 	}
 
 	@Test
