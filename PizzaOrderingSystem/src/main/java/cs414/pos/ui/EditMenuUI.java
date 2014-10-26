@@ -153,7 +153,7 @@ public class EditMenuUI {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0); // temporary main menu should be shown.
+				System.exit(0); // temporary cancel action should be done
 			}
 		});
 		menuComboBox.addActionListener(new ActionListener() {
