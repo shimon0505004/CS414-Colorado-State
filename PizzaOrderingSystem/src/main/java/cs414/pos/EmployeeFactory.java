@@ -33,26 +33,26 @@ public class EmployeeFactory implements IEmployeeFactory, Serializable {
 
 	@Override
 	public Employee createManager(String name) {
-		return new Employee(name, Privilege.Manager);
+		return new Employee(name, Role.Manager);
 	}
 
 	@Override
 	public Employee createCashier(String name) {
-		return new Employee(name, Privilege.Cashier);
+		return new Employee(name, Role.Cashier);
 	}
 
 	@Override
 	public Employee createChef(String name) {
-		return new Employee(name, Privilege.Chef);
+		return new Employee(name, Role.Chef);
 	}
 
 	@Override
 	public Employee createEmployee(String name, String privilege) {
-		return new Employee(name, Privilege.valueOf(privilege));
+		return new Employee(name, Role.valueOf(privilege));
 	}
 
     @Override
-    public Employee createEmployee(String name, Privilege privilege) {
-        return new Employee(name, privilege);
+    public Employee createEmployee(String name, Role role) {
+        return new Employee(name, role);
     }
 }

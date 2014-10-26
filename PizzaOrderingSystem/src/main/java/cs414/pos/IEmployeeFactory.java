@@ -12,17 +12,17 @@ public interface IEmployeeFactory {
 	 * @param name the name of the employee
 	 * @param privilege the privilege
 	 * @return the created employee
-	 * @see Privilege#valueOf(java.lang.String)
+	 * @see Role#valueOf(java.lang.String)
 	 */
 	public Employee createEmployee(String name, String privilege);
 
     /**
      *
      * @param name
-     * @param privilege
+     * @param role
      * @return
      */
-    public Employee createEmployee(String name, Privilege privilege);
+    public Employee createEmployee(String name, Role role);
 
 	/**
 	 * Creates an employee that is a Manager.

@@ -15,9 +15,9 @@ public class Main {
             String f = "testSave.ser";
             Store s = new Store();
 
-            Employee manager = s.addEmployee("bob", "bob", "pw_bob", Privilege.Manager);
-            Employee chef = s.addEmployee("billy", "billy", "pw_billy", Privilege.Chef);
-            Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Privilege.Cashier);
+            Employee manager = s.addEmployee("bob", "bob", "pw_bob", Role.Manager);
+            Employee chef = s.addEmployee("billy", "billy", "pw_billy", Role.Chef);
+            Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Role.Cashier);
 
             Kiosk k = s.addKiosk(manager, 1);
             Register r = s.addRegister(manager, 1);

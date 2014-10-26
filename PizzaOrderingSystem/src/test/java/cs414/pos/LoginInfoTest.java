@@ -31,9 +31,9 @@ public class LoginInfoTest {
 		testName1 = "NAME1";
 		testName2 = "NAME2";
 		testName3 = "NAME3";		
-		testEmployee1 = new Employee(testName1, Privilege.Manager);
-		testEmployee2 = new Employee(testName2, Privilege.Cashier);
-		testEmployee3 = new Employee(testName3, Privilege.Chef);
+		testEmployee1 = new Employee(testName1, Role.Manager);
+		testEmployee2 = new Employee(testName2, Role.Cashier);
+		testEmployee3 = new Employee(testName3, Role.Chef);
 	
 		testLoginInfo1.setLoginEmployee(testEmployee1);
 	}

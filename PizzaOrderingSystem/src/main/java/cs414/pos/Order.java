@@ -309,7 +309,7 @@ public class Order implements Serializable {
 
 	public boolean setCompletedByEmployee(Employee completedBy) {
 		if(completedBy!=null){
-			if(completedBy.getPrivilege().equals(Privilege.Chef)){
+			if(completedBy.getRole().equals(Role.Chef)){
 				//then order can be completed;
 				setCompletedBy(completedBy);
 				setComplete(true);

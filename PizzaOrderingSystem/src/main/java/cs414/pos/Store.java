@@ -165,8 +165,8 @@ public class Store implements Serializable {
 	 * @param password
 	 * @return
 	 */
-	public Employee addEmployee(String name, String loginID, String password, Privilege privilege) {
-		Employee newEmployee = employeeFactory.createEmployee(name, privilege);
+	public Employee addEmployee(String name, String loginID, String password, Role role) {
+		Employee newEmployee = employeeFactory.createEmployee(name, role);
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
 		newEmployee.setWorksForStore(this);
@@ -185,9 +185,9 @@ public class Store implements Serializable {
 	 */
 	public String addEmployee(String name, String loginID, String password,int option) {
 		Employee newEmployee;
-		if(option == Privilege.Chef.ordinal()){
+		if(option == Role.Chef.ordinal()){
 			newEmployee = employeeFactory.createChef(name);
-		}else if(option == Privilege.Manager.ordinal()){
+		}else if(option == Role.Manager.ordinal()){
 			newEmployee = employeeFactory.createManager(name);			
 		}else{
 			newEmployee = employeeFactory.createCashier(name);
@@ -229,7 +229,7 @@ public class Store implements Serializable {
 	 */
 	
     public boolean initDefineMenu(Employee e) {
-        if(e.getPrivilege().canEditMenu())
+        if(e.getRole().canEditMenu())
             return true;
         else return false;
     }
@@ -243,7 +243,7 @@ public class Store implements Serializable {
      */
     
     public Menu defineMenu(Employee e, String name, String desc) {
-        if(e.getPrivilege().canEditMenu()) {
+        if(e.getRole().canEditMenu()) {
             Menu m = new Menu(name, desc);
             setOfMenus.add(m);
             return m;
@@ -263,7 +263,7 @@ public class Store implements Serializable {
      * @return
      */
     public Set<Menu> authorizeEditMenus(Employee e) { //initDeleteMenu
-        if(e.getPrivilege().canEditMenu())
+        if(e.getRole().canEditMenu())
             return getSetOfMenus();
         else return null;
     }
@@ -275,7 +275,7 @@ public class Store implements Serializable {
      * @return
      */
     public Set<Item> editMenu(Employee e, Menu menu) {
-        if(e.getPrivilege().canEditMenu())
+        if(e.getRole().canEditMenu())
             return menu.getMenuItems();
         else return null;
     }
@@ -287,7 +287,7 @@ public class Store implements Serializable {
      * @param percentOff
      */
     public void setSpecial(Employee e, Item i, double percentOff) {
-        if(e.getPrivilege().canEditMenu())
+        if(e.getRole().canEditMenu())
             i.setSpecial(percentOff);
     }
 
@@ -298,7 +298,7 @@ public class Store implements Serializable {
      * @param items
      */
     public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
-        if(e.getPrivilege().canEditMenu())
+        if(e.getRole().canEditMenu())
             for(Item i : items){
                 menu.deleteItem(i);
                 this.setOfItems.remove(i);
@@ -314,7 +314,7 @@ public class Store implements Serializable {
      * @param desc
      */
     public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
-        if(e.getPrivilege().canEditMenu() && setOfMenus.contains(menu)){
+        if(e.getRole().canEditMenu() && setOfMenus.contains(menu)){
         	Item newItem = new Item(name, price, desc);
             //menu.addItem(new Item(name, price, desc));
             menu.addItem(newItem);
@@ -329,7 +329,7 @@ public class Store implements Serializable {
      * @return
      */
     public Kiosk addKiosk(Employee e, int id) {
-        if(e.getPrivilege().canEditMenu()) {
+        if(e.getRole().canEditMenu()) {
             Kiosk k = new Kiosk(id, this);
             setOfKiosk.add(k);
             return k;
@@ -337,7 +337,7 @@ public class Store implements Serializable {
     }
 
     public Register addRegister(Employee e, int id) {
-        if(e.getPrivilege().canEditMenu()) {
+        if(e.getRole().canEditMenu()) {
             Register r = new Register(id, this);
             setOfRegister.add(r);
             return r;
@@ -378,7 +378,7 @@ public class Store implements Serializable {
 	 * @return 
 	 */
 	public Order createOrder(Employee e, int orderID){
-		if(e.getPrivilege().canCreateOrder()){
+		if(e.getRole().canCreateOrder()){
 			Order newOrder = new Order(orderID);
 			setOfPlacedOrder.add(newOrder);
 			return newOrder;

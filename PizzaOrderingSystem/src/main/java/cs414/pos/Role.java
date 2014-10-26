@@ -8,7 +8,7 @@ package cs414.pos;
  *
  * @author Nathan Lighthart
  */
-public enum Privilege {
+public enum Role {
 	/**
 	 * Manager privileges. Can edit menu and use kiosk.
 	 */

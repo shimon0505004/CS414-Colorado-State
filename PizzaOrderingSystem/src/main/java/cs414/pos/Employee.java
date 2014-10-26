@@ -14,15 +14,15 @@ public class Employee implements Serializable {
 	private String employeeID;
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
-	private Privilege privilege;
+	private Role role;
 	private Store worksForStore;
 
 	private static int employeeCounter=1;
 	public final int objectID ;
 	
-	public Employee(String name, Privilege privilege) {
+	public Employee(String name, Role role) {
 		setEmployeeName(name);
-		setPrivilege(privilege);
+		setRole(role);
 		
 		this.objectID = employeeCounter++;
 		
@@ -113,20 +113,20 @@ public class Employee implements Serializable {
 	 *
 	 * @return the privileges that this employee has
 	 */
-	public Privilege getPrivilege() {
-		return privilege;
+	public Role getRole() {
+		return role;
 	}
 
 	/**
 	 * Sets the privilege of the employee.
 	 *
-	 * @param privilege the new privilege of the employee
+	 * @param role the new privilege of the employee
 	 */
-	public void setPrivilege(Privilege privilege) {
-		if(privilege == null) {
-			privilege = Privilege.Cashier;
+	public void setRole(Role role) {
+		if(role == null) {
+			role = Role.Cashier;
 		}
-		this.privilege = privilege;
+		this.role = role;
 	}
 
 	/**

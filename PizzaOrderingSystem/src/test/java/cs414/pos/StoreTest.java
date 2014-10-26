@@ -42,7 +42,7 @@ public class StoreTest {
 		testStore4 = new Store("PizzaStore4","206-953-5584","Stuart St.");		
 
 
-		testStore4.addEmployee("Shimon", "skshimon", "uda", Privilege.Cashier);
+		testStore4.addEmployee("Shimon", "skshimon", "uda", Role.Cashier);
 
 		testName1 = "Shimon";
 		testLoginID1 = "skshimon";
@@ -56,9 +56,9 @@ public class StoreTest {
 		testLoginID3 = "nlightHart";
 		testPassWord3 = "nli";
 		
-		testStore4.addEmployee(testName1, testLoginID1, testPassWord1,Privilege.Cashier);	
-		testStore4.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		testStore4.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);	
+		testStore4.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		testStore4.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		testStore4.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		
 		menuName1 = "Menu1";
 		menuName2 = "Menu2";
@@ -67,7 +67,7 @@ public class StoreTest {
 		test_item1 = new Item("item1", 10, "Test Item 1");
 		test_item2 = new Item("item2", 5, "Test Item 2");
 
-        Employee e3 = testStore3.addEmployee("c", "c", "pw", Privilege.Manager);
+        Employee e3 = testStore3.addEmployee("c", "c", "pw", Role.Manager);
         testStore3.addKiosk(e3, 1);
         testStore3.addKiosk(e3, 2);
         testStore3.addRegister(e3, 1);
@@ -85,7 +85,7 @@ public class StoreTest {
     @Test public void basicSerializeTest() throws IOException, ClassNotFoundException {
         String f = "testSave.ser";
         Store s = new Store();
-        Employee manager = s.addEmployee("bob", "bob", "pw_bob", Privilege.Manager);
+        Employee manager = s.addEmployee("bob", "bob", "pw_bob", Role.Manager);
 
         Menu m0 = s.defineMenu(manager, "menu0", "menu0_desc");
         s.addMenuItem(manager, m0, "pizza0", 5.0, "cheesy");
@@ -205,11 +205,11 @@ public class StoreTest {
 	public void testAddEmployee() {
 
 		assertEquals(1, testStore3.getEmployeeSet().size());
-		Employee testEmployee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1,Privilege.Cashier);	
+		Employee testEmployee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
 		assertEquals(2, testStore3.getEmployeeSet().size());
-		Employee testEmployee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Cashier);	
+		Employee testEmployee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Cashier);
 		assertEquals(3, testStore3.getEmployeeSet().size());
-		Employee testEmployee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Cashier);	
+		Employee testEmployee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Cashier);
 		assertEquals(4, testStore3.getEmployeeSet().size());
 		
 		String test_Employee1 = testEmployee1.getEmployeeID();
@@ -232,9 +232,9 @@ public class StoreTest {
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 
-		assertEquals(Privilege.Cashier,testStore3.getEmployee(test_Employee1).getPrivilege());
-		assertEquals(Privilege.Cashier,testStore3.getEmployee(test_Employee2).getPrivilege());
-		assertEquals(Privilege.Cashier,testStore3.getEmployee(test_Employee3).getPrivilege());
+		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee1).getRole());
+		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee2).getRole());
+		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee3).getRole());
 	}
 
 	@Test
@@ -264,9 +264,9 @@ public class StoreTest {
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 
-		assertEquals(Privilege.Manager,testStore3.getEmployee(test_Employee1).getPrivilege());
-		assertEquals(Privilege.Cashier,testStore3.getEmployee(test_Employee2).getPrivilege());
-		assertEquals(Privilege.Chef,testStore3.getEmployee(test_Employee3).getPrivilege());
+		assertEquals(Role.Manager,testStore3.getEmployee(test_Employee1).getRole());
+		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee2).getRole());
+		assertEquals(Role.Chef,testStore3.getEmployee(test_Employee3).getRole());
 
 	}
 	
@@ -301,9 +301,9 @@ public class StoreTest {
 
 	@Test
 	public void testInitDefineMenu() {
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertFalse(testStore3.initDefineMenu(test_Employee1));
 		assertFalse(testStore3.initDefineMenu(test_Employee2));
 		assertTrue(testStore3.initDefineMenu(test_Employee3));
@@ -312,9 +312,9 @@ public class StoreTest {
 
 	@Test
 	public void testDefineMenu() {
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Menu m = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		assertEquals(menuName1, m.getMenuName());
 		assertEquals(menuDesc1, m.getMenuDescription());
@@ -324,7 +324,7 @@ public class StoreTest {
 
 	@Test
 	public void testGetSetOfMenus() {
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		assertEquals(1, testStore3.getSetOfMenus().size());
 		testStore3.defineMenu(test_Employee3, menuName2, menuDesc2);
@@ -333,9 +333,9 @@ public class StoreTest {
 
 	@Test
 	public void testAuthorizeEditMenus() {
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 
 		testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		testStore3.defineMenu(test_Employee3, menuName2, menuDesc2);
@@ -346,7 +346,7 @@ public class StoreTest {
 
 	@Test
 	public void testEditMenu() {
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		m1.addItem(test_item1);
 		m1.addItem(test_item2);
@@ -356,7 +356,7 @@ public class StoreTest {
 
 	@Test
 	public void testSetSpecial() {
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		m1.addItem(test_item1);
 		testStore3.setSpecial(test_Employee3, test_item1, 0.1);
@@ -372,7 +372,7 @@ public class StoreTest {
 
 	@Test
 	public void testRemoveMenuItems() {
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		m1.addItem(test_item1);
 		m1.addItem(test_item2);
@@ -386,9 +386,9 @@ public class StoreTest {
 
 	@Test
 	public void testAddMenuItem() {
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		assertEquals(0, m1.getMenuItems().size());
 		testStore3.addMenuItem(test_Employee3, m1, "item1", 10, "test item 1");
@@ -424,9 +424,9 @@ public class StoreTest {
 	
 	@Test
 	public void testAddKiosk(){
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertEquals(2, testStore3.getSetOfKiosk().size());
 		testStore3.addKiosk(test_Employee1, 3);
 		assertEquals(2, testStore3.getSetOfKiosk().size());
@@ -460,9 +460,9 @@ public class StoreTest {
 
 	@Test
 	public void testAddRegister(){
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertEquals(2, testStore3.getSetOfRegister().size());
 		testStore3.addRegister(test_Employee1, 3);
 		assertEquals(2, testStore3.getSetOfRegister().size());
@@ -474,9 +474,9 @@ public class StoreTest {
 	
 	@Test
 	public void testCreateOrder(){
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Order newOrder1 = testStore3.createOrder(test_Employee1, testOrderID1);
 		Order newOrder2 = testStore3.createOrder(test_Employee2, testOrderID2);
 		Order newOrder3 = testStore3.createOrder(test_Employee3, testOrderID3);
@@ -487,8 +487,8 @@ public class StoreTest {
 	
 	@Test
 	public void testGetSetOfPlacedOrder() {
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertEquals(0, testStore3.getSetOfPlacedOrder().size());
 		Order newOrder1 = testStore3.createOrder(test_Employee1, testOrderID1);
 		Order newOrder3 = testStore3.createOrder(test_Employee3, testOrderID3);
@@ -512,7 +512,7 @@ public class StoreTest {
 
 	@Test
 	public void testGetSetOfItems() {
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Menu m1 = testStore3.defineMenu(test_Employee3, menuName1, menuDesc1);
 		assertEquals(0, testStore3.getSetOfItems().size());
 		testStore3.addMenuItem(test_Employee3, m1, "item1", 10, "test item 1");

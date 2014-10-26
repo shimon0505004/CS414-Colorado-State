@@ -22,9 +22,9 @@ public class EmployeeTest {
 		testName1 = "NAME1";
 		testName2 = "NAME2";
 		testName3 = "NAME3";		
-		testEmployee1 = new Employee(testName1, Privilege.Manager);
-		testEmployee2 = new Employee(testName2, Privilege.Cashier);
-		testEmployee3 = new Employee(testName3, Privilege.Chef);
+		testEmployee1 = new Employee(testName1, Role.Manager);
+		testEmployee2 = new Employee(testName2, Role.Cashier);
+		testEmployee3 = new Employee(testName3, Role.Chef);
 		
 
 		testLoginID1 = "skshimon";
@@ -90,15 +90,15 @@ public class EmployeeTest {
 
 	@Test
 	public void testGetPrivilege() {
-		assertEquals(Privilege.Manager, testEmployee1.getPrivilege());
-		assertEquals(Privilege.Cashier, testEmployee2.getPrivilege());
-		assertEquals(Privilege.Chef, testEmployee3.getPrivilege());
+		assertEquals(Role.Manager, testEmployee1.getRole());
+		assertEquals(Role.Cashier, testEmployee2.getRole());
+		assertEquals(Role.Chef, testEmployee3.getRole());
 	}
 
 	@Test
 	public void testSetPrivilege() {
-		testEmployee1.setPrivilege(Privilege.Cashier);
-		assertEquals(Privilege.Cashier, testEmployee1.getPrivilege());
+		testEmployee1.setRole(Role.Cashier);
+		assertEquals(Role.Cashier, testEmployee1.getRole());
 	}
 
 	@Test

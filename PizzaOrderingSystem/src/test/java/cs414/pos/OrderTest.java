@@ -81,9 +81,9 @@ public class OrderTest {
 		employee2Name = "testCashier";
 		employee3Name = "testChef";
 
-		testEmployee1 = new Employee(employee1Name, Privilege.Manager);
-		testEmployee2 = new Employee(employee1Name, Privilege.Cashier);		
-		testEmployee3 = new Employee(employee1Name, Privilege.Chef);
+		testEmployee1 = new Employee(employee1Name, Role.Manager);
+		testEmployee2 = new Employee(employee1Name, Role.Cashier);
+		testEmployee3 = new Employee(employee1Name, Role.Chef);
 		
 		testPayment1=34.5	;
 		testPayment2=45.2	;
