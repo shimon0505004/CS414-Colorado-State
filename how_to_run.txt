@@ -1,0 +1,14 @@
+All our system's functionality can be accessed through the Store class.
+
+To create a new POS, one can create a new instance of Store or load a serialized version from a previous state.
+By using this Store instance we can do the following: 
+    create a new Employee using addEmployee() 
+    login an existing Employee using loginAttempt
+    define a new menu using defineMenu()
+    edit an existing menu using editMenu()
+    set a special to an existing Menu using setSpecial()
+    remove menu items from existing Menu
+    add an item to an existing Menu using addMenuItem()
+    add kiosks or registers to our store using addKiosk() and addRegister() respectively
+    create an Order using createOrder()
+    add a new Customer member using addNewMember()
