@@ -3,7 +3,7 @@
  */
 package cs414.pos;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -328,6 +328,23 @@ public class Store implements Serializable {
 			menu.addItem(newItem);
 			this.setOfItems.add(newItem);
 		}
+	}
+
+	public void addMenuItem(Employee e, String name, double price, String desc) {
+		if(e.getRole().canEditMenu()) {
+			Item newItem = new Item(name, price, desc);
+			this.setOfItems.add(newItem);
+		}
+	}
+
+	public void deleteMenuItem(Employee e, Item item) {
+		if(!e.getRole().canEditMenu()) {
+			return;
+		}
+		for(Menu m : setOfMenus) {
+			m.deleteItem(item);
+		}
+		setOfItems.remove(item);
 	}
 
 	/**

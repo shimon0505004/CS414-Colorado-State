@@ -51,10 +51,10 @@ public class LoginUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
 	}
 
 	public void setVisible(boolean visible) {
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(visible);
 	}
 

@@ -18,6 +18,7 @@ import java.util.Set;
 public class UIController {
 	private LoginUI loginView;
 	private MainUI mainView;
+	private EditMenuItemUI editMenuItemView;
 	private EditMenuUI editMenuView;
 	private PlaceOrderUI placeOrderView;
 	private CompleteOrderUI completeOrderView;
@@ -35,6 +36,7 @@ public class UIController {
 	public void start() {
 		loginView = new LoginUI(this);
 		mainView = new MainUI(this);
+		editMenuItemView = new EditMenuItemUI(this);
 		editMenuView = new EditMenuUI(this);
 		placeOrderView = new PlaceOrderUI(this);
 		completeOrderView = new CompleteOrderUI(this);
@@ -44,6 +46,7 @@ public class UIController {
 			public void run() {
 				loginView.init();
 				mainView.init();
+				editMenuItemView.init();
 				editMenuView.init();
 				placeOrderView.init();
 				completeOrderView.init();
@@ -73,8 +76,14 @@ public class UIController {
 
 	public void displayEditMenu() {
 		mainView.setVisible(false);
-		editMenuView.setMenus(getMenus());
+		editMenuView.updateMenus();
 		editMenuView.setVisible(true);
+	}
+
+	public void displayEditMenuItem() {
+		mainView.setVisible(false);
+		editMenuItemView.updateItems();
+		editMenuItemView.setVisible(true);
 	}
 
 	public void displayPlaceOrder() {
@@ -114,8 +123,49 @@ public class UIController {
 		return true;
 	}
 
+	public boolean createMenuItem(String itemName, String itemDescription, double price) {
+		if(!isValidMenuItemName(itemName)) {
+			return false;
+		}
+		store.addMenuItem(currentEmployee, itemName, price, itemDescription);
+		return true;
+	}
+
+	public void deleteMenuItem(String itemName) {
+		Item item = getSelectedItem(itemName);
+		store.deleteMenuItem(currentEmployee, item);
+	}
+
+	public boolean changeMenuItemName(String itemName, String newName) {
+		if(!isValidMenuItemName(newName)) {
+			return false;
+		}
+		Item item = getSelectedItem(itemName);
+		item.setItemName(newName);
+		return true;
+	}
+
+	public void changeMenuItemDescription(String itemName, String itemDescription) {
+		Item item = getSelectedItem(itemName);
+		item.setItemDescription(itemDescription);
+	}
+
+	public void changeMenuItemSpecial(String itemName) {
+		Item item = getSelectedItem(itemName);
+		if(item.isSpecial()) {
+			item.removeSpecial();
+		} else {
+			item.setSpecial();
+		}
+	}
+
 	public void closeEditMenu() {
 		editMenuView.setVisible(false);
+		mainView.setVisible(true);
+	}
+
+	public void closeEditMenuItem() {
+		editMenuItemView.setVisible(false);
 		mainView.setVisible(true);
 	}
 
@@ -210,10 +260,18 @@ public class UIController {
 	}
 
 	private String getItemString(Item item) {
-		return item.getItemName() + " : " + item.getItemDescription() + " $" + item.getCurrentPrice();
+		String s = item.getItemName() + " : " + item.getItemDescription() + " $" + roundToTwo(item.getCurrentPrice());
+		if(item.isSpecial()) {
+			s += " [Special]";
+		}
+		return s;
 	}
 
-	public boolean isValidMenuName(String name) {
+	private double roundToTwo(double d) {
+		return Math.round(d * 100.0) / 100.0;
+	}
+
+	private boolean isValidMenuName(String name) {
 		if(name == null || name.trim().isEmpty()) {
 			return false;
 		}
@@ -226,7 +284,7 @@ public class UIController {
 		return true;
 	}
 
-	public boolean isValidMenuItemName(String name) {
+	private boolean isValidMenuItemName(String name) {
 		if(name == null || name.trim().isEmpty() || name.contains(":")) {
 			return false;
 		}

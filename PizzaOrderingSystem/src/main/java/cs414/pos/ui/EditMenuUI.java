@@ -219,6 +219,13 @@ public class EditMenuUI {
 			public void run() {
 				view.init();
 				view.setVisible(true);
+				view.frame.removeWindowListener(view.frame.getWindowListeners()[0]);
+				view.frame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						System.exit(0);
+					}
+				});
 			}
 		});
 	}
