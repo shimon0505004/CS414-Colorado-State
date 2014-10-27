@@ -51,6 +51,7 @@ public class LoginUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 	}
 
 	public void setVisible(boolean visible) {
@@ -133,7 +134,13 @@ public class LoginUI {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.login(username.getText(), new String(password.getPassword()));
+			}
+		});
+		password.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.login(username.getText(), new String(password.getPassword()));
 			}
 		});
 	}

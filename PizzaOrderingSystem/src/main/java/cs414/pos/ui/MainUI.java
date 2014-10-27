@@ -36,10 +36,23 @@ public class MainUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(300, 300));
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 	}
 
 	public void setVisible(boolean visible) {
 		frame.setVisible(visible);
+	}
+
+	public void setCanEditMenu(boolean canEditMenu) {
+		editMenuButton.setEnabled(canEditMenu);
+	}
+
+	public void setCanPlaceOrder(boolean canPlaceOrder) {
+		placeOrderButton.setEnabled(canPlaceOrder);
+	}
+
+	public void setCanCompleteOrder(boolean canCompleteOrder) {
+		completeOrderButton.setEnabled(canCompleteOrder);
 	}
 
 	private void layoutComponents() {
@@ -58,19 +71,19 @@ public class MainUI {
 		editMenuButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.displayEditMenu();
 			}
 		});
 		placeOrderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.displayPlaceOrder();
 			}
 		});
 		completeOrderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.displayCompleteOrder();
 			}
 		});
 	}

@@ -118,10 +118,9 @@ public class Store implements Serializable {
 	 * @param storeName the storeName to set
 	 */
 	public void setStoreName(String storeName) {
-		if(storeName!=null){
+		if(storeName != null) {
 			this.storeName = storeName;
-		}
-		else{
+		} else {
 			this.storeName = "";
 		}
 	}
@@ -137,9 +136,9 @@ public class Store implements Serializable {
 	 * @param phoneNumber the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
-		if(phoneNumber!=null){
-			this.phoneNumber = phoneNumber;			
-		}else{
+		if(phoneNumber != null) {
+			this.phoneNumber = phoneNumber;
+		} else {
 			this.phoneNumber = "";
 		}
 	}
@@ -175,7 +174,7 @@ public class Store implements Serializable {
 		employeeSet.add(newEmployee);
 		return newEmployee;
 	}
-	
+
 	/**
 	 *
 	 * @param name
@@ -183,16 +182,16 @@ public class Store implements Serializable {
 	 * @param password
 	 * @return
 	 */
-	public String addEmployee(String name, String loginID, String password,int option) {
+	public String addEmployee(String name, String loginID, String password, int option) {
 		Employee newEmployee;
-		if(option == Role.Chef.ordinal()){
+		if(option == Role.Chef.ordinal()) {
 			newEmployee = employeeFactory.createChef(name);
-		}else if(option == Role.Manager.ordinal()){
-			newEmployee = employeeFactory.createManager(name);			
-		}else{
+		} else if(option == Role.Manager.ordinal()) {
+			newEmployee = employeeFactory.createManager(name);
+		} else {
 			newEmployee = employeeFactory.createCashier(name);
 		}
-	
+
 		String employeeID = newEmployee.getEmployeeID();
 
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
@@ -203,146 +202,159 @@ public class Store implements Serializable {
 		employeeSet.add(newEmployee);
 		return employeeID;
 	}
-	
-	
+
 	/**
 	 *
 	 * @param loginID
 	 * @param password
-	 * @return
+	 * @return the Employee that matches the loginID and password other returns
+	 * null.
 	 */
-	public boolean loginAttempt(String loginID, String password) {
+	public Employee loginAttempt(String loginID, String password) {
 		Iterator<Employee> iterEmployee = employeeSet.iterator();
-		boolean returnVal = false;
-		while(iterEmployee.hasNext() && !returnVal) {
+		while(iterEmployee.hasNext()) {
 			Employee testEmployee = iterEmployee.next();
-			returnVal = testEmployee.matchLoginInfo(loginID, password);
+			if(testEmployee.matchLoginInfo(loginID, password)) {
+				return testEmployee;
+			}
 		}
-
-		return returnVal;
+		return null;
 	}
 
-    /**
-	 * 
+	/**
+	 *
 	 * @param e
 	 * @return
 	 */
-	
-    public boolean initDefineMenu(Employee e) {
-        if(e.getRole().canEditMenu())
-            return true;
-        else return false;
-    }
+	public boolean initDefineMenu(Employee e) {
+		if(e.getRole().canEditMenu()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    /**
-     * 
-     * @param e
-     * @param name
-     * @param desc
-     * @return
-     */
-    
-    public Menu defineMenu(Employee e, String name, String desc) {
-        if(e.getRole().canEditMenu()) {
-            Menu m = new Menu(name, desc);
-            setOfMenus.add(m);
-            return m;
-        }
-        else return null;
-    }
+	/**
+	 *
+	 * @param e
+	 * @param name
+	 * @param desc
+	 * @return
+	 */
+	public Menu defineMenu(Employee e, String name, String desc) {
+		if(e.getRole().canEditMenu()) {
+			Menu m = new Menu(name, desc);
+			setOfMenus.add(m);
+			return m;
+		} else {
+			return null;
+		}
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public Set<Menu> getSetOfMenus() { return this.setOfMenus; }
-    
-    /**
-     * 
-     * @param e
-     * @return
-     */
-    public Set<Menu> authorizeEditMenus(Employee e) { //initDeleteMenu
-        if(e.getRole().canEditMenu())
-            return getSetOfMenus();
-        else return null;
-    }
-    
-    /**
-     * 
-     * @param e
-     * @param menu
-     * @return
-     */
-    public Set<Item> editMenu(Employee e, Menu menu) {
-        if(e.getRole().canEditMenu())
-            return menu.getMenuItems();
-        else return null;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public Set<Menu> getSetOfMenus() {
+		return this.setOfMenus;
+	}
 
-    /**
-     * 
-     * @param e
-     * @param i
-     * @param percentOff
-     */
-    public void setSpecial(Employee e, Item i, double percentOff) {
-        if(e.getRole().canEditMenu())
-            i.setSpecial(percentOff);
-    }
+	/**
+	 *
+	 * @param e
+	 * @return
+	 */
+	public Set<Menu> authorizeEditMenus(Employee e) { //initDeleteMenu
+		if(e.getRole().canEditMenu()) {
+			return getSetOfMenus();
+		} else {
+			return null;
+		}
+	}
 
-    /**
-     * 
-     * @param e
-     * @param menu
-     * @param items
-     */
-    public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
-        if(e.getRole().canEditMenu())
-            for(Item i : items){
-                menu.deleteItem(i);
-                this.setOfItems.remove(i);
-            }
-    }
+	/**
+	 *
+	 * @param e
+	 * @param menu
+	 * @return
+	 */
+	public Set<Item> editMenu(Employee e, Menu menu) {
+		if(e.getRole().canEditMenu()) {
+			return menu.getMenuItems();
+		} else {
+			return null;
+		}
+	}
 
-    /**
-     * 
-     * @param e
-     * @param menu
-     * @param name
-     * @param price
-     * @param desc
-     */
-    public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
-        if(e.getRole().canEditMenu() && setOfMenus.contains(menu)){
-        	Item newItem = new Item(name, price, desc);
-            //menu.addItem(new Item(name, price, desc));
-            menu.addItem(newItem);
-        	this.setOfItems.add(newItem);
-        }
-    }
-    
-    /**
-     *
-     * @param e
-     * @param id
-     * @return
-     */
-    public Kiosk addKiosk(Employee e, int id) {
-        if(e.getRole().canEditMenu()) {
-            Kiosk k = new Kiosk(id, this);
-            setOfKiosk.add(k);
-            return k;
-        } else return null;
-    }
+	/**
+	 *
+	 * @param e
+	 * @param i
+	 * @param percentOff
+	 */
+	public void setSpecial(Employee e, Item i, double percentOff) {
+		if(e.getRole().canEditMenu()) {
+			i.setSpecial(percentOff);
+		}
+	}
 
-    public Register addRegister(Employee e, int id) {
-        if(e.getRole().canEditMenu()) {
-            Register r = new Register(id, this);
-            setOfRegister.add(r);
-            return r;
-        } else return null;
-    }
+	/**
+	 *
+	 * @param e
+	 * @param menu
+	 * @param items
+	 */
+	public void removeMenuItems(Employee e, Menu menu, Set<Item> items) {
+		if(e.getRole().canEditMenu()) {
+			for(Item i : items) {
+				menu.deleteItem(i);
+				this.setOfItems.remove(i);
+			}
+		}
+	}
+
+	/**
+	 *
+	 * @param e
+	 * @param menu
+	 * @param name
+	 * @param price
+	 * @param desc
+	 */
+	public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
+		if(e.getRole().canEditMenu() && setOfMenus.contains(menu)) {
+			Item newItem = new Item(name, price, desc);
+			//menu.addItem(new Item(name, price, desc));
+			menu.addItem(newItem);
+			this.setOfItems.add(newItem);
+		}
+	}
+
+	/**
+	 *
+	 * @param e
+	 * @param id
+	 * @return
+	 */
+	public Kiosk addKiosk(Employee e, int id) {
+		if(e.getRole().canEditMenu()) {
+			Kiosk k = new Kiosk(id, this);
+			setOfKiosk.add(k);
+			return k;
+		} else {
+			return null;
+		}
+	}
+
+	public Register addRegister(Employee e, int id) {
+		if(e.getRole().canEditMenu()) {
+			Register r = new Register(id, this);
+			setOfRegister.add(r);
+			return r;
+		} else {
+			return null;
+		}
+	}
 
 	/**
 	 * @return the setOfKiosk
@@ -375,16 +387,18 @@ public class Store implements Serializable {
 	/**
 	 * @param e
 	 * @param o
-	 * @return 
+	 * @return
 	 */
-	public Order createOrder(Employee e, int orderID){
-		if(e.getRole().canCreateOrder()){
+	public Order createOrder(Employee e, int orderID) {
+		if(e.getRole().canCreateOrder()) {
 			Order newOrder = new Order(orderID);
 			setOfPlacedOrder.add(newOrder);
 			return newOrder;
-		}else return null;
+		} else {
+			return null;
+		}
 	}
-	
+
 	/**
 	 * @return the setOfPlacedOrder
 	 */
@@ -429,14 +443,12 @@ public class Store implements Serializable {
 		this.setOfItems = setOfItems;
 	}
 
-	
-	public Employee getEmployee(String employeeID){
-		if(employeeID==null){
-			return null;			
-		}
-		else{
-			for(Employee e:getEmployeeSet()){
-				if(e.getEmployeeID().equals(employeeID)){
+	public Employee getEmployee(String employeeID) {
+		if(employeeID == null) {
+			return null;
+		} else {
+			for(Employee e : getEmployeeSet()) {
+				if(e.getEmployeeID().equals(employeeID)) {
 					return e;
 				}
 			}
@@ -444,25 +456,24 @@ public class Store implements Serializable {
 		}
 
 	}
-	
-	public Customer getMember(String customerID){
-		if(customerID==null){
+
+	public Customer getMember(String customerID) {
+		if(customerID == null) {
 			return null;
-		}
-		else{
-			for(Customer c:getMembers()){
-				if(c.getMemberShipNumber().equals(customerID)){
+		} else {
+			for(Customer c : getMembers()) {
+				if(c.getMemberShipNumber().equals(customerID)) {
 					return c;
 				}
 			}
 			return null;
 		}
 	}
-	
-	public Customer addNewMember(String firstName,String LastName,String customerPhoneNumber){
-		Customer newCustomer = new Customer(firstName,LastName,customerPhoneNumber);
+
+	public Customer addNewMember(String firstName, String LastName, String customerPhoneNumber) {
+		Customer newCustomer = new Customer(firstName, LastName, customerPhoneNumber);
 		getMembers().add(newCustomer);
-		
+
 		return newCustomer;
 	}
 }
