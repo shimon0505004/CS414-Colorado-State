@@ -50,9 +50,9 @@ System Test Plan
 
 			b. The system should present an unsuccessful message for the fourth adding employee case, which indicates the employee ID already exists.
 
-			c. The system should keep the employee information recorded in a single file.
+			c. The system should keep the employee information recorded in a single file "employee_info".
 
-		2.2.5 Cleanup: No need. Tester will use the test employees created doing the following tests.
+		2.2.5 Cleanup: Tester should logout the administrator account. 
 
 	2.3 Edit employee
 
@@ -76,7 +76,7 @@ System Test Plan
 
 			b. The name of employee with ID 002 is "Peter".
 
-			c. The changes should also be applied to the recorded file.
+			c. The changes should also be applied to the file "employee_info".
 
 		2.3.5 Cleanup:
 
@@ -126,7 +126,7 @@ System Test Plan
 
 		2.5.3 Instructions:
 
-			Step 1: Tester login to the system as manager, which is the one created with ID 001, name: Shimon, password: shimon001.
+			Step 1: Tester login to the system as manager, which is the one created with ID 001, password: shimon001.
 
 			Step 2: Tester enters the UI for adding menu.
 
@@ -144,4 +144,66 @@ System Test Plan
 
 			b. The system will present an error message at the third create menu attempt, indicating that name "Pizza Menu" already exists.
 
+			c. The system should keep the menu information recorded in a single file "menu_info".
+
 		2.5.5 Cleanup: Tester should logout the current account.
+
+	2.6 Add menu item
+
+		2.6.1 Testing object: System, UI module
+
+		2.6.2 Importance: High
+
+		2.6.3 Instructions:
+
+			Step 1: Tester login to the system as manager, which is the one created with ID 001, password: shimon001.
+
+			Step 2: Tester enters the UI for adding menu item.
+
+			Step 3: Tester try to create the following menu items sequentially:
+
+				a. Name: "Cheese Pizza"; Description: "Pizza with cheese"; Price: 5;
+
+				b. Name: "Pepperoni Pizza"; Description: "Pizza with pepperoni"; Price: 6;
+
+				c. Name: "Cheese Pizza"; Description: "Another pizza with cheese"; Price: 6;
+
+		2.6.4 Expected result:
+
+			a. There will be two menus in the system: "Cheese Pizza" and "Pepperoni Pizza". 
+
+			b. The system will present an error message at the third create menu item attempt, indicating that name "Cheese Pizza" already exists.
+
+			c. The system should keep the item information recorded in the file "menu_info".
+
+		2.6.5 Cleanup: Tester should logout the current account.
+
+	2.7 Customer in-house order with cash:
+
+		2.7.1 Testing object: System, UI module.
+
+		2.7.2 Importance: High.
+
+		2.7.3 Instructions:
+
+			Step 1: Tester login to the system as cashier, which is the one created with ID 002, password: nathan002.
+
+			Step 2: Tester enters the UI for creating an order.
+
+			Step 3: Tester creates an order by the following information:
+
+				a. Order item: Cheese Pizza
+
+				b. Quantity: 1
+
+				c. Order type: in-house
+
+			Step 4: Tester enters $10 in the "received cash"
+
+		2.7.4 Expected result:
+
+			a. After Step 3, the system should switch to checkout UI.
+
+			b. After Step 4, the system should present $5 as "change" on the screen.
+
+	2.8 Customer home delivery order
