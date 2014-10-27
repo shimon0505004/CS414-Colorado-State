@@ -18,7 +18,7 @@ public class StoreTest {
 
 	Store testStore1 , testStore2, testStore3, testStore4;
 	
-	Employee testEmployee1,testEmployee2,testEmployee3;
+	Employee testEmployee1_store4,testEmployee2_store4,testEmployee3_store4;
 	String testName1,testName2,testName3;
 		
 
@@ -56,9 +56,9 @@ public class StoreTest {
 		testLoginID3 = "nlightHart";
 		testPassWord3 = "nli";
 		
-		testStore4.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
-		testStore4.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
-		testStore4.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
+		testEmployee1_store4 = testStore4.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
+		testEmployee2_store4 = testStore4.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
+		testEmployee3_store4 = testStore4.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		
 		menuName1 = "Menu1";
 		menuName2 = "Menu2";
@@ -293,9 +293,9 @@ public class StoreTest {
 
 	@Test
 	public void testLoginAttempt() {
-		assertTrue(testStore4.loginAttempt(testLoginID1, testPassWord1));
-		assertFalse(testStore4.loginAttempt(testLoginID1, testPassWord2));
-		assertFalse(testStore3.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(testStore4.loginAttempt(testLoginID1, testPassWord1),testEmployee1_store4);
+		assertNotSame(testStore4.loginAttempt(testLoginID1, testPassWord2),testEmployee1_store4);
+		assertNotSame(testStore3.loginAttempt(testLoginID1, testPassWord2),testEmployee1_store4);
 
 	}
 
