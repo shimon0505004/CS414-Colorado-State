@@ -88,9 +88,9 @@ public class MainUI {
 		});
 	}
 
+	// Used to view the interface with nothing working
 	public static void main(String[] args) {
-		final UIController controller = new UIController();
-		final MainUI view = new MainUI(controller);
+		final MainUI view = new MainUI(null);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
