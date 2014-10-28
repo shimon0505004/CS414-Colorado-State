@@ -401,6 +401,13 @@ public class Store implements Serializable {
 		this.setOfRegister = setOfRegister;
 	}
 
+	/**
+	 * This method only creates an order for that store via that register
+	 * until method placeOrder() is not called, the created order is not stored
+	 * for the store
+	 * @param orderToBeSaved
+	 * @return
+	 */
 	
 
 	public Order createOrderViaRegister(Employee e, int registerID) {
@@ -410,7 +417,7 @@ public class Store implements Serializable {
 			int orderID = getSetOfPlacedOrder().size()+1;
 			Order createdOrder = register.createOrder(e, orderID);
 			if(createdOrder!=null){
-				getSetOfPlacedOrder().add(createdOrder);
+				//getSetOfPlacedOrder().add(createdOrder);
 				return createdOrder;
 			}
 			else{
@@ -421,6 +428,13 @@ public class Store implements Serializable {
 		}
 	}
 
+	/**
+	 * This method only creates an order for that store via that register
+	 * until method placeOrder() is not called, the created order is not stored
+	 * for the store
+	 * @param orderToBeSaved
+	 * @return
+	 */
 	public Order createOrderViaKiosk(int kioskID) {
 		Kiosk kiosk = getKiosk(kioskID);
 		if(kiosk!=null)
@@ -428,7 +442,7 @@ public class Store implements Serializable {
 			int orderID = getSetOfPlacedOrder().size()+1;
 			Order createdOrder = kiosk.createOrder(orderID);
 			if(createdOrder!=null){
-				getSetOfPlacedOrder().add(createdOrder);
+				//getSetOfPlacedOrder().add(createdOrder);
 				return createdOrder;
 			}
 			else{
@@ -439,6 +453,21 @@ public class Store implements Serializable {
 		}
 	}
 	
+	/**
+	 * This method actually places the order. If this 
+	 * method is not called, the order is not saved.
+	 * @param orderToBeSaved
+	 * @return
+	 */
+	public boolean placeOrder(Order orderToBeSaved){
+		if(orderToBeSaved != null){
+			return getSetOfPlacedOrder().add(orderToBeSaved);			
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	
 	private Register getRegister(int registerID){
