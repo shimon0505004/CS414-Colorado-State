@@ -146,7 +146,7 @@ System Test Plan
 
 			c. The system should keep the menu information recorded in a single file "menu_info".
 
-		2.5.5 Cleanup: Tester should logout the current account.
+		2.5.5 Cleanup: Tester logout the current account.
 
 	2.6 Add menu item
 
@@ -158,9 +158,11 @@ System Test Plan
 
 			Step 1: Tester login to the system as manager, which is the one created with ID 001, password: shimon001.
 
-			Step 2: Tester enters the UI for adding menu item.
+			Step 2: Tester enters the UI for menu "Pizza Menu".
 
-			Step 3: Tester try to create the following menu items sequentially:
+			Step 3: Tester enters the UI for adding menu item.
+
+			Step 4: Tester try to create the following menu items sequentially:
 
 				a. Name: "Cheese Pizza"; Description: "Pizza with cheese"; Price: 5;
 
@@ -170,21 +172,118 @@ System Test Plan
 
 		2.6.4 Expected result:
 
-			a. There will be two menus in the system: "Cheese Pizza" and "Pepperoni Pizza". 
+			a. There will be two menu items in under "Pizza Menu": "Cheese Pizza" and "Pepperoni Pizza". 
 
 			b. The system will present an error message at the third create menu item attempt, indicating that name "Cheese Pizza" already exists.
 
 			c. The system should keep the item information recorded in the file "menu_info".
 
-		2.6.5 Cleanup: Tester should logout the current account.
+		2.6.5 Cleanup: Tester logout the current account.
 
-	2.7 Customer in-house order with cash:
+	2.7 Edit menu
 
-		2.7.1 Testing object: System, UI module.
+		2.7.1 Testing object: System, UI module
 
-		2.7.2 Importance: High.
+		2.7.2 Importance: Medium
 
 		2.7.3 Instructions:
+
+			Step 1: Tester login to the system as manager, which is the one created with ID 001, password: shimon001.
+
+			Step 2: Tester enters the "Edit menu" UI.
+
+			Step 3: Tester edits "Pizza Menu":
+
+				a. Name: "New Pizza Menu"
+
+				b. Description: "New Pizza Menu"
+
+			Step 4: Tester edits "Drink Menu":
+
+				a. Name: "New Pizza Menu"
+
+				b. Description: "Another menu"
+
+		2.7.4 Expected result:
+
+			a. In Step 2, the system will present all menus: "Pizza Menu" and "Drink Menu".
+
+			b. The system will present an error message indicating that "New Pizza Menu" already exists.
+
+			c. The system will have menus "New Pizza Menu" and "Drink Menu".
+
+			d. The changes should also be applied to the file "menu_info".
+
+
+		2.7.5 Cleanup:
+
+			a. Tester edit the "New Pizza Menu" back to:
+
+				Name: "Pizza Menu"; 
+
+				Description: "Menu for Pizza"
+
+			b. Tester logout the current account.
+
+	2.8 Edit menu item
+
+		2.8.1 Testing object: System, UI module.
+
+		2.8.2 Importance: Medium.
+
+		2.8.3 Instructions:
+
+			Step 1: Tester login to the system , which is the one created with ID 001, password: shimon001.
+
+			Step 2: Tester enters the UI for menu "Pizza Menu".
+
+			Step 3: Tester enters the "edit menu item" UI.
+
+			Step 4: Tester edit the menu item "Cheese Pizza":
+
+				a. Name: "New Cheese Pizza"
+
+				b. Price: 10
+
+				c. Description: "A new kind of cheese pizza"
+
+			Step 5: Tester edit the menu item "Pepperoni Pizza":
+
+				a. Name: "New Cheese Pizza"
+
+				b. Price: 9
+
+				c. Description: "Another kind of cheese pizza"
+
+		2.8.4 Expected result:
+
+			a. After Step 3, the system will present all menu items under "Pizza menu", which are "Cheese Pizza" and "Pepperoni Pizza".
+
+			b. After Step 4, the "Cheese Pizza" is changed to "New Cheese Pizza" with price 10$ and new description as well.
+
+			c. In Step 5, the system will present an error message indicating that the name "New Cheese Pizza" already exists.
+
+			d. The changes should also be applied to the file "menu_info".
+
+		2.8.5 Cleanup:
+
+			a. Tester edits "New Cheese Pizza" backto:
+
+				Name: "Cheese Pizza"; 
+
+				Price: 5;
+
+				Description: "Pizza with cheese"; 
+
+			b. Tester logout the current account.
+
+	2.9 Customer in-house order with cash:
+
+		2.9.1 Testing object: System, UI module.
+
+		2.9.2 Importance: High.
+
+		2.9.3 Instructions:
 
 			Step 1: Tester login to the system as cashier, which is the one created with ID 002, password: nathan002.
 
@@ -192,18 +291,164 @@ System Test Plan
 
 			Step 3: Tester creates an order by the following information:
 
-				a. Order item: Cheese Pizza
+				a. Order type: in-house
 
-				b. Quantity: 1
+				b. Order item: Cheese Pizza
 
-				c. Order type: in-house
+				c. Quantity: 1
 
 			Step 4: Tester enters $10 in the "received cash"
 
-		2.7.4 Expected result:
+		2.9.4 Expected result:
 
 			a. After Step 3, the system should switch to checkout UI.
 
-			b. After Step 4, the system should present $5 as "change" on the screen.
+			b. After Step 4, the system should present $5 as "change" on the screen and mark the order as "paid".
 
-	2.8 Customer home delivery order
+			c. The system contains an order with order ID 001.
+
+		2.9.5 Cleanup: Tester logout current account.
+
+	2.10 Customer home delivery order
+
+		2.10.1 Testing object: System, UI module.
+
+		2.10.2 Importance: High
+
+		2.10.3 Instructions:
+
+			Step 1: Tester login to the system as cashier, which is the one created with ID 002, password: nathan002.
+
+			Step 2: Tester enters the UI for creating an order.
+
+			Step 3: Tester creates an order by the following information:
+
+				a. Order type: home-delivery
+
+				b. Order item: Cheese Pizza
+
+				c. Quantity: 1
+
+				d. Address: "100 Laural St, Apt 123"
+
+			Step 4: Tester enters the credit card information:
+
+				a. Card Number: 8888 8888 8888 8888
+
+				b. Exp Date: 01/2018
+
+				c. CVN: 123
+
+		2.10.4 Expected result:
+
+			a. After Step 3, the system should switch to check-out UI.
+
+			b. After Step 4, the system should mark the order as "paid".
+
+			c. The system contains an order with ID 002.
+
+		2.10.5 Cleanup: Tester logout current account.
+
+	2.11 Chef marks order to complete
+
+		2.11.1 Testing object: System, UI module
+
+		2.11.2 Importance: Medium
+
+		2.11.3 Instructions:
+
+			Step 1: Tester login to the system as chef, which is the one created with ID 003, password: caleb003.
+
+			Step 2: Tester enters complete order UI.
+
+			Step 3: Tester marks the order ID 001 as complete.
+
+		2.11.4 Expected result:
+
+			a. After Step 2, tester should be able to see all incompleted orders, i.e. orders with ID 001 and 002.
+
+			b. After Step 3, The status of order with ID 001 is "completed".
+
+		2.11.5 Cleanup: Tester logout current account.
+
+	2.12 Delete menu items:
+
+		2.12.1 Testing object: System, UI module
+
+		2.12.2 Importance: Medium
+
+		2.12.3 Instructions:
+
+			Step 1: Tester login to the system as manager, which is the one created with ID 001, password: shimon001.
+
+			Step 2: Tester enters "Pizza Menu" UI.
+
+			Step 3: Tester enters "Delete menu items" UI.
+
+			Step 4: Tester deletes "Cheese Pizza" and "Pepperoni Pizza".
+
+		2.12.4 Expected result:
+
+			a. In Step 3, the system should present all menu items under "Pizza Menu", i.e. "Cheese Pizza" and "Pepperoni Pizza".
+
+			b. After Step 4, the "Pizza Menu" will contain no menu items.
+
+			c. The changes should also be applied to the file "menu_info".
+
+		2.12.5 Cleanup: Tester logout current account.
+
+	2.13 Delete menus.
+
+		2.13.1 Testing object: System, UI module.
+
+		2.13.2 Importance: Medium
+
+		2.13.3 Instructions:
+
+			Step 1: Tester login to the system as manager, which is the one created with ID 001, password: shimon001.
+
+			Step 2: Tester enters "Delete Menus" UI.
+
+			Step 3: Tester deletes "Pizza Menu" and "Drink Menu"
+
+		2.13.4 Expected result:
+
+			a. In Step 2, the system should present all menus, i.e. "Pizza Menu" and "Drink Menu".
+
+			b. After Step 3, the system contains no menus.
+
+			c. The changes should also be applied to the file "menu_info".
+
+		2.13.5 Clean up: Tester logout current account.
+
+	2.14 Delete Employees
+
+		2.14.1 Testing object: System, UI module.
+
+		2.14.2 Importance: Medium
+
+		2.14.3 Instructions:
+
+			Step 1: Tester login to the system as administrator.
+
+			Step 2: Tester enters "Delete Employee" UI.
+
+			Step 3: Tester deletes employees with ID 001, 002, 003.
+
+		2.14.4 Expected result:
+
+			a. In Step 2, the system should present all employees:
+
+				Name: Shimon; Role: Manager; ID: 001; Password: shimon001;
+
+				Name: Nathan; Role: Cashier; ID: 002; Password: nathan002;
+
+				Name: Caleb; Role: Chef; ID: 003; Password: caleb003;
+
+			b. After Step 3, there is no employees in the system.
+
+			c. The changes should also be applied to the file "employee_info".
+
+		2.14.5 Cleanup: Tester logout the current account.
+
+3. Final cleanup: After all 14 manual sequential tests. The system will be as same as the initial. 
