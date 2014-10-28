@@ -21,6 +21,12 @@ public class CustomerTest {
 	Address testAddress1 ;
 	Address testAddress2 ;
 	
+	private Order testOrder1,testOrder2,testOrder3,testOrder4;
+	private int testOrder1ID,testOrder2ID,testOrder3ID,testOrder4ID;
+	
+	private Item testItem1,testItem2,testItem3,testItem4;
+	private double testItem1_price,testItem2_price,testItem3_price,testItem4_price;
+	
 	@Before
 	public void setUp() throws Exception {
 		firstName1 = "F1";
@@ -39,6 +45,35 @@ public class CustomerTest {
 		testAddress2 = new Address("123 mason street", AddressType.Home);
 		
 		testCustomer1.addNewAddress(testAddress1);
+		
+		
+		
+		testOrder1ID = 1;
+		testOrder2ID = 2;
+		testOrder3ID = 3;
+		testOrder4ID = 4;
+		
+		testOrder1 = new Order(testOrder1ID);
+		testOrder2 = new Order(testOrder2ID);
+		testOrder3 = new Order(testOrder3ID);
+		testOrder4 = new Order(testOrder4ID);
+				
+		testItem1_price= 1.23;
+		testItem2_price= 2.23;
+		testItem3_price= 5.10;
+		testItem4_price= 8.12;
+
+		testItem1 = new Item("ALaMonde", testItem1_price,"a");
+		testItem2 = new Item("Burgers", testItem2_price,"b");
+		testItem3 = new Item("Pizza",testItem3_price,"c");
+		testItem4 = new Item("Burito", testItem4_price,"d");
+		
+		testOrder3.addItemToOrder(testItem3);
+		testOrder4.addItemToOrder(testItem3);
+		testOrder4.addItemToOrder(testItem4);
+		testOrder4.addItemToOrderByAmount(testItem2, 4);
+		
+		
 	}
 
 	@After
@@ -160,12 +195,60 @@ public class CustomerTest {
 
 	@Test
 	public void testAddOrder() {
-		fail("Not yet implemented");
+		assertEquals(0,testCustomer1.getCustomerOrders().size());
+		assertEquals(true,testCustomer1.addOrder(testOrder1) );
+		assertEquals(1,testCustomer1.getCustomerOrders().size());
+		assertEquals(true,testCustomer1.getCustomerOrders().contains(testOrder1));
+		
+		
+
+		assertEquals(0,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.addOrder(testOrder2) );
+		assertEquals(1,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.getCustomerOrders().contains(testOrder2));
+		assertEquals(true,testCustomer2.addOrder(testOrder3) );
+		assertEquals(2,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.getCustomerOrders().contains(testOrder3));
+		assertEquals(true,testCustomer2.addOrder(testOrder4) );
+		assertEquals(3,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.getCustomerOrders().contains(testOrder4));
+
+	
 	}
 
 	@Test
 	public void testRemoveOrder() {
-		fail("Not yet implemented");
+		assertEquals(0,testCustomer1.getCustomerOrders().size());
+		assertEquals(true,testCustomer1.addOrder(testOrder1) );
+		assertEquals(1,testCustomer1.getCustomerOrders().size());
+		assertEquals(true,testCustomer1.getCustomerOrders().contains(testOrder1));
+		assertEquals(0,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.addOrder(testOrder2) );
+		assertEquals(1,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.getCustomerOrders().contains(testOrder2));
+		assertEquals(true,testCustomer2.addOrder(testOrder3) );
+		assertEquals(2,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.getCustomerOrders().contains(testOrder3));
+		assertEquals(true,testCustomer2.addOrder(testOrder4) );
+		assertEquals(3,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.getCustomerOrders().contains(testOrder4));
+
+		assertEquals(true,testCustomer1.removeOrder(testOrder1) );
+		assertEquals(0,testCustomer1.getCustomerOrders().size());
+		assertEquals(false,testCustomer1.removeOrder(testOrder1) );
+		assertEquals(0,testCustomer1.getCustomerOrders().size());
+
+		assertEquals(true,testCustomer2.removeOrder(testOrder2) );
+		assertEquals(2,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.removeOrder(testOrder3) );
+		assertEquals(1,testCustomer2.getCustomerOrders().size());
+		assertEquals(true,testCustomer2.removeOrder(testOrder4) );
+		assertEquals(0,testCustomer2.getCustomerOrders().size());
+
+		assertEquals(false,testCustomer2.removeOrder(testOrder4) );
+		assertEquals(0,testCustomer1.getCustomerOrders().size());
+		
+		
 	}
 
 }
