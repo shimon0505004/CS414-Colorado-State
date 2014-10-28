@@ -536,14 +536,4 @@ public class StoreTest {
 		assertEquals(2, testStore3.getSetOfItems().size());
 	}
 
-	@Test
-	public void testSaveState() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testOpenState() {
-		fail("Not yet implemented");
-	}
-
 }
