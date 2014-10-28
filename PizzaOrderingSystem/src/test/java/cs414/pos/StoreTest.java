@@ -476,40 +476,37 @@ public class StoreTest {
 		assertTrue(testStore4.getSetOfRegister().contains(tempRegister2));	
 	}
 
+
 	@Test
-	public void testAddRegister(){
+	public void testCreateOrderViaRegister(){
 		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
 		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
-		assertEquals(2, testStore3.getSetOfRegister().size());
-		testStore3.addRegister(test_Employee1, 3);
-		assertEquals(2, testStore3.getSetOfRegister().size());
-		testStore3.addRegister(test_Employee2, 4);
-		assertEquals(2, testStore3.getSetOfRegister().size());
-		testStore3.addRegister(test_Employee3, 5);
-		assertEquals(3, testStore3.getSetOfRegister().size());
+		Order newOrder1 = testStore3.createOrderViaRegister(test_Employee1, testRegister1.getRegisterID());
+		assertEquals(testStore3.getSetOfPlacedOrder().size(), newOrder1.getOrderID());
+		Order newOrder2 = testStore3.createOrderViaRegister(test_Employee2, testRegister2.getRegisterID());
+		assertNull(newOrder2);
+		Order newOrder3 = testStore3.createOrderViaRegister(test_Employee3, testRegister2.getRegisterID());
+		assertEquals(testStore3.getSetOfPlacedOrder().size(), newOrder3.getOrderID());
+
 	}
 	
+	
 	@Test
-	public void testCreateOrder(){
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
-		Order newOrder1 = testStore3.createOrder(test_Employee1, testOrderID1);
-		Order newOrder2 = testStore3.createOrder(test_Employee2, testOrderID2);
-		Order newOrder3 = testStore3.createOrder(test_Employee3, testOrderID3);
-		assertEquals(testOrderID1, newOrder1.getOrderID());
-		assertNull(newOrder2);
-		assertEquals(testOrderID3, newOrder3.getOrderID());
+	public void testCreateOrderViaKiosk(){
+		Order newOrder1 = testStore3.createOrderViaKiosk(testKiosk1.getKioskID());
+		assertEquals(newOrder1.getOrderID(), testStore3.getSetOfPlacedOrder().size());
+		Order newOrder2 = testStore3.createOrderViaKiosk(testKiosk2.getKioskID());
+		assertEquals(newOrder2.getOrderID(), testStore3.getSetOfPlacedOrder().size());		
 	}
+	
 	
 	@Test
 	public void testGetSetOfPlacedOrder() {
 		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertEquals(0, testStore3.getSetOfPlacedOrder().size());
-		Order newOrder1 = testStore3.createOrder(test_Employee1, testOrderID1);
-		Order newOrder3 = testStore3.createOrder(test_Employee3, testOrderID3);
+		Order newOrder1 = testStore3.createOrderViaRegister(test_Employee1, testRegister1.getRegisterID());
+		Order newOrder3 = testStore3.createOrderViaKiosk(testKiosk1.getKioskID());
 		assertEquals(2, testStore3.getSetOfPlacedOrder().size());
 		assertTrue(testStore3.getSetOfPlacedOrder().contains(newOrder1));
 		assertTrue(testStore3.getSetOfPlacedOrder().contains(newOrder3));

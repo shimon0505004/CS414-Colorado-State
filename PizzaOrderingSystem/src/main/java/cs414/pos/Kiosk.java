@@ -70,4 +70,24 @@ public class Kiosk implements Serializable {
 
         return ((Kiosk) o).getKioskID() == this.getKioskID();
     }
+    
+    
+    /**
+	 * @param e
+	 * @param o
+	 * @return
+	 */
+	public Order createOrder(int orderID) {
+		if(getPizzaStore()!=null){
+				Order newOrder = new Order(orderID);
+				getPizzaStore().getSetOfPlacedOrder().add(newOrder);
+				return newOrder;
+		}
+		else{
+			return null;
+		}
+	}
+
+    
+    
 }

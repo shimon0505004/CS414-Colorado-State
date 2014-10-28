@@ -384,21 +384,72 @@ public class Store implements Serializable {
 		this.setOfRegister = setOfRegister;
 	}
 
-	/**
-	 * @param e
-	 * @param o
-	 * @return
-	 */
-	public Order createOrder(Employee e, int orderID) {
-		if(e.getRole().canCreateOrder()) {
-			Order newOrder = new Order(orderID);
-			setOfPlacedOrder.add(newOrder);
-			return newOrder;
-		} else {
+	
+
+	public Order createOrderViaRegister(Employee e, int registerID) {
+		Register register = getRegister(registerID);
+		if(register!=null)
+		{
+			int orderID = getSetOfPlacedOrder().size()+1;
+			Order createdOrder = register.createOrder(e, orderID);
+			if(createdOrder!=null){
+				getSetOfPlacedOrder().add(createdOrder);
+				return createdOrder;
+			}
+			else{
+				return null;
+			}
+		}else{
 			return null;
 		}
 	}
 
+	public Order createOrderViaKiosk(int kioskID) {
+		Kiosk kiosk = getKiosk(kioskID);
+		if(kiosk!=null)
+		{
+			int orderID = getSetOfPlacedOrder().size()+1;
+			Order createdOrder = kiosk.createOrder(orderID);
+			if(createdOrder!=null){
+				getSetOfPlacedOrder().add(createdOrder);
+				return createdOrder;
+			}
+			else{
+				return null;
+			}
+		}else{
+			return null;
+		}
+	}
+	
+	
+	
+	private Register getRegister(int registerID){
+		Iterator<Register> iter= getSetOfRegister().iterator();
+		while(iter.hasNext())
+		{
+			Register r = iter.next();
+			if(r.getRegisterID() == registerID){
+				return r;
+			}
+		}
+		return null;
+	}
+	
+	
+	private Kiosk getKiosk(int kioskID){
+		Iterator<Kiosk> iter= getSetOfKiosk().iterator();
+		while(iter.hasNext())
+		{
+			Kiosk k = iter.next();
+			if(k.getKioskID() == kioskID){
+				return k;
+			}
+		}
+		return null;
+	}
+	
+	
 	/**
 	 * @return the setOfPlacedOrder
 	 */

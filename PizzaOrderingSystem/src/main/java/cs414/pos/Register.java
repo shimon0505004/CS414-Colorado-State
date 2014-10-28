@@ -70,4 +70,28 @@ public class Register implements Serializable {
 
         return ((Register) o).getRegisterID() == this.getRegisterID();
     }
+    
+
+    /**
+	 * @param e
+	 * @param o
+	 * @return
+	 */
+	public Order createOrder(Employee e, int orderID) {
+		if(getPizzaStore()!=null){
+			if(e.getRole().canCreateOrder()) {
+				Order newOrder = new Order(orderID);
+				getPizzaStore().getSetOfPlacedOrder().add(newOrder);
+				return newOrder;
+			} else {
+				return null;
+			}
+		}
+		else{
+			return null;
+		}
+	}
+
+    
+    
 }
