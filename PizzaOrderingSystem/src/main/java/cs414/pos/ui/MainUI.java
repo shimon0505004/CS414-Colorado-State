@@ -47,6 +47,7 @@ public class MainUI {
 
 	public void setCanEditMenu(boolean canEditMenu) {
 		editMenuButton.setEnabled(canEditMenu);
+		editMenuItemButton.setEnabled(canEditMenu);
 	}
 
 	public void setCanPlaceOrder(boolean canPlaceOrder) {

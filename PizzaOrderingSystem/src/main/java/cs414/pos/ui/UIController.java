@@ -3,6 +3,7 @@ package cs414.pos.ui;
 import cs414.pos.Employee;
 import cs414.pos.Item;
 import cs414.pos.Menu;
+import cs414.pos.Order;
 import cs414.pos.Store;
 import java.awt.EventQueue;
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class UIController {
 
 	public void displayCompleteOrder() {
 		mainView.setVisible(false);
+		completeOrderView.updateOrders();
 		completeOrderView.setVisible(true);
 	}
 
@@ -159,6 +161,15 @@ public class UIController {
 		}
 	}
 
+	public void completeOrder(int id) {
+		Set<Order> orders = getIncompleteOrdersSet();
+		for(Order order : orders) {
+			if(order.getOrderID() == id) {
+				order.setCompletedByEmployee(currentEmployee);
+			}
+		}
+	}
+
 	public void closeEditMenu() {
 		editMenuView.setVisible(false);
 		mainView.setVisible(true);
@@ -167,6 +178,20 @@ public class UIController {
 	public void closeEditMenuItem() {
 		editMenuItemView.setVisible(false);
 		mainView.setVisible(true);
+	}
+
+	public void closeCompleteOrder() {
+		completeOrderView.setVisible(false);
+		mainView.setVisible(true);
+	}
+
+	public Iterable<String> getIncompleteOrders() {
+		Set<Order> orders = getIncompleteOrdersSet();
+		List<String> incompleteOrders = new ArrayList<>();
+		for(Order order : orders) {
+			incompleteOrders.add(getOrderString(order));
+		}
+		return incompleteOrders;
 	}
 
 	public Iterable<String> getMenus() {
@@ -223,6 +248,15 @@ public class UIController {
 		return split[0];
 	}
 
+	public int getOrderID(String orderString) {
+		String id = orderString.substring("Order #".length());
+		try {
+			return Integer.parseInt(id);
+		} catch(NumberFormatException ex) {
+			return -1;
+		}
+	}
+
 	private Menu getSelectedMenu(String menuName) {
 		Set<Menu> menus = store.getSetOfMenus();
 		for(Menu menu : menus) {
@@ -267,6 +301,10 @@ public class UIController {
 		return s;
 	}
 
+	private String getOrderString(Order order) {
+		return "Order #" + order.getOrderID();
+	}
+
 	private double roundToTwo(double d) {
 		return Math.round(d * 100.0) / 100.0;
 	}
@@ -301,5 +339,17 @@ public class UIController {
 		Set<Item> items = new LinkedHashSet<>(store.getSetOfItems());
 		items.removeAll(menu.getMenuItems());
 		return items;
+	}
+
+	private Set<Order> getIncompleteOrdersSet() {
+		Set<Order> allOrders = store.getSetOfPlacedOrder();
+		Set<Order> incompleteOrders = new LinkedHashSet<>();
+		for(Order order : allOrders) {
+			if(order.isComplete()) {
+				continue;
+			}
+			incompleteOrders.add(order);
+		}
+		return incompleteOrders;
 	}
 }

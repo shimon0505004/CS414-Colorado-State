@@ -38,6 +38,9 @@ public class Main {
 		s.addMenuItem(manager, m1, "soda", 5.0, "sprite");
 		s.addMenuItem(manager, m1, "beer", 5.0, "new belgium");
 
+		Order o1 = s.createOrder(cashier, 1);
+		Order o2 = s.createOrder(cashier, 2);
+
 		// save Store's state
 		serialize(new FileOutputStream(f), s);
 
