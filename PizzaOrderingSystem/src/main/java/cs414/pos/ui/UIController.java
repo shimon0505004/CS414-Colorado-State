@@ -89,6 +89,7 @@ public class UIController {
 
 	public void displayPlaceOrder() {
 		mainView.setVisible(false);
+		placeOrderView.updateMenus();
 		placeOrderView.setVisible(true);
 	}
 
@@ -182,6 +183,11 @@ public class UIController {
 
 	public void closeCompleteOrder() {
 		completeOrderView.setVisible(false);
+		mainView.setVisible(true);
+	}
+
+	public void closePlaceOrder() {
+		placeOrderView.setVisible(false);
 		mainView.setVisible(true);
 	}
 

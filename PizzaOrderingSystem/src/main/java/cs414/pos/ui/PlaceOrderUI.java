@@ -40,14 +40,12 @@ public class PlaceOrderUI {
 	private JButton removeButton;
 	private JButton payButton;
 	private JButton cancelButton;
-	private boolean syncing;
 
 	public PlaceOrderUI(UIController controller) {
 		this.controller = controller;
 	}
 
 	public void init() {
-		syncing = true;
 		frame = new JFrame("Place Order");
 		orderPanel = new JPanel();
 		optionsPanel = new JPanel();
@@ -69,20 +67,22 @@ public class PlaceOrderUI {
 
 		frame.setPreferredSize(new Dimension(800, 600));
 		frame.pack();
-		syncing = false;
 	}
 
 	public void setVisible(boolean visible) {
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(visible);
 	}
 
+	public void updateMenus() {
+		setMenus(controller.getMenus());
+	}
+
 	public void setMenus(Iterable<String> menus) {
-		syncing = true;
 		menuComboBox.removeAllItems();
 		for(String menu : menus) {
 			menuComboBox.addItem(menu);
 		}
-		syncing = false;
 	}
 
 	public void setMenuItems(Iterable<String> items) {
@@ -133,15 +133,13 @@ public class PlaceOrderUI {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0); // temporary cancel action should be done
+				controller.closePlaceOrder();
 			}
 		});
 		menuComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!syncing) {
-					throw new UnsupportedOperationException("Not supported yet.");
-				}
+				loadItemsAction();
 			}
 		});
 		addButton.addActionListener(new ActionListener() {
@@ -165,20 +163,36 @@ public class PlaceOrderUI {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.closePlaceOrder();
 			}
 		});
 	}
 
+	private void loadItemsAction() {
+		if(menuComboBox.getModel().getSize() == 0) {
+			return; // do nothing as nothing to load
+		}
+		String menu = (String) menuComboBox.getSelectedItem();
+		Iterable<String> menuItems = controller.getFullMenuItems(menu);
+		setMenuItems(menuItems);
+	}
+
+	// Used to view the interface with nothing working
 	public static void main(String[] args) {
-		final UIController controller = new UIController();
-		final PlaceOrderUI view = new PlaceOrderUI(controller);
+		final PlaceOrderUI view = new PlaceOrderUI(null);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				view.init();
 				view.setVisible(true);
+				view.frame.removeWindowListener(view.frame.getWindowListeners()[0]);
+				view.frame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						System.exit(0);
+					}
+				});
 			}
 		});
 	}
