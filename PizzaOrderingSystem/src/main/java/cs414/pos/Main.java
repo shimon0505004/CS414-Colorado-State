@@ -47,8 +47,9 @@ public class Main {
 
 		// open Store's state
 		Store s2 = deserialize(new FileInputStream(f));
+        //System.out.println(s2.getSetOfPlacedOrder().toArray()[0]);
 
-		UIController controller = new UIController(s);
+		UIController controller = new UIController(s2);
 		controller.start();
 	}
 
