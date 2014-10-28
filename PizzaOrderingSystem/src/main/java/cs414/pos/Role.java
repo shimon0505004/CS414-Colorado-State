@@ -36,6 +36,39 @@ public enum Role {
 				return false;
 		}
 	}
+	
+	
+	/**
+	 * Returns {@code true} if the privilege allows for Adding a Kiosk .
+	 *
+	 * @return {@code true} if the privilege allows for Adding a Kiosk,
+	 * otherwise returns {@code false}
+	 *	 */
+	public boolean canAddKiosk() {
+		switch(this) {
+			case Manager:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	
+	/**
+	 * Returns {@code true} if the privilege allows for Adding a Register .
+	 *
+	 * @return {@code true} if the privilege allows for Adding a Register,
+	 * otherwise returns {@code false}
+	 *	 */
+	public boolean canAddRegister() {
+		switch(this) {
+			case Manager:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
 
 	/**
 	 * Returns {@code true} if the privilege allows for using the kiosk.

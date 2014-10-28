@@ -337,7 +337,7 @@ public class Store implements Serializable {
 	 * @return
 	 */
 	public Kiosk addKiosk(Employee e, int id) {
-		if(e.getRole().canEditMenu()) {
+		if(e.getRole().canAddKiosk()) {
 			Kiosk k = new Kiosk(id, this);
 			setOfKiosk.add(k);
 			return k;
@@ -347,7 +347,7 @@ public class Store implements Serializable {
 	}
 
 	public Register addRegister(Employee e, int id) {
-		if(e.getRole().canEditMenu()) {
+		if(e.getRole().canAddRegister()) {
 			Register r = new Register(id, this);
 			setOfRegister.add(r);
 			return r;

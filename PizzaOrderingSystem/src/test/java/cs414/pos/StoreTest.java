@@ -42,7 +42,6 @@ public class StoreTest {
 		testStore4 = new Store("PizzaStore4","206-953-5584","Stuart St.");		
 
 
-		testStore4.addEmployee("Shimon", "skshimon", "uda", Role.Cashier);
 
 		testName1 = "Shimon";
 		testLoginID1 = "skshimon";
@@ -68,10 +67,10 @@ public class StoreTest {
 		test_item2 = new Item("item2", 5, "Test Item 2");
 
         Employee e3 = testStore3.addEmployee("c", "c", "pw", Role.Manager);
-        testStore3.addKiosk(e3, 1);
-        testStore3.addKiosk(e3, 2);
-        testStore3.addRegister(e3, 1);
-        testStore3.addRegister(e3, 2);
+        testKiosk1= testStore3.addKiosk(e3, 1);
+        testKiosk2 = testStore3.addKiosk(e3, 2);
+        testRegister1= testStore3.addRegister(e3, 1);
+        testRegister2 = testStore3.addRegister(e3, 2);
 
 		testOrderID1 = 1;
 		testOrderID2 = 2;
@@ -135,7 +134,7 @@ public class StoreTest {
 		assertEquals(0, testStore1.getEmployeeSet().size());
 		assertEquals(0, testStore2.getEmployeeSet().size());
 		assertEquals(1, testStore3.getEmployeeSet().size());
-		assertEquals(4, testStore4.getEmployeeSet().size());
+		assertEquals(3, testStore4.getEmployeeSet().size());
 
 	}
 
@@ -207,9 +206,9 @@ public class StoreTest {
 		assertEquals(1, testStore3.getEmployeeSet().size());
 		Employee testEmployee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
 		assertEquals(2, testStore3.getEmployeeSet().size());
-		Employee testEmployee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Cashier);
+		Employee testEmployee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
 		assertEquals(3, testStore3.getEmployeeSet().size());
-		Employee testEmployee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Cashier);
+		Employee testEmployee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertEquals(4, testStore3.getEmployeeSet().size());
 		
 		String test_Employee1 = testEmployee1.getEmployeeID();
@@ -233,8 +232,19 @@ public class StoreTest {
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 
 		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee1).getRole());
-		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee2).getRole());
-		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee3).getRole());
+		assertEquals(Role.Chef,testStore3.getEmployee(test_Employee2).getRole());
+		assertEquals(Role.Manager,testStore3.getEmployee(test_Employee3).getRole());
+		
+		
+		assertEquals(testEmployee1,testStore3.loginAttempt(testLoginID1, testPassWord1));
+		assertEquals(testEmployee2,testStore3.loginAttempt(testLoginID2, testPassWord2));
+		assertEquals(testEmployee3,testStore3.loginAttempt(testLoginID3, testPassWord3));
+		
+		assertEquals(null,testStore3.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(null,testStore3.loginAttempt(testLoginID2, testPassWord3));
+		assertEquals(null,testStore3.loginAttempt(testLoginID3, testPassWord1));
+		
+				
 	}
 
 	@Test
@@ -293,10 +303,18 @@ public class StoreTest {
 
 	@Test
 	public void testLoginAttempt() {
-		assertEquals(testStore4.loginAttempt(testLoginID1, testPassWord1),testEmployee1_store4);
-		assertNotSame(testStore4.loginAttempt(testLoginID1, testPassWord2),testEmployee1_store4);
-		assertNotSame(testStore3.loginAttempt(testLoginID1, testPassWord2),testEmployee1_store4);
+		assertEquals(null,testStore4.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(null,testStore4.loginAttempt(testLoginID2, testPassWord3));
+		assertEquals(null,testStore4.loginAttempt(testLoginID3, testPassWord1));
 
+		assertEquals(null,testStore3.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(null,testStore3.loginAttempt(testLoginID2, testPassWord3));
+		assertEquals(null,testStore3.loginAttempt(testLoginID3, testPassWord1));
+		
+		assertEquals(testEmployee1_store4,testStore4.loginAttempt(testLoginID1, testPassWord1));
+		assertEquals(testEmployee2_store4,testStore4.loginAttempt(testLoginID2, testPassWord2));
+		assertEquals(testEmployee3_store4,testStore4.loginAttempt(testLoginID3, testPassWord3));
+		
 	}
 
 	@Test
@@ -404,7 +422,7 @@ public class StoreTest {
 	@Test
 	public void testGetSetOfKiosk() {
 		assertEquals(2, testStore3.getSetOfKiosk().size());
-		assertTrue(testStore3.getSetOfKiosk().contains(new Kiosk(1)));
+		assertTrue(testStore3.getSetOfKiosk().contains(testKiosk1));
 		assertTrue(testStore3.getSetOfKiosk().contains(testKiosk2));
 	}
 
@@ -536,14 +554,5 @@ public class StoreTest {
 		assertEquals(2, testStore3.getSetOfItems().size());
 	}
 
-	@Test
-	public void testSaveState() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testOpenState() {
-		fail("Not yet implemented");
-	}
 
 }
