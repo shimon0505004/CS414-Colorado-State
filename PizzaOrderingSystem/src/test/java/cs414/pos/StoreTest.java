@@ -1,64 +1,60 @@
 package cs414.pos;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import static cs414.pos.Main.deserialize;
-import static cs414.pos.Main.serialize;
-import static org.junit.Assert.*;
+import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 public class StoreTest {
 
-	Store testStore1 , testStore2, testStore3, testStore4;
-	
-	Employee testEmployee1_store4,testEmployee2_store4,testEmployee3_store4;
-	String testName1,testName2,testName3;
-		
+	Store testStore1, testStore2, testStore3, testStore4;
 
-	LoginInfo testLoginInfo1,testLoginInfo2,testLoginInfo3;
-	String testLoginID1,testLoginID2,testLoginID3;
-	String testPassWord1,testPassWord2,testPassWord3;
+	Employee testEmployee1_store4, testEmployee2_store4, testEmployee3_store4;
+	String testName1, testName2, testName3;
+
+	LoginInfo testLoginInfo1, testLoginInfo2, testLoginInfo3;
+	String testLoginID1, testLoginID2, testLoginID3;
+	String testPassWord1, testPassWord2, testPassWord3;
 
 	String menuName1, menuName2, menuDesc1, menuDesc2;
 	Item test_item1, test_item2;
-	
+
 	Kiosk testKiosk1, testKiosk2;
 	Register testRegister1, testRegister2;
-	
+
 	Order testOrder1, testOrder2;
 	int testOrderID1, testOrderID2, testOrderID3;
+
 	@Before
 	public void setUp() throws Exception {
 		testStore1 = new Store();
-		testStore2 = new Store("PizzaStore2");		
-		testStore3 = new Store("PizzaStore3","Stuart St.");		
-		testStore4 = new Store("PizzaStore4","206-953-5584","Stuart St.");		
-
-
+		testStore2 = new Store("PizzaStore2");
+		testStore3 = new Store("PizzaStore3", "Stuart St.");
+		testStore4 = new Store("PizzaStore4", "206-953-5584", "Stuart St.");
 
 		testName1 = "Shimon";
 		testLoginID1 = "skshimon";
 		testPassWord1 = "uda";
-		
+
 		testName2 = "Caleb";
 		testLoginID2 = "ctebbe";
 		testPassWord2 = "cte";
-		
+
 		testName3 = "Nathan";
 		testLoginID3 = "nlightHart";
 		testPassWord3 = "nli";
-		
+
 		testEmployee1_store4 = testStore4.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
 		testEmployee2_store4 = testStore4.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
 		testEmployee3_store4 = testStore4.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
-		
+
 		menuName1 = "Menu1";
 		menuName2 = "Menu2";
 		menuDesc1 = "MenuDesc1";
@@ -66,11 +62,11 @@ public class StoreTest {
 		test_item1 = new Item("item1", 10, "Test Item 1");
 		test_item2 = new Item("item2", 5, "Test Item 2");
 
-        Employee e3 = testStore3.addEmployee("c", "c", "pw", Role.Manager);
-        testKiosk1= testStore3.addKiosk(e3, 1);
-        testKiosk2 = testStore3.addKiosk(e3, 2);
-        testRegister1= testStore3.addRegister(e3, 1);
-        testRegister2 = testStore3.addRegister(e3, 2);
+		Employee e3 = testStore3.addEmployee("c", "c", "pw", Role.Manager);
+		testKiosk1 = testStore3.addKiosk(e3, 1);
+		testKiosk2 = testStore3.addKiosk(e3, 2);
+		testRegister1 = testStore3.addRegister(e3, 1);
+		testRegister2 = testStore3.addRegister(e3, 2);
 
 		testOrderID1 = 1;
 		testOrderID2 = 2;
@@ -81,52 +77,53 @@ public class StoreTest {
 	public void tearDown() throws Exception {
 	}
 
-    @Test public void basicSerializeTest() throws IOException, ClassNotFoundException {
-        String f = "testSave.ser";
-        Store s = new Store();
-        Employee manager = s.addEmployee("bob", "bob", "pw_bob", Role.Manager);
+	@Test
+	public void basicSerializeTest() throws IOException, ClassNotFoundException {
+		String f = "testSave.ser";
+		Store s = new Store();
+		Employee manager = s.addEmployee("bob", "bob", "pw_bob", Role.Manager);
 
-        Menu m0 = s.defineMenu(manager, "menu0", "menu0_desc");
-        s.addMenuItem(manager, m0, "pizza0", 5.0, "cheesy");
+		Menu m0 = s.defineMenu(manager, "menu0", "menu0_desc");
+		s.addMenuItem(manager, m0, "pizza0", 5.0, "cheesy");
 
-        // save Store's state
-        serialize(new FileOutputStream(f), s);
-        // open Store's state
-        Store s2 = deserialize(new FileInputStream(f));
+		// save Store's state
+		SaverLoader.save(new File(f), s);
+		// open Store's state
+		Store s2 = SaverLoader.load(new File(f));
 
-        assertEquals(1,s2.getSetOfMenus().size());
-    }
+		assertEquals(1, s2.getSetOfMenus().size());
+	}
 
 	@Test
 	public void testStore() {
 		assertEquals("", testStore1.getStoreName().toString());
 		assertEquals("000-000-0000", testStore1.getPhoneNumber().toString());
-		assertEquals("",testStore1.getAddress().getLocation().toString());
-		assertEquals(AddressType.Unknown,testStore1.getAddress().getAddressType());		
+		assertEquals("", testStore1.getAddress().getLocation().toString());
+		assertEquals(AddressType.Unknown, testStore1.getAddress().getAddressType());
 	}
 
 	@Test
 	public void testStoreStringStringString() {
 		assertEquals("PizzaStore4", testStore4.getStoreName().toString());
 		assertEquals("206-953-5584", testStore4.getPhoneNumber().toString());
-		assertEquals("Stuart St.",testStore4.getAddress().getLocation().toString());
-		assertEquals(AddressType.Business,testStore4.getAddress().getAddressType());		
+		assertEquals("Stuart St.", testStore4.getAddress().getLocation().toString());
+		assertEquals(AddressType.Business, testStore4.getAddress().getAddressType());
 	}
 
 	@Test
 	public void testStoreStringString() {
 		assertEquals("PizzaStore3", testStore3.getStoreName().toString());
 		assertEquals("000-000-0000", testStore3.getPhoneNumber().toString());
-		assertEquals("Stuart St.",testStore3.getAddress().getLocation().toString());
-		assertEquals(AddressType.Business,testStore3.getAddress().getAddressType());		
+		assertEquals("Stuart St.", testStore3.getAddress().getLocation().toString());
+		assertEquals(AddressType.Business, testStore3.getAddress().getAddressType());
 	}
 
 	@Test
 	public void testStoreString() {
 		assertEquals("PizzaStore2", testStore2.getStoreName().toString());
 		assertEquals("000-000-0000", testStore2.getPhoneNumber().toString());
-		assertEquals("",testStore2.getAddress().getLocation().toString());
-		assertEquals(AddressType.Unknown,testStore2.getAddress().getAddressType());		
+		assertEquals("", testStore2.getAddress().getLocation().toString());
+		assertEquals(AddressType.Unknown, testStore2.getAddress().getAddressType());
 	}
 
 	@Test
@@ -148,11 +145,11 @@ public class StoreTest {
 
 	@Test
 	public void testSetStoreName() {
-		String testStoreName1_new= "PizzaStore1";
+		String testStoreName1_new = "PizzaStore1";
 		testStore1.setStoreName(testStoreName1_new);
 		assertEquals(testStoreName1_new, testStore1.getStoreName().toString());
 		testStore1.setStoreName(null);
-		assertEquals("",testStore1.getStoreName());
+		assertEquals("", testStore1.getStoreName());
 	}
 
 	@Test
@@ -161,7 +158,7 @@ public class StoreTest {
 		assertEquals("000-000-0000", testStore2.getPhoneNumber().toString());
 		assertEquals("000-000-0000", testStore3.getPhoneNumber().toString());
 		assertEquals("206-953-5584", testStore4.getPhoneNumber().toString());
-		
+
 	}
 
 	@Test
@@ -178,15 +175,15 @@ public class StoreTest {
 		assertEquals(testNumber2_new, testStore2.getPhoneNumber().toString());
 		assertEquals(testNumber3_new, testStore3.getPhoneNumber().toString());
 		assertEquals(testNumber4_new, testStore4.getPhoneNumber().toString());
-	
+
 	}
 
 	@Test
 	public void testGetAddress() {
-		assertEquals("",testStore1.getAddress().getLocation().toString());
-		assertEquals("",testStore2.getAddress().getLocation().toString());
-		assertEquals("Stuart St.",testStore3.getAddress().getLocation().toString());
-		assertEquals("Stuart St.",testStore4.getAddress().getLocation().toString());
+		assertEquals("", testStore1.getAddress().getLocation().toString());
+		assertEquals("", testStore2.getAddress().getLocation().toString());
+		assertEquals("Stuart St.", testStore3.getAddress().getLocation().toString());
+		assertEquals("Stuart St.", testStore4.getAddress().getLocation().toString());
 	}
 
 	@Test
@@ -195,9 +192,9 @@ public class StoreTest {
 		String testAddress2_new = "PitkinOus St.";
 		testStore1.setAddress(testAddress1_new);
 		testStore2.setAddress(testAddress2_new);
-		assertEquals(testAddress1_new,testStore1.getAddress().getLocation().toString());
-		assertEquals(testAddress2_new,testStore2.getAddress().getLocation().toString());
-		
+		assertEquals(testAddress1_new, testStore1.getAddress().getLocation().toString());
+		assertEquals(testAddress2_new, testStore2.getAddress().getLocation().toString());
+
 	}
 
 	@Test
@@ -210,19 +207,19 @@ public class StoreTest {
 		assertEquals(3, testStore3.getEmployeeSet().size());
 		Employee testEmployee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		assertEquals(4, testStore3.getEmployeeSet().size());
-		
+
 		String test_Employee1 = testEmployee1.getEmployeeID();
 		String test_Employee2 = testEmployee2.getEmployeeID();
 		String test_Employee3 = testEmployee3.getEmployeeID();
-		
+
 		assertEquals(test_Employee1, testStore3.getEmployee(test_Employee1).getEmployeeID());
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeID());
-		
+
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee1).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee2).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee3).getWorksForStore());
-		
+
 		assertEquals(testLoginID1, testStore3.getEmployee(test_Employee1).getEmployeeLoginInfo().getLoginId());
 		assertEquals(testLoginID2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginId());
 		assertEquals(testLoginID3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginId());
@@ -231,41 +228,39 @@ public class StoreTest {
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 
-		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee1).getRole());
-		assertEquals(Role.Chef,testStore3.getEmployee(test_Employee2).getRole());
-		assertEquals(Role.Manager,testStore3.getEmployee(test_Employee3).getRole());
-		
-		
-		assertEquals(testEmployee1,testStore3.loginAttempt(testLoginID1, testPassWord1));
-		assertEquals(testEmployee2,testStore3.loginAttempt(testLoginID2, testPassWord2));
-		assertEquals(testEmployee3,testStore3.loginAttempt(testLoginID3, testPassWord3));
-		
-		assertEquals(null,testStore3.loginAttempt(testLoginID1, testPassWord2));
-		assertEquals(null,testStore3.loginAttempt(testLoginID2, testPassWord3));
-		assertEquals(null,testStore3.loginAttempt(testLoginID3, testPassWord1));
-		
-				
+		assertEquals(Role.Cashier, testStore3.getEmployee(test_Employee1).getRole());
+		assertEquals(Role.Chef, testStore3.getEmployee(test_Employee2).getRole());
+		assertEquals(Role.Manager, testStore3.getEmployee(test_Employee3).getRole());
+
+		assertEquals(testEmployee1, testStore3.loginAttempt(testLoginID1, testPassWord1));
+		assertEquals(testEmployee2, testStore3.loginAttempt(testLoginID2, testPassWord2));
+		assertEquals(testEmployee3, testStore3.loginAttempt(testLoginID3, testPassWord3));
+
+		assertEquals(null, testStore3.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(null, testStore3.loginAttempt(testLoginID2, testPassWord3));
+		assertEquals(null, testStore3.loginAttempt(testLoginID3, testPassWord1));
+
 	}
 
 	@Test
 	public void testAddEmployeeWithPriviledge() {
 
 		assertEquals(1, testStore3.getEmployeeSet().size());
-		String test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1,0);	
+		String test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, 0);
 		assertEquals(2, testStore3.getEmployeeSet().size());
-		String test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,1);	
+		String test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, 1);
 		assertEquals(3, testStore3.getEmployeeSet().size());
-		String test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,2);	
+		String test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, 2);
 		assertEquals(4, testStore3.getEmployeeSet().size());
-		
+
 		assertEquals(test_Employee1, testStore3.getEmployee(test_Employee1).getEmployeeID());
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeID());
-		
+
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee1).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee2).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee3).getWorksForStore());
-		
+
 		assertEquals(testLoginID1, testStore3.getEmployee(test_Employee1).getEmployeeLoginInfo().getLoginId());
 		assertEquals(testLoginID2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginId());
 		assertEquals(testLoginID3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginId());
@@ -274,47 +269,46 @@ public class StoreTest {
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeLoginInfo().getLoginEmployee().getEmployeeID());
 
-		assertEquals(Role.Manager,testStore3.getEmployee(test_Employee1).getRole());
-		assertEquals(Role.Cashier,testStore3.getEmployee(test_Employee2).getRole());
-		assertEquals(Role.Chef,testStore3.getEmployee(test_Employee3).getRole());
+		assertEquals(Role.Manager, testStore3.getEmployee(test_Employee1).getRole());
+		assertEquals(Role.Cashier, testStore3.getEmployee(test_Employee2).getRole());
+		assertEquals(Role.Chef, testStore3.getEmployee(test_Employee3).getRole());
 
 	}
-	
+
 	@Test
-	public void testAddNewMember(){
+	public void testAddNewMember() {
 		String testFirstName1 = "Shimon";
 		String testLastName1 = "Shimon";
 		String phoneNumber = "888-888-8888";
 		assertEquals(0, testStore4.getMembers().size());
 		Customer newCustomer = testStore4.addNewMember(testFirstName1, testLastName1, phoneNumber);
 		assertEquals(1, testStore4.getMembers().size());
-			
-		
+
 	}
-	
+
 	@Test
-	public void testGetMember(){
+	public void testGetMember() {
 		String testFirstName1 = "Shimon";
 		String testLastName1 = "Shimon";
 		String phoneNumber = "888-888-8888";
 		Customer newCustomer = testStore4.addNewMember(testFirstName1, testLastName1, phoneNumber);
-		assertEquals(newCustomer,testStore4.getMember(newCustomer.getMemberShipNumber()));
+		assertEquals(newCustomer, testStore4.getMember(newCustomer.getMemberShipNumber()));
 	}
 
 	@Test
 	public void testLoginAttempt() {
-		assertEquals(null,testStore4.loginAttempt(testLoginID1, testPassWord2));
-		assertEquals(null,testStore4.loginAttempt(testLoginID2, testPassWord3));
-		assertEquals(null,testStore4.loginAttempt(testLoginID3, testPassWord1));
+		assertEquals(null, testStore4.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(null, testStore4.loginAttempt(testLoginID2, testPassWord3));
+		assertEquals(null, testStore4.loginAttempt(testLoginID3, testPassWord1));
 
-		assertEquals(null,testStore3.loginAttempt(testLoginID1, testPassWord2));
-		assertEquals(null,testStore3.loginAttempt(testLoginID2, testPassWord3));
-		assertEquals(null,testStore3.loginAttempt(testLoginID3, testPassWord1));
-		
-		assertEquals(testEmployee1_store4,testStore4.loginAttempt(testLoginID1, testPassWord1));
-		assertEquals(testEmployee2_store4,testStore4.loginAttempt(testLoginID2, testPassWord2));
-		assertEquals(testEmployee3_store4,testStore4.loginAttempt(testLoginID3, testPassWord3));
-		
+		assertEquals(null, testStore3.loginAttempt(testLoginID1, testPassWord2));
+		assertEquals(null, testStore3.loginAttempt(testLoginID2, testPassWord3));
+		assertEquals(null, testStore3.loginAttempt(testLoginID3, testPassWord1));
+
+		assertEquals(testEmployee1_store4, testStore4.loginAttempt(testLoginID1, testPassWord1));
+		assertEquals(testEmployee2_store4, testStore4.loginAttempt(testLoginID2, testPassWord2));
+		assertEquals(testEmployee3_store4, testStore4.loginAttempt(testLoginID3, testPassWord3));
+
 	}
 
 	@Test
@@ -379,13 +373,12 @@ public class StoreTest {
 		m1.addItem(test_item1);
 		testStore3.setSpecial(test_Employee3, test_item1, 0.1);
 		assertTrue(test_item1.isSpecial());
-		
+
 		//TODO: to be determined...
 		//Not sure should I add this or not:
-		
 		/*testStore3.setSpecial(test_Employee3, test_item2, 0.2);
-		assertFalse(test_item2.isSpecial());
-		*/
+		 assertFalse(test_item2.isSpecial());
+		 */
 	}
 
 	@Test
@@ -439,9 +432,9 @@ public class StoreTest {
 		assertTrue(testStore4.getSetOfKiosk().contains(tempKiosk1));
 		assertTrue(testStore4.getSetOfKiosk().contains(tempKiosk2));
 	}
-	
+
 	@Test
-	public void testAddKiosk(){
+	public void testAddKiosk() {
 		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
 		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
@@ -453,7 +446,6 @@ public class StoreTest {
 		testStore3.addKiosk(test_Employee3, 5);
 		assertEquals(3, testStore3.getSetOfKiosk().size());
 	}
-	
 
 	@Test
 	public void testGetSetOfRegister() {
@@ -473,12 +465,11 @@ public class StoreTest {
 		testStore4.setSetOfRegister(registerSet);
 		assertEquals(2, testStore4.getSetOfRegister().size());
 		assertTrue(testStore4.getSetOfRegister().contains(tempRegister1));
-		assertTrue(testStore4.getSetOfRegister().contains(tempRegister2));	
+		assertTrue(testStore4.getSetOfRegister().contains(tempRegister2));
 	}
 
-
 	@Test
-	public void testCreateOrderViaRegister(){
+	public void testCreateOrderViaRegister() {
 		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
 		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
@@ -490,17 +481,15 @@ public class StoreTest {
 		assertEquals(testStore3.getSetOfPlacedOrder().size(), newOrder3.getOrderID());
 
 	}
-	
-	
+
 	@Test
-	public void testCreateOrderViaKiosk(){
+	public void testCreateOrderViaKiosk() {
 		Order newOrder1 = testStore3.createOrderViaKiosk(testKiosk1.getKioskID());
 		assertEquals(newOrder1.getOrderID(), testStore3.getSetOfPlacedOrder().size());
 		Order newOrder2 = testStore3.createOrderViaKiosk(testKiosk2.getKioskID());
-		assertEquals(newOrder2.getOrderID(), testStore3.getSetOfPlacedOrder().size());		
+		assertEquals(newOrder2.getOrderID(), testStore3.getSetOfPlacedOrder().size());
 	}
-	
-	
+
 	@Test
 	public void testGetSetOfPlacedOrder() {
 		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Role.Cashier);
@@ -524,7 +513,6 @@ public class StoreTest {
 		assertEquals(2, testStore3.getSetOfPlacedOrder().size());
 	}
 
-
 	@Test
 	public void testGetSetOfItems() {
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
@@ -542,14 +530,13 @@ public class StoreTest {
 		newItemSet.add(test_item1);
 		newItemSet.add(test_item2);
 		/*
-		Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);	
-		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);	
-		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
-		*/
+		 Employee test_Employee1 = testStore3.addEmployee(testName1, testLoginID1, testPassWord1, Privilege.Cashier);
+		 Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2,Privilege.Chef);
+		 Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3,Privilege.Manager);
+		 */
 		assertEquals(0, testStore3.getSetOfItems().size());
 		testStore3.setSetOfItems(newItemSet);
 		assertEquals(2, testStore3.getSetOfItems().size());
 	}
-
 
 }
