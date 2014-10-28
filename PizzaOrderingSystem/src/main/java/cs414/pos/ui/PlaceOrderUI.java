@@ -38,8 +38,8 @@ public class PlaceOrderUI {
 	private JLabel totalAmount;
 	private JButton addButton;
 	private JButton removeButton;
-	private JButton payButton;
-	private JButton cancelButton;
+	private JButton payCashButton;
+	private JButton payCardButton;
 
 	public PlaceOrderUI(UIController controller) {
 		this.controller = controller;
@@ -58,8 +58,8 @@ public class PlaceOrderUI {
 		totalAmount = new JLabel();
 		addButton = new JButton("Add");
 		removeButton = new JButton("Remove");
-		payButton = new JButton("Pay");
-		cancelButton = new JButton("Cancel");
+		payCashButton = new JButton("Pay Cash");
+		payCardButton = new JButton("Pay Card");
 
 		layoutComponents();
 
@@ -115,7 +115,7 @@ public class PlaceOrderUI {
 		orderList.setModel(new DefaultListModel<String>());
 		orderPanel.add(optionsPanel, BorderLayout.SOUTH);
 
-		GridLayout optionsLayout = new GridLayout(3, 3);
+		GridLayout optionsLayout = new GridLayout(3, 2);
 		optionsLayout.setHgap(5);
 		optionsLayout.setVgap(5);
 		optionsPanel.setLayout(optionsLayout);
@@ -125,8 +125,8 @@ public class PlaceOrderUI {
 		optionsPanel.add(totalAmount);
 		optionsPanel.add(addButton);
 		optionsPanel.add(removeButton);
-		optionsPanel.add(payButton);
-		optionsPanel.add(cancelButton);
+		optionsPanel.add(payCashButton);
+		optionsPanel.add(payCardButton);
 	}
 
 	private void addListeners() {
@@ -154,16 +154,16 @@ public class PlaceOrderUI {
 				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
-		payButton.addActionListener(new ActionListener() {
+		payCashButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
-		cancelButton.addActionListener(new ActionListener() {
+		payCardButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.closePlaceOrder();
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}
