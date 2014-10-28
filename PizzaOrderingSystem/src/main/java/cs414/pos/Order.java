@@ -559,4 +559,8 @@ public class Order implements Serializable {
 	private void setIsPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
+
+    public String toString() {
+        return String.valueOf(this.getOrderID());
+    }
 }
