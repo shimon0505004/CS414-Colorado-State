@@ -1,15 +1,7 @@
 package cs414.pos;
 
 import cs414.pos.ui.UIController;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 /**
  *
@@ -20,7 +12,12 @@ public class Main {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) throws Exception {
-		String f = "testSave.ser";
+		Store s = initStore();
+		UIController controller = new UIController(s);
+		controller.start();
+	}
+
+	private static Store createDefaultStore() {
 		Store s = new Store();
 
 		Employee manager = s.addEmployee("bob", "bob", "pw_bob", Role.Manager);
@@ -42,26 +39,19 @@ public class Main {
 		Order o1 = s.createOrderViaRegister(cashier, r.getRegisterID());
 		Order o2 = s.createOrderViaKiosk(k.getKioskID());
 
-		// save Store's state
-		serialize(new FileOutputStream(f), s);
-
-		// open Store's state
-		Store s2 = deserialize(new FileInputStream(f));
-
-		UIController controller = new UIController(s);
-		controller.start();
+		return s;
 	}
 
-	public static void serialize(OutputStream os, Store s) throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(os));
-		oos.writeObject(s);
-		oos.close();
-	}
-
-	public static Store deserialize(InputStream is) throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(is));
-		Store s = (Store) ois.readObject();
-		ois.close();
+	private static Store initStore() throws IOException, ClassNotFoundException {
+		Store s;
+		if(!SaverLoader.SAVE_FILE.exists()) {
+			s = createDefaultStore();
+			// save Store's state
+			SaverLoader.save(SaverLoader.SAVE_FILE, s);
+		} else {
+			// load Store's state
+			s = SaverLoader.load(SaverLoader.SAVE_FILE);
+		}
 		return s;
 	}
 }

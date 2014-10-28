@@ -4,13 +4,17 @@ import cs414.pos.Employee;
 import cs414.pos.Item;
 import cs414.pos.Menu;
 import cs414.pos.Order;
+import cs414.pos.SaverLoader;
 import cs414.pos.Store;
 import java.awt.EventQueue;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -169,6 +173,15 @@ public class UIController {
 				order.setCompletedByEmployee(currentEmployee);
 			}
 		}
+	}
+
+	public void closeMain() {
+		try {
+			SaverLoader.save(SaverLoader.SAVE_FILE, store);
+		} catch(IOException ex) {
+			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		System.exit(0); // close jvm
 	}
 
 	public void closeEditMenu() {
