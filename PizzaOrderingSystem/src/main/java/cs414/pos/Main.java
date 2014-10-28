@@ -38,6 +38,10 @@ public class Main {
 		s.addMenuItem(manager, m1, "soda", 5.0, "sprite");
 		s.addMenuItem(manager, m1, "beer", 5.0, "new belgium");
 
+		/*method create order deleted as it only accounts for creating orders via employee. See changelist description*/
+		Order o1 = s.createOrderViaRegister(cashier, r.getRegisterID());
+		Order o2 = s.createOrderViaKiosk(k.getKioskID());
+
 		// save Store's state
 		serialize(new FileOutputStream(f), s);
 

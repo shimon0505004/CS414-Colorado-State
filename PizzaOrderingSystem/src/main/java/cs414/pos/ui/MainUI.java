@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 public class MainUI {
 	private UIController controller;
 	private JFrame frame;
+	private JButton editMenuItemButton;
 	private JButton editMenuButton;
 	private JButton placeOrderButton;
 	private JButton completeOrderButton;
@@ -25,6 +26,7 @@ public class MainUI {
 
 	public void init() {
 		frame = new JFrame("Pizza Ordering System");
+		editMenuItemButton = new JButton("Edit Menu Item");
 		editMenuButton = new JButton("Edit Menu");
 		placeOrderButton = new JButton("Place Order");
 		completeOrderButton = new JButton("Complete Order");
@@ -36,15 +38,16 @@ public class MainUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(300, 300));
 		frame.pack();
-		frame.setLocationRelativeTo(null);
 	}
 
 	public void setVisible(boolean visible) {
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(visible);
 	}
 
 	public void setCanEditMenu(boolean canEditMenu) {
 		editMenuButton.setEnabled(canEditMenu);
+		editMenuItemButton.setEnabled(canEditMenu);
 	}
 
 	public void setCanPlaceOrder(boolean canPlaceOrder) {
@@ -56,18 +59,24 @@ public class MainUI {
 	}
 
 	private void layoutComponents() {
-		GridLayout layout = new GridLayout(3, 1);
+		GridLayout layout = new GridLayout(4, 1);
 		layout.setHgap(5);
 		layout.setVgap(5);
 		frame.setLayout(layout);
 
-		// Setup file menu
+		frame.add(editMenuItemButton);
 		frame.add(editMenuButton);
 		frame.add(placeOrderButton);
 		frame.add(completeOrderButton);
 	}
 
 	private void addListeners() {
+		editMenuItemButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.displayEditMenuItem();
+			}
+		});
 		editMenuButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -88,9 +97,9 @@ public class MainUI {
 		});
 	}
 
+	// Used to view the interface with nothing working
 	public static void main(String[] args) {
-		final UIController controller = new UIController();
-		final MainUI view = new MainUI(controller);
+		final MainUI view = new MainUI(null);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override

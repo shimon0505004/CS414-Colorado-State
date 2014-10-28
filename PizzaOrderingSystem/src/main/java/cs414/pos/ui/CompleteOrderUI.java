@@ -44,7 +44,19 @@ public class CompleteOrderUI {
 	}
 
 	public void setVisible(boolean visible) {
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(visible);
+	}
+
+	public void updateOrders() {
+		setOrderList(controller.getIncompleteOrders());
+	}
+
+	public void setOrderList(Iterable<String> orders) {
+		orderComboBox.removeAllItems();
+		for(String order : orders) {
+			orderComboBox.addItem(order);
+		}
 	}
 
 	private void layoutComponents() {
@@ -77,32 +89,49 @@ public class CompleteOrderUI {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0); // temporary close action should be done
+				controller.closeCompleteOrder();
 			}
 		});
 		completeOrderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				completeOrderAction();
 			}
 		});
 		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.closeCompleteOrder();
 			}
 		});
 	}
 
+	private void completeOrderAction() {
+		if(orderComboBox.getModel().getSize() == 0) {
+			return;
+		}
+		String orderString = (String) orderComboBox.getSelectedItem();
+		int orderID = controller.getOrderID(orderString);
+		controller.completeOrder(orderID);
+		updateOrders();
+	}
+
+	// Used to view the interface with nothing working
 	public static void main(String[] args) {
-		final UIController controller = new UIController();
-		final CompleteOrderUI view = new CompleteOrderUI(controller);
+		final CompleteOrderUI view = new CompleteOrderUI(null);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				view.init();
 				view.setVisible(true);
+				view.frame.removeWindowListener(view.frame.getWindowListeners()[0]);
+				view.frame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						System.exit(0);
+					}
+				});
 			}
 		});
 	}

@@ -8,13 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -55,6 +59,13 @@ public class EditMenuUI {
 		frame.pack();
 	}
 
+	public void updateMenus() {
+		setMenus(controller.getMenus());
+		if(menuComboBox.getModel().getSize() == 0) {
+			((DefaultListModel<String>) menuItemList.getModel()).removeAllElements();
+		}
+	}
+
 	public void setMenus(Iterable<String> menus) {
 		menuComboBox.removeAllItems();
 		for(String menu : menus) {
@@ -80,6 +91,8 @@ public class EditMenuUI {
 		frame.add(menuComboBox, BorderLayout.NORTH);
 		frame.add(menuItemScrollPane, BorderLayout.CENTER);
 		menuItemScrollPane.setViewportView(menuItemList);
+		menuItemList.setModel(new DefaultListModel<String>());
+		menuItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
@@ -93,50 +106,126 @@ public class EditMenuUI {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0); // temporary cancel action should be done
+				controller.closeEditMenu();
 			}
 		});
 		menuComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				loadItemsAction();
 			}
 		});
 		createButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				createMenuAction();
 			}
 		});
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				deleteMenuAction();
 			}
 		});
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				addItemAction();
 			}
 		});
 		removeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				removeItemAction();
 			}
 		});
 	}
 
+	private void loadItemsAction() {
+		if(menuComboBox.getModel().getSize() == 0) {
+			return; // do nothing as nothing to load
+		}
+		String menu = (String) menuComboBox.getSelectedItem();
+		Iterable<String> menuItems = controller.getFullMenuItems(menu);
+		setMenuItems(menuItems);
+	}
+
+	private void createMenuAction() {
+		String name = JOptionPane.showInputDialog("Enter menu name:");
+		String description = JOptionPane.showInputDialog("Enter menu description:");
+
+		boolean success = controller.createMenu(name, description);
+		if(!success) {
+			JOptionPane.showMessageDialog(frame, "Error creating menu. Please try a different name.");
+			return;
+		}
+
+		updateMenus();
+		menuComboBox.setSelectedItem(name);
+	}
+
+	private void deleteMenuAction() {
+		if(menuComboBox.getModel().getSize() == 0) {
+			return; // do nothing as nothing to load
+		}
+		String menu = (String) menuComboBox.getSelectedItem();
+		controller.deleteMenu(menu);
+		updateMenus();
+	}
+
+	private void addItemAction() {
+		if(menuComboBox.getModel().getSize() == 0) {
+			return; // do nothing as nothing to load
+		}
+		String menu = (String) menuComboBox.getSelectedItem();
+		Iterable<String> menuItems = controller.getMenuItemsNotOnMenu(menu);
+		List<String> items = new ArrayList<>();
+		for(String item : menuItems) {
+			items.add(item);
+		}
+		if(items.isEmpty()) {
+			JOptionPane.showMessageDialog(frame, "No menu items available to be added.");
+			return;
+		}
+		String selectedItem = (String) JOptionPane.showInputDialog(frame, "Please select an Item.", "Item Selector", JOptionPane.PLAIN_MESSAGE, null, items.toArray(), items.get(0));
+		if(selectedItem == null) {
+			return; // cancel
+		}
+		controller.addMenuItem(menu, selectedItem);
+		loadItemsAction();
+	}
+
+	private void removeItemAction() {
+		if(menuComboBox.getModel().getSize() == 0) {
+			return; // do nothing as nothing to load
+		}
+		String menu = (String) menuComboBox.getSelectedItem();
+		String itemString = menuItemList.getSelectedValue();
+		if(itemString == null) {
+			JOptionPane.showMessageDialog(frame, "Please select an item to remove.");
+			return;
+		}
+		String itemName = controller.getItemName(itemString);
+		controller.removeMenuItem(menu, itemName);
+		loadItemsAction();
+	}
+
+	// Used to view the interface with nothing working
 	public static void main(String[] args) {
-		final UIController controller = new UIController();
-		final EditMenuUI view = new EditMenuUI(controller);
+		final EditMenuUI view = new EditMenuUI(null);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				view.init();
 				view.setVisible(true);
+				view.frame.removeWindowListener(view.frame.getWindowListeners()[0]);
+				view.frame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						System.exit(0);
+					}
+				});
 			}
 		});
 	}

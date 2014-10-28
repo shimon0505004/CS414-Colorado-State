@@ -10,38 +10,38 @@ public class Item implements Serializable {
 	private boolean isSpecial;
 	private double specialPercentageOffPrice;
 
-    /**
-     *
-     * @param name
-     * @param price
-     */
+	/**
+	 *
+	 * @param name
+	 * @param price
+	 */
 	public Item(String name, double price) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
 		this.setItemPrice(price);
 		this.setItemDescription("");
-        removeSpecial(); // item not a special by default
+		removeSpecial(); // item not a special by default
 	}
 
-    /**
-     *
-     * @param name
-     * @param price
-     * @param itemDescription
-     */
-	public Item(String name, double price , String itemDescription) {
+	/**
+	 *
+	 * @param name
+	 * @param price
+	 * @param itemDescription
+	 */
+	public Item(String name, double price, String itemDescription) {
 		// TODO Auto-generated constructor stub
 		this.setItemName(name);
 		this.setItemPrice(price);
 		this.setItemDescription(itemDescription);
-        removeSpecial();
+		removeSpecial();
 	}
 
-    /**
-     * @return item.price - specialPercentage (0.0 if not a special)
-     */
-	public double getCurrentPrice(){
-        return getItemBasePrice() - (getSpecialPercentageOffPrice()*getItemBasePrice());
+	/**
+	 * @return item.price - specialPercentage (0.0 if not a special)
+	 */
+	public double getCurrentPrice() {
+		return getItemBasePrice() - (getSpecialPercentageOffPrice() * getItemBasePrice());
 	}
 
 	/**
@@ -83,12 +83,12 @@ public class Item implements Serializable {
 	 * @param itemDescription the itemDescription to set
 	 */
 	public void setItemDescription(String itemDescription) {
-		if(itemDescription!=null){
-			this.itemDescription = itemDescription;			
-		}else{
+		if(itemDescription != null) {
+			this.itemDescription = itemDescription;
+		} else {
 			this.itemDescription = "";
 		}
-		
+
 	}
 
 	/**
@@ -98,18 +98,22 @@ public class Item implements Serializable {
 		return isSpecial;
 	}
 
+	public void setSpecial() {
+		setSpecial(0.1);
+	}
+
 	/**
 	 * @param percentOff percentage off this special item's price
 	 */
 	public void setSpecial(double percentOff) {
 		this.isSpecial = true;
-        setSpecialPercentageOffPrice(percentOff);
+		setSpecialPercentageOffPrice(percentOff);
 	}
 
-    public void removeSpecial() {
-        this.isSpecial = false;
-        setSpecialPercentageOffPrice(0.0);
-    }
+	public void removeSpecial() {
+		this.isSpecial = false;
+		setSpecialPercentageOffPrice(0.0);
+	}
 
 	/**
 	 * @return the specialPercentageOffPrice
@@ -124,5 +128,5 @@ public class Item implements Serializable {
 	private void setSpecialPercentageOffPrice(double specialPercentageOffPrice) {
 		this.specialPercentageOffPrice = specialPercentageOffPrice;
 	}
-	
+
 }

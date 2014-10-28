@@ -51,10 +51,10 @@ public class LoginUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
 	}
 
 	public void setVisible(boolean visible) {
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(visible);
 	}
 
@@ -145,9 +145,9 @@ public class LoginUI {
 		});
 	}
 
+	// Used to view the interface with nothing working
 	public static void main(String[] args) {
-		final UIController controller = new UIController();
-		final LoginUI view = new LoginUI(controller);
+		final LoginUI view = new LoginUI(null);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
