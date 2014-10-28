@@ -24,19 +24,25 @@ public class Menu implements Serializable {
      *
      * @return
      */
-    public String getMenuName()         { return this.menuName; }
+    public String getMenuName(){
+    	return this.menuName; 
+    }
 
     /**
      *
      * @return
      */
-    public String getMenuDescription()  { return this.menuDescription; }
+    public String getMenuDescription(){
+    	return this.menuDescription; 
+    }
 
     /**
      *
      * @return
      */
-    public Set<Item> getMenuItems()     { return this.menuItemsSet; }
+    public Set<Item> getMenuItems(){
+    	return this.menuItemsSet; 
+    }
 
     /**
      *
