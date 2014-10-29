@@ -232,6 +232,15 @@ public class UIController {
 		currentOrder.addItemToOrderByAmount(item, quantity);
 	}
 
+	public void removeOrderItem(String itemName, int quantity) {
+		Item item = getSelectedItem(itemName);
+		currentOrder.removeMultipleCountOfItemFromOrder(item, quantity);
+	}
+
+	public double getOrderChange() {
+		return roundToTwo(currentOrder.getAmountReturned());
+	}
+
 	public double getTotal() {
 		return roundToTwo(currentOrder.getTotalPrice());
 	}

@@ -213,7 +213,22 @@ public class PlaceOrderUI {
 		if(orderItemString == null) {
 			return; // cancel
 		}
-		String itemName = controller.getItemName(orderItemString);
+		String itemName = controller.getOrderItemName(orderItemString);
+
+		String quantityString = JOptionPane.showInputDialog("Enter quantity:");
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(quantityString);
+		} catch(NumberFormatException ex) {
+			// quantity is still 0
+		}
+		if(quantity <= 0) {
+			JOptionPane.showMessageDialog(frame, "Please enter a valid quantity");
+			return;
+		}
+
+		controller.removeOrderItem(itemName, quantity);
+		updateOrder();
 	}
 
 	private void payAction() {
@@ -291,6 +306,11 @@ public class PlaceOrderUI {
 		}
 
 		controller.placeOrder();
+
+		double changeAmount = controller.getOrderChange();
+		if(changeAmount > 0.0) {
+			JOptionPane.showMessageDialog(frame, "Here is your change $" + changeAmount);
+		}
 		controller.closePlaceOrder();
 	}
 

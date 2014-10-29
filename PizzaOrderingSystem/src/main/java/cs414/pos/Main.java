@@ -74,12 +74,12 @@ public class Main {
 		Register r = s.addRegister(manager, 1);
 
 		Menu m0 = s.defineMenu(manager, "menu0", "menu0_desc");
-		s.addMenuItem(manager, m0, "pizza0", 5.0, "cheesy");
-		s.addMenuItem(manager, m0, "pizza1", 5.0, "sausage");
+		s.addMenuItem(manager, m0, "cheese pizza", 5.0, "cheesy");
+		s.addMenuItem(manager, m0, "sausage pizza", 5.0, "full of sausage");
 
 		Menu m1 = s.defineMenu(manager, "menu1", "menu1_desc");
-		s.addMenuItem(manager, m1, "soda", 5.0, "sprite");
-		s.addMenuItem(manager, m1, "beer", 5.0, "new belgium");
+		s.addMenuItem(manager, m1, "sprite", 5.0, "delicious soda");
+		s.addMenuItem(manager, m1, "new belgium", 5.0, "beer");
 
 		/*method create order deleted as it only accounts for creating orders via employee. See changelist description*/
 		Order o1 = s.createOrderViaRegister(cashier, r.getRegisterID());
