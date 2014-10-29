@@ -245,9 +245,17 @@ public class Store implements Serializable {
 	 */
 	public Menu defineMenu(Employee e, String name, String desc) {
 		if(e.getRole().canEditMenu()) {
-			Menu m = new Menu(name, desc);
-			setOfMenus.add(m);
-			return m;
+			Menu m;
+			if(getMenu(name)!=null){
+				m = getMenu(name);
+				m.setMenuDescription(desc);
+				return m;
+			}
+			else{
+				m = new Menu(name, desc);
+				setOfMenus.add(m);
+				return m;	
+			}
 		} else {
 			return null;
 		}

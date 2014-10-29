@@ -7,16 +7,21 @@ import java.util.Set;
 public class Menu implements Serializable {
 
     private String menuName, menuDescription;
-    Set<Item> menuItemsSet;
 
+	private Set<Item> menuItemsSet;
+
+	
+    public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}	
     /**
      *
      * @param name
      * @param desc
      */
     public Menu(String name, String desc) {
-        this.menuName        = name;
-        this.menuDescription = desc;
+        setMenuName(name);
+        setMenuDescription(desc);
         this.menuItemsSet = new HashSet<>();
     }
 
@@ -68,4 +73,7 @@ public class Menu implements Serializable {
 
         return ((Menu) o).getMenuName().equals(this.getMenuName());
     }
+	public void setMenuDescription(String menuDescription) {
+		this.menuDescription = menuDescription;
+	}
 }
