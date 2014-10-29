@@ -35,7 +35,8 @@ public class EditMenuUI {
 	private JButton deleteButton;
 	private JButton addButton;
 	private JButton removeButton;
-
+	private JButton editButton;
+	
 	public EditMenuUI(UIController controller) {
 		this.controller = controller;
 	}
@@ -47,10 +48,12 @@ public class EditMenuUI {
 		menuItemList = new JList<>();
 		buttonPanel = new JPanel();
 		createButton = new JButton("Create Menu");
+		editButton = new JButton("Edit Menu");
 		deleteButton = new JButton("Delete Menu");
 		addButton = new JButton("Add Item");
 		removeButton = new JButton("Remove Item");
 
+		
 		layoutComponents();
 
 		addListeners();
@@ -97,9 +100,12 @@ public class EditMenuUI {
 
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		buttonPanel.add(createButton);
+
+		buttonPanel.add(editButton);
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(addButton);
 		buttonPanel.add(removeButton);
+		
 	}
 
 	private void addListeners() {
@@ -133,6 +139,13 @@ public class EditMenuUI {
 				addItemAction();
 			}
 		});
+		
+		editButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				editMenuAction();
+			}
+		});
 		removeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +177,21 @@ public class EditMenuUI {
 		menuComboBox.setSelectedItem(name);
 	}
 
+	private void editMenuAction(){
+		String name = JOptionPane.showInputDialog("Enter new menu name:");
+		String description = JOptionPane.showInputDialog("Enter new description:");
+		String menu = (String) menuComboBox.getSelectedItem();
+		
+		boolean success = controller.editMenu(menu, name, description);
+		if(!success){
+			JOptionPane.showMessageDialog(frame, "Error editing menu. Please try a different name.");
+			return;
+		}
+		
+		updateMenus();
+		menuComboBox.setSelectedItem(name);
+	}
+	
 	private void deleteMenuAction() {
 		if(menuComboBox.getModel().getSize() == 0) {
 			return; // do nothing as nothing to load
