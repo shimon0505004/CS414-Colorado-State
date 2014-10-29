@@ -17,6 +17,7 @@ import org.junit.runners.Suite.SuiteClasses;
         OrderTest.class,
         StoreTest.class,
         SaverLoaderTest.class,
-        KioskTest.class
+        KioskTest.class,
+        RegisterTest.class
 })
 public class AllTests { }
