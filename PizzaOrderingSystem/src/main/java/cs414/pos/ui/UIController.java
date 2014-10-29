@@ -1,5 +1,6 @@
 package cs414.pos.ui;
 
+import cs414.pos.Customer;
 import cs414.pos.Employee;
 import cs414.pos.Item;
 import cs414.pos.Menu;
@@ -30,9 +31,15 @@ public class UIController {
 
 	private Store store;
 	private Employee currentEmployee;
+	private boolean isKiosk;
+	// Id is the id of the register or kiosk
+	private int id;
+	private Order currentOrder;
 
-	public UIController(Store store) {
+	public UIController(Store store, boolean isKiosk, int registerOrKioskId) {
 		this.store = store;
+		this.isKiosk = isKiosk;
+		this.id = registerOrKioskId;
 	}
 
 	public void start() {
@@ -53,7 +60,14 @@ public class UIController {
 				placeOrderView.init();
 				completeOrderView.init();
 
-				loginView.setVisible(true);
+				if(isKiosk) {
+					mainView.setCanEditMenu(false);
+					mainView.setCanPlaceOrder(true);
+					mainView.setCanCompleteOrder(false);
+					mainView.setVisible(true);
+				} else {
+					loginView.setVisible(true);
+				}
 			}
 		});
 	}
@@ -90,6 +104,11 @@ public class UIController {
 
 	public void displayPlaceOrder() {
 		mainView.setVisible(false);
+		if(isKiosk) {
+			currentOrder = store.createOrderViaKiosk(id);
+		} else {
+			currentOrder = store.createOrderViaRegister(currentEmployee, id);
+		}
 		placeOrderView.updateMenus();
 		placeOrderView.setVisible(true);
 	}
@@ -172,6 +191,40 @@ public class UIController {
 		}
 	}
 
+	// deliveryType {0 = InHouse, 1 = TakeAway, 2 = Delivery}
+	// paymentType {0 = cash, 1 = card}
+	public boolean payOrder(String membershipID, int deliveryType, String address, int paymentType, String cardNumber, String expirationDate, String cv2, double amount) {
+		if(membershipID != null) {
+			Customer c = store.getMember(membershipID);
+			if(c == null) {
+				return false;
+			}
+			currentOrder.updateMembershipHoldingCustomer(c);
+		}
+
+		if(deliveryType == 0) {
+			currentOrder.updateToInHouseOrder();
+		} else if(deliveryType == 1) {
+			currentOrder.updateToTakeAwayOrder();
+		} else if(deliveryType == 2) {
+			currentOrder.updateToHomeDeliveryOrder(address);
+		}
+
+		if(paymentType == 0) {
+			currentOrder.makeCashPayment(amount);
+		} else if(paymentType == 1) {
+			currentOrder.makeCardPayment(amount, cardNumber, expirationDate, cv2);
+		} else {
+			return false;
+		}
+
+		return true;
+	}
+
+	public void placeOrder() {
+		store.placeOrder(currentOrder);
+	}
+
 	public void closeMain() {
 		try {
 			SaverLoader.save(SaverLoader.SAVE_FILE, store);
@@ -198,6 +251,7 @@ public class UIController {
 
 	public void closePlaceOrder() {
 		placeOrderView.setVisible(false);
+		currentOrder = null;
 		mainView.setVisible(true);
 	}
 

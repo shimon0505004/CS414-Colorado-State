@@ -201,10 +201,15 @@ public class PlaceOrderUI {
 	}
 
 	private void payAction() {
+		if(orderList.getModel().getSize() == 0) {
+			JOptionPane.showMessageDialog(frame, "There is nothing ordered so no payment can be made.");
+			return;
+		}
 		int result = JOptionPane.showConfirmDialog(frame, "Would you like to use a membership ID?", "Question", JOptionPane.YES_NO_OPTION);
 		if(result == JOptionPane.CANCEL_OPTION) {
 			return; // cancel
 		}
+
 		String membershipID = null;
 		if(result == JOptionPane.YES_OPTION) {
 			membershipID = JOptionPane.showInputDialog(frame, "Please enter membership ID:");
@@ -253,6 +258,24 @@ public class PlaceOrderUI {
 			}
 		}
 
+		String amountString = JOptionPane.showInputDialog(frame, "Please enter amount to pay:");
+		double amount;
+		try {
+			amount = Double.parseDouble(amountString);
+		} catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(frame, "Please enter a valid amount");
+			return;
+		}
+
+		boolean success = controller.payOrder(membershipID, deliveryOption, address, paymentOption, cardNumber, expiration, cv2, amount);
+
+		if(!success) {
+			JOptionPane.showMessageDialog(frame, "Error completing order please try again");
+			return;
+		}
+
+		controller.placeOrder();
+		controller.closePlaceOrder();
 	}
 
 	private String verifySelectedItem() {

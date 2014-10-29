@@ -13,7 +13,53 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception {
 		Store s = initStore();
-		UIController controller = new UIController(s);
+		// default values
+		boolean isKiosk = false;
+		int id = 1;
+		if(args.length >= 1) {
+			if("false".equalsIgnoreCase(args[0]) || "true".equalsIgnoreCase(args[0])) {
+				isKiosk = Boolean.valueOf(args[0]);
+			} else {
+				System.err.println("Error: first argument should be true or false.");
+				return;
+			}
+			if(args.length == 2) {
+				try {
+					id = Integer.parseInt(args[1]);
+				} catch(NumberFormatException e) {
+					System.err.println("Error: parsing second argument. Please enter a positive integer.");
+					return;
+				}
+				if(id <= 0) {
+					System.err.println("Error: Second argument needs to be a positive integer.");
+					return;
+				}
+			} else {
+				System.err.println("Error: Illegal number of arguments given");
+				return;
+			}
+		}
+		boolean found = false;
+		if(isKiosk) {
+			for(Kiosk k : s.getSetOfKiosk()) {
+				if(k.getKioskID() == id) {
+					found = true;
+					break;
+				}
+			}
+		} else {
+			for(Register r : s.getSetOfRegister()) {
+				if(r.getRegisterID() == id) {
+					found = true;
+					break;
+				}
+			}
+		}
+		if(!found) {
+			System.err.println("Error: invalid id");
+			return;
+		}
+		UIController controller = new UIController(s, isKiosk, id);
 		controller.start();
 	}
 
@@ -37,20 +83,28 @@ public class Main {
 
 		/*method create order deleted as it only accounts for creating orders via employee. See changelist description*/
 		Order o1 = s.createOrderViaRegister(cashier, r.getRegisterID());
+		o1.addItemToOrderByAmount(m0.getMenuItems().iterator().next(), 1);
+		s.placeOrder(o1);
 		Order o2 = s.createOrderViaKiosk(k.getKioskID());
+		o1.addItemToOrderByAmount(m1.getMenuItems().iterator().next(), 1);
+		s.placeOrder(o2);
 
 		return s;
 	}
 
 	private static Store initStore() throws IOException, ClassNotFoundException {
-		Store s;
-		if(!SaverLoader.SAVE_FILE.exists()) {
+		Store s = null;
+		if(SaverLoader.SAVE_FILE.exists()) {
+			try {
+				s = SaverLoader.load(SaverLoader.SAVE_FILE);
+			} catch(Exception ex) {
+				System.err.println("Error loading store. Loading default store.");
+			}
+		}
+		if(s == null) {
 			s = createDefaultStore();
 			// save Store's state
 			SaverLoader.save(SaverLoader.SAVE_FILE, s);
-		} else {
-			// load Store's state
-			s = SaverLoader.load(SaverLoader.SAVE_FILE);
 		}
 		return s;
 	}

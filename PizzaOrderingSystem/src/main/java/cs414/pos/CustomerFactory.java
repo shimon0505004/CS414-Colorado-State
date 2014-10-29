@@ -1,11 +1,13 @@
 package cs414.pos;
 
+import java.io.Serializable;
+
 /**
  * Implementation of the ICustomerFactory.
  *
  * @author Nathan Lighthart
  */
-public class CustomerFactory implements ICustomerFactory {
+public class CustomerFactory implements ICustomerFactory, Serializable {
 	/**
 	 * Singleton instance
 	 */
@@ -33,10 +35,10 @@ public class CustomerFactory implements ICustomerFactory {
 	public Customer createCustomer(String firstName, String lastName) {
 		return new Customer(firstName, lastName);
 	}
-	
+
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String phoneNumber) {
-		return new Customer(firstName, lastName,phoneNumber);
+		return new Customer(firstName, lastName, phoneNumber);
 	}
-	
+
 }
