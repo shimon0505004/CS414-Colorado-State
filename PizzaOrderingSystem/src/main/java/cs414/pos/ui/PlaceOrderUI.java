@@ -78,6 +78,11 @@ public class PlaceOrderUI {
 		setMenus(controller.getMenus());
 	}
 
+	public void updateOrder() {
+		setOrderItems(controller.getOrderItems());
+		totalAmount.setText("$" + controller.getTotal());
+	}
+
 	public void setMenus(Iterable<String> menus) {
 		menuComboBox.removeAllItems();
 		for(String menu : menus) {
@@ -91,6 +96,14 @@ public class PlaceOrderUI {
 			model.addElement(item);
 		}
 		menuItemList.setModel(model);
+	}
+
+	public void setOrderItems(Iterable<String> items) {
+		DefaultListModel<String> model = new DefaultListModel<>();
+		for(String item : items) {
+			model.addElement(item);
+		}
+		orderList.setModel(model);
 	}
 
 	private void layoutComponents() {
@@ -190,6 +203,9 @@ public class PlaceOrderUI {
 			JOptionPane.showMessageDialog(frame, "Please enter a valid quantity");
 			return;
 		}
+
+		controller.addOrderItem(itemName, quantity);
+		updateOrder();
 	}
 
 	private void removeItemAction() {
