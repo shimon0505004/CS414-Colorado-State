@@ -89,6 +89,9 @@ public class Main {
 		o1.addItemToOrderByAmount(m1.getMenuItems().iterator().next(), 1);
 		s.placeOrder(o2);
 
+		Customer c1 = s.addNewMember("john", "doe", "1234567890");
+		Customer c2 = s.addNewMember("jane", "doe", "1234567890");
+
 		return s;
 	}
 
