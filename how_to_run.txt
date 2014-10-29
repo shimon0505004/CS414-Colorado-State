@@ -1,14 +1,7 @@
-All our system's functionality can be accessed via the Store class. A new or loaded Store instance can be loaded into our UI.
+All our system's functionality can be accessed via the Store class which acts as our main point to interactions with the POS. A new or saved Store instance can be loaded into our UI to be run on a kiosk or register. When the Main class is run, if no arguments are provided the instance is defaulted to a Register of id 1, otherwise the user can specify if it is a kiosk instance and the id. ie:
 
-To create a new POS, one can create a new instance of Store or load a serialized version from a previous state.
-By using this Store instance we can do the following: 
-    create a new Employee using addEmployee() 
-    login an existing Employee using loginAttempt
-    define a new menu using defineMenu()
-    edit an existing menu using editMenu()
-    set a special to an existing Menu using setSpecial()
-    remove menu items from existing Menu
-    add an item to an existing Menu using addMenuItem()
-    add kiosks or registers to our store using addKiosk() and addRegister() respectively
-    create an Order using createOrder()
-    add a new Customer member using addNewMember()
+java a4.jar: A new Register with id 1.
+java a4.jar true 1: A new Kiosk with id 1.
+java a4.jar false 2: A new Register with id 2.
+
+When Main is run, the user will be prompted to login to the Register. After logging in an Employee can interact with the UI menu to Edit Menu Item, Edit Menu, Place Order, or Complete Order.
