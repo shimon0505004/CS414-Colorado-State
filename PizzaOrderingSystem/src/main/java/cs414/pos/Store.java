@@ -323,20 +323,27 @@ public class Store implements Serializable {
 	 * @param price
 	 * @param desc
 	 */
-	public void addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
+	public boolean addMenuItem(Employee e, Menu menu, String name, double price, String desc) {
 		if(e.getRole().canEditMenu() && setOfMenus.contains(menu)) {
 			Item newItem = new Item(name, price, desc);
 			//menu.addItem(new Item(name, price, desc));
 			menu.addItem(newItem);
-			this.setOfItems.add(newItem);
+			return this.setOfItems.add(newItem);
+			
+		}else{
+			return false;
 		}
+		
 	}
 
-	public void addMenuItem(Employee e, String name, double price, String desc) {
+	public boolean addMenuItem(Employee e, String name, double price, String desc) {
 		if(e.getRole().canEditMenu()) {
 			Item newItem = new Item(name, price, desc);
-			this.setOfItems.add(newItem);
+			return this.setOfItems.add(newItem);
+		}else{
+			return false;
 		}
+		
 	}
 
 	public void deleteMenuItem(Employee e, Item item) {

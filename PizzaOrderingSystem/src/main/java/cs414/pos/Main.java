@@ -34,7 +34,7 @@ public class Main {
 					System.err.println("Error: Second argument needs to be a positive integer.");
 					return;
 				}
-			} else {
+			} else if(args.length > 2) {
 				System.err.println("Error: Illegal number of arguments given");
 				return;
 			}
