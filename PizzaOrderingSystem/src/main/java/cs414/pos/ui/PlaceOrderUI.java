@@ -78,6 +78,11 @@ public class PlaceOrderUI {
 		setMenus(controller.getMenus());
 	}
 
+	public void updateOrder() {
+		setOrderItems(controller.getOrderItems());
+		totalAmount.setText("$" + controller.getTotal());
+	}
+
 	public void setMenus(Iterable<String> menus) {
 		menuComboBox.removeAllItems();
 		for(String menu : menus) {
@@ -91,6 +96,14 @@ public class PlaceOrderUI {
 			model.addElement(item);
 		}
 		menuItemList.setModel(model);
+	}
+
+	public void setOrderItems(Iterable<String> items) {
+		DefaultListModel<String> model = new DefaultListModel<>();
+		for(String item : items) {
+			model.addElement(item);
+		}
+		orderList.setModel(model);
 	}
 
 	private void layoutComponents() {
@@ -190,6 +203,9 @@ public class PlaceOrderUI {
 			JOptionPane.showMessageDialog(frame, "Please enter a valid quantity");
 			return;
 		}
+
+		controller.addOrderItem(itemName, quantity);
+		updateOrder();
 	}
 
 	private void removeItemAction() {
@@ -197,14 +213,34 @@ public class PlaceOrderUI {
 		if(orderItemString == null) {
 			return; // cancel
 		}
-		String itemName = controller.getItemName(orderItemString);
+		String itemName = controller.getOrderItemName(orderItemString);
+
+		String quantityString = JOptionPane.showInputDialog("Enter quantity:");
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(quantityString);
+		} catch(NumberFormatException ex) {
+			// quantity is still 0
+		}
+		if(quantity <= 0) {
+			JOptionPane.showMessageDialog(frame, "Please enter a valid quantity");
+			return;
+		}
+
+		controller.removeOrderItem(itemName, quantity);
+		updateOrder();
 	}
 
 	private void payAction() {
+		if(orderList.getModel().getSize() == 0) {
+			JOptionPane.showMessageDialog(frame, "There is nothing ordered so no payment can be made.");
+			return;
+		}
 		int result = JOptionPane.showConfirmDialog(frame, "Would you like to use a membership ID?", "Question", JOptionPane.YES_NO_OPTION);
 		if(result == JOptionPane.CANCEL_OPTION) {
 			return; // cancel
 		}
+
 		String membershipID = null;
 		if(result == JOptionPane.YES_OPTION) {
 			membershipID = JOptionPane.showInputDialog(frame, "Please enter membership ID:");
@@ -253,6 +289,29 @@ public class PlaceOrderUI {
 			}
 		}
 
+		String amountString = JOptionPane.showInputDialog(frame, "Please enter amount to pay:");
+		double amount;
+		try {
+			amount = Double.parseDouble(amountString);
+		} catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(frame, "Please enter a valid amount");
+			return;
+		}
+
+		boolean success = controller.payOrder(membershipID, deliveryOption, address, paymentOption, cardNumber, expiration, cv2, amount);
+
+		if(!success) {
+			JOptionPane.showMessageDialog(frame, "Error completing order please try again");
+			return;
+		}
+
+		controller.placeOrder();
+
+		double changeAmount = controller.getOrderChange();
+		if(changeAmount > 0.0) {
+			JOptionPane.showMessageDialog(frame, "Here is your change $" + changeAmount);
+		}
+		controller.closePlaceOrder();
 	}
 
 	private String verifySelectedItem() {

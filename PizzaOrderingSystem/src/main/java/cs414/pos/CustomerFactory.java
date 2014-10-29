@@ -35,10 +35,10 @@ public class CustomerFactory implements ICustomerFactory, Serializable {
 	public Customer createCustomer(String firstName, String lastName) {
 		return new Customer(firstName, lastName);
 	}
-	
+
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String phoneNumber) {
-		return new Customer(firstName, lastName,phoneNumber);
+		return new Customer(firstName, lastName, phoneNumber);
 	}
-	
+
 }
