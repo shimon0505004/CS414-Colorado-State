@@ -533,6 +533,51 @@ public class Store implements Serializable {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param menu
+	 * @return
+	 */
+	public Menu getMenu(String menuName){
+		if(menuName!= null){
+			Iterator<Menu> menuIter= getSetOfMenus().iterator();
+			while(menuIter.hasNext())
+			{
+				Menu m = menuIter.next();
+				if(m.getMenuName() == menuName){
+					return m;
+				}
+			}
+			return null;
+		}
+		else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @return
+	 */
+	public Item getItem(String itemName){
+		if(itemName!= null){
+			Iterator<Item> itemIter= getSetOfItems().iterator();
+			while(itemIter.hasNext())
+			{
+				Item item = itemIter.next();
+				if(item.getItemName() == itemName){
+					return item;
+				}
+			}
+			return null;
+		}
+		else{
+			return null;
+		}
+	}
+	
+	
 	
 	/**
 	 * @return the setOfPlacedOrder
