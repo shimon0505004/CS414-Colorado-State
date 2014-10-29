@@ -231,5 +231,12 @@ public class Customer implements Serializable {
 		}
 		setRewardsPoint(accumulatedPoints);
 	}
-	
+
+    @Override public boolean equals(Object o) {
+        if(o == this) return true;
+        if(o == null || o.getClass() != this.getClass()) return false;
+
+        return ((Customer) o).getFirstName().equals(this.getFirstName());
+    }
+
 }

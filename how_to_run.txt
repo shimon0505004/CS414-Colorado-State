@@ -1,4 +1,4 @@
-All our system's functionality can be accessed through the Store class.
+All our system's functionality can be accessed via the Store class. A new or loaded Store instance can be loaded into our UI.
 
 To create a new POS, one can create a new instance of Store or load a serialized version from a previous state.
 By using this Store instance we can do the following: 

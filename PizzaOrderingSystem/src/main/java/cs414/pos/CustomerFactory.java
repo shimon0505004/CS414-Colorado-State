@@ -1,11 +1,13 @@
 package cs414.pos;
 
+import java.io.Serializable;
+
 /**
  * Implementation of the ICustomerFactory.
  *
  * @author Nathan Lighthart
  */
-public class CustomerFactory implements ICustomerFactory {
+public class CustomerFactory implements ICustomerFactory, Serializable {
 	/**
 	 * Singleton instance
 	 */
