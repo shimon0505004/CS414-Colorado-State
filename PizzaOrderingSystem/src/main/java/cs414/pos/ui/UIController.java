@@ -212,15 +212,14 @@ public class UIController {
 			currentOrder.updateToHomeDeliveryOrder(address);
 		}
 
+		boolean success = false;
 		if(paymentType == 0) {
-			currentOrder.makeCashPayment(amount);
+			success = currentOrder.makeCashPayment(amount);
 		} else if(paymentType == 1) {
-			currentOrder.makeCardPayment(amount, cardNumber, expirationDate, cv2);
-		} else {
-			return false;
+			success = currentOrder.makeCardPayment(amount, cardNumber, expirationDate, cv2);
 		}
 
-		return true;
+		return success;
 	}
 
 	public void placeOrder() {
@@ -447,7 +446,6 @@ public class UIController {
 		items.removeAll(menu.getMenuItems());
 		return items;
 	}
-
 
 	private Collection<Order> getIncompleteOrdersSet() {
 		Collection<Order> allOrders = store.getListOfPlacedOrder();
