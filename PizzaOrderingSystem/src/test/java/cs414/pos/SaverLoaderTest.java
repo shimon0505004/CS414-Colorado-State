@@ -103,7 +103,7 @@ public class SaverLoaderTest {
     }
 
     @Test public void orderTest() {
-        assertEquals(loadedStore.getSetOfPlacedOrder().size(), 2);
+        assertEquals(loadedStore.getListOfPlacedOrder().size(), 2);
     }
 
     @Test public void menuTest() {
