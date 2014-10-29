@@ -1,10 +1,11 @@
 package cs414.pos;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 public class OrderTest {
 
@@ -27,6 +28,7 @@ public class OrderTest {
 	private Card testCard1,testCard2,testCard3;
 	
 	private Customer testCustomer1,testCustomer2,testCustomer3;
+    ICustomerFactory customerFactory = CustomerFactory.getInstance();
 	
 	private String testFirstName1,testFirstName2,testFirstName3;
 	private String testLastName1,testLastName2,testLastName3;
@@ -117,9 +119,9 @@ public class OrderTest {
 		testCard1 = new Card(testCardNumber1,testEXPDate_1,testCV2_1);
 		testCard2 = new Card(testCardNumber2,testEXPDate_2,testCV2_2);
 		
-		testCustomer1 = new Customer(testFirstName1,testLastName1,testPhoneNumber1);
-		testCustomer2 = new Customer(testFirstName2,testLastName2,testPhoneNumber2);
-		testCustomer3 = new Customer(testFirstName3,testLastName3,testPhoneNumber3);
+		testCustomer1 = customerFactory.createCustomer(testFirstName1,testLastName1,testPhoneNumber1);
+		testCustomer2 = customerFactory.createCustomer(testFirstName2,testLastName2,testPhoneNumber2);
+		testCustomer3 = customerFactory.createCustomer(testFirstName3,testLastName3,testPhoneNumber3);
 
 		testOrder1.updateMembershipHoldingCustomer(testCustomer1);
 	}

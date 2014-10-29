@@ -1,14 +1,15 @@
 package cs414.pos;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class CustomerTest {
 
 	Customer testCustomer1,testCustomer2;
+    ICustomerFactory customerFactory = CustomerFactory.getInstance();
 	String firstName1;
 	String firstName2;
 	String lastName1;
@@ -38,8 +39,8 @@ public class CustomerTest {
 		phoneNumber1 = "000-000-0000";
 		phoneNumber2 = "201-222-1231";
 		
-		testCustomer1 = new Customer(firstName1, lastName1);
-		testCustomer2 = new Customer(firstName2, lastName2,phoneNumber2);
+		testCustomer1 = customerFactory.createCustomer(firstName1, lastName1);
+		testCustomer2 = customerFactory.createCustomer(firstName2, lastName2,phoneNumber2);
 		
 		testAddress1 = new Address("123 mason street", AddressType.Home);
 		testAddress2 = new Address("123 mason street", AddressType.Home);

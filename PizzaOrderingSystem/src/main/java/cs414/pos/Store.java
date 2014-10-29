@@ -606,9 +606,8 @@ public class Store implements Serializable {
 	}
 
 	public Customer addNewMember(String firstName, String LastName, String customerPhoneNumber) {
-		Customer newCustomer = new Customer(firstName, LastName, customerPhoneNumber);
+		Customer newCustomer = customerFactory.createCustomer(firstName, LastName, customerPhoneNumber);
 		getMembers().add(newCustomer);
-
 		return newCustomer;
 	}
 }
