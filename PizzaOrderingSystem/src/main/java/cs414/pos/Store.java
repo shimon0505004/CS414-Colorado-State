@@ -637,4 +637,21 @@ public class Store implements Serializable {
 		getMembers().add(newCustomer);
 		return newCustomer;
 	}
+	
+	public boolean deleteMenu(Menu menu){
+		if(menu!= null){
+				
+			Iterator<Item> iter = menu.getMenuItems().iterator();
+			while(iter.hasNext()){
+				Item testItem = iter.next();
+				menu.deleteItem(testItem);
+			}
+			return getSetOfMenus().remove(menu);
+		}else{
+			return false;
+		}
+		
+	}
+	
+	
 }
