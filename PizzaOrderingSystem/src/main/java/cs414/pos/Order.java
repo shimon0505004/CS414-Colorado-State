@@ -37,6 +37,9 @@ public class Order implements Serializable {
 	private int rewardPointGenerated;
 	private boolean isPaid;
 	
+	private Kiosk isKioskOrder;
+	private Register isRegisterOrder;
+	
 	public Order(int ID) {
 		// TODO Auto-generated constructor stub
 
@@ -563,4 +566,32 @@ public class Order implements Serializable {
     public String toString() {
         return String.valueOf(this.getOrderID());
     }
+
+	/**
+	 * @return the isKioskOrder
+	 */
+	public Kiosk getIsKioskOrder() {
+		return isKioskOrder;
+	}
+
+	/**
+	 * @param isKioskOrder the isKioskOrder to set
+	 */
+	public void setIsKioskOrder(Kiosk isKioskOrder) {
+		this.isKioskOrder = isKioskOrder;
+	}
+
+	/**
+	 * @return the isRegisterOrder
+	 */
+	public Register getIsRegisterOrder() {
+		return isRegisterOrder;
+	}
+
+	/**
+	 * @param isRegisterOrder the isRegisterOrder to set
+	 */
+	public void setIsRegisterOrder(Register isRegisterOrder) {
+		this.isRegisterOrder = isRegisterOrder;
+	}
 }

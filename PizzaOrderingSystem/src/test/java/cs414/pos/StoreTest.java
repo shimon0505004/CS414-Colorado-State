@@ -474,10 +474,16 @@ public class StoreTest {
 		Employee test_Employee2 = testStore3.addEmployee(testName2, testLoginID2, testPassWord2, Role.Chef);
 		Employee test_Employee3 = testStore3.addEmployee(testName3, testLoginID3, testPassWord3, Role.Manager);
 		Order newOrder1 = testStore3.createOrderViaRegister(test_Employee1, testRegister1.getRegisterID());
+		assertEquals(testStore3.getSetOfPlacedOrder().size()+1, newOrder1.getOrderID());
+		assertEquals(true,testStore3.placeOrder(newOrder1));
 		assertEquals(testStore3.getSetOfPlacedOrder().size(), newOrder1.getOrderID());
+
 		Order newOrder2 = testStore3.createOrderViaRegister(test_Employee2, testRegister2.getRegisterID());
 		assertNull(newOrder2);
+		assertEquals(false,testStore3.placeOrder(newOrder2));
 		Order newOrder3 = testStore3.createOrderViaRegister(test_Employee3, testRegister2.getRegisterID());
+		assertEquals(testStore3.getSetOfPlacedOrder().size()+1, newOrder3.getOrderID());
+		assertEquals(true,testStore3.placeOrder(newOrder3));
 		assertEquals(testStore3.getSetOfPlacedOrder().size(), newOrder3.getOrderID());
 
 	}
@@ -485,9 +491,12 @@ public class StoreTest {
 	@Test
 	public void testCreateOrderViaKiosk() {
 		Order newOrder1 = testStore3.createOrderViaKiosk(testKiosk1.getKioskID());
-		assertEquals(newOrder1.getOrderID(), testStore3.getSetOfPlacedOrder().size());
+		assertEquals(newOrder1.getOrderID(), testStore3.getSetOfPlacedOrder().size()+1);
 		Order newOrder2 = testStore3.createOrderViaKiosk(testKiosk2.getKioskID());
-		assertEquals(newOrder2.getOrderID(), testStore3.getSetOfPlacedOrder().size());
+		assertEquals(newOrder2.getOrderID(), testStore3.getSetOfPlacedOrder().size()+1);
+		assertEquals(newOrder2.getOrderID(), newOrder1.getOrderID());
+		
+		
 	}
 
 	@Test
@@ -496,9 +505,14 @@ public class StoreTest {
 		assertEquals(0, testStore3.getSetOfPlacedOrder().size());
 		Order newOrder1 = testStore3.createOrderViaRegister(test_Employee1, testRegister1.getRegisterID());
 		Order newOrder3 = testStore3.createOrderViaKiosk(testKiosk1.getKioskID());
+		assertEquals(0, testStore3.getSetOfPlacedOrder().size());
+		assertFalse(testStore3.getSetOfPlacedOrder().contains(newOrder1));
+		assertFalse(testStore3.getSetOfPlacedOrder().contains(newOrder3));
+		assertEquals(true,testStore3.placeOrder(newOrder1));
+		assertEquals(1, testStore3.getSetOfPlacedOrder().size());
+		assertEquals(true,testStore3.placeOrder(newOrder3));
 		assertEquals(2, testStore3.getSetOfPlacedOrder().size());
-		assertTrue(testStore3.getSetOfPlacedOrder().contains(newOrder1));
-		assertTrue(testStore3.getSetOfPlacedOrder().contains(newOrder3));
+		
 	}
 
 	@Test

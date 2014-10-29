@@ -81,7 +81,11 @@ public class Register implements Serializable {
 		if(getPizzaStore()!=null){
 			if(e.getRole().canCreateOrder()) {
 				Order newOrder = new Order(orderID);
-				getPizzaStore().getSetOfPlacedOrder().add(newOrder);
+				if(newOrder!=null){
+					newOrder.setIsKioskOrder(null);
+					newOrder.setIsRegisterOrder(this);					
+				}
+				//getPizzaStore().getSetOfPlacedOrder().add(newOrder);
 				return newOrder;
 			} else {
 				return null;

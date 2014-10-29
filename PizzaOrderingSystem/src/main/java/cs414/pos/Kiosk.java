@@ -80,7 +80,11 @@ public class Kiosk implements Serializable {
 	public Order createOrder(int orderID) {
 		if(getPizzaStore()!=null){
 				Order newOrder = new Order(orderID);
-				getPizzaStore().getSetOfPlacedOrder().add(newOrder);
+				if(newOrder!= null){
+					newOrder.setIsKioskOrder(this);
+					newOrder.setIsRegisterOrder(null);					
+				}
+				//getPizzaStore().getSetOfPlacedOrder().add(newOrder);
 				return newOrder;
 		}
 		else{

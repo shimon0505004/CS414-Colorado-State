@@ -461,7 +461,44 @@ public class Store implements Serializable {
 	 */
 	public boolean placeOrder(Order orderToBeSaved){
 		if(orderToBeSaved != null){
-			return getSetOfPlacedOrder().add(orderToBeSaved);			
+			boolean chkVal = false;
+			if(orderToBeSaved.getIsKioskOrder()!=null && orderToBeSaved.getIsRegisterOrder()==null)
+			{
+				/**
+				 * getIsKioskOrder actually returns a kiosk object or returns a null
+				 * if it returns a kiosk object, then the order was placed through kiosk.
+				 */
+				chkVal = orderToBeSaved.getIsKioskOrder().getAllOrdersAtKiosk().add(orderToBeSaved);
+			}
+			else if(orderToBeSaved.getIsKioskOrder()==null && orderToBeSaved.getIsRegisterOrder()!=null)
+			{
+				chkVal = orderToBeSaved.getIsRegisterOrder().getAllOrdersAtRegister().add(orderToBeSaved);
+			}
+			else{
+				chkVal = false;
+			}
+			if(chkVal){
+				boolean returnVal = getSetOfPlacedOrder().add(orderToBeSaved);	
+				if(returnVal==false)
+				{
+					if(orderToBeSaved.getIsKioskOrder()!=null && orderToBeSaved.getIsRegisterOrder()==null)
+					{
+						orderToBeSaved.getIsKioskOrder().getAllOrdersAtKiosk().remove(orderToBeSaved);
+					}
+					else if(orderToBeSaved.getIsKioskOrder()==null && orderToBeSaved.getIsRegisterOrder()!=null)
+					{
+						orderToBeSaved.getIsRegisterOrder().getAllOrdersAtRegister().remove(orderToBeSaved);
+					}	
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
