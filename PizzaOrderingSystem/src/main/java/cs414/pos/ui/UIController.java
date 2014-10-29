@@ -183,7 +183,7 @@ public class UIController {
 	}
 
 	public void completeOrder(int id) {
-		Set<Order> orders = getIncompleteOrdersSet();
+		ArrayList<Order> orders = getIncompleteOrdersSet();
 		for(Order order : orders) {
 			if(order.getOrderID() == id) {
 				order.setCompletedByEmployee(currentEmployee);
@@ -256,7 +256,7 @@ public class UIController {
 	}
 
 	public Iterable<String> getIncompleteOrders() {
-		Set<Order> orders = getIncompleteOrdersSet();
+		ArrayList<Order> orders = getIncompleteOrdersSet();
 		List<String> incompleteOrders = new ArrayList<>();
 		for(Order order : orders) {
 			incompleteOrders.add(getOrderString(order));
@@ -411,9 +411,9 @@ public class UIController {
 		return items;
 	}
 
-	private Set<Order> getIncompleteOrdersSet() {
-		Set<Order> allOrders = store.getSetOfPlacedOrder();
-		Set<Order> incompleteOrders = new LinkedHashSet<>();
+	private ArrayList<Order> getIncompleteOrdersSet() {
+		ArrayList<Order> allOrders = store.getListOfPlacedOrder();
+		ArrayList<Order> incompleteOrders = new ArrayList<>();
 		for(Order order : allOrders) {
 			if(order.isComplete()) {
 				continue;

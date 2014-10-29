@@ -4,6 +4,7 @@
 package cs414.pos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class Store implements Serializable {
 	private Set<Kiosk> setOfKiosk;
 	private Set<Register> setOfRegister;
 
-	private Set<Order> setOfPlacedOrder;
+	private ArrayList<Order> listOfPlacedOrder;
 	private Set<Customer> members;
 
 	private Set<Menu> setOfMenus;
@@ -58,7 +59,7 @@ public class Store implements Serializable {
 		setSetOfItems(new HashSet<Item>());
 		setSetOfKiosk(new HashSet<Kiosk>());
 		setSetOfRegister(new HashSet<Register>());
-		setSetOfPlacedOrder(new HashSet<Order>());
+		setListOfPlacedOrder(new ArrayList<Order>());
 		setMembers(new HashSet<Customer>());
 	}
 
@@ -415,7 +416,7 @@ public class Store implements Serializable {
 		Register register = getRegister(registerID);
 		if(register!=null)
 		{
-			int orderID = getSetOfPlacedOrder().size()+1;
+			int orderID = getListOfPlacedOrder().size();
 			Order createdOrder = register.createOrder(e, orderID);
 			if(createdOrder!=null){
 				//getSetOfPlacedOrder().add(createdOrder);
@@ -440,7 +441,7 @@ public class Store implements Serializable {
 		Kiosk kiosk = getKiosk(kioskID);
 		if(kiosk!=null)
 		{
-			int orderID = getSetOfPlacedOrder().size()+1;
+			int orderID = getListOfPlacedOrder().size()+1;
 			Order createdOrder = kiosk.createOrder(orderID);
 			if(createdOrder!=null){
 				//getSetOfPlacedOrder().add(createdOrder);
@@ -461,40 +462,14 @@ public class Store implements Serializable {
 	 * @return
 	 */
 	public boolean placeOrder(Order orderToBeSaved){
-		if(orderToBeSaved != null){
-			boolean chkVal = false;
-			if(orderToBeSaved.getIsKioskOrder()!=null && orderToBeSaved.getIsRegisterOrder()==null)
+		if(orderToBeSaved != null)
+		{
+			int size = getListOfPlacedOrder().size();
+			if((orderToBeSaved.getIsKioskOrder()!=null && orderToBeSaved.getIsRegisterOrder()==null)
+			|| (orderToBeSaved.getIsKioskOrder()==null && orderToBeSaved.getIsRegisterOrder()!=null))
 			{
-				/**
-				 * getIsKioskOrder actually returns a kiosk object or returns a null
-				 * if it returns a kiosk object, then the order was placed through kiosk.
-				 */
-				chkVal = orderToBeSaved.getIsKioskOrder().getAllOrdersAtKiosk().add(orderToBeSaved);
-			}
-			else if(orderToBeSaved.getIsKioskOrder()==null && orderToBeSaved.getIsRegisterOrder()!=null)
-			{
-				chkVal = orderToBeSaved.getIsRegisterOrder().getAllOrdersAtRegister().add(orderToBeSaved);
-			}
-			else{
-				chkVal = false;
-			}
-			if(chkVal){
-				boolean returnVal = getSetOfPlacedOrder().add(orderToBeSaved);	
-				if(returnVal==false)
-				{
-					if(orderToBeSaved.getIsKioskOrder()!=null && orderToBeSaved.getIsRegisterOrder()==null)
-					{
-						orderToBeSaved.getIsKioskOrder().getAllOrdersAtKiosk().remove(orderToBeSaved);
-					}
-					else if(orderToBeSaved.getIsKioskOrder()==null && orderToBeSaved.getIsRegisterOrder()!=null)
-					{
-						orderToBeSaved.getIsRegisterOrder().getAllOrdersAtRegister().remove(orderToBeSaved);
-					}	
-					return false;
-				}
-				else{
-					return true;
-				}
+				orderToBeSaved.setOrderID(size);
+				return getListOfPlacedOrder().add(orderToBeSaved);
 			}
 			else
 			{
@@ -582,16 +557,16 @@ public class Store implements Serializable {
 	/**
 	 * @return the setOfPlacedOrder
 	 */
-	public Set<Order> getSetOfPlacedOrder() {
-		return setOfPlacedOrder;
+	public ArrayList<Order> getListOfPlacedOrder() {
+		return listOfPlacedOrder;
 	}
 
 	/**
 	 * @param setOfPlacedOrder the setOfPlacedOrder to set
 	 */
 	//TODO: privilege check?  And when do we need this?
-	public void setSetOfPlacedOrder(Set<Order> setOfPlacedOrder) {
-		this.setOfPlacedOrder = setOfPlacedOrder;
+	public void setListOfPlacedOrder(ArrayList<Order> setOfPlacedOrder) {
+		this.listOfPlacedOrder = setOfPlacedOrder;
 	}
 
 	/**

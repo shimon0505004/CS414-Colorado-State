@@ -6,19 +6,19 @@ import java.util.Set;
 
 public class Kiosk implements Serializable {
 	private int kioskID;
-	private Set<Order> allOrdersAtKiosk;
+
 	private Store pizzaStore;
 	
 	
 	Kiosk(int ID){
 		setKioskID(ID);
-		setAllOrdersAtKiosk(new HashSet<Order>());
+
 		setPizzaStore(null);
 	}
 
 	Kiosk(int ID,Store pizzaStore){
 		setKioskID(ID);
-		setAllOrdersAtKiosk(new HashSet<Order>());
+
 		setPizzaStore(pizzaStore);
 	}
 	
@@ -36,19 +36,7 @@ public class Kiosk implements Serializable {
 		this.kioskID = kioskID;
 	}
 
-	/**
-	 * @return the allOrdersAtKiosk
-	 */
-	public Set<Order> getAllOrdersAtKiosk() {
-		return allOrdersAtKiosk;
-	}
 
-	/**
-	 * @param allOrdersAtKiosk the allOrdersAtKiosk to set
-	 */
-	public void setAllOrdersAtKiosk(Set<Order> allOrdersAtKiosk) {
-		this.allOrdersAtKiosk = allOrdersAtKiosk;
-	}
 
 	/**
 	 * @return the pizzaStore
