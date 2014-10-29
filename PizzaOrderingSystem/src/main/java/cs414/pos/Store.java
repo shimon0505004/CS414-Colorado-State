@@ -34,6 +34,7 @@ public class Store implements Serializable {
 	private Set<Item> setOfItems;
 
 	private IEmployeeFactory employeeFactory = EmployeeFactory.getInstance();
+    private ICustomerFactory customerFactory = CustomerFactory.getInstance();
 
 	/**
 	 *
@@ -401,15 +402,15 @@ public class Store implements Serializable {
 		this.setOfRegister = setOfRegister;
 	}
 
-	/**
-	 * This method only creates an order for that store via that register
-	 * until method placeOrder() is not called, the created order is not stored
-	 * for the store
-	 * @param orderToBeSaved
-	 * @return
-	 */
-	
-
+    /**
+     *
+     * This method only creates an order for that store via that register
+     * until method placeOrder() is not called, the created order is not stored
+     * for the store
+     * @param e
+     * @param registerID
+     * @return
+     */
 	public Order createOrderViaRegister(Employee e, int registerID) {
 		Register register = getRegister(registerID);
 		if(register!=null)
@@ -432,7 +433,7 @@ public class Store implements Serializable {
 	 * This method only creates an order for that store via that register
 	 * until method placeOrder() is not called, the created order is not stored
 	 * for the store
-	 * @param orderToBeSaved
+	 * @param kioskID
 	 * @return
 	 */
 	public Order createOrderViaKiosk(int kioskID) {
