@@ -129,6 +129,16 @@ public class UIController {
 		return m != null;
 	}
 
+	public boolean editMenu(String menuName, String newName, String newDesc){
+		if(!isValidMenuItemName(newName)){
+			return false;
+		}
+		Menu m = getSelectedMenu(menuName);
+		m.setMenuName(newName);
+		m.setMenuDescription(newDesc);
+		return m != null;
+	}
+	
 	public void deleteMenu(String name) {
 		Menu menu = getSelectedMenu(name);
 		store.getSetOfMenus().remove(menu);
