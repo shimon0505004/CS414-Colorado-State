@@ -9,12 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.DefaultListModel;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -31,15 +31,15 @@ public class PlaceOrderUI {
 	private JPanel optionsPanel;
 	private JComboBox<String> menuComboBox;
 	private JScrollPane menuItemsScrollPane;
-	private JList<String> menuItemsList;
+	private JList<String> menuItemList;
 	private JScrollPane orderScrollPane;
 	private JList<String> orderList;
 	private JLabel totalLabel;
 	private JLabel totalAmount;
 	private JButton addButton;
 	private JButton removeButton;
-	private JButton payCashButton;
-	private JButton payCardButton;
+	private JButton payButton;
+	private JButton closeButton;
 
 	public PlaceOrderUI(UIController controller) {
 		this.controller = controller;
@@ -51,15 +51,15 @@ public class PlaceOrderUI {
 		optionsPanel = new JPanel();
 		menuComboBox = new JComboBox<>();
 		menuItemsScrollPane = new JScrollPane();
-		menuItemsList = new JList<>();
+		menuItemList = new JList<>();
 		orderScrollPane = new JScrollPane();
 		orderList = new JList<>();
 		totalLabel = new JLabel("Total:");
 		totalAmount = new JLabel();
 		addButton = new JButton("Add");
 		removeButton = new JButton("Remove");
-		payCashButton = new JButton("Pay Cash");
-		payCardButton = new JButton("Pay Card");
+		payButton = new JButton("Pay");
+		closeButton = new JButton("Close");
 
 		layoutComponents();
 
@@ -90,28 +90,21 @@ public class PlaceOrderUI {
 		for(String item : items) {
 			model.addElement(item);
 		}
-		menuItemsList.setModel(model);
+		menuItemList.setModel(model);
 	}
 
 	private void layoutComponents() {
 		frame.setLayout(new BorderLayout());
 		frame.add(menuComboBox, BorderLayout.NORTH);
 		frame.add(menuItemsScrollPane, BorderLayout.CENTER);
-		menuItemsScrollPane.setViewportView(menuItemsList);
-		menuItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		menuItemsScrollPane.setViewportView(menuItemList);
+		menuItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		frame.add(orderPanel, BorderLayout.EAST);
 
 		orderPanel.setLayout(new BorderLayout());
 		orderPanel.add(orderScrollPane, BorderLayout.CENTER);
 		orderScrollPane.setViewportView(orderList);
-		orderList.setSelectionModel(new DefaultListSelectionModel() {
-			private static final long serialVersionUID = -2473659851927728063L;
-
-			@Override
-			public void setSelectionInterval(int index0, int index1) {
-				super.setSelectionInterval(-1, -1); // prevent selection
-			}
-		});
+		orderList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		orderList.setModel(new DefaultListModel<String>());
 		orderPanel.add(optionsPanel, BorderLayout.SOUTH);
 
@@ -125,8 +118,8 @@ public class PlaceOrderUI {
 		optionsPanel.add(totalAmount);
 		optionsPanel.add(addButton);
 		optionsPanel.add(removeButton);
-		optionsPanel.add(payCashButton);
-		optionsPanel.add(payCardButton);
+		optionsPanel.add(payButton);
+		optionsPanel.add(closeButton);
 	}
 
 	private void addListeners() {
@@ -145,25 +138,25 @@ public class PlaceOrderUI {
 		addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				addItemAction();
 			}
 		});
 		removeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				removeItemAction();
 			}
 		});
-		payCashButton.addActionListener(new ActionListener() {
+		payButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				payAction();
 			}
 		});
-		payCardButton.addActionListener(new ActionListener() {
+		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+				controller.closePlaceOrder();
 			}
 		});
 	}
@@ -175,6 +168,107 @@ public class PlaceOrderUI {
 		String menu = (String) menuComboBox.getSelectedItem();
 		Iterable<String> menuItems = controller.getFullMenuItems(menu);
 		setMenuItems(menuItems);
+	}
+
+	private void addItemAction() {
+		String itemString = verifySelectedItem();
+		if(itemString == null) {
+			return; // cancel
+		}
+		String itemName = controller.getItemName(itemString);
+		String quantityString = JOptionPane.showInputDialog("Enter quantity:");
+		if(quantityString == null) {
+			return; // cancel
+		}
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(quantityString);
+		} catch(NumberFormatException ex) {
+			// quantity is still 0
+		}
+		if(quantity <= 0) {
+			JOptionPane.showMessageDialog(frame, "Please enter a valid quantity");
+			return;
+		}
+	}
+
+	private void removeItemAction() {
+		String orderItemString = verifySelectedOrderItem();
+		if(orderItemString == null) {
+			return; // cancel
+		}
+		String itemName = controller.getItemName(orderItemString);
+	}
+
+	private void payAction() {
+		int result = JOptionPane.showConfirmDialog(frame, "Would you like to use a membership ID?", "Question", JOptionPane.YES_NO_OPTION);
+		if(result == JOptionPane.CANCEL_OPTION) {
+			return; // cancel
+		}
+		String membershipID = null;
+		if(result == JOptionPane.YES_OPTION) {
+			membershipID = JOptionPane.showInputDialog(frame, "Please enter membership ID:");
+		}
+
+		Object[] deliveryOptions = {"In House", "Take Away", "Delivery"};
+		int deliveryOption = JOptionPane.showOptionDialog(frame, "Please select and order type", "Question",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+				null, deliveryOptions, deliveryOptions[0]);
+		if(deliveryOption == JOptionPane.CLOSED_OPTION) {
+			return; // cancel
+		}
+
+		String address = null;
+		if(deliveryOption == 2) {
+			address = JOptionPane.showInputDialog(frame, "Please enter delivery address:");
+			if(address == null) {
+				return; // cancel
+			}
+		}
+
+		Object[] paymentOptions = {"Cash", "Credit Card"};
+		int paymentOption = JOptionPane.showOptionDialog(frame, "Please select and order type", "Question",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+				null, paymentOptions, paymentOptions[0]);
+		if(paymentOption == JOptionPane.CLOSED_OPTION) {
+			return; // cancel
+		}
+
+		String cardNumber = null;
+		String expiration = null;
+		String cv2 = null;
+
+		if(paymentOption == 1) {
+			cardNumber = JOptionPane.showInputDialog(frame, "Please enter card number:");
+			if(cardNumber == null) {
+				return; // cancel
+			}
+			expiration = JOptionPane.showInputDialog(frame, "Please enter expiration date:");
+			if(expiration == null) {
+				return; // cancel
+			}
+			cv2 = JOptionPane.showInputDialog(frame, "Please enter cv2:");
+			if(cv2 == null) {
+				return; // cancel
+			}
+		}
+
+	}
+
+	private String verifySelectedItem() {
+		String item = menuItemList.getSelectedValue();
+		if(item == null) {
+			JOptionPane.showMessageDialog(frame, "Please select an item.");
+		}
+		return item;
+	}
+
+	private String verifySelectedOrderItem() {
+		String item = orderList.getSelectedValue();
+		if(item == null) {
+			JOptionPane.showMessageDialog(frame, "Please select an order item.");
+		}
+		return item;
 	}
 
 	// Used to view the interface with nothing working

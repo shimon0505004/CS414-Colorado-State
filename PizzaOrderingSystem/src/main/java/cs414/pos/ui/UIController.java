@@ -31,9 +31,6 @@ public class UIController {
 	private Store store;
 	private Employee currentEmployee;
 
-	public UIController() {
-	}
-
 	public UIController(Store store) {
 		this.store = store;
 	}
