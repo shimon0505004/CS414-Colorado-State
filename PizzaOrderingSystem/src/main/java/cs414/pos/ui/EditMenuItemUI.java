@@ -66,9 +66,10 @@ public class EditMenuItemUI {
 	}
 
 	public void setMenuItems(Iterable<String> items) {
-		DefaultListModel<String> model = (DefaultListModel<String>) itemList.getModel();
+		DefaultListModel<String> model = (DefaultListModel<String>) itemList
+				.getModel();
 		model.removeAllElements();
-		for(String item : items) {
+		for (String item : items) {
 			model.addElement(item);
 		}
 	}
@@ -130,29 +131,31 @@ public class EditMenuItemUI {
 
 	private void createItemAction() {
 		String name = JOptionPane.showInputDialog("Enter item name:");
-		if(name == null) {
+		if (name == null) {
 			return; // cancel
 		}
-		String description = JOptionPane.showInputDialog("Enter item description:");
-		if(description == null) {
+		String description = JOptionPane
+				.showInputDialog("Enter item description:");
+		if (description == null) {
 			return; // cancel
 		}
 		String priceString = JOptionPane.showInputDialog("Enter item price:");
-		if(priceString == null) {
+		if (priceString == null) {
 			return; // cancel
 		}
 		double price;
 		try {
 			price = Double.parseDouble(priceString);
-		} catch(NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			JOptionPane.showMessageDialog(frame, "Invalid item price");
 			return;
 		}
 
 		boolean success = controller.createMenuItem(name, description, price);
 
-		if(!success) {
-			JOptionPane.showMessageDialog(frame, "Error creating item. Please try a different name.");
+		if (!success) {
+			JOptionPane.showMessageDialog(frame,
+					"Error creating item. Please try a different name.");
 			return;
 		}
 
@@ -161,7 +164,7 @@ public class EditMenuItemUI {
 
 	private void deleteItemAction() {
 		String itemString = verifySelected();
-		if(itemString == null) {
+		if (itemString == null) {
 			return;
 		}
 		String itemName = controller.getItemName(itemString);
@@ -171,18 +174,19 @@ public class EditMenuItemUI {
 
 	private void changeNameAction() {
 		String itemString = verifySelected();
-		if(itemString == null) {
+		if (itemString == null) {
 			return;
 		}
 		String itemName = controller.getItemName(itemString);
 		String name = JOptionPane.showInputDialog("Enter item name:");
-		if(name == null) {
+		if (name == null) {
 			return; // cancel
 		}
 
 		boolean success = controller.changeMenuItemName(itemName, name);
-		if(!success) {
-			JOptionPane.showMessageDialog(frame, "Error changing name. Please try a different name.");
+		if (!success) {
+			JOptionPane.showMessageDialog(frame,
+					"Error changing name. Please try a different name.");
 			return;
 		}
 
@@ -191,12 +195,13 @@ public class EditMenuItemUI {
 
 	private void changeDescriptionAction() {
 		String itemString = verifySelected();
-		if(itemString == null) {
+		if (itemString == null) {
 			return;
 		}
 		String itemName = controller.getItemName(itemString);
-		String description = JOptionPane.showInputDialog("Enter item description:");
-		if(description == null) {
+		String description = JOptionPane
+				.showInputDialog("Enter item description:");
+		if (description == null) {
 			return; // cancel
 		}
 
@@ -206,7 +211,7 @@ public class EditMenuItemUI {
 
 	private void specialAction() {
 		String itemString = verifySelected();
-		if(itemString == null) {
+		if (itemString == null) {
 			return;
 		}
 		String itemName = controller.getItemName(itemString);
@@ -216,7 +221,7 @@ public class EditMenuItemUI {
 
 	private String verifySelected() {
 		String item = itemList.getSelectedValue();
-		if(item == null) {
+		if (item == null) {
 			JOptionPane.showMessageDialog(frame, "Please select an item.");
 		}
 		return item;

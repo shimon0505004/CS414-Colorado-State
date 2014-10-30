@@ -3,11 +3,14 @@ package cs414.pos.ui;
 import cs414.pos.Customer;
 import cs414.pos.Employee;
 import cs414.pos.Item;
+import cs414.pos.LoginInfo;
 import cs414.pos.Menu;
 import cs414.pos.Order;
 import cs414.pos.OrderItem;
+import cs414.pos.Role;
 import cs414.pos.SaverLoader;
 import cs414.pos.Store;
+
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class UIController {
 	private EditMenuUI editMenuView;
 	private PlaceOrderUI placeOrderView;
 	private CompleteOrderUI completeOrderView;
+	private EmployeeUI employeeView;
 
 	private Store store;
 	private Employee currentEmployee;
@@ -50,6 +54,7 @@ public class UIController {
 		editMenuView = new EditMenuUI(this);
 		placeOrderView = new PlaceOrderUI(this);
 		completeOrderView = new CompleteOrderUI(this);
+		employeeView = new EmployeeUI(this);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -61,7 +66,7 @@ public class UIController {
 				placeOrderView.init();
 				completeOrderView.init();
 
-				if(isKiosk) {
+				if (isKiosk) {
 					mainView.setCanEditMenu(false);
 					mainView.setCanPlaceOrder(true);
 					mainView.setCanCompleteOrder(false);
@@ -75,7 +80,7 @@ public class UIController {
 
 	public void login(String loginID, String password) {
 		Employee temp = store.loginAttempt(loginID, password);
-		if(temp == null) {
+		if (temp == null) {
 			// Login Failed
 			loginView.setStatus("Invalid Username/Password");
 		} else {
@@ -86,7 +91,8 @@ public class UIController {
 
 			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
 			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseKiosk());
-			mainView.setCanCompleteOrder(currentEmployee.getRole().canCompleteOrder());
+			mainView.setCanCompleteOrder(currentEmployee.getRole()
+					.canCompleteOrder());
 			mainView.setVisible(true);
 		}
 	}
@@ -105,7 +111,7 @@ public class UIController {
 
 	public void displayPlaceOrder() {
 		mainView.setVisible(false);
-		if(isKiosk) {
+		if (isKiosk) {
 			currentOrder = store.createOrderViaKiosk(id);
 		} else {
 			currentOrder = store.createOrderViaRegister(currentEmployee, id);
@@ -121,16 +127,71 @@ public class UIController {
 		completeOrderView.setVisible(true);
 	}
 
+	public void displayEmployee() {
+		mainView.setVisible(false);
+		employeeView.updateEmployees();
+		employeeView.setVisible(true);
+	}
+
+	public boolean createEmployee(String name, String loginID, String password,
+			String role) {
+		Role r;
+		switch (role) {
+		case "Manager":
+			r = Role.Manager;
+			break;
+		case "Chef":
+			r = Role.Chef;
+			break;
+		default:
+			r = Role.Cashier;
+			break;
+		}
+		Employee e = store.addEmployee(name, loginID, password, r);
+		return e != null;
+	}
+
+	public boolean editEmployee(String loginID, String newName,
+			String newLoginID, String newPassword, String newRole) {
+		Collection<Employee> employees = store.getEmployeeSet();
+		Collection<String> loginInfos = new ArrayList<>();
+
+		for (Employee employee : employees) {
+			loginInfos.add(employee.getEmployeeLoginInfo().getLoginId());
+		}
+
+		if (loginInfos.contains(newLoginID))
+			return false;
+
+		Employee e = this.getSelectedEmployee(loginID);
+		e.setEmployeeName(newName);
+		e.setEmployeeLoginInfo(new LoginInfo(newLoginID, newPassword));
+		Role r;
+		switch (newRole) {
+		case "Manager":
+			r = Role.Manager;
+			break;
+		case "Chef":
+			r = Role.Chef;
+			break;
+		default:
+			r = Role.Cashier;
+			break;
+		}
+		e.setRole(r);
+		return true;
+	}
+
 	public boolean createMenu(String name, String description) {
-		if(!isValidMenuName(name)) {
+		if (!isValidMenuName(name)) {
 			return false;
 		}
 		Menu m = store.defineMenu(currentEmployee, name, description);
 		return m != null;
 	}
 
-	public boolean editMenu(String menuName, String newName, String newDesc){
-		if(!isValidMenuItemName(newName)){
+	public boolean editMenu(String menuName, String newName, String newDesc) {
+		if (!isValidMenuItemName(newName)) {
 			return false;
 		}
 		Menu m = getSelectedMenu(menuName);
@@ -138,7 +199,7 @@ public class UIController {
 		m.setMenuDescription(newDesc);
 		return m != null;
 	}
-	
+
 	public void deleteMenu(String name) {
 		Menu menu = getSelectedMenu(name);
 		store.getSetOfMenus().remove(menu);
@@ -158,8 +219,9 @@ public class UIController {
 		return true;
 	}
 
-	public boolean createMenuItem(String itemName, String itemDescription, double price) {
-		if(!isValidMenuItemName(itemName)) {
+	public boolean createMenuItem(String itemName, String itemDescription,
+			double price) {
+		if (!isValidMenuItemName(itemName)) {
 			return false;
 		}
 		store.addMenuItem(currentEmployee, itemName, price, itemDescription);
@@ -172,7 +234,7 @@ public class UIController {
 	}
 
 	public boolean changeMenuItemName(String itemName, String newName) {
-		if(!isValidMenuItemName(newName)) {
+		if (!isValidMenuItemName(newName)) {
 			return false;
 		}
 		Item item = getSelectedItem(itemName);
@@ -180,14 +242,15 @@ public class UIController {
 		return true;
 	}
 
-	public void changeMenuItemDescription(String itemName, String itemDescription) {
+	public void changeMenuItemDescription(String itemName,
+			String itemDescription) {
 		Item item = getSelectedItem(itemName);
 		item.setItemDescription(itemDescription);
 	}
 
 	public void changeMenuItemSpecial(String itemName) {
 		Item item = getSelectedItem(itemName);
-		if(item.isSpecial()) {
+		if (item.isSpecial()) {
 			item.removeSpecial();
 		} else {
 			item.setSpecial();
@@ -196,8 +259,8 @@ public class UIController {
 
 	public void completeOrder(int id) {
 		Collection<Order> orders = getIncompleteOrdersSet();
-		for(Order order : orders) {
-			if(order.getOrderID() == id) {
+		for (Order order : orders) {
+			if (order.getOrderID() == id) {
 				order.setCompletedByEmployee(currentEmployee);
 			}
 		}
@@ -205,28 +268,31 @@ public class UIController {
 
 	// deliveryType {0 = InHouse, 1 = TakeAway, 2 = Delivery}
 	// paymentType {0 = cash, 1 = card}
-	public boolean payOrder(String membershipID, int deliveryType, String address, int paymentType, String cardNumber, String expirationDate, String cv2, double amount) {
-		if(membershipID != null) {
+	public boolean payOrder(String membershipID, int deliveryType,
+			String address, int paymentType, String cardNumber,
+			String expirationDate, String cv2, double amount) {
+		if (membershipID != null) {
 			Customer c = store.getMember(membershipID);
-			if(c == null) {
+			if (c == null) {
 				return false;
 			}
 			currentOrder.updateMembershipHoldingCustomer(c);
 		}
 
-		if(deliveryType == 0) {
+		if (deliveryType == 0) {
 			currentOrder.updateToInHouseOrder();
-		} else if(deliveryType == 1) {
+		} else if (deliveryType == 1) {
 			currentOrder.updateToTakeAwayOrder();
-		} else if(deliveryType == 2) {
+		} else if (deliveryType == 2) {
 			currentOrder.updateToHomeDeliveryOrder(address);
 		}
 
 		boolean success = false;
-		if(paymentType == 0) {
+		if (paymentType == 0) {
 			success = currentOrder.makeCashPayment(amount);
-		} else if(paymentType == 1) {
-			success = currentOrder.makeCardPayment(amount, cardNumber, expirationDate, cv2);
+		} else if (paymentType == 1) {
+			success = currentOrder.makeCardPayment(amount, cardNumber,
+					expirationDate, cv2);
 		}
 
 		return success;
@@ -257,8 +323,9 @@ public class UIController {
 	public void closeMain() {
 		try {
 			SaverLoader.save(SaverLoader.SAVE_FILE, store);
-		} catch(IOException ex) {
-			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
+					null, ex);
 		}
 		System.exit(0); // close jvm
 	}
@@ -284,11 +351,16 @@ public class UIController {
 		mainView.setVisible(true);
 	}
 
+	public void closeEmployee() {
+		employeeView.setVisible(false);
+		mainView.setVisible(true);
+	}
+
 	public Iterable<String> getIncompleteOrders() {
 
 		Collection<Order> orders = getIncompleteOrdersSet();
 		List<String> incompleteOrders = new ArrayList<>();
-		for(Order order : orders) {
+		for (Order order : orders) {
 			incompleteOrders.add(getOrderString(order));
 		}
 		return incompleteOrders;
@@ -297,17 +369,17 @@ public class UIController {
 	public Iterable<String> getMenus() {
 		Collection<Menu> menus = store.getSetOfMenus();
 		List<String> menuList = new ArrayList<>();
-		for(Menu menu : menus) {
+		for (Menu menu : menus) {
 			menuList.add(menu.getMenuName());
 		}
 		return menuList;
 	}
 
-	public String getMenuDesc(String menuName){
+	public String getMenuDesc(String menuName) {
 		Menu m = getSelectedMenu(menuName);
 		return m.getMenuDescription();
 	}
-	
+
 	public Iterable<String> getAllMenuItems() {
 		return getMenuItems(store.getSetOfItems());
 	}
@@ -331,17 +403,46 @@ public class UIController {
 	public Iterable<String> getMenuItems(String menuName) {
 		Menu menu = getSelectedMenu(menuName);
 
-		if(menu != null) {
+		if (menu != null) {
 			return getFullMenuItems(menu.getMenuItems());
 		} else {
 			return new ArrayList<>();
 		}
 	}
 
+	public String getEmployeeLoginID(String employeeString) {
+		String[] split = employeeString.split(" : ");
+		return split[1];
+	}
+
+	public Iterable<String> getEmployees() {
+
+		return getEmployees(store.getEmployeeSet());
+	}
+
+	private String getEmployeeSring(Employee employee) {
+		String role;
+		Role r = employee.getRole();
+		switch (r) {
+		case Manager:
+			role = "Manager";
+			break;
+		case Chef:
+			role = "Chef";
+			break;
+		default:
+			role = "Cashier";
+		}
+		String s = employee.getEmployeeName() + " : "
+				+ employee.getEmployeeID() + " : "
+				+ employee.getEmployeeLoginInfo().getLoginId() + " : " + role;
+		return s;
+	}
+
 	public Iterable<String> getFullMenuItems(String menuName) {
 		Menu menu = getSelectedMenu(menuName);
 
-		if(menu != null) {
+		if (menu != null) {
 			return getFullMenuItems(menu.getMenuItems());
 		} else {
 			return new ArrayList<>();
@@ -350,7 +451,7 @@ public class UIController {
 
 	public Iterable<String> getOrderItems() {
 		List<String> items = new ArrayList<>();
-		for(OrderItem item : currentOrder.getSetOfItems()) {
+		for (OrderItem item : currentOrder.getSetOfItems()) {
 			items.add(getOrderItemString(item));
 		}
 		return items;
@@ -365,19 +466,31 @@ public class UIController {
 		String id = orderString.substring("Order #".length());
 		try {
 			return Integer.parseInt(id);
-		} catch(NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			return -1;
 		}
 	}
 
 	public String getOrderItemName(String orderItemString) {
-		return orderItemString.substring(0, orderItemString.lastIndexOf("x")).trim();
+		return orderItemString.substring(0, orderItemString.lastIndexOf("x"))
+				.trim();
+	}
+
+	private Employee getSelectedEmployee(String employeeLoginID) {
+		Collection<Employee> employees = store.getEmployeeSet();
+		for (Employee employee : employees) {
+			if (Objects.equals(employee.getEmployeeLoginInfo().getLoginId(),
+					employeeLoginID)) {
+				return employee;
+			}
+		}
+		return null;
 	}
 
 	private Menu getSelectedMenu(String menuName) {
 		Collection<Menu> menus = store.getSetOfMenus();
-		for(Menu menu : menus) {
-			if(Objects.equals(menu.getMenuName(), menuName)) {
+		for (Menu menu : menus) {
+			if (Objects.equals(menu.getMenuName(), menuName)) {
 				return menu;
 			}
 		}
@@ -386,8 +499,8 @@ public class UIController {
 
 	private Item getSelectedItem(String itemName) {
 		Collection<Item> items = store.getSetOfItems();
-		for(Item item : items) {
-			if(Objects.equals(item.getItemName(), itemName)) {
+		for (Item item : items) {
+			if (Objects.equals(item.getItemName(), itemName)) {
 				return item;
 			}
 		}
@@ -396,7 +509,7 @@ public class UIController {
 
 	private Iterable<String> getMenuItems(Collection<Item> items) {
 		List<String> itemList = new ArrayList<>();
-		for(Item item : items) {
+		for (Item item : items) {
 			itemList.add(item.getItemName());
 		}
 		return itemList;
@@ -404,15 +517,24 @@ public class UIController {
 
 	private Iterable<String> getFullMenuItems(Collection<Item> items) {
 		List<String> itemList = new ArrayList<>();
-		for(Item item : items) {
+		for (Item item : items) {
 			itemList.add(getItemString(item));
 		}
 		return itemList;
 	}
 
+	public Iterable<String> getEmployees(Collection<Employee> employees) {
+		List<String> employeeList = new ArrayList<>();
+		for (Employee employee : employees) {
+			employeeList.add(getEmployeeSring(employee));
+		}
+		return employeeList;
+	}
+
 	private String getItemString(Item item) {
-		String s = item.getItemName() + " : " + item.getItemDescription() + " $" + roundToTwo(item.getCurrentPrice());
-		if(item.isSpecial()) {
+		String s = item.getItemName() + " : " + item.getItemDescription()
+				+ " $" + roundToTwo(item.getCurrentPrice());
+		if (item.isSpecial()) {
 			s += " [Special]";
 		}
 		return s;
@@ -423,7 +545,8 @@ public class UIController {
 	}
 
 	private String getOrderItemString(OrderItem item) {
-		return item.getItem().getItemName() + " x" + item.getQuantity() + " $" + roundToTwo(item.computeSubtotal());
+		return item.getItem().getItemName() + " x" + item.getQuantity() + " $"
+				+ roundToTwo(item.computeSubtotal());
 	}
 
 	private double roundToTwo(double d) {
@@ -431,12 +554,12 @@ public class UIController {
 	}
 
 	private boolean isValidMenuName(String name) {
-		if(name == null || name.trim().isEmpty()) {
+		if (name == null || name.trim().isEmpty()) {
 			return false;
 		}
 		Iterable<String> menuNames = getMenus();
-		for(String menuName : menuNames) {
-			if(Objects.equals(name, menuName)) {
+		for (String menuName : menuNames) {
+			if (Objects.equals(name, menuName)) {
 				return false;
 			}
 		}
@@ -444,12 +567,12 @@ public class UIController {
 	}
 
 	private boolean isValidMenuItemName(String name) {
-		if(name == null || name.trim().isEmpty() || name.contains(":")) {
+		if (name == null || name.trim().isEmpty() || name.contains(":")) {
 			return false;
 		}
 		Iterable<String> itemNames = getAllMenuItems();
-		for(String itemName : itemNames) {
-			if(Objects.equals(name, itemName)) {
+		for (String itemName : itemNames) {
+			if (Objects.equals(name, itemName)) {
 				return false;
 			}
 		}
@@ -465,12 +588,13 @@ public class UIController {
 	private Collection<Order> getIncompleteOrdersSet() {
 		Collection<Order> allOrders = store.getListOfPlacedOrder();
 		Collection<Order> incompleteOrders = new LinkedHashSet<>();
-		for(Order order : allOrders) {
-			if(order.isComplete()) {
+		for (Order order : allOrders) {
+			if (order.isComplete()) {
 				continue;
 			}
 			incompleteOrders.add(order);
 		}
 		return incompleteOrders;
 	}
+
 }

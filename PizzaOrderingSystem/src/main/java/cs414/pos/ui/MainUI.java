@@ -21,7 +21,8 @@ public class MainUI {
 	private JButton editMenuButton;
 	private JButton placeOrderButton;
 	private JButton completeOrderButton;
-
+	private JButton employeeButton;
+	
 	public MainUI(UIController controller) {
 		this.controller = controller;
 	}
@@ -32,7 +33,8 @@ public class MainUI {
 		editMenuButton = new JButton("Edit Menu");
 		placeOrderButton = new JButton("Place Order");
 		completeOrderButton = new JButton("Complete Order");
-
+		employeeButton = new JButton("Manage Employees");
+		
 		layoutComponents();
 
 		addListeners();
@@ -64,7 +66,8 @@ public class MainUI {
 		layout.setHgap(5);
 		layout.setVgap(5);
 		frame.setLayout(layout);
-
+		
+		frame.add(employeeButton);
 		frame.add(editMenuItemButton);
 		frame.add(editMenuButton);
 		frame.add(placeOrderButton);
@@ -76,6 +79,12 @@ public class MainUI {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				controller.closeMain();
+			}
+		});
+		employeeButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				controller.displayEmployee();
 			}
 		});
 		editMenuItemButton.addActionListener(new ActionListener() {

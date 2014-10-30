@@ -41,7 +41,7 @@ public class EditMenuUI {
 	private JButton removeButton;
 	private JButton editButton;
 	private TextArea menuDescText;
-	
+
 	public EditMenuUI(UIController controller) {
 		this.controller = controller;
 	}
@@ -59,7 +59,7 @@ public class EditMenuUI {
 		addButton = new JButton("Add Item");
 		removeButton = new JButton("Remove Item");
 		menuDescText = new TextArea((String) menuComboBox.getSelectedItem());
-		
+
 		layoutComponents();
 
 		addListeners();
@@ -70,22 +70,24 @@ public class EditMenuUI {
 
 	public void updateMenus() {
 		setMenus(controller.getMenus());
-		if(menuComboBox.getModel().getSize() == 0) {
-			((DefaultListModel<String>) menuItemList.getModel()).removeAllElements();
+		if (menuComboBox.getModel().getSize() == 0) {
+			((DefaultListModel<String>) menuItemList.getModel())
+					.removeAllElements();
 		}
 	}
 
 	public void setMenus(Iterable<String> menus) {
 		menuComboBox.removeAllItems();
-		for(String menu : menus) {
+		for (String menu : menus) {
 			menuComboBox.addItem(menu);
 		}
 	}
 
 	public void setMenuItems(Iterable<String> items) {
-		DefaultListModel<String> model = (DefaultListModel<String>) menuItemList.getModel();
+		DefaultListModel<String> model = (DefaultListModel<String>) menuItemList
+				.getModel();
 		model.removeAllElements();
-		for(String item : items) {
+		for (String item : items) {
 			model.addElement(item);
 		}
 	}
@@ -114,7 +116,16 @@ public class EditMenuUI {
 		buttonPanel.add(removeButton);
 		menuDescText.setEditable(false);
 		descriptionPanel.add(menuDescText);
-		
+
+	}
+
+	private void updateMenuDesc() {
+		if (menuComboBox.getSelectedItem() == null) {
+			menuDescText.setText("");
+		} else {
+			menuDescText.setText(controller.getMenuDesc((String) menuComboBox
+					.getSelectedItem()));
+		}
 	}
 
 	private void addListeners() {
@@ -128,19 +139,21 @@ public class EditMenuUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				loadItemsAction();
-				menuDescText.setText(controller.getMenuDesc((String) menuComboBox.getSelectedItem()));
+				updateMenuDesc();
 			}
 		});
 		createButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				createMenuAction();
+				updateMenuDesc();
 			}
 		});
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				deleteMenuAction();
+				updateMenuDesc();
 			}
 		});
 		addButton.addActionListener(new ActionListener() {
@@ -149,10 +162,10 @@ public class EditMenuUI {
 				addItemAction();
 			}
 		});
-		
-		editButton.addActionListener(new ActionListener(){
+
+		editButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				editMenuAction();
 			}
 		});
@@ -165,7 +178,7 @@ public class EditMenuUI {
 	}
 
 	private void loadItemsAction() {
-		if(menuComboBox.getModel().getSize() == 0) {
+		if (menuComboBox.getModel().getSize() == 0) {
 			return; // do nothing as nothing to load
 		}
 		String menu = (String) menuComboBox.getSelectedItem();
@@ -175,11 +188,13 @@ public class EditMenuUI {
 
 	private void createMenuAction() {
 		String name = JOptionPane.showInputDialog("Enter menu name:");
-		String description = JOptionPane.showInputDialog("Enter menu description:");
+		String description = JOptionPane
+				.showInputDialog("Enter menu description:");
 
 		boolean success = controller.createMenu(name, description);
-		if(!success) {
-			JOptionPane.showMessageDialog(frame, "Error creating menu. Please try a different name.");
+		if (!success) {
+			JOptionPane.showMessageDialog(frame,
+					"Error creating menu. Please try a different name.");
 			return;
 		}
 
@@ -187,23 +202,25 @@ public class EditMenuUI {
 		menuComboBox.setSelectedItem(name);
 	}
 
-	private void editMenuAction(){
+	private void editMenuAction() {
 		String name = JOptionPane.showInputDialog("Enter new menu name:");
-		String description = JOptionPane.showInputDialog("Enter new description:");
+		String description = JOptionPane
+				.showInputDialog("Enter new description:");
 		String menu = (String) menuComboBox.getSelectedItem();
-		
+
 		boolean success = controller.editMenu(menu, name, description);
-		if(!success){
-			JOptionPane.showMessageDialog(frame, "Error editing menu. Please try a different name.");
+		if (!success) {
+			JOptionPane.showMessageDialog(frame,
+					"Error editing menu. Please try a different name.");
 			return;
 		}
-		
+
 		updateMenus();
 		menuComboBox.setSelectedItem(name);
 	}
-	
+
 	private void deleteMenuAction() {
-		if(menuComboBox.getModel().getSize() == 0) {
+		if (menuComboBox.getModel().getSize() == 0) {
 			return; // do nothing as nothing to load
 		}
 		String menu = (String) menuComboBox.getSelectedItem();
@@ -212,21 +229,24 @@ public class EditMenuUI {
 	}
 
 	private void addItemAction() {
-		if(menuComboBox.getModel().getSize() == 0) {
+		if (menuComboBox.getModel().getSize() == 0) {
 			return; // do nothing as nothing to load
 		}
 		String menu = (String) menuComboBox.getSelectedItem();
 		Iterable<String> menuItems = controller.getMenuItemsNotOnMenu(menu);
 		List<String> items = new ArrayList<>();
-		for(String item : menuItems) {
+		for (String item : menuItems) {
 			items.add(item);
 		}
-		if(items.isEmpty()) {
-			JOptionPane.showMessageDialog(frame, "No menu items available to be added.");
+		if (items.isEmpty()) {
+			JOptionPane.showMessageDialog(frame,
+					"No menu items available to be added.");
 			return;
 		}
-		String selectedItem = (String) JOptionPane.showInputDialog(frame, "Please select an Item.", "Item Selector", JOptionPane.PLAIN_MESSAGE, null, items.toArray(), items.get(0));
-		if(selectedItem == null) {
+		String selectedItem = (String) JOptionPane.showInputDialog(frame,
+				"Please select an Item.", "Item Selector",
+				JOptionPane.PLAIN_MESSAGE, null, items.toArray(), items.get(0));
+		if (selectedItem == null) {
 			return; // cancel
 		}
 		controller.addMenuItem(menu, selectedItem);
@@ -234,13 +254,14 @@ public class EditMenuUI {
 	}
 
 	private void removeItemAction() {
-		if(menuComboBox.getModel().getSize() == 0) {
+		if (menuComboBox.getModel().getSize() == 0) {
 			return; // do nothing as nothing to load
 		}
 		String menu = (String) menuComboBox.getSelectedItem();
 		String itemString = menuItemList.getSelectedValue();
-		if(itemString == null) {
-			JOptionPane.showMessageDialog(frame, "Please select an item to remove.");
+		if (itemString == null) {
+			JOptionPane.showMessageDialog(frame,
+					"Please select an item to remove.");
 			return;
 		}
 		String itemName = controller.getItemName(itemString);
