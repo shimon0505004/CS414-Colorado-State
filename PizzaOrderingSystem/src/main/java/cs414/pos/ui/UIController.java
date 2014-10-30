@@ -202,7 +202,7 @@ public class UIController {
 	}
 
 	public boolean editMenu(String menuName, String newName, String newDesc) {
-		if (!isValidMenuItemName(newName)) {
+		if (!isValidMenuName(newName)) {
 			return false;
 		}
 		Menu m = getSelectedMenu(menuName);
