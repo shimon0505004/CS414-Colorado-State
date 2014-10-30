@@ -32,6 +32,7 @@ public class EditMenuItemUI {
 	private JButton changeNameButton;
 	private JButton changeDescriptionButton;
 	private JButton specialButton;
+	private JButton editPriceButton;
 
 	public EditMenuItemUI(UIController controller) {
 		this.controller = controller;
@@ -47,7 +48,7 @@ public class EditMenuItemUI {
 		changeNameButton = new JButton("Change Name");
 		changeDescriptionButton = new JButton("Change Description");
 		specialButton = new JButton("Mark/Unmark Special");
-
+		editPriceButton = new JButton("Change Price");
 		layoutComponents();
 
 		addListeners();
@@ -87,6 +88,7 @@ public class EditMenuItemUI {
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(changeNameButton);
 		buttonPanel.add(changeDescriptionButton);
+		buttonPanel.add(editPriceButton);
 		buttonPanel.add(specialButton);
 	}
 
