@@ -1,4 +1,4 @@
-package cs414.pos;
+package test.cs414.pos;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import cs414.pos.*;
 import org.junit.After;
 
 import static org.junit.Assert.assertEquals;

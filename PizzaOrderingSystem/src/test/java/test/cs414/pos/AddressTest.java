@@ -1,7 +1,9 @@
-package cs414.pos;
+package test.cs414.pos;
 
 import static org.junit.Assert.*;
 
+import cs414.pos.Address;
+import cs414.pos.AddressType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +18,7 @@ public class AddressTest {
 		address3 = "122 south Street";
 		deliveryAddress1 = new Address();
 		deliveryAddress2 = new Address(address2);
-		deliveryAddress3 = new Address(address3,AddressType.Home);
+		deliveryAddress3 = new Address(address3, AddressType.Home);
 
 	}
 

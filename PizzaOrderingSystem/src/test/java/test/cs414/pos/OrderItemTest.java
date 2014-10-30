@@ -1,7 +1,9 @@
-package cs414.pos;
+package test.cs414.pos;
 
 import static org.junit.Assert.*;
 
+import cs414.pos.Item;
+import cs414.pos.OrderItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

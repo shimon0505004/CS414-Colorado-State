@@ -1,4 +1,4 @@
-package cs414.pos;
+package test.cs414.pos;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
