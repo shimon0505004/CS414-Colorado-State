@@ -29,8 +29,8 @@ public class MainUI {
 
 	public void init() {
 		frame = new JFrame("Pizza Ordering System");
-		editMenuItemButton = new JButton("Edit Menu Item");
-		editMenuButton = new JButton("Edit Menu");
+		editMenuItemButton = new JButton("Manage Menu Item");
+		editMenuButton = new JButton("Manage Menu");
 		placeOrderButton = new JButton("Place Order");
 		completeOrderButton = new JButton("Complete Order");
 		employeeButton = new JButton("Manage Employees");
@@ -61,6 +61,10 @@ public class MainUI {
 		completeOrderButton.setEnabled(canCompleteOrder);
 	}
 
+	public void setCanManageEmployee(boolean canManageEmployee){
+		employeeButton.setEnabled(canManageEmployee);
+	}
+	
 	private void layoutComponents() {
 		GridLayout layout = new GridLayout(4, 1);
 		layout.setHgap(5);

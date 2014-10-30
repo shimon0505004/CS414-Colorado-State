@@ -19,7 +19,6 @@ public class EmployeeUI {
 	private JPanel buttonPanel;
 	private JButton createButton;
 	private JButton editButton;
-	private JButton deleteButton;
 
 	public EmployeeUI(UIController c) {
 		this.controller = c;
@@ -32,7 +31,6 @@ public class EmployeeUI {
 		buttonPanel = new JPanel();
 		createButton = new JButton("Create Employee");
 		editButton = new JButton("Edit Employee");
-		deleteButton = new JButton("Delete Employee");
 
 		layoutComponents();
 
@@ -68,10 +66,9 @@ public class EmployeeUI {
 		employeeList.setModel(new DefaultListModel<String>());
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 3, 3));
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 2, 2));
 		buttonPanel.add(createButton);
 		buttonPanel.add(editButton);
-		buttonPanel.add(deleteButton);
 
 	}
 
@@ -94,12 +91,6 @@ public class EmployeeUI {
 				editEmployeeAction();
 			}
 		});
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				deleteEmployeeAction();
-			}
-		});
 	}
 
 	private void createEmployeeAction() {
@@ -111,7 +102,7 @@ public class EmployeeUI {
 		String loginID = JOptionPane.showInputDialog("Set the loginID:");
 		String role = (String) JOptionPane.showInputDialog(null,
 				"Choose the role", "Role", JOptionPane.QUESTION_MESSAGE, null,
-				roleList, roleList[1]);
+				roleList, roleList[0]);
 		String password = JOptionPane.showInputDialog("Set the password:");
 
 		boolean success = controller.createEmployee(name, loginID, password,
@@ -139,10 +130,10 @@ public class EmployeeUI {
 		String loginID = JOptionPane.showInputDialog("Set the loginID:");
 		String role = (String) JOptionPane.showInputDialog(null,
 				"Choose the role", "Role", JOptionPane.QUESTION_MESSAGE, null,
-				roleList, roleList[1]);
+				roleList, roleList[0]);
 		String password = JOptionPane.showInputDialog("Set the password:");
 
-		boolean success = controller.editEmployee(loginID, name, loginID,
+		boolean success = controller.editEmployee(employeeLoginID, name, loginID,
 				password, role);
 
 		if (!success) {
@@ -150,14 +141,8 @@ public class EmployeeUI {
 					"Error editing employee. Please try a different loginID.");
 			return;
 		}
-
 		updateEmployees();
 	}
-
-	private void deleteEmployeeAction() {
-		//String 
-	}
-
 	
 	private String verifySelected() {
 		String employee = employeeList.getSelectedValue();

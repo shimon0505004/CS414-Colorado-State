@@ -89,11 +89,11 @@ public class UIController {
 
 			loginView.clear();
 			loginView.setVisible(false);
-
 			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
 			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseKiosk());
 			mainView.setCanCompleteOrder(currentEmployee.getRole()
 					.canCompleteOrder());
+			mainView.setCanManageEmployee(currentEmployee.getRole().equals(Role.Manager));
 			mainView.setVisible(true);
 		}
 	}
@@ -134,26 +134,7 @@ public class UIController {
 		employeeView.setVisible(true);
 	}
 
-	public boolean createEmployee(String name, String loginID, String password,
-			String role) {
-		Role r;
-		switch (role) {
-		case "Manager":
-			r = Role.Manager;
-			break;
-		case "Chef":
-			r = Role.Chef;
-			break;
-		default:
-			r = Role.Cashier;
-			break;
-		}
-		Employee e = store.addEmployee(name, loginID, password, r);
-		return e != null;
-	}
-
-	public boolean editEmployee(String loginID, String newName,
-			String newLoginID, String newPassword, String newRole) {
+	public boolean loginIDValid(String loginID) {
 		Collection<Employee> employees = store.getEmployeeSet();
 		Collection<String> loginInfos = new ArrayList<>();
 
@@ -161,26 +142,53 @@ public class UIController {
 			loginInfos.add(employee.getEmployeeLoginInfo().getLoginId());
 		}
 
-		if (loginInfos.contains(newLoginID))
-			return false;
+		return !loginInfos.contains(loginID);
+	}
 
-		Employee e = this.getSelectedEmployee(loginID);
-		e.setEmployeeName(newName);
-		e.setEmployeeLoginInfo(new LoginInfo(newLoginID, newPassword));
-		Role r;
-		switch (newRole) {
-		case "Manager":
-			r = Role.Manager;
-			break;
-		case "Chef":
-			r = Role.Chef;
-			break;
-		default:
-			r = Role.Cashier;
-			break;
+	public boolean createEmployee(String name, String loginID, String password,
+			String role) {
+
+		if (loginIDValid(loginID)) {
+			Role r;
+			switch (role) {
+			case "Manager":
+				r = Role.Manager;
+				break;
+			case "Chef":
+				r = Role.Chef;
+				break;
+			default:
+				r = Role.Cashier;
+				break;
+			}
+			Employee e = store.addEmployee(name, loginID, password, r);
+			return true;
 		}
-		e.setRole(r);
-		return true;
+		return false;
+	}
+
+	public boolean editEmployee(String loginID, String newName,
+			String newLoginID, String newPassword, String newRole) {
+		if (loginIDValid(newLoginID)) {
+			Employee e = this.getSelectedEmployee(loginID);
+			e.setEmployeeName(newName);
+			e.setEmployeeLoginInfo(new LoginInfo(newLoginID, newPassword));
+			Role r;
+			switch (newRole) {
+			case "Manager":
+				r = Role.Manager;
+				break;
+			case "Chef":
+				r = Role.Chef;
+				break;
+			default:
+				r = Role.Cashier;
+				break;
+			}
+			e.setRole(r);
+			return true;
+		} else
+			return false;
 	}
 
 	public boolean createMenu(String name, String description) {
@@ -413,7 +421,7 @@ public class UIController {
 
 	public String getEmployeeLoginID(String employeeString) {
 		String[] split = employeeString.split(" : ");
-		return split[1];
+		return split[2];
 	}
 
 	public Iterable<String> getEmployees() {
