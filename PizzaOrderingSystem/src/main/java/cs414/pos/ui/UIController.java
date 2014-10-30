@@ -65,6 +65,7 @@ public class UIController {
 				editMenuView.init();
 				placeOrderView.init();
 				completeOrderView.init();
+				employeeView.init();
 
 				if (isKiosk) {
 					mainView.setCanEditMenu(false);

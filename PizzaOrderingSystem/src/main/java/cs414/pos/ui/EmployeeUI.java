@@ -2,6 +2,7 @@ package cs414.pos.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -154,9 +155,10 @@ public class EmployeeUI {
 	}
 
 	private void deleteEmployeeAction() {
-
+		//String 
 	}
 
+	
 	private String verifySelected() {
 		String employee = employeeList.getSelectedValue();
 		if (employee == null) {
@@ -165,4 +167,22 @@ public class EmployeeUI {
 		return employee;
 	}
 
+	public static void main(String[] args){
+		final EmployeeUI view = new EmployeeUI(null);
+		
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				view.init();
+				view.setVisible(true);
+				view.frame.removeWindowListener(view.frame.getWindowListeners()[0]);
+				view.frame.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e){
+						System.exit(0);
+					}
+				});
+			}
+		});
+	}
 }
