@@ -1,0 +1,55 @@
+System instruction
+
+Our group has packed our project into a runnable jar file.
+
+It has a pre-defined set of employees:
+
+	Manager: id: bob, password: pw_bob
+
+	Chef: id: billy, password: pw_billy
+
+	Cashier: id: billy_bob, password: pw_billy_bob
+
+Tester can login to the system by either of these accounts. The available button will differ depends on whether the user is manager, chef or cashier.
+
+Here are the instruction of different UIs.
+
+1. Main UI:
+
+Contains all possible entries of primary UI: Manage Employees, Manage Menu Item, Manage Menu, Place Order, Complete Order.
+
+Manager can enter Manger Employees, Manage Menu Item, Manage Menu, and Place Order UI.
+
+Chef can only enter Complete Order UI.
+
+Cashier can only enter Place Order UI.
+
+2. Manage Employees UI:
+
+This UI will show all current employees in the system. Each row represents the information of one employee. 
+
+The information is generated as: [ Name : Employee ID : Login ID : Role ]
+
+User can add an employee or edit an employee.
+
+3. Manage Menu Item UI:
+
+This UI will show all menu items in the system. Each row represents the information of one employee.
+
+The information is generated as: [ Name : Description : Price : (optional) special ]
+
+User can add a menu item, delete a menu item, or change either name, description, price or special status of a menu item.
+
+4. Manage Menu UI:
+
+This UI will show all items under a certain menu. Users can switch to any menu, as well as generating a new menu, edit current menu's name, delete current menu, add menu items to the current menu, and remove the items from the current menu.
+
+5. Place Order UI:
+
+This UI will allow user to place an order. User can add any item(s) to the order. The price will show on the right side. User can also remove items from the order. At last, the order can be paid by cash or credit card, and by in-house type, take-away type, or delivery type. 
+
+If the order is delivery type, an address is needed. If the order is paid by credit card, card information is needed.
+
+6. Complete Order UI:
+
+This UI will allow chef to mark an order as complete. After an order is marked as complete, it will not in the list any more.
