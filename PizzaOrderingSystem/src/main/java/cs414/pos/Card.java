@@ -7,13 +7,13 @@ public class Card implements Serializable {
 	private String cardExpirationDate;
 	private String cv2;
 	
-	Card(){
+	public Card(){
 		setCardNumber("");
 		setCardExpirationDate("");
 		setCv2("");
 	}
 	
-	Card(String cardNumber,String cardExpirationDate, String cv2){
+ 	public Card(String cardNumber,String cardExpirationDate, String cv2){
 		setCardNumber(cardNumber);
 		setCardExpirationDate(cardExpirationDate);
 		setCv2(cv2);
