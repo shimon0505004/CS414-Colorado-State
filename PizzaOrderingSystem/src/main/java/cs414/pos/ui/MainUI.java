@@ -61,6 +61,11 @@ public class MainUI {
 		completeOrderButton.setEnabled(canCompleteOrder);
 	}
 
+	public void setCanEditEmployee(boolean canEditMenu) {
+		employeeButton.setEnabled(canEditMenu);
+	}
+		
+	
 	private void layoutComponents() {
 		GridLayout layout = new GridLayout(4, 1);
 		layout.setHgap(5);
