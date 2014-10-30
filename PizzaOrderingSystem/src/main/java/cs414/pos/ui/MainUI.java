@@ -62,6 +62,7 @@ public class MainUI {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public void setCanManageEmployee(boolean canManageEmployee) {
 		employeeButton.setEnabled(canManageEmployee);
 	}
@@ -75,6 +76,12 @@ public class MainUI {
 	public void setCanManageEmployee(boolean canManageEmployee){
 		employeeButton.setEnabled(canManageEmployee);
 	}
+=======
+
+	public void setCanManageEmployee(boolean canManageEmployee){
+		employeeButton.setEnabled(canManageEmployee);
+	}
+>>>>>>> FETCH_HEAD
 	public void setCanEditEmployee(boolean canEditMenu) {
 		employeeButton.setEnabled(canEditMenu);
 	}
