@@ -61,8 +61,7 @@ public class MainUI {
 		completeOrderButton.setEnabled(canCompleteOrder);
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	public void setCanManageEmployee(boolean canManageEmployee) {
 		employeeButton.setEnabled(canManageEmployee);
 	}
@@ -71,23 +70,10 @@ public class MainUI {
 		employeeButton.setEnabled(canEditMenu);
 	}
 
-=======
 
-	public void setCanManageEmployee(boolean canManageEmployee){
-		employeeButton.setEnabled(canManageEmployee);
-	}
-=======
 
-	public void setCanManageEmployee(boolean canManageEmployee){
-		employeeButton.setEnabled(canManageEmployee);
-	}
->>>>>>> FETCH_HEAD
-	public void setCanEditEmployee(boolean canEditMenu) {
-		employeeButton.setEnabled(canEditMenu);
-	}
 		
 	
->>>>>>> FETCH_HEAD
 	private void layoutComponents() {
 		GridLayout layout = new GridLayout(4, 1);
 		layout.setHgap(5);
