@@ -22,7 +22,7 @@ public class MainUI {
 	private JButton placeOrderButton;
 	private JButton completeOrderButton;
 	private JButton employeeButton;
-	
+
 	public MainUI(UIController controller) {
 		this.controller = controller;
 	}
@@ -34,7 +34,7 @@ public class MainUI {
 		placeOrderButton = new JButton("Place Order");
 		completeOrderButton = new JButton("Complete Order");
 		employeeButton = new JButton("Manage Employees");
-		
+
 		layoutComponents();
 
 		addListeners();
@@ -62,22 +62,31 @@ public class MainUI {
 	}
 
 <<<<<<< HEAD
+	public void setCanManageEmployee(boolean canManageEmployee) {
+		employeeButton.setEnabled(canManageEmployee);
+	}
+
+	public void setCanEditEmployee(boolean canEditMenu) {
+		employeeButton.setEnabled(canEditMenu);
+	}
+
+=======
+
 	public void setCanManageEmployee(boolean canManageEmployee){
 		employeeButton.setEnabled(canManageEmployee);
 	}
-=======
 	public void setCanEditEmployee(boolean canEditMenu) {
 		employeeButton.setEnabled(canEditMenu);
 	}
 		
->>>>>>> FETCH_HEAD
 	
+>>>>>>> FETCH_HEAD
 	private void layoutComponents() {
 		GridLayout layout = new GridLayout(4, 1);
 		layout.setHgap(5);
 		layout.setVgap(5);
 		frame.setLayout(layout);
-		
+
 		frame.add(employeeButton);
 		frame.add(editMenuItemButton);
 		frame.add(editMenuButton);
@@ -92,9 +101,9 @@ public class MainUI {
 				controller.closeMain();
 			}
 		});
-		employeeButton.addActionListener(new ActionListener(){
+		employeeButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				controller.displayEmployee();
 			}
 		});

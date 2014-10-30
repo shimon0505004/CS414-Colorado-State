@@ -83,7 +83,7 @@ public class EditMenuItemUI {
 		itemList.setModel(new DefaultListModel<String>());
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 5));
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 3, 3));
 		buttonPanel.add(createButton);
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(changeNameButton);
@@ -117,6 +117,12 @@ public class EditMenuItemUI {
 				changeNameAction();
 			}
 		});
+		editPriceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changePriceAction();
+			}
+		});
 		changeDescriptionButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -129,6 +135,7 @@ public class EditMenuItemUI {
 				specialAction();
 			}
 		});
+
 	}
 
 	private void createItemAction() {
@@ -208,6 +215,28 @@ public class EditMenuItemUI {
 		}
 
 		controller.changeMenuItemDescription(itemName, description);
+		updateItems();
+	}
+
+	private void changePriceAction() {
+		String itemString = verifySelected();
+		if (itemString == null){
+			return;
+		}
+		String itemName = controller.getItemName(itemString);
+		String priceString = JOptionPane.showInputDialog("Enter Price:");
+		if (priceString == null){
+			return;
+		}
+		
+		double price;
+		try {
+			price = Double.parseDouble(priceString);
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(frame, "Invalid item price");
+			return;
+		}
+		controller.changeItemPrice(itemName, price);
 		updateItems();
 	}
 

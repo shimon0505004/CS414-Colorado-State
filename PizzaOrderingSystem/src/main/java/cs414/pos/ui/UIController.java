@@ -94,7 +94,8 @@ public class UIController {
 			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseKiosk());
 			mainView.setCanCompleteOrder(currentEmployee.getRole()
 					.canCompleteOrder());
-			mainView.setCanManageEmployee(currentEmployee.getRole().equals(Role.Manager));
+			mainView.setCanManageEmployee(currentEmployee.getRole().equals(
+					Role.Manager));
 			mainView.setVisible(true);
 		}
 	}
@@ -236,6 +237,15 @@ public class UIController {
 		}
 		store.addMenuItem(currentEmployee, itemName, price, itemDescription);
 		return true;
+	}
+
+	public boolean changeItemPrice(String itemName, double price) {
+		if (price >= 0) {
+			Item item = getSelectedItem(itemName);
+			item.setItemPrice(price);
+			return true;
+		}
+		return false;
 	}
 
 	public void deleteMenuItem(String itemName) {
