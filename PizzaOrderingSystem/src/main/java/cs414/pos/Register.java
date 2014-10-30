@@ -10,19 +10,18 @@ public class Register implements Serializable {
 	private Set<Order> allOrdersAtRegister;
 	private Store pizzaStore;
 	
-	Register(int ID){
+	public Register(int ID){
 		setRegisterID(ID);
 		allOrdersAtRegister = new HashSet<Order>();
 		pizzaStore = null;
 	}
 	
-	Register(int ID, Store pizzaStore){
+	public Register(int ID, Store pizzaStore){
 		setRegisterID(ID);
 		allOrdersAtRegister = new HashSet<Order>();
 		setPizzaStore(pizzaStore);
 	}
-	
-	
+
 	/**
 	 * @return the allOrdersAtRegister
 	 */
@@ -48,14 +47,12 @@ public class Register implements Serializable {
 		this.registerID = registerID;
 	}
 
-
 	/**
 	 * @return the pizzaStore
 	 */
 	public Store getPizzaStore() {
 		return pizzaStore;
 	}
-
 
 	/**
 	 * @param pizzaStore the pizzaStore to set

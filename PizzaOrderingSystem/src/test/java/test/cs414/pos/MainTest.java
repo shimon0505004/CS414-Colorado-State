@@ -1,4 +1,4 @@
-package cs414.pos;
+package test.cs414.pos;
 
 import org.junit.After;
 import org.junit.AfterClass;

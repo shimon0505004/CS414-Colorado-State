@@ -10,13 +10,13 @@ public class Kiosk implements Serializable {
 	private Store pizzaStore;
 	
 	
-	Kiosk(int ID){
+	public Kiosk(int ID){
 		setKioskID(ID);
 
 		setPizzaStore(null);
 	}
 
-	Kiosk(int ID,Store pizzaStore){
+	public Kiosk(int ID,Store pizzaStore){
 		setKioskID(ID);
 
 		setPizzaStore(pizzaStore);
