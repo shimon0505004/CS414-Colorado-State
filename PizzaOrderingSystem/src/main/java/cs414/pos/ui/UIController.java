@@ -90,6 +90,7 @@ public class UIController {
 			loginView.clear();
 			loginView.setVisible(false);
 			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
+			mainView.setCanEditEmployee(currentEmployee.getRole().canEditMenu());
 			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseKiosk());
 			mainView.setCanCompleteOrder(currentEmployee.getRole()
 					.canCompleteOrder());
