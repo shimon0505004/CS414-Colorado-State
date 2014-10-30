@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +20,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -31,11 +34,13 @@ public class EditMenuUI {
 	private JScrollPane menuItemScrollPane;
 	private JList<String> menuItemList;
 	private JPanel buttonPanel;
+	private JPanel descriptionPanel;
 	private JButton createButton;
 	private JButton deleteButton;
 	private JButton addButton;
 	private JButton removeButton;
 	private JButton editButton;
+	private TextArea menuDescText;
 	
 	public EditMenuUI(UIController controller) {
 		this.controller = controller;
@@ -47,12 +52,13 @@ public class EditMenuUI {
 		menuItemScrollPane = new JScrollPane();
 		menuItemList = new JList<>();
 		buttonPanel = new JPanel();
+		descriptionPanel = new JPanel();
 		createButton = new JButton("Create Menu");
 		editButton = new JButton("Edit Menu");
 		deleteButton = new JButton("Delete Menu");
 		addButton = new JButton("Add Item");
 		removeButton = new JButton("Remove Item");
-
+		menuDescText = new TextArea((String) menuComboBox.getSelectedItem());
 		
 		layoutComponents();
 
@@ -93,6 +99,7 @@ public class EditMenuUI {
 		frame.setLayout(new BorderLayout());
 		frame.add(menuComboBox, BorderLayout.NORTH);
 		frame.add(menuItemScrollPane, BorderLayout.CENTER);
+		frame.add(descriptionPanel, BorderLayout.LINE_START);
 		menuItemScrollPane.setViewportView(menuItemList);
 		menuItemList.setModel(new DefaultListModel<String>());
 		menuItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -105,6 +112,8 @@ public class EditMenuUI {
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(addButton);
 		buttonPanel.add(removeButton);
+		menuDescText.setEditable(false);
+		descriptionPanel.add(menuDescText);
 		
 	}
 
@@ -119,6 +128,7 @@ public class EditMenuUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				loadItemsAction();
+				menuDescText.setText(controller.getMenuDesc((String) menuComboBox.getSelectedItem()));
 			}
 		});
 		createButton.addActionListener(new ActionListener() {

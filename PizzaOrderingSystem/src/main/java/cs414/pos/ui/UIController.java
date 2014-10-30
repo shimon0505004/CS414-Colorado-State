@@ -303,6 +303,11 @@ public class UIController {
 		return menuList;
 	}
 
+	public String getMenuDesc(String menuName){
+		Menu m = getSelectedMenu(menuName);
+		return m.getMenuDescription();
+	}
+	
 	public Iterable<String> getAllMenuItems() {
 		return getMenuItems(store.getSetOfItems());
 	}
