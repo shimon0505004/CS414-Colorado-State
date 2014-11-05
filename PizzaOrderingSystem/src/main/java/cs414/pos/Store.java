@@ -354,14 +354,14 @@ public class Store implements Serializable {
 		
 	}
 
-	public void deleteMenuItem(Employee e, Item item) {
+	public boolean deleteMenuItem(Employee e, Item item) {
 		if(!e.getRole().canEditMenu()) {
-			return;
+			return false;
 		}
 		for(Menu m : setOfMenus) {
 			m.deleteItem(item);
 		}
-		setOfItems.remove(item);
+		return setOfItems.remove(item);
 	}
 
 	/**
@@ -525,7 +525,7 @@ public class Store implements Serializable {
 	
 	/**
 	 * 
-	 * @param menu
+	 * @param menuName
 	 * @return
 	 */
 	public Menu getMenu(String menuName){
@@ -547,7 +547,7 @@ public class Store implements Serializable {
 	
 	/**
 	 * 
-	 * @param menu
+	 * @param itemName
 	 * @return
 	 */
 	public Item getItem(String itemName){

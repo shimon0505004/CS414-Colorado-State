@@ -1,21 +1,11 @@
 package cs414.pos.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -168,6 +158,7 @@ public class EditMenuItemUI {
 			return;
 		}
 
+        JOptionPane.showMessageDialog(null, "Item successfully edited.");
 		updateItems();
 	}
 
@@ -177,7 +168,8 @@ public class EditMenuItemUI {
 			return;
 		}
 		String itemName = controller.getItemName(itemString);
-		controller.deleteMenuItem(itemName);
+        if(controller.deleteMenuItem(itemName))
+            JOptionPane.showMessageDialog(null, "Item deleted.");
 		updateItems();
 	}
 
@@ -198,7 +190,7 @@ public class EditMenuItemUI {
 					"Error changing name. Please try a different name.");
 			return;
 		}
-
+        JOptionPane.showMessageDialog(null, "Item name changed.");
 		updateItems();
 	}
 
@@ -215,6 +207,7 @@ public class EditMenuItemUI {
 		}
 
 		controller.changeMenuItemDescription(itemName, description);
+        JOptionPane.showMessageDialog(null, "Item description changed.");
 		updateItems();
 	}
 
@@ -237,6 +230,7 @@ public class EditMenuItemUI {
 			return;
 		}
 		controller.changeItemPrice(itemName, price);
+        JOptionPane.showMessageDialog(null, "Item price changed.");
 		updateItems();
 	}
 
@@ -247,6 +241,7 @@ public class EditMenuItemUI {
 		}
 		String itemName = controller.getItemName(itemString);
 		controller.changeMenuItemSpecial(itemName);
+        JOptionPane.showMessageDialog(null, "Item set special.");
 		updateItems();
 	}
 

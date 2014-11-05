@@ -1,15 +1,11 @@
 package cs414.pos.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.*;
 
 public class EmployeeUI {
 	private UIController controller;
@@ -114,6 +110,7 @@ public class EmployeeUI {
 			return;
 		}
 		updateEmployees();
+        JOptionPane.showMessageDialog(null, "Employee created.");
 	}
 
 	private void editEmployeeAction() {
@@ -142,6 +139,7 @@ public class EmployeeUI {
 			return;
 		}
 		updateEmployees();
+        JOptionPane.showMessageDialog(null, "Employee edited.");
 	}
 	
 	private String verifySelected() {

@@ -248,9 +248,9 @@ public class UIController {
 		return false;
 	}
 
-	public void deleteMenuItem(String itemName) {
+	public boolean deleteMenuItem(String itemName) {
 		Item item = getSelectedItem(itemName);
-		store.deleteMenuItem(currentEmployee, item);
+		return store.deleteMenuItem(currentEmployee, item);
 	}
 
 	public boolean changeMenuItemName(String itemName, String newName) {

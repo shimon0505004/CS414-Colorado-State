@@ -1,27 +1,13 @@
 package cs414.pos.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.TextArea;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -200,6 +186,7 @@ public class EditMenuUI {
 
 		updateMenus();
 		menuComboBox.setSelectedItem(name);
+        JOptionPane.showMessageDialog(null, "Menu created.");
 	}
 
 	private void editMenuAction() {
@@ -216,6 +203,7 @@ public class EditMenuUI {
 		}
 
 		updateMenus();
+        JOptionPane.showMessageDialog(null, "Menu updated.");
 		menuComboBox.setSelectedItem(name);
 	}
 
@@ -225,6 +213,7 @@ public class EditMenuUI {
 		}
 		String menu = (String) menuComboBox.getSelectedItem();
 		controller.deleteMenu(menu);
+        JOptionPane.showMessageDialog(null, "Menu deleted.");
 		updateMenus();
 	}
 
@@ -250,6 +239,7 @@ public class EditMenuUI {
 			return; // cancel
 		}
 		controller.addMenuItem(menu, selectedItem);
+        JOptionPane.showMessageDialog(null, "Item added.");
 		loadItemsAction();
 	}
 
@@ -266,6 +256,7 @@ public class EditMenuUI {
 		}
 		String itemName = controller.getItemName(itemString);
 		controller.removeMenuItem(menu, itemName);
+        JOptionPane.showMessageDialog(null, "Item removed.");
 		loadItemsAction();
 	}
 

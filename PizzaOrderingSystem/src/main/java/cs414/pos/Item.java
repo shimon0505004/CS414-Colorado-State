@@ -86,7 +86,7 @@ public class Item implements Serializable {
 		if(itemDescription != null) {
 			this.itemDescription = itemDescription;
 		} else {
-			this.itemDescription = "";
+			this.itemDescription = ""; // TODO why is this here?
 		}
 
 	}
