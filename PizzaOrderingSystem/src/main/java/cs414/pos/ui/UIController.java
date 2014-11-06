@@ -7,6 +7,7 @@ import cs414.pos.LoginInfo;
 import cs414.pos.Menu;
 import cs414.pos.Order;
 import cs414.pos.OrderItem;
+import cs414.pos.OrderType;
 import cs414.pos.Role;
 import cs414.pos.SaverLoader;
 import cs414.pos.Store;
@@ -91,7 +92,7 @@ public class UIController {
 			loginView.setVisible(false);
 			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
 			mainView.setCanEditEmployee(currentEmployee.getRole().canEditMenu());
-			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseKiosk());
+			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseRegister());
 			mainView.setCanCompleteOrder(currentEmployee.getRole()
 					.canCompleteOrder());
 			mainView.setCanManageEmployee(currentEmployee.getRole().equals(
@@ -277,15 +278,28 @@ public class UIController {
 		}
 	}
 
-	public void completeOrder(int id) {
+	public boolean completeOrder(int id) {
+		boolean returnVal= false;
 		Collection<Order> orders = getIncompleteOrdersSet();
 		for (Order order : orders) {
 			if (order.getOrderID() == id) {
-				order.setCompletedByEmployee(currentEmployee);
+				returnVal=order.setCompletedByEmployee(currentEmployee);
 			}
 		}
+		return returnVal;
 	}
 
+	public boolean deliverOrder(int id) {
+		boolean returnVal= false;
+		Collection<Order> orders = getCompletedButUnderliveredOrdersSet();
+		for (Order order : orders) {
+			if (order.getOrderID() == id) {
+				returnVal=order.setDeliveredByEmployee(currentEmployee);
+			}
+		}
+		return returnVal;
+	}	
+	
 	// deliveryType {0 = InHouse, 1 = TakeAway, 2 = Delivery}
 	// paymentType {0 = cash, 1 = card}
 	public boolean payOrder(String membershipID, int deliveryType,
@@ -386,6 +400,16 @@ public class UIController {
 		return incompleteOrders;
 	}
 
+	public Iterable<String> getCompletedButUnderliveredOrders(){
+		Collection<Order> orders = getCompletedButUnderliveredOrdersSet();
+		List<String> undeliveredOrders = new ArrayList<>();
+		for (Order order : orders) {
+			undeliveredOrders.add(getOrderString(order));
+		}
+		return undeliveredOrders;
+		
+	}
+	
 	public Iterable<String> getMenus() {
 		Collection<Menu> menus = store.getSetOfMenus();
 		List<String> menuList = new ArrayList<>();
@@ -617,4 +641,15 @@ public class UIController {
 		return incompleteOrders;
 	}
 
+	private Collection<Order> getCompletedButUnderliveredOrdersSet() {
+		Collection<Order> allOrders = store.getListOfPlacedOrder();
+		Collection<Order> undeliveredOrders = new LinkedHashSet<>();
+		for (Order order : allOrders) {
+			if (order.isComplete() && !order.isDelivered() && order.getTypeOfOrder().equals(OrderType.HomeDelivery)) {
+				undeliveredOrders.add(order);
+			}
+		}
+		return undeliveredOrders;
+	}
+	
 }

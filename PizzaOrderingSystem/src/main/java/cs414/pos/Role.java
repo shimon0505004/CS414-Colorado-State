@@ -20,8 +20,14 @@ public enum Role {
 	/**
 	 * Chef privileges. Can complete order.
 	 */
-	Chef;
+	Chef,
+	/**
+	 * Delivery man privileges. Can mark order as delivered only.
+	 */
+	DeliveryMan;
 
+	
+	
 	/**
 	 * Returns {@code true} if the privilege allows for editing the menu.
 	 *
@@ -76,7 +82,7 @@ public enum Role {
 	 * @return {@code true} if the privilege allows for using the kiosk,
 	 * otherwise returns {@code false}
 	 */
-	public boolean canUseKiosk() {
+	public boolean canUseRegister() {
 		switch(this) {
 			case Manager:
 			case Cashier:
@@ -117,4 +123,20 @@ public enum Role {
 			return false;
 		}
 	}
+	
+	/**
+	 * Returns {@code true} if the privilege allows for completing an order.
+	 *
+	 * @return {@code true} if the privilege allows for completing an order,
+	 * otherwise returns {@code false}
+	 */
+	public boolean canCompleteDelivery() {
+		switch(this) {
+			case DeliveryMan:
+				return true;
+			default:
+				return false;
+		}
+	}
+
 }

@@ -18,6 +18,10 @@ public class Order implements Serializable {
 	
 	private boolean isComplete;
 	private Employee completedBy;
+	
+	private boolean isDelivered;
+	private Employee deliveredBy;
+	
 
 	private double totalPrice;
 	private double amountReceived;
@@ -54,6 +58,8 @@ public class Order implements Serializable {
 		setOfItems = new HashSet<OrderItem>();
 		setRewardPointGenerated(0);
 		setCompletedBy(null);
+		setDelivered(false);
+		setDeliveredBy(null);
 		createAsInHouseOrder();
 		createAsCashPayment();
 		
@@ -321,6 +327,23 @@ public class Order implements Serializable {
 		}
 		return false;
 	}
+	
+	
+	public boolean setDeliveredByEmployee(Employee deliveredBy) {
+		if(deliveredBy!=null){
+			if(deliveredBy.getRole().equals(Role.DeliveryMan)){
+				//if order is completed, only then it is delivered.
+				if(isComplete()){
+					setDelivered(true);
+					setDeliveredBy(deliveredBy);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	/**
 	 * @param completedBy the completedBy to set
@@ -593,5 +616,33 @@ public class Order implements Serializable {
 	 */
 	public void setIsRegisterOrder(Register isRegisterOrder) {
 		this.isRegisterOrder = isRegisterOrder;
+	}
+
+	/**
+	 * @return the isDelivered
+	 */
+	public boolean isDelivered() {
+		return isDelivered;
+	}
+
+	/**
+	 * @param isDelivered the isDelivered to set
+	 */
+	private void setDelivered(boolean isDelivered) {
+		this.isDelivered = isDelivered;
+	}
+
+	/**
+	 * @return the deliveredBy
+	 */
+	public Employee getDeliveredBy() {
+		return deliveredBy;
+	}
+
+	/**
+	 * @param deliveredBy the deliveredBy to set
+	 */
+	private void setDeliveredBy(Employee deliveredBy) {
+		this.deliveredBy = deliveredBy;
 	}
 }

@@ -12,8 +12,8 @@ import org.junit.Test;
 
 public class EmployeeTest {
 
-	Employee testEmployee1,testEmployee2,testEmployee3;
-	String testName1,testName2,testName3;
+	Employee testEmployee1,testEmployee2,testEmployee3,testEmployee4;
+	String testName1,testName2,testName3,testName4;
 	String testEmployee1ID, testEmployee2ID,testEmployee3ID;
 	
 	
@@ -26,9 +26,11 @@ public class EmployeeTest {
 		testName1 = "NAME1";
 		testName2 = "NAME2";
 		testName3 = "NAME3";		
+		testName4 = "NAME4";
 		testEmployee1 = new Employee(testName1, Role.Manager);
 		testEmployee2 = new Employee(testName2, Role.Cashier);
 		testEmployee3 = new Employee(testName3, Role.Chef);
+		testEmployee4 = new Employee(testName3, Role.DeliveryMan);
 		
 
 		testLoginID1 = "skshimon";

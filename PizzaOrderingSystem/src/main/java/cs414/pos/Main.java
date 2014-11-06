@@ -69,7 +69,9 @@ public class Main {
 		Employee manager = s.addEmployee("bob", "bob", "pw_bob", Role.Manager);
 		Employee chef = s.addEmployee("billy", "billy", "pw_billy", Role.Chef);
 		Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Role.Cashier);
+		Employee deliveryGuy = s.addEmployee("jane", "jane", "pw_jane", Role.DeliveryMan);
 
+		
 		Kiosk k = s.addKiosk(manager, 1);
 		Register r = s.addRegister(manager, 1);
 

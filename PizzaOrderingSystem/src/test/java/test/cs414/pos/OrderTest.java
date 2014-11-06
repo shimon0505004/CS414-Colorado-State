@@ -18,8 +18,8 @@ public class OrderTest {
 	private String address1_str,address2_str,address3_str,address4_str;
 	private Address address1,address2,address3,address4;
 	
-	private Employee testEmployee1,testEmployee2,testEmployee3;
-	private String employee1Name,employee2Name,employee3Name; 
+	private Employee testEmployee1,testEmployee2,testEmployee3,testEmployee4;
+	private String employee1Name,employee2Name,employee3Name,employee4Name; 
 	
 	private double testPayment1,testPayment2,testPayment3;
 	private String testCardNumber1,testCardNumber2,testCardNumber3;
@@ -83,10 +83,13 @@ public class OrderTest {
 		employee1Name = "testManager";
 		employee2Name = "testCashier";
 		employee3Name = "testChef";
+		employee4Name = "testDeliveryMan";
 
 		testEmployee1 = new Employee(employee1Name, Role.Manager);
-		testEmployee2 = new Employee(employee1Name, Role.Cashier);
-		testEmployee3 = new Employee(employee1Name, Role.Chef);
+		testEmployee2 = new Employee(employee2Name, Role.Cashier);
+		testEmployee3 = new Employee(employee3Name, Role.Chef);
+		testEmployee4 = new Employee(employee4Name, Role.DeliveryMan);
+		
 		
 		testPayment1=34.5	;
 		testPayment2=45.2	;
@@ -598,6 +601,61 @@ public class OrderTest {
 
 	}
 
+	@Test
+	public void testIsDelivered() {
+		assertEquals(false,testOrder1.isDelivered());
+		assertEquals(false,testOrder2.isDelivered());
+		assertEquals(false,testOrder3.isDelivered());
+		assertEquals(false,testOrder4.isDelivered());
 
+	
+	}
 
+	
+	@Test
+	public void testSetDeliveredByEmployee() {
+		assertEquals(false, testOrder1.setCompletedByEmployee(testEmployee1));
+		assertEquals(false, testOrder2.setCompletedByEmployee(testEmployee2));
+		assertEquals(true, 	testOrder3.setCompletedByEmployee(testEmployee3));
+		assertEquals(true, 	testOrder4.setCompletedByEmployee(testEmployee3));
+		
+		assertEquals(null, testOrder1.getCompletedBy());
+		assertEquals(null, testOrder2.getCompletedBy());
+		assertEquals(testEmployee3, testOrder3.getCompletedBy());
+		assertEquals(testEmployee3, testOrder4.getCompletedBy());		
+
+		assertEquals(false, testOrder1.isComplete());
+		assertEquals(false, testOrder2.isComplete());
+		assertEquals(true, 	testOrder3.isComplete());
+		assertEquals(true, 	testOrder4.isComplete());
+		
+		
+		assertEquals(false,testOrder1.isDelivered());
+		assertEquals(false,testOrder2.isDelivered());
+		assertEquals(false,testOrder3.isDelivered());
+		assertEquals(false,testOrder4.isDelivered());
+
+		assertEquals(null,testOrder1.getDeliveredBy());
+		assertEquals(null,testOrder2.getDeliveredBy());
+		assertEquals(null,testOrder3.getDeliveredBy());
+		assertEquals(null,testOrder4.getDeliveredBy());
+
+		
+		assertEquals(false, testOrder1.setDeliveredByEmployee(testEmployee4));
+		assertEquals(false, testOrder2.setDeliveredByEmployee(testEmployee4));
+		assertEquals(true, 	testOrder3.setDeliveredByEmployee(testEmployee4));
+		assertEquals(true, 	testOrder4.setDeliveredByEmployee(testEmployee4));
+		 
+		assertEquals(false,testOrder1.isDelivered());
+		assertEquals(false,testOrder2.isDelivered());
+		assertEquals(true,testOrder3.isDelivered());
+		assertEquals(true,testOrder4.isDelivered());
+
+		assertEquals(null,testOrder1.getDeliveredBy());
+		assertEquals(null,testOrder2.getDeliveredBy());
+		assertEquals(testEmployee4,testOrder3.getDeliveredBy());
+		assertEquals(testEmployee4,testOrder4.getDeliveredBy());
+		
+	}
+	
 }

@@ -106,9 +106,12 @@ public class CompleteOrderUI {
 		}
 		String orderString = (String) orderComboBox.getSelectedItem();
 		int orderID = controller.getOrderID(orderString);
-		controller.completeOrder(orderID);
-        JOptionPane.showMessageDialog(null, "Order "+orderID+" marked as completed.");
-		updateOrders();
+		if(controller.completeOrder(orderID)){
+			JOptionPane.showMessageDialog(null, "Order "+orderID+" marked as completed.");
+			updateOrders();
+		}else{
+			JOptionPane.showMessageDialog(null, "Order "+orderID+" cannot be marked as completed. Current employee does not have priviledge to complete order.");			
+		}
 	}
 
 	// Used to view the interface with nothing working
