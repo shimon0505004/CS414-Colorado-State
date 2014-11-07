@@ -306,6 +306,11 @@ public class PlaceOrderUI {
         }
         JOptionPane.showMessageDialog(null, "Order successfully placed.");
         controller.closePlaceOrder();
+        
+        if(membershipID!=null && success){
+        	int point = controller.getMemberPoints(membershipID);
+        	JOptionPane.showMessageDialog(frame, "Dear Customer with membership number: "+membershipID+" your current reward points is: "+point);        	
+        }
     }
 
     private String verifySelectedItem() {

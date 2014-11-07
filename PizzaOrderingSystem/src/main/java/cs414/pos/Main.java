@@ -92,7 +92,7 @@ public class Main {
 		s.placeOrder(o2);
 
 		Customer c1 = s.addNewMember("john", "doe", "1234567890");
-		Customer c2 = s.addNewMember("jane", "doe", "1234567890");
+		Customer c2 = s.addNewMember("jane", "doe", "1234567891");
 
 		return s;
 	}

@@ -332,6 +332,19 @@ public class UIController {
 		return success;
 	}
 
+	public int getMemberPoints(String membershipID){
+		if (membershipID != null) {
+			Customer c = store.getMember(membershipID);
+			if (c == null) {
+				return 0;
+			}else{
+				return c.getRewardsPoint();
+			}
+		}else{
+			return 0;
+		}		
+	}
+	
 	public void placeOrder() {
 		store.placeOrder(currentOrder);
 	}
