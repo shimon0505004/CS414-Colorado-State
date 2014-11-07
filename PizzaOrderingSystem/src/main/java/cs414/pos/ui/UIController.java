@@ -338,14 +338,27 @@ public class UIController {
 
 	public void addOrderItem(String itemName, int quantity) {
 		Item item = getSelectedItem(itemName);
-		currentOrder.addItemToOrderByAmount(item, quantity);
+		if(item!=null){
+			currentOrder.addItemToOrderByAmount(item, quantity);			
+		}
 	}
 
 	public void removeOrderItem(String itemName, int quantity) {
 		Item item = getSelectedItem(itemName);
-		currentOrder.removeMultipleCountOfItemFromOrder(item, quantity);
+		if(item!=null){
+			currentOrder.removeMultipleCountOfItemFromOrder(item, quantity);
+		}
 	}
-
+	
+	public int getCurrentCountOfOrderItem(String itemName){
+		Item item = getSelectedItem(itemName);
+		if(item!=null){
+			return currentOrder.getOrderItem(item).getQuantity();
+		}else{
+			return 0;
+		}	
+	}
+	
 	public double getOrderChange() {
 		return roundToTwo(currentOrder.getAmountReturned());
 	}

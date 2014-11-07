@@ -210,10 +210,13 @@ public class PlaceOrderUI {
             // quantity is still 0
         }
         if(quantity <= 0) {
-            JOptionPane.showMessageDialog(frame, "Please enter a valid quantity");
+            JOptionPane.showMessageDialog(frame, "Please enter a valid quantity. Quantity can not be 0 or less.");
             return;
         }
-
+        if(quantity>controller.getCurrentCountOfOrderItem(itemName)){
+            JOptionPane.showMessageDialog(frame, "Please enter a valid quantity. Number of items to remove is greater than actual number of items present in current order by "+ (quantity-controller.getCurrentCountOfOrderItem(itemName)) +".");        	    
+            return;
+        }
         controller.removeOrderItem(itemName, quantity);
         updateOrder();
     }
