@@ -305,12 +305,14 @@ public class UIController {
 	public boolean payOrder(String membershipID, int deliveryType,
 			String address, int paymentType, String cardNumber,
 			String expirationDate, String cv2, double amount) {
+		
+		Customer c = null;
 		if (membershipID != null) {
-			Customer c = store.getMember(membershipID);
+			c = store.getMember(membershipID);
 			if (c == null) {
 				return false;
 			}
-			currentOrder.updateMembershipHoldingCustomer(c);
+			//currentOrder.updateMembershipHoldingCustomer(c);
 		}
 
 		if (deliveryType == 0) {
@@ -328,7 +330,14 @@ public class UIController {
 			success = currentOrder.makeCardPayment(amount, cardNumber,
 					expirationDate, cv2);
 		}
-
+		if(success && c!=null){
+			/**
+			 * if the payment is successful, only then the current order should be updated. 
+			 * Otherwise record can be problematic.
+			 */
+			currentOrder.updateMembershipHoldingCustomer(c);
+		}
+		
 		return success;
 	}
 

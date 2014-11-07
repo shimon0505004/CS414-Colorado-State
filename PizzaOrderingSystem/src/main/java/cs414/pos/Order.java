@@ -100,6 +100,10 @@ public class Order implements Serializable {
 	}
 
 	public boolean makeCardPayment(double amountReceived,String cardNumber,String cardExpirationDate, String cv2){
+		if(!(cardNumberFormatTester(cardNumber) && cardExpirationDateFormatTester(cardExpirationDate))){
+			return false;
+		}
+		
 		boolean returnVal = makeOrderPayment(amountReceived);
 		if(returnVal){
 			setCardPayment(true);
@@ -107,6 +111,51 @@ public class Order implements Serializable {
 			setIsPaid(true);
 		}
 		return returnVal;
+	}
+	
+	private boolean cardNumberFormatTester(String cardNumber){
+		if(cardNumber.length()<16){
+			return false;
+		}
+		for(int i=0;i<cardNumber.length();i++){
+			if(Character.isLetter(cardNumber.charAt(i))){
+				return false;
+			}
+		}
+		return true;
+	}
+	private boolean cardExpirationDateFormatTester(String cardExpirationDate){
+		if(cardExpirationDate.length()!=7)
+		{
+			/*
+			 * only 7 characters allowed.
+			 */
+			return false;
+		}
+		if(cardExpirationDate.charAt(2) != '/'){
+			/*
+			 * Date format = 08/2017
+			 */
+			return false;	
+		}
+		if(!(cardExpirationDate.charAt(0) == '0' || cardExpirationDate.charAt(0) == '1'))
+		{
+			return false;
+		}
+		if(!Character.isDigit(cardExpirationDate.charAt(1))){
+			return false;
+		}
+		if(!(Character.isDigit(cardExpirationDate.charAt(3)) && Character.isDigit(cardExpirationDate.charAt(4)) && Character.isDigit(cardExpirationDate.charAt(5)) && Character.isDigit(cardExpirationDate.charAt(6)))){
+			return false;
+		}
+		
+		String year = cardExpirationDate.substring(3);
+		if(!(Integer.parseInt(year)>=1970 && Integer.parseInt(year)<=2099))
+		{
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean makeCardPayment(double amountReceived, Card paymentCard){

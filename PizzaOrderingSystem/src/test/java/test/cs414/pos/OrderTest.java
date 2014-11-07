@@ -95,17 +95,17 @@ public class OrderTest {
 		testPayment2=45.2	;
 		testPayment3=67.1	;
 		
-		testCardNumber1="1111-1111-1111-1111"	;
-		testCardNumber2="1111-1111-2222-2222"	;
-		testCardNumber3="1111-3333-1111-3333"	;
+		testCardNumber1="1111111111111111"	;
+		testCardNumber2="1111111122222222"	;
+		testCardNumber3="1111333311113333"	;
 		
 		testCV2_1= "342";
 		testCV2_2= "351";
 		testCV2_3= "987";
 		
-		testEXPDate_1="AUG 2017"	;
-		testEXPDate_2="AUG 2018"	;
-		testEXPDate_3="AUG 2010"	;
+		testEXPDate_1="08/2017"	;
+		testEXPDate_2="08/2018"	;
+		testEXPDate_3="08/2010"	;
 		
 		testFirstName1 = "Shawon";
 		testFirstName2 = "Caleb";
@@ -216,6 +216,7 @@ public class OrderTest {
 	public void testMakeCardPaymentDoubleStringStringString() {
 		assertEquals(false, testOrder3.makeCardPayment(4.0, testCardNumber3,testEXPDate_3,testCV2_3));
 		assertEquals(true, testOrder4.makeCardPayment(47.0, testCardNumber3,testEXPDate_3,testCV2_3));	
+
 	}
 
 	@Test
