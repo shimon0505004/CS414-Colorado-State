@@ -133,6 +133,15 @@ public class CustomerTest {
 	public void testGetRewardsPoint() {
 		assertEquals(0, testCustomer1.getRewardsPoint());
 		assertEquals(0, testCustomer2.getRewardsPoint());
+		testCustomer1.addOrder(testOrder1);
+		assertEquals(0, testCustomer1.getRewardsPoint());
+		testCustomer2.addOrder(testOrder2);
+		assertEquals(0, testCustomer2.getRewardsPoint());
+		testCustomer2.addOrder(testOrder3);
+		assertEquals(5, testCustomer2.getRewardsPoint());
+		testCustomer2.addOrder(testOrder4);
+		assertEquals(27, testCustomer2.getRewardsPoint());
+		
 	}
 
 	@Test

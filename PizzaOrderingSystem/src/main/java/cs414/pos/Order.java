@@ -301,7 +301,7 @@ public class Order implements Serializable {
 		//updateTotal();
 		double total = getTotalPrice();
 		
-		int rewardPoint = (int)(total * 0.0);
+		int rewardPoint = (int)(total * 1.0);
 		
 		return rewardPoint;
 	}

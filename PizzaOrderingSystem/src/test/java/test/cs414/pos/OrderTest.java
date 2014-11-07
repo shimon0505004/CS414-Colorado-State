@@ -596,8 +596,8 @@ public class OrderTest {
 	public void testGetRewardPointGenerated() {
 		assertEquals(0, testOrder1.getRewardPointGenerated());
 		assertEquals(0, testOrder2.getRewardPointGenerated());
-		assertEquals(0, testOrder3.getRewardPointGenerated());
-		assertEquals(0, testOrder4.getRewardPointGenerated());
+		assertEquals((int)testItem3_price, testOrder3.getRewardPointGenerated());
+		assertEquals((int)((testItem2_price*4 + testItem3_price + testItem4_price )), testOrder4.getRewardPointGenerated());
 
 	}
 
