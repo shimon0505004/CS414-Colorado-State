@@ -33,7 +33,8 @@ public class Store implements Serializable {
 
 	private Set<Menu> setOfMenus;
 	private Set<Item> setOfItems;
-
+	private int requiredPointsForFreePizzaCertificate;
+	
 	private IEmployeeFactory employeeFactory = EmployeeFactory.getInstance();
     private ICustomerFactory customerFactory = CustomerFactory.getInstance();
 
@@ -61,6 +62,8 @@ public class Store implements Serializable {
 		setSetOfRegister(new HashSet<Register>());
 		setListOfPlacedOrder(new ArrayList<Order>());
 		setMembers(new HashSet<Customer>());
+		
+		setRequiredPointsForFreePizzaCertificate(150);
 	}
 
 	/**
@@ -659,6 +662,21 @@ public class Store implements Serializable {
 			return false;
 		}
 		
+	}
+
+	/**
+	 * @return the requiredPointsForFreePizzaCertificate
+	 */
+	public int getRequiredPointsForFreePizzaCertificate() {
+		return requiredPointsForFreePizzaCertificate;
+	}
+
+	/**
+	 * @param requiredPointsForFreePizzaCertificate the requiredPointsForFreePizzaCertificate to set
+	 */
+	public void setRequiredPointsForFreePizzaCertificate(
+			int requiredPointsForFreePizzaCertificate) {
+		this.requiredPointsForFreePizzaCertificate = requiredPointsForFreePizzaCertificate;
 	}
 	
 	

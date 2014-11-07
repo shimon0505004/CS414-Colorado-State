@@ -248,7 +248,16 @@ public class UIController {
 		}
 		return false;
 	}
+	
+	public int getRequiredPointForFreePizzaCertificate(){
+		return store.getRequiredPointsForFreePizzaCertificate();
+	}
 
+	public int setRequiredPointForFreePizzaCertificate(int point){
+		store.setRequiredPointsForFreePizzaCertificate(point);
+		return getRequiredPointForFreePizzaCertificate();
+	}
+	
 	public boolean deleteMenuItem(String itemName) {
 		Item item = getSelectedItem(itemName);
 		return store.deleteMenuItem(currentEmployee, item);
@@ -353,6 +362,21 @@ public class UIController {
 			return 0;
 		}		
 	}
+	
+	public int setMemberPoints(String membershipID, int points){
+		if (membershipID != null) {
+			Customer c = store.getMember(membershipID);
+			if (c == null) {
+				return 0;
+			}else{
+				c.setRewardsPoint(points);
+				return c.getRewardsPoint();
+			}
+		}else{
+			return 0;
+		}		
+	}
+	
 	
 	public void placeOrder() {
 		store.placeOrder(currentOrder);

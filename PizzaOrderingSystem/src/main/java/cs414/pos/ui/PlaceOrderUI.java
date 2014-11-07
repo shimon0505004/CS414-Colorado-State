@@ -1,11 +1,13 @@
 package cs414.pos.ui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.security.cert.Certificate;
 
 /**
  *
@@ -310,6 +312,19 @@ public class PlaceOrderUI {
         if(membershipID!=null && success){
         	int point = controller.getMemberPoints(membershipID);
         	JOptionPane.showMessageDialog(frame, "Dear Customer with membership number: "+membershipID+" your current reward points is: "+point);        	
+        
+        	/**
+        	 * implementation of free pizza offer
+        	 */
+        	if(point>controller.getRequiredPointForFreePizzaCertificate()){
+        	      int wantFreePizzaResult = JOptionPane.showConfirmDialog(frame, "Dear Customer with membership number: "+membershipID+" you are eligible to receive a free pizza Certificate. Would you like to use it now?" , "Question", JOptionPane.YES_NO_OPTION);
+        	        if(wantFreePizzaResult == JOptionPane.CANCEL_OPTION) {
+        	            return; // cancel
+        	        }else if(wantFreePizzaResult == JOptionPane.OK_OPTION) {
+        	        	controller.setMemberPoints(membershipID, (point-controller.getRequiredPointForFreePizzaCertificate()));
+        	        	JOptionPane.showMessageDialog(frame, "Enjoy your house special pizza! Your updated rewards point is: "+controller.getMemberPoints(membershipID));        	
+        	        }    
+        	}
         }
     }
 
