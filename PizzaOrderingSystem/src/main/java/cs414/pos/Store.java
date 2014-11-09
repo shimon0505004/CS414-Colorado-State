@@ -173,7 +173,6 @@ public class Store implements Serializable {
 		Employee newEmployee = employeeFactory.createEmployee(name, role);
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
-		newEmployee.setWorksForStore(this);
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
 		employeeSet.add(newEmployee);
@@ -201,7 +200,6 @@ public class Store implements Serializable {
 
 		LoginInfo newLoginInfo = new LoginInfo(loginID, password);
 
-		newEmployee.setWorksForStore(this);
 		newEmployee.setEmployeeLoginInfo(newLoginInfo);
 		loginSet.add(newLoginInfo);
 		employeeSet.add(newEmployee);

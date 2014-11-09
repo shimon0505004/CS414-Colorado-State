@@ -1,21 +1,17 @@
 package test.cs414.pos;
 
+import cs414.pos.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import cs414.pos.*;
-import org.junit.After;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class StoreTest {
 
@@ -221,9 +217,11 @@ public class StoreTest {
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeID());
 
+        /*
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee1).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee2).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee3).getWorksForStore());
+		*/
 
 		assertEquals(testLoginID1, testStore3.getEmployee(test_Employee1).getEmployeeLoginInfo().getLoginId());
 		assertEquals(testLoginID2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginId());
@@ -262,9 +260,11 @@ public class StoreTest {
 		assertEquals(test_Employee2, testStore3.getEmployee(test_Employee2).getEmployeeID());
 		assertEquals(test_Employee3, testStore3.getEmployee(test_Employee3).getEmployeeID());
 
+        /*
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee1).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee2).getWorksForStore());
 		assertEquals(testStore3, testStore3.getEmployee(test_Employee3).getWorksForStore());
+		*/
 
 		assertEquals(testLoginID1, testStore3.getEmployee(test_Employee1).getEmployeeLoginInfo().getLoginId());
 		assertEquals(testLoginID2, testStore3.getEmployee(test_Employee2).getEmployeeLoginInfo().getLoginId());

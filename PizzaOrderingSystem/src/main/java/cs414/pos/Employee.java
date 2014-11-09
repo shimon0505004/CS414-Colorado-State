@@ -15,7 +15,7 @@ public class Employee implements Serializable {
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
 	private Role role;
-	private Store worksForStore;
+	//private Store worksForStore;
 
 	private static int employeeCounter=1;
 	public final int objectID ;
@@ -28,7 +28,6 @@ public class Employee implements Serializable {
 		
 		setEmployeeID(generateEmployeeID());
 		setEmployeeLoginInfo(null);
-		setWorksForStore(null);
 	}
 
 	private String generateEmployeeID(){
@@ -128,19 +127,4 @@ public class Employee implements Serializable {
 		}
 		this.role = role;
 	}
-
-	/**
-	 * @return the worksForStore
-	 */
-	public Store getWorksForStore() {
-		return worksForStore;
-	}
-
-	/**
-	 * @param worksForStore the worksForStore to set
-	 */
-	public void setWorksForStore(Store worksForStore) {
-		this.worksForStore = worksForStore;
-	}
-
 }
