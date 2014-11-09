@@ -1,26 +1,31 @@
 package cs414.pos;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
 
 /**
  *
  * @author Nathan Lighthart
  */
 public class SaverLoader {
+
 	public static final File SAVE_FILE = new File("Save.ser");
+    public static final File TEST_FILE = new File("Save.json");
+
+    public static final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
 
 	public static void save(File saveFile, Store s) throws IOException {
 		serialize(new FileOutputStream(saveFile), s);
 	}
+
+    public static void saveTest(Store s) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(TEST_FILE));
+        gson.toJson(s,bw);
+    }
 
 	public static Store load(File file) throws IOException, ClassNotFoundException {
 		return deserialize(new FileInputStream(file));

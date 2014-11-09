@@ -1,7 +1,6 @@
 package cs414.pos;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,8 +13,7 @@ public class Order implements Serializable {
 	private Date DateTime;
 	private String orderDateTime;
 	//private String orderTime;
-	private DateFormat dateFormat;
-	
+
 	private boolean isComplete;
 	private Employee completedBy;
 	
@@ -48,9 +46,8 @@ public class Order implements Serializable {
 		// TODO Auto-generated constructor stub
 
 		setOrderID(ID);
-		setDateFormat(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
 		setDateTime(new Date());
-		setOrderDateTime(getDateFormat().format(DateTime));
+		setOrderDateTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(DateTime));
 		setComplete(false);
 		totalPrice = 0.0 ;
 		amountReceived = 0.0;
@@ -456,20 +453,6 @@ public class Order implements Serializable {
 	 */
 	private void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-
-	/**
-	 * @return the dateFormat
-	 */
-	public DateFormat getDateFormat() {
-		return dateFormat;
-	}
-
-	/**
-	 * @param dateFormat the dateFormat to set
-	 */
-	private void setDateFormat(DateFormat dateFormat) {
-		this.dateFormat = dateFormat;
 	}
 
 	/**

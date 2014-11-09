@@ -59,6 +59,7 @@ public class Main {
 			System.err.println("Error: invalid id");
 			return;
 		}
+        SaverLoader.saveTest(s);
 		UIController controller = new UIController(s, isKiosk, id);
 		controller.start();
 	}
