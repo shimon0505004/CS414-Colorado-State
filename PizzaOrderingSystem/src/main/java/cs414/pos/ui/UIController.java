@@ -11,7 +11,6 @@ import cs414.pos.OrderType;
 import cs414.pos.Role;
 import cs414.pos.SaverLoader;
 import cs414.pos.Store;
-
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ import java.util.logging.Logger;
  * @author Nathan Lighthart
  */
 public class UIController {
+
 	private LoginUI loginView;
 	private MainUI mainView;
 	private EditMenuItemUI editMenuItemView;
@@ -72,6 +72,7 @@ public class UIController {
 					mainView.setCanEditMenu(false);
 					mainView.setCanPlaceOrder(true);
 					mainView.setCanCompleteOrder(false);
+					mainView.setCanManageEmployee(false);
 					mainView.setVisible(true);
 				} else {
 					loginView.setVisible(true);
@@ -154,15 +155,15 @@ public class UIController {
 		if (loginIDValid(loginID)) {
 			Role r;
 			switch (role) {
-			case "Manager":
-				r = Role.Manager;
-				break;
-			case "Chef":
-				r = Role.Chef;
-				break;
-			default:
-				r = Role.Cashier;
-				break;
+				case "Manager":
+					r = Role.Manager;
+					break;
+				case "Chef":
+					r = Role.Chef;
+					break;
+				default:
+					r = Role.Cashier;
+					break;
 			}
 			Employee e = store.addEmployee(name, loginID, password, r);
 			return true;
@@ -178,20 +179,21 @@ public class UIController {
 			e.setEmployeeLoginInfo(new LoginInfo(newLoginID, newPassword));
 			Role r;
 			switch (newRole) {
-			case "Manager":
-				r = Role.Manager;
-				break;
-			case "Chef":
-				r = Role.Chef;
-				break;
-			default:
-				r = Role.Cashier;
-				break;
+				case "Manager":
+					r = Role.Manager;
+					break;
+				case "Chef":
+					r = Role.Chef;
+					break;
+				default:
+					r = Role.Cashier;
+					break;
 			}
 			e.setRole(r);
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	public boolean createMenu(String name, String description) {
@@ -248,16 +250,16 @@ public class UIController {
 		}
 		return false;
 	}
-	
-	public int getRequiredPointForFreePizzaCertificate(){
+
+	public int getRequiredPointForFreePizzaCertificate() {
 		return store.getRequiredPointsForFreePizzaCertificate();
 	}
 
-	public int setRequiredPointForFreePizzaCertificate(int point){
+	public int setRequiredPointForFreePizzaCertificate(int point) {
 		store.setRequiredPointsForFreePizzaCertificate(point);
 		return getRequiredPointForFreePizzaCertificate();
 	}
-	
+
 	public boolean deleteMenuItem(String itemName) {
 		Item item = getSelectedItem(itemName);
 		return store.deleteMenuItem(currentEmployee, item);
@@ -288,33 +290,33 @@ public class UIController {
 	}
 
 	public boolean completeOrder(int id) {
-		boolean returnVal= false;
+		boolean returnVal = false;
 		Collection<Order> orders = getIncompleteOrdersSet();
 		for (Order order : orders) {
 			if (order.getOrderID() == id) {
-				returnVal=order.setCompletedByEmployee(currentEmployee);
+				returnVal = order.setCompletedByEmployee(currentEmployee);
 			}
 		}
 		return returnVal;
 	}
 
 	public boolean deliverOrder(int id) {
-		boolean returnVal= false;
+		boolean returnVal = false;
 		Collection<Order> orders = getCompletedButUnderliveredOrdersSet();
 		for (Order order : orders) {
 			if (order.getOrderID() == id) {
-				returnVal=order.setDeliveredByEmployee(currentEmployee);
+				returnVal = order.setDeliveredByEmployee(currentEmployee);
 			}
 		}
 		return returnVal;
-	}	
-	
+	}
+
 	// deliveryType {0 = InHouse, 1 = TakeAway, 2 = Delivery}
 	// paymentType {0 = cash, 1 = card}
 	public boolean payOrder(String membershipID, int deliveryType,
 			String address, int paymentType, String cardNumber,
 			String expirationDate, String cv2, double amount) {
-		
+
 		Customer c = null;
 		if (membershipID != null) {
 			c = store.getMember(membershipID);
@@ -339,72 +341,71 @@ public class UIController {
 			success = currentOrder.makeCardPayment(amount, cardNumber,
 					expirationDate, cv2);
 		}
-		if(success && c!=null){
+		if (success && c != null) {
 			/**
-			 * if the payment is successful, only then the current order should be updated. 
-			 * Otherwise record can be problematic.
+			 * if the payment is successful, only then the current order should
+			 * be updated. Otherwise record can be problematic.
 			 */
 			currentOrder.updateMembershipHoldingCustomer(c);
 		}
-		
+
 		return success;
 	}
 
-	public int getMemberPoints(String membershipID){
+	public int getMemberPoints(String membershipID) {
 		if (membershipID != null) {
 			Customer c = store.getMember(membershipID);
 			if (c == null) {
 				return 0;
-			}else{
+			} else {
 				return c.getRewardsPoint();
 			}
-		}else{
+		} else {
 			return 0;
-		}		
+		}
 	}
-	
-	public int setMemberPoints(String membershipID, int points){
+
+	public int setMemberPoints(String membershipID, int points) {
 		if (membershipID != null) {
 			Customer c = store.getMember(membershipID);
 			if (c == null) {
 				return 0;
-			}else{
+			} else {
 				c.setRewardsPoint(points);
 				return c.getRewardsPoint();
 			}
-		}else{
+		} else {
 			return 0;
-		}		
+		}
 	}
-	
-	
+
 	public void placeOrder() {
 		store.placeOrder(currentOrder);
 	}
 
 	public void addOrderItem(String itemName, int quantity) {
 		Item item = getSelectedItem(itemName);
-		if(item!=null){
-			currentOrder.addItemToOrderByAmount(item, quantity);			
+		if (item != null) {
+			currentOrder.addItemToOrderByAmount(item, quantity);
 		}
 	}
 
 	public void removeOrderItem(String itemName, int quantity) {
 		Item item = getSelectedItem(itemName);
-		if(item!=null){
+		if (item != null) {
 			currentOrder.removeMultipleCountOfItemFromOrder(item, quantity);
 		}
 	}
-	
-	public int getCurrentCountOfOrderItem(String itemName){
+
+	public int getCurrentCountOfOrderItem(String itemName) {
 		Item item = getSelectedItem(itemName);
-		if(item!=null){
+		if (item != null) {
 			return currentOrder.getOrderItem(item).getQuantity();
-		}else{
+		} else {
 			return 0;
-		}	
+		}
 	}
-	
+
 	public double getOrderChange() {
 		return roundToTwo(currentOrder.getAmountReturned());
 	}
@@ -459,16 +460,16 @@ public class UIController {
 		return incompleteOrders;
 	}
 
-	public Iterable<String> getCompletedButUnderliveredOrders(){
+	public Iterable<String> getCompletedButUnderliveredOrders() {
 		Collection<Order> orders = getCompletedButUnderliveredOrdersSet();
 		List<String> undeliveredOrders = new ArrayList<>();
 		for (Order order : orders) {
 			undeliveredOrders.add(getOrderString(order));
 		}
 		return undeliveredOrders;
-		
+
 	}
-	
+
 	public Iterable<String> getMenus() {
 		Collection<Menu> menus = store.getSetOfMenus();
 		List<String> menuList = new ArrayList<>();
@@ -527,14 +528,14 @@ public class UIController {
 		String role;
 		Role r = employee.getRole();
 		switch (r) {
-		case Manager:
-			role = "Manager";
-			break;
-		case Chef:
-			role = "Chef";
-			break;
-		default:
-			role = "Cashier";
+			case Manager:
+				role = "Manager";
+				break;
+			case Chef:
+				role = "Chef";
+				break;
+			default:
+				role = "Cashier";
 		}
 		String s = employee.getEmployeeName() + " : "
 				+ employee.getEmployeeID() + " : "
@@ -710,5 +711,5 @@ public class UIController {
 		}
 		return undeliveredOrders;
 	}
-	
+
 }
