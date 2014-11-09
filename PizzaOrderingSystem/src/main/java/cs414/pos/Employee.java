@@ -15,7 +15,6 @@ public class Employee implements Serializable {
 	private String employeeName;
 	private LoginInfo employeeLoginInfo;
 	private Role role;
-	//private Store worksForStore;
 
 	private static int employeeCounter=1;
 	public final int objectID ;
@@ -79,10 +78,6 @@ public class Employee implements Serializable {
 	 */
 	public void setEmployeeLoginInfo(LoginInfo loginInfo) {
 		this.employeeLoginInfo = loginInfo;
-		if(loginInfo!=null){
-			employeeLoginInfo.setLoginEmployee(this);			
-		}
-
 	}
 
     /**

@@ -16,13 +16,11 @@ public class LoginInfo implements Serializable {
 	 */
 	private String loginId;
 	private String password;
-	private Employee loginEmployee;
-	
+
 	public LoginInfo(String ID, String PW) {
 		// TODO Auto-generated constructor stub
 		setLoginId(ID);
 		setPassword(PW);
-		setLoginEmployee(null);
 	}
 	/**
 	 * @return the loginId
@@ -47,19 +45,6 @@ public class LoginInfo implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	/**
-	 * @return the loginEmployee
-	 */
-	public Employee getLoginEmployee() {
-		return loginEmployee;
-	}
-	/**
-	 * @param loginEmployee the loginEmployee to set
-	 */
-	public void setLoginEmployee(Employee loginEmployee) {
-		this.loginEmployee = loginEmployee;
-
 	}
 
 	public boolean matchPassword(String password){
