@@ -383,7 +383,7 @@ public class Store implements Serializable {
 
 	public Register addRegister(Employee e, int id) {
 		if(e.getRole().canAddRegister()) {
-			Register r = new Register(id, this);
+			Register r = new Register(id);
 			setOfRegister.add(r);
 			return r;
 		} else {

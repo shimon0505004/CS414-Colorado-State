@@ -8,20 +8,12 @@ public class Register implements Serializable {
 
 	private int registerID;
 	private Set<Order> allOrdersAtRegister;
-	private Store pizzaStore;
-	
+
 	public Register(int ID){
 		setRegisterID(ID);
 		allOrdersAtRegister = new HashSet<Order>();
-		pizzaStore = null;
 	}
 	
-	public Register(int ID, Store pizzaStore){
-		setRegisterID(ID);
-		allOrdersAtRegister = new HashSet<Order>();
-		setPizzaStore(pizzaStore);
-	}
-
 	/**
 	 * @return the allOrdersAtRegister
 	 */
@@ -47,52 +39,29 @@ public class Register implements Serializable {
 		this.registerID = registerID;
 	}
 
-	/**
-	 * @return the pizzaStore
-	 */
-	public Store getPizzaStore() {
-		return pizzaStore;
-	}
-
-	/**
-	 * @param pizzaStore the pizzaStore to set
-	 */
-	public void setPizzaStore(Store pizzaStore) {
-		this.pizzaStore = pizzaStore;
-	}
-
     @Override public boolean equals(Object o) {
         if(o == this) return true;
         if(o == null || o.getClass() != this.getClass()) return false;
 
         return ((Register) o).getRegisterID() == this.getRegisterID();
     }
-    
 
     /**
 	 * @param e
-	 * @param o
+	 * @param orderID
 	 * @return
 	 */
 	public Order createOrder(Employee e, int orderID) {
-		if(getPizzaStore()!=null){
-			if(e.getRole().canCreateOrder()) {
-				Order newOrder = new Order(orderID);
-				if(newOrder!=null){
-					newOrder.setIsKioskOrder(null);
-					newOrder.setIsRegisterOrder(this);					
-				}
-				//getPizzaStore().getSetOfPlacedOrder().add(newOrder);
-				return newOrder;
-			} else {
-				return null;
-			}
-		}
-		else{
-			return null;
-		}
+        if(e.getRole().canCreateOrder()) {
+            Order newOrder = new Order(orderID);
+            if(newOrder!=null){
+                newOrder.setIsKioskOrder(null);
+                newOrder.setIsRegisterOrder(this);
+            }
+            //getPizzaStore().getSetOfPlacedOrder().add(newOrder);
+            return newOrder;
+        } else {
+            return null;
+        }
 	}
-
-    
-    
 }
