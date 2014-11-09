@@ -59,7 +59,8 @@ public class Main {
 			System.err.println("Error: invalid id");
 			return;
 		}
-        SaverLoader.saveTest(s);
+        SaverLoader.saveTestGson(s);
+        SaverLoader.openTestGson();
 		UIController controller = new UIController(s, isKiosk, id);
 		controller.start();
 	}
