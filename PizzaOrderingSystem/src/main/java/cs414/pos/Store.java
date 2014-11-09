@@ -373,7 +373,7 @@ public class Store implements Serializable {
 	 */
 	public Kiosk addKiosk(Employee e, int id) {
 		if(e.getRole().canAddKiosk()) {
-			Kiosk k = new Kiosk(id, this);
+			Kiosk k = new Kiosk(id);
 			setOfKiosk.add(k);
 			return k;
 		} else {
