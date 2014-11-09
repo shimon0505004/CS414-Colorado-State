@@ -25,6 +25,7 @@ public class SaverLoader {
     public static void saveTest(Store s) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(TEST_FILE));
         gson.toJson(s,bw);
+        bw.close();
     }
 
 	public static Store load(File file) throws IOException, ClassNotFoundException {
