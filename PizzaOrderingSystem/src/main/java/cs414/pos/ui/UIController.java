@@ -604,6 +604,11 @@ public class UIController {
 		return data;
 	}
 
+	public int createAccount(String firstName, String lastName, String phoneNumber) {
+		Customer c = store.addNewMember(firstName, lastName, phoneNumber);
+		return c.objectID;
+	}
+
 	private Employee getSelectedEmployee(String employeeLoginID) {
 		Collection<Employee> employees = store.getEmployeeSet();
 		for(Employee employee : employees) {

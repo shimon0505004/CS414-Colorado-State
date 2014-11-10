@@ -51,7 +51,14 @@ public class CustomerInfoUI {
 	}
 
 	public void updateInformation() {
-		table.setModel(new DefaultTableModel(controller.getCustomerData(), controller.getCustomerColumnNames()));
+		table.setModel(new DefaultTableModel(controller.getCustomerData(), controller.getCustomerColumnNames()) {
+			private static final long serialVersionUID = -4082996669139353200L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return false;
+			}
+		});
 	}
 
 	private void layoutComponents() {

@@ -26,6 +26,7 @@ public class MainUI {
 	private JButton employeeButton;
 	private JButton viewCustomersButton;
 	private JButton freePizzaButton;
+	private JButton createAccountButton;
 
 	public MainUI(UIController controller) {
 		this.controller = controller;
@@ -40,6 +41,7 @@ public class MainUI {
 		employeeButton = new JButton("Manage Employees");
 		viewCustomersButton = new JButton("View Customers");
 		freePizzaButton = new JButton("Configure Free Pizza Points");
+		createAccountButton = new JButton("Create Account");
 
 		layoutComponents();
 
@@ -62,6 +64,7 @@ public class MainUI {
 
 	public void setCanPlaceOrder(boolean canPlaceOrder) {
 		placeOrderButton.setEnabled(canPlaceOrder);
+		createAccountButton.setEnabled(canPlaceOrder);
 	}
 
 	public void setCanCompleteOrder(boolean canCompleteOrder) {
@@ -86,6 +89,7 @@ public class MainUI {
 		layout.setVgap(5);
 		frame.setLayout(layout);
 
+		frame.add(createAccountButton);
 		frame.add(placeOrderButton);
 		frame.add(employeeButton);
 		frame.add(viewCustomersButton);
@@ -144,6 +148,12 @@ public class MainUI {
 				configureFreePizzaAction();
 			}
 		});
+		createAccountButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createAccountAction();
+			}
+		});
 	}
 
 	private void configureFreePizzaAction() {
@@ -163,6 +173,26 @@ public class MainUI {
 			return;
 		}
 		controller.setRequiredPointForFreePizzaCertificate(value);
+	}
+
+	private void createAccountAction() {
+		String nameString = JOptionPane.showInputDialog(frame, "Please enter your name (last, first):");
+		if(nameString == null) {
+			JOptionPane.showMessageDialog(frame, "User Account creation cancelled");
+			return;
+		}
+		String[] nameSplit = nameString.split(",");
+		if(nameSplit.length != 2) {
+			JOptionPane.showMessageDialog(frame, "Invalid name format. Please try again.");
+			return;
+		}
+		String phoneNumber = JOptionPane.showInputDialog(frame, "Please enter your phone number:");
+		if(phoneNumber == null) {
+			JOptionPane.showMessageDialog(frame, "User Account creation cancelled");
+			return;
+		}
+		int id = controller.createAccount(nameSplit[1].trim(), nameSplit[0].trim(), phoneNumber);
+		JOptionPane.showMessageDialog(frame, "Customer account creation successful. Your membership ID is " + id + ".");
 	}
 
 	// Used to view the interface with nothing working
