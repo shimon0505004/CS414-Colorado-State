@@ -27,6 +27,7 @@ public class MainUI {
 	private JButton viewCustomersButton;
 	private JButton freePizzaButton;
 	private JButton createAccountButton;
+	private JButton deliverOrderButton;
 
 	public MainUI(UIController controller) {
 		this.controller = controller;
@@ -42,6 +43,7 @@ public class MainUI {
 		viewCustomersButton = new JButton("View Customers");
 		freePizzaButton = new JButton("Configure Free Pizza Points");
 		createAccountButton = new JButton("Create Account");
+		deliverOrderButton = new JButton("Deliver Order");
 
 		layoutComponents();
 
@@ -83,6 +85,10 @@ public class MainUI {
 		employeeButton.setEnabled(canEditMenu);
 	}
 
+	public void setCanDeliverOrder(boolean canDeliverOrder) {
+		deliverOrderButton.setEnabled(canDeliverOrder);
+	}
+
 	private void layoutComponents() {
 		GridLayout layout = new GridLayout(0, 2);
 		layout.setHgap(5);
@@ -97,6 +103,7 @@ public class MainUI {
 		frame.add(editMenuButton);
 		frame.add(freePizzaButton);
 		frame.add(completeOrderButton);
+		frame.add(deliverOrderButton);
 	}
 
 	private void addListeners() {
@@ -152,6 +159,12 @@ public class MainUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				createAccountAction();
+			}
+		});
+		deliverOrderButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.displayDeliverOrder();
 			}
 		});
 	}

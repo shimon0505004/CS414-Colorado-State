@@ -35,6 +35,7 @@ public class UIController {
 	private CompleteOrderUI completeOrderView;
 	private EmployeeUI employeeView;
 	private CustomerInfoUI customerInfoView;
+	private DeliverOrderUI deliverOrderView;
 
 	private Store store;
 	private Employee currentEmployee;
@@ -58,6 +59,7 @@ public class UIController {
 		completeOrderView = new CompleteOrderUI(this);
 		employeeView = new EmployeeUI(this);
 		customerInfoView = new CustomerInfoUI(this);
+		deliverOrderView = new DeliverOrderUI(this);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -70,6 +72,7 @@ public class UIController {
 				completeOrderView.init();
 				employeeView.init();
 				customerInfoView.init();
+				deliverOrderView.init();
 
 				if(isKiosk) {
 					setPermissions(true);
@@ -124,6 +127,12 @@ public class UIController {
 		mainView.setVisible(false);
 		completeOrderView.updateOrders();
 		completeOrderView.setVisible(true);
+	}
+
+	public void displayDeliverOrder() {
+		mainView.setVisible(false);
+		deliverOrderView.updateOrders();
+		deliverOrderView.setVisible(true);
 	}
 
 	public void displayEmployee() {
@@ -455,6 +464,11 @@ public class UIController {
 		mainView.setVisible(true);
 	}
 
+	public void closeDeliverOrder() {
+		deliverOrderView.setVisible(false);
+		mainView.setVisible(true);
+	}
+
 	public Iterable<String> getIncompleteOrders() {
 
 		Collection<Order> orders = getIncompleteOrdersSet();
@@ -748,6 +762,7 @@ public class UIController {
 			mainView.setCanCompleteOrder(false);
 			mainView.setCanManageEmployee(false);
 			mainView.setCanViewCustomers(false);
+			mainView.setCanDeliverOrder(false);
 		} else {
 			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
 			mainView.setCanEditEmployee(currentEmployee.getRole().canEditMenu());
@@ -756,6 +771,7 @@ public class UIController {
 					.canCompleteOrder());
 			mainView.setCanManageEmployee(currentEmployee.getRole().canManageEmployees());
 			mainView.setCanViewCustomers(currentEmployee.getRole().canViewCustomers());
+			mainView.setCanDeliverOrder(currentEmployee.getRole().canCompleteDelivery());
 		}
 	}
 
