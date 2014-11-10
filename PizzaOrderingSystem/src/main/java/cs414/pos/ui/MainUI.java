@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,7 @@ public class MainUI {
 	private JButton completeOrderButton;
 	private JButton employeeButton;
 	private JButton viewCustomersButton;
+	private JButton freePizzaButton;
 
 	public MainUI(UIController controller) {
 		this.controller = controller;
@@ -37,6 +39,7 @@ public class MainUI {
 		completeOrderButton = new JButton("Complete Order");
 		employeeButton = new JButton("Manage Employees");
 		viewCustomersButton = new JButton("View Customers");
+		freePizzaButton = new JButton("Configure Free Pizza Points");
 
 		layoutComponents();
 
@@ -54,6 +57,7 @@ public class MainUI {
 	public void setCanEditMenu(boolean canEditMenu) {
 		editMenuButton.setEnabled(canEditMenu);
 		editMenuItemButton.setEnabled(canEditMenu);
+		freePizzaButton.setEnabled(canEditMenu);
 	}
 
 	public void setCanPlaceOrder(boolean canPlaceOrder) {
@@ -82,12 +86,13 @@ public class MainUI {
 		layout.setVgap(5);
 		frame.setLayout(layout);
 
+		frame.add(placeOrderButton);
 		frame.add(employeeButton);
+		frame.add(viewCustomersButton);
 		frame.add(editMenuItemButton);
 		frame.add(editMenuButton);
-		frame.add(placeOrderButton);
+		frame.add(freePizzaButton);
 		frame.add(completeOrderButton);
-		frame.add(viewCustomersButton);
 	}
 
 	private void addListeners() {
@@ -133,6 +138,31 @@ public class MainUI {
 				controller.displayCustomers();
 			}
 		});
+		freePizzaButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				configureFreePizzaAction();
+			}
+		});
+	}
+
+	private void configureFreePizzaAction() {
+		String message = "Please enter the amount of minimum points required for a free pizza.\n The current number required is " + controller.getRequiredPointForFreePizzaCertificate() + ".";
+		String valueString = JOptionPane.showInputDialog(frame, message);
+		if(valueString == null) {
+			return;
+		}
+		int value;
+		try {
+			value = Integer.parseInt(valueString);
+			if(value < 1) {
+				throw new NumberFormatException();
+			}
+		} catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(frame, "The value enter is not a positive integer. Please Try again.");
+			return;
+		}
+		controller.setRequiredPointForFreePizzaCertificate(value);
 	}
 
 	// Used to view the interface with nothing working
