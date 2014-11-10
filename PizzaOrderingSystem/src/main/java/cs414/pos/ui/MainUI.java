@@ -15,6 +15,7 @@ import javax.swing.JFrame;
  * @author Nathan Lighthart
  */
 public class MainUI {
+
 	private UIController controller;
 	private JFrame frame;
 	private JButton editMenuItemButton;
@@ -22,6 +23,7 @@ public class MainUI {
 	private JButton placeOrderButton;
 	private JButton completeOrderButton;
 	private JButton employeeButton;
+	private JButton viewCustomersButton;
 
 	public MainUI(UIController controller) {
 		this.controller = controller;
@@ -34,6 +36,7 @@ public class MainUI {
 		placeOrderButton = new JButton("Place Order");
 		completeOrderButton = new JButton("Complete Order");
 		employeeButton = new JButton("Manage Employees");
+		viewCustomersButton = new JButton("View Customers");
 
 		layoutComponents();
 
@@ -61,6 +64,9 @@ public class MainUI {
 		completeOrderButton.setEnabled(canCompleteOrder);
 	}
 
+	public void setCanViewCustomers(boolean canViewCustomers) {
+		viewCustomersButton.setEnabled(canViewCustomers);
+	}
 
 	public void setCanManageEmployee(boolean canManageEmployee) {
 		employeeButton.setEnabled(canManageEmployee);
@@ -70,12 +76,8 @@ public class MainUI {
 		employeeButton.setEnabled(canEditMenu);
 	}
 
-
-
-		
-	
 	private void layoutComponents() {
-		GridLayout layout = new GridLayout(4, 1);
+		GridLayout layout = new GridLayout(0, 2);
 		layout.setHgap(5);
 		layout.setVgap(5);
 		frame.setLayout(layout);
@@ -85,6 +87,7 @@ public class MainUI {
 		frame.add(editMenuButton);
 		frame.add(placeOrderButton);
 		frame.add(completeOrderButton);
+		frame.add(viewCustomersButton);
 	}
 
 	private void addListeners() {
@@ -122,6 +125,12 @@ public class MainUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.displayCompleteOrder();
+			}
+		});
+		viewCustomersButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.displayCustomers();
 			}
 		});
 	}

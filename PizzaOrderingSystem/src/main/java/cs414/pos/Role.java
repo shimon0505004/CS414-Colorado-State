@@ -9,6 +9,7 @@ package cs414.pos;
  * @author Nathan Lighthart
  */
 public enum Role {
+
 	/**
 	 * Manager privileges. Can edit menu and use kiosk.
 	 */
@@ -26,8 +27,6 @@ public enum Role {
 	 */
 	DeliveryMan;
 
-	
-	
 	/**
 	 * Returns {@code true} if the privilege allows for editing the menu.
 	 *
@@ -42,14 +41,14 @@ public enum Role {
 				return false;
 		}
 	}
-	
-	
+
 	/**
 	 * Returns {@code true} if the privilege allows for Adding a Kiosk .
 	 *
 	 * @return {@code true} if the privilege allows for Adding a Kiosk,
 	 * otherwise returns {@code false}
-	 *	 */
+	 *
+	 */
 	public boolean canAddKiosk() {
 		switch(this) {
 			case Manager:
@@ -58,14 +57,14 @@ public enum Role {
 				return false;
 		}
 	}
-	
-	
+
 	/**
 	 * Returns {@code true} if the privilege allows for Adding a Register .
 	 *
 	 * @return {@code true} if the privilege allows for Adding a Register,
 	 * otherwise returns {@code false}
-	 *	 */
+	 *
+	 */
 	public boolean canAddRegister() {
 		switch(this) {
 			case Manager:
@@ -74,7 +73,6 @@ public enum Role {
 				return false;
 		}
 	}
-	
 
 	/**
 	 * Returns {@code true} if the privilege allows for using the kiosk.
@@ -106,7 +104,6 @@ public enum Role {
 				return false;
 		}
 	}
-	
 
 	/**
 	 * Returns {@code true} if the privilege allows for adding an order.
@@ -114,16 +111,34 @@ public enum Role {
 	 * @return {@code true} if the privilege allows for adding an order,
 	 * otherwise returns {@code false}
 	 */
-	public boolean canCreateOrder(){
-		switch(this){
-		case Manager:
-		case Cashier:
-			return true;
-		default:
-			return false;
+	public boolean canCreateOrder() {
+		switch(this) {
+			case Manager:
+			case Cashier:
+				return true;
+			default:
+				return false;
 		}
 	}
-	
+
+	public boolean canManageEmployees() {
+		switch(this) {
+			case Manager:
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	public boolean canViewCustomers() {
+		switch(this) {
+			case Manager:
+				return true;
+			default:
+				return false;
+		}
+	}
+
 	/**
 	 * Returns {@code true} if the privilege allows for completing an order.
 	 *

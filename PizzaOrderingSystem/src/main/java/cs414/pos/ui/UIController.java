@@ -34,6 +34,7 @@ public class UIController {
 	private PlaceOrderUI placeOrderView;
 	private CompleteOrderUI completeOrderView;
 	private EmployeeUI employeeView;
+	private CustomerInfoUI customerInfoView;
 
 	private Store store;
 	private Employee currentEmployee;
@@ -56,6 +57,7 @@ public class UIController {
 		placeOrderView = new PlaceOrderUI(this);
 		completeOrderView = new CompleteOrderUI(this);
 		employeeView = new EmployeeUI(this);
+		customerInfoView = new CustomerInfoUI(this);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -67,12 +69,10 @@ public class UIController {
 				placeOrderView.init();
 				completeOrderView.init();
 				employeeView.init();
+				customerInfoView.init();
 
-				if (isKiosk) {
-					mainView.setCanEditMenu(false);
-					mainView.setCanPlaceOrder(true);
-					mainView.setCanCompleteOrder(false);
-					mainView.setCanManageEmployee(false);
+				if(isKiosk) {
+					setPermissions(true);
 					mainView.setVisible(true);
 				} else {
 					loginView.setVisible(true);
@@ -83,7 +83,7 @@ public class UIController {
 
 	public void login(String loginID, String password) {
 		Employee temp = store.loginAttempt(loginID, password);
-		if (temp == null) {
+		if(temp == null) {
 			// Login Failed
 			loginView.setStatus("Invalid Username/Password");
 		} else {
@@ -91,13 +91,7 @@ public class UIController {
 
 			loginView.clear();
 			loginView.setVisible(false);
-			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
-			mainView.setCanEditEmployee(currentEmployee.getRole().canEditMenu());
-			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseRegister());
-			mainView.setCanCompleteOrder(currentEmployee.getRole()
-					.canCompleteOrder());
-			mainView.setCanManageEmployee(currentEmployee.getRole().equals(
-					Role.Manager));
+			setPermissions(false);
 			mainView.setVisible(true);
 		}
 	}
@@ -116,7 +110,7 @@ public class UIController {
 
 	public void displayPlaceOrder() {
 		mainView.setVisible(false);
-		if (isKiosk) {
+		if(isKiosk) {
 			currentOrder = store.createOrderViaKiosk(id);
 		} else {
 			currentOrder = store.createOrderViaRegister(currentEmployee, id);
@@ -138,11 +132,17 @@ public class UIController {
 		employeeView.setVisible(true);
 	}
 
+	public void displayCustomers() {
+		mainView.setVisible(false);
+		customerInfoView.updateInformation();
+		customerInfoView.setVisible(true);
+	}
+
 	public boolean loginIDValid(String loginID) {
 		Collection<Employee> employees = store.getEmployeeSet();
 		Collection<String> loginInfos = new ArrayList<>();
 
-		for (Employee employee : employees) {
+		for(Employee employee : employees) {
 			loginInfos.add(employee.getEmployeeLoginInfo().getLoginId());
 		}
 
@@ -152,9 +152,9 @@ public class UIController {
 	public boolean createEmployee(String name, String loginID, String password,
 			String role) {
 
-		if (loginIDValid(loginID)) {
+		if(loginIDValid(loginID)) {
 			Role r;
-			switch (role) {
+			switch(role) {
 				case "Manager":
 					r = Role.Manager;
 					break;
@@ -173,12 +173,12 @@ public class UIController {
 
 	public boolean editEmployee(String loginID, String newName,
 			String newLoginID, String newPassword, String newRole) {
-		if (loginIDValid(newLoginID)) {
+		if(loginIDValid(newLoginID)) {
 			Employee e = this.getSelectedEmployee(loginID);
 			e.setEmployeeName(newName);
 			e.setEmployeeLoginInfo(new LoginInfo(newLoginID, newPassword));
 			Role r;
-			switch (newRole) {
+			switch(newRole) {
 				case "Manager":
 					r = Role.Manager;
 					break;
@@ -197,7 +197,7 @@ public class UIController {
 	}
 
 	public boolean createMenu(String name, String description) {
-		if (!isValidMenuName(name)) {
+		if(!isValidMenuName(name)) {
 			return false;
 		}
 		Menu m = store.defineMenu(currentEmployee, name, description);
@@ -205,7 +205,7 @@ public class UIController {
 	}
 
 	public boolean editMenu(String menuName, String newName, String newDesc) {
-		if (!isValidMenuName(newName)) {
+		if(!isValidMenuName(newName)) {
 			return false;
 		}
 		Menu m = getSelectedMenu(menuName);
@@ -235,7 +235,7 @@ public class UIController {
 
 	public boolean createMenuItem(String itemName, String itemDescription,
 			double price) {
-		if (!isValidMenuItemName(itemName)) {
+		if(!isValidMenuItemName(itemName)) {
 			return false;
 		}
 		store.addMenuItem(currentEmployee, itemName, price, itemDescription);
@@ -243,7 +243,7 @@ public class UIController {
 	}
 
 	public boolean changeItemPrice(String itemName, double price) {
-		if (price >= 0) {
+		if(price >= 0) {
 			Item item = getSelectedItem(itemName);
 			item.setItemPrice(price);
 			return true;
@@ -266,7 +266,7 @@ public class UIController {
 	}
 
 	public boolean changeMenuItemName(String itemName, String newName) {
-		if (!isValidMenuItemName(newName)) {
+		if(!isValidMenuItemName(newName)) {
 			return false;
 		}
 		Item item = getSelectedItem(itemName);
@@ -282,7 +282,7 @@ public class UIController {
 
 	public void changeMenuItemSpecial(String itemName) {
 		Item item = getSelectedItem(itemName);
-		if (item.isSpecial()) {
+		if(item.isSpecial()) {
 			item.removeSpecial();
 		} else {
 			item.setSpecial();
@@ -292,8 +292,8 @@ public class UIController {
 	public boolean completeOrder(int id) {
 		boolean returnVal = false;
 		Collection<Order> orders = getIncompleteOrdersSet();
-		for (Order order : orders) {
-			if (order.getOrderID() == id) {
+		for(Order order : orders) {
+			if(order.getOrderID() == id) {
 				returnVal = order.setCompletedByEmployee(currentEmployee);
 			}
 		}
@@ -303,8 +303,8 @@ public class UIController {
 	public boolean deliverOrder(int id) {
 		boolean returnVal = false;
 		Collection<Order> orders = getCompletedButUnderliveredOrdersSet();
-		for (Order order : orders) {
-			if (order.getOrderID() == id) {
+		for(Order order : orders) {
+			if(order.getOrderID() == id) {
 				returnVal = order.setDeliveredByEmployee(currentEmployee);
 			}
 		}
@@ -318,30 +318,30 @@ public class UIController {
 			String expirationDate, String cv2, double amount) {
 
 		Customer c = null;
-		if (membershipID != null) {
+		if(membershipID != null) {
 			c = store.getMember(membershipID);
-			if (c == null) {
+			if(c == null) {
 				return false;
 			}
 			//currentOrder.updateMembershipHoldingCustomer(c);
 		}
 
-		if (deliveryType == 0) {
+		if(deliveryType == 0) {
 			currentOrder.updateToInHouseOrder();
-		} else if (deliveryType == 1) {
+		} else if(deliveryType == 1) {
 			currentOrder.updateToTakeAwayOrder();
-		} else if (deliveryType == 2) {
+		} else if(deliveryType == 2) {
 			currentOrder.updateToHomeDeliveryOrder(address);
 		}
 
 		boolean success = false;
-		if (paymentType == 0) {
+		if(paymentType == 0) {
 			success = currentOrder.makeCashPayment(amount);
-		} else if (paymentType == 1) {
+		} else if(paymentType == 1) {
 			success = currentOrder.makeCardPayment(amount, cardNumber,
 					expirationDate, cv2);
 		}
-		if (success && c != null) {
+		if(success && c != null) {
 			/**
 			 * if the payment is successful, only then the current order should
 			 * be updated. Otherwise record can be problematic.
@@ -353,9 +353,9 @@ public class UIController {
 	}
 
 	public int getMemberPoints(String membershipID) {
-		if (membershipID != null) {
+		if(membershipID != null) {
 			Customer c = store.getMember(membershipID);
-			if (c == null) {
+			if(c == null) {
 				return 0;
 			} else {
 				return c.getRewardsPoint();
@@ -366,9 +366,9 @@ public class UIController {
 	}
 
 	public int setMemberPoints(String membershipID, int points) {
-		if (membershipID != null) {
+		if(membershipID != null) {
 			Customer c = store.getMember(membershipID);
-			if (c == null) {
+			if(c == null) {
 				return 0;
 			} else {
 				c.setRewardsPoint(points);
@@ -385,21 +385,21 @@ public class UIController {
 
 	public void addOrderItem(String itemName, int quantity) {
 		Item item = getSelectedItem(itemName);
-		if (item != null) {
+		if(item != null) {
 			currentOrder.addItemToOrderByAmount(item, quantity);
 		}
 	}
 
 	public void removeOrderItem(String itemName, int quantity) {
 		Item item = getSelectedItem(itemName);
-		if (item != null) {
+		if(item != null) {
 			currentOrder.removeMultipleCountOfItemFromOrder(item, quantity);
 		}
 	}
 
 	public int getCurrentCountOfOrderItem(String itemName) {
 		Item item = getSelectedItem(itemName);
-		if (item != null) {
+		if(item != null) {
 			return currentOrder.getOrderItem(item).getQuantity();
 		} else {
 			return 0;
@@ -417,7 +417,7 @@ public class UIController {
 	public void closeMain() {
 		try {
 			SaverLoader.save(SaverLoader.SAVE_FILE, store);
-		} catch (IOException ex) {
+		} catch(IOException ex) {
 			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
@@ -450,11 +450,16 @@ public class UIController {
 		mainView.setVisible(true);
 	}
 
+	public void closeCustomerInformation() {
+		customerInfoView.setVisible(false);
+		mainView.setVisible(true);
+	}
+
 	public Iterable<String> getIncompleteOrders() {
 
 		Collection<Order> orders = getIncompleteOrdersSet();
 		List<String> incompleteOrders = new ArrayList<>();
-		for (Order order : orders) {
+		for(Order order : orders) {
 			incompleteOrders.add(getOrderString(order));
 		}
 		return incompleteOrders;
@@ -463,7 +468,7 @@ public class UIController {
 	public Iterable<String> getCompletedButUnderliveredOrders() {
 		Collection<Order> orders = getCompletedButUnderliveredOrdersSet();
 		List<String> undeliveredOrders = new ArrayList<>();
-		for (Order order : orders) {
+		for(Order order : orders) {
 			undeliveredOrders.add(getOrderString(order));
 		}
 		return undeliveredOrders;
@@ -473,7 +478,7 @@ public class UIController {
 	public Iterable<String> getMenus() {
 		Collection<Menu> menus = store.getSetOfMenus();
 		List<String> menuList = new ArrayList<>();
-		for (Menu menu : menus) {
+		for(Menu menu : menus) {
 			menuList.add(menu.getMenuName());
 		}
 		return menuList;
@@ -507,7 +512,7 @@ public class UIController {
 	public Iterable<String> getMenuItems(String menuName) {
 		Menu menu = getSelectedMenu(menuName);
 
-		if (menu != null) {
+		if(menu != null) {
 			return getFullMenuItems(menu.getMenuItems());
 		} else {
 			return new ArrayList<>();
@@ -527,7 +532,7 @@ public class UIController {
 	private String getEmployeeSring(Employee employee) {
 		String role;
 		Role r = employee.getRole();
-		switch (r) {
+		switch(r) {
 			case Manager:
 				role = "Manager";
 				break;
@@ -546,7 +551,7 @@ public class UIController {
 	public Iterable<String> getFullMenuItems(String menuName) {
 		Menu menu = getSelectedMenu(menuName);
 
-		if (menu != null) {
+		if(menu != null) {
 			return getFullMenuItems(menu.getMenuItems());
 		} else {
 			return new ArrayList<>();
@@ -555,7 +560,7 @@ public class UIController {
 
 	public Iterable<String> getOrderItems() {
 		List<String> items = new ArrayList<>();
-		for (OrderItem item : currentOrder.getSetOfItems()) {
+		for(OrderItem item : currentOrder.getSetOfItems()) {
 			items.add(getOrderItemString(item));
 		}
 		return items;
@@ -570,7 +575,7 @@ public class UIController {
 		String id = orderString.substring("Order #".length());
 		try {
 			return Integer.parseInt(id);
-		} catch (NumberFormatException ex) {
+		} catch(NumberFormatException ex) {
 			return -1;
 		}
 	}
@@ -580,10 +585,29 @@ public class UIController {
 				.trim();
 	}
 
+	public Object[] getCustomerColumnNames() {
+		Object[] columnNames = new Object[]{"ID", "Name", "Phone Number", "Points"};
+		return columnNames;
+	}
+
+	public Object[][] getCustomerData() {
+		Collection<Customer> customers = store.getMembers();
+		Object[][] data = new Object[customers.size()][4];
+		int curr = 0;
+		for(Customer c : customers) {
+			data[curr][0] = c.objectID;
+			data[curr][1] = c.getFirstName() + " " + c.getLastName();
+			data[curr][2] = c.getCustomerPhoneNumber();
+			data[curr][3] = c.getRewardsPoint();
+			++curr;
+		}
+		return data;
+	}
+
 	private Employee getSelectedEmployee(String employeeLoginID) {
 		Collection<Employee> employees = store.getEmployeeSet();
-		for (Employee employee : employees) {
-			if (Objects.equals(employee.getEmployeeLoginInfo().getLoginId(),
+		for(Employee employee : employees) {
+			if(Objects.equals(employee.getEmployeeLoginInfo().getLoginId(),
 					employeeLoginID)) {
 				return employee;
 			}
@@ -593,8 +617,8 @@ public class UIController {
 
 	private Menu getSelectedMenu(String menuName) {
 		Collection<Menu> menus = store.getSetOfMenus();
-		for (Menu menu : menus) {
-			if (Objects.equals(menu.getMenuName(), menuName)) {
+		for(Menu menu : menus) {
+			if(Objects.equals(menu.getMenuName(), menuName)) {
 				return menu;
 			}
 		}
@@ -603,8 +627,8 @@ public class UIController {
 
 	private Item getSelectedItem(String itemName) {
 		Collection<Item> items = store.getSetOfItems();
-		for (Item item : items) {
-			if (Objects.equals(item.getItemName(), itemName)) {
+		for(Item item : items) {
+			if(Objects.equals(item.getItemName(), itemName)) {
 				return item;
 			}
 		}
@@ -613,7 +637,7 @@ public class UIController {
 
 	private Iterable<String> getMenuItems(Collection<Item> items) {
 		List<String> itemList = new ArrayList<>();
-		for (Item item : items) {
+		for(Item item : items) {
 			itemList.add(item.getItemName());
 		}
 		return itemList;
@@ -621,7 +645,7 @@ public class UIController {
 
 	private Iterable<String> getFullMenuItems(Collection<Item> items) {
 		List<String> itemList = new ArrayList<>();
-		for (Item item : items) {
+		for(Item item : items) {
 			itemList.add(getItemString(item));
 		}
 		return itemList;
@@ -629,7 +653,7 @@ public class UIController {
 
 	public Iterable<String> getEmployees(Collection<Employee> employees) {
 		List<String> employeeList = new ArrayList<>();
-		for (Employee employee : employees) {
+		for(Employee employee : employees) {
 			employeeList.add(getEmployeeSring(employee));
 		}
 		return employeeList;
@@ -638,7 +662,7 @@ public class UIController {
 	private String getItemString(Item item) {
 		String s = item.getItemName() + " : " + item.getItemDescription()
 				+ " $" + roundToTwo(item.getCurrentPrice());
-		if (item.isSpecial()) {
+		if(item.isSpecial()) {
 			s += " [Special]";
 		}
 		return s;
@@ -658,12 +682,12 @@ public class UIController {
 	}
 
 	private boolean isValidMenuName(String name) {
-		if (name == null || name.trim().isEmpty()) {
+		if(name == null || name.trim().isEmpty()) {
 			return false;
 		}
 		Iterable<String> menuNames = getMenus();
-		for (String menuName : menuNames) {
-			if (Objects.equals(name, menuName)) {
+		for(String menuName : menuNames) {
+			if(Objects.equals(name, menuName)) {
 				return false;
 			}
 		}
@@ -671,12 +695,12 @@ public class UIController {
 	}
 
 	private boolean isValidMenuItemName(String name) {
-		if (name == null || name.trim().isEmpty() || name.contains(":")) {
+		if(name == null || name.trim().isEmpty() || name.contains(":")) {
 			return false;
 		}
 		Iterable<String> itemNames = getAllMenuItems();
-		for (String itemName : itemNames) {
-			if (Objects.equals(name, itemName)) {
+		for(String itemName : itemNames) {
+			if(Objects.equals(name, itemName)) {
 				return false;
 			}
 		}
@@ -692,8 +716,8 @@ public class UIController {
 	private Collection<Order> getIncompleteOrdersSet() {
 		Collection<Order> allOrders = store.getListOfPlacedOrder();
 		Collection<Order> incompleteOrders = new LinkedHashSet<>();
-		for (Order order : allOrders) {
-			if (order.isComplete()) {
+		for(Order order : allOrders) {
+			if(order.isComplete()) {
 				continue;
 			}
 			incompleteOrders.add(order);
@@ -704,12 +728,30 @@ public class UIController {
 	private Collection<Order> getCompletedButUnderliveredOrdersSet() {
 		Collection<Order> allOrders = store.getListOfPlacedOrder();
 		Collection<Order> undeliveredOrders = new LinkedHashSet<>();
-		for (Order order : allOrders) {
-			if (order.isComplete() && !order.isDelivered() && order.getTypeOfOrder().equals(OrderType.HomeDelivery)) {
+		for(Order order : allOrders) {
+			if(order.isComplete() && !order.isDelivered() && order.getTypeOfOrder().equals(OrderType.HomeDelivery)) {
 				undeliveredOrders.add(order);
 			}
 		}
 		return undeliveredOrders;
+	}
+
+	private void setPermissions(boolean isKiosk) {
+		if(isKiosk) {
+			mainView.setCanPlaceOrder(true);
+			mainView.setCanEditMenu(false);
+			mainView.setCanCompleteOrder(false);
+			mainView.setCanManageEmployee(false);
+			mainView.setCanViewCustomers(false);
+		} else {
+			mainView.setCanEditMenu(currentEmployee.getRole().canEditMenu());
+			mainView.setCanEditEmployee(currentEmployee.getRole().canEditMenu());
+			mainView.setCanPlaceOrder(currentEmployee.getRole().canUseRegister());
+			mainView.setCanCompleteOrder(currentEmployee.getRole()
+					.canCompleteOrder());
+			mainView.setCanManageEmployee(currentEmployee.getRole().canManageEmployees());
+			mainView.setCanViewCustomers(currentEmployee.getRole().canViewCustomers());
+		}
 	}
 
 }
