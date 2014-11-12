@@ -170,6 +170,9 @@ public class UIController {
 				case "Chef":
 					r = Role.Chef;
 					break;
+				case "DeliveryMan":
+					r = Role.DeliveryMan;
+					break;
 				default:
 					r = Role.Cashier;
 					break;
