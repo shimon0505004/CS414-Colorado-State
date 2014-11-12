@@ -609,7 +609,11 @@ public class UIController {
 		Object[][] data = new Object[customers.size()][4];
 		int curr = 0;
 		for(Customer c : customers) {
-			data[curr][0] = c.objectID;
+			/*
+			 * Customer ID is not object ID, it is the membership ID
+			 * data[curr][0] = c.objectID;
+			 */
+			data[curr][0] = c.getMemberShipNumber();
 			data[curr][1] = c.getFirstName() + " " + c.getLastName();
 			data[curr][2] = c.getCustomerPhoneNumber();
 			data[curr][3] = c.getRewardsPoint();
