@@ -8,9 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.colostate.cs414.android_app_client.MainActivity" >
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="144dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/CreateCustomerAccountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Membership Account" />
+
+        <Button
+            android:id="@+id/LoginWithMembershipIDButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log In with Membership Account" />
+
+        <Button
+            android:id="@+id/ViewMenuAndPlaceOrderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="View and Place "
+            android:text="View Menu" />
+
+    </LinearLayout>
 
 </RelativeLayout>
