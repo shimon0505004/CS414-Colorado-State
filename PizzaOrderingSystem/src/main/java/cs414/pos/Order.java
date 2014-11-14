@@ -66,8 +66,10 @@ public class Order implements Serializable {
 	private void createAsInHouseOrder(){
 		setTypeOfOrder(OrderType.Inhouse);
 		setOrderedByCustomerWithMembership(false);
-		setCustomerWithMembership(new Customer("", ""));
-		setDeliveryAddress(new Address());
+		//setCustomerWithMembership(new Customer("", ""));
+		//setDeliveryAddress(new Address());
+		setCustomerWithMembership(null);
+		setDeliveryAddress(null);
 	}
 	
 	private void createAsCashPayment(){
@@ -323,12 +325,19 @@ public class Order implements Serializable {
 	}
 	
 	public boolean removeMembershipHoldingCustomer(){
-			if(getCustomerWithMembership().removeOrder(this)){
-				setCustomerWithMembership(new Customer("", ""));
-				setOrderedByCustomerWithMembership(false);				
-			
+			if(getCustomerWithMembership()!=null){
+				if(getCustomerWithMembership().removeOrder(this)){
+					//setCustomerWithMembership(new Customer("", ""));
+					setCustomerWithMembership(null);
+					setOrderedByCustomerWithMembership(false);				
+				
+				}
 			}
-			return !isOrderedByCustomerWithMembership();
+			else{
+				setOrderedByCustomerWithMembership(false);				
+			}
+			return !isOrderedByCustomerWithMembership();				
+
 	}
 	
 	
