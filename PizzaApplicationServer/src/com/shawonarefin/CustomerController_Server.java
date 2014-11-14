@@ -65,7 +65,8 @@ public class CustomerController_Server implements HttpHandler{
             String lastName = object.get("lastName").toString();
             String customerPhoneNumber = object.get("customerPhoneNumber").toString();
             
-            c = new Customer(firstName, lastName, customerPhoneNumber, this.store);
+            c = this.store.addNewMember(firstName, lastName, customerPhoneNumber);
+            //c = new Customer(firstName, lastName, customerPhoneNumber, this.store);
         } catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
