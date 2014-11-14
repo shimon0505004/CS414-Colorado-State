@@ -3,8 +3,12 @@
  */
 package edu.colostate.cs414.android_app_client;
 
+import org.json.JSONObject;
+
+import cs414.pos.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,7 +49,26 @@ public class CreateNewAccountActivity extends Activity {
 					 * replace this statement with Java RMI handling
 					 */
 					Toast.makeText(getBaseContext(), firstName+" "+lastName+" "+phoneNumber, Toast.LENGTH_LONG).show();
-					
+					JSONObject customerDetails = new JSONObject();
+					try {
+						customerDetails.put("firstName", firstName);
+						customerDetails.put("lastName", lastName);
+						customerDetails.put("customerPhoneNumber", phoneNumber);
+						AsyncTask result = new SetCustomerData().execute(customerDetails);
+						try {
+							String s = (String)result.get();
+							Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+						} 
+						catch (Exception e) {
+							//Make sure you write code to deal with exceptions
+							System.out.println(e.toString());
+						}
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+
 				}
 				
 
