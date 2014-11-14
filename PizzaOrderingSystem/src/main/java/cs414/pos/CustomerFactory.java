@@ -41,4 +41,11 @@ public class CustomerFactory implements ICustomerFactory, Serializable {
 		return new Customer(firstName, lastName, phoneNumber);
 	}
 
+	@Override
+	public Customer createCustomer(String firstName, String lastName,
+			String phoneNumber, Store s) {
+		// TODO Auto-generated method stub
+		return new Customer(firstName, lastName, phoneNumber, s);
+	}
+
 }

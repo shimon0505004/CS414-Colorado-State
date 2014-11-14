@@ -642,7 +642,7 @@ public class Store implements Serializable {
 	}
 
 	public Customer addNewMember(String firstName, String LastName, String customerPhoneNumber) {
-		Customer newCustomer = customerFactory.createCustomer(firstName, LastName, customerPhoneNumber);
+		Customer newCustomer = customerFactory.createCustomer(firstName, LastName, customerPhoneNumber,this);
 		getMembers().add(newCustomer);
 		return newCustomer;
 	}
@@ -677,5 +677,15 @@ public class Store implements Serializable {
 		this.requiredPointsForFreePizzaCertificate = requiredPointsForFreePizzaCertificate;
 	}
 	
-	
+	public int getLargestObjectIDofCustomer(){
+		int ID = -1;
+		if(!getMembers().isEmpty()){
+			for(Customer c: getMembers()){
+				if(c.objectID>ID){
+					ID = c.objectID;
+				}
+			}			
+		}
+		return ID;
+	}
 }

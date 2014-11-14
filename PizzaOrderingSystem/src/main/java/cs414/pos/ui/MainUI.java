@@ -204,7 +204,7 @@ public class MainUI {
 			JOptionPane.showMessageDialog(frame, "User Account creation cancelled");
 			return;
 		}
-		int id = controller.createAccount(nameSplit[1].trim(), nameSplit[0].trim(), phoneNumber);
+		String id = controller.createAccount(nameSplit[1].trim(), nameSplit[0].trim(), phoneNumber);
 		JOptionPane.showMessageDialog(frame, "Customer account creation successful. Your membership ID is " + id + ".");
 	}
 

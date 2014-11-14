@@ -17,5 +17,7 @@ public interface ICustomerFactory {
 	public Customer createCustomer(String firstName, String lastName);
 
 	public Customer createCustomer(String firstName, String lastName, String phoneNumber);
-	
+
+	public Customer createCustomer(String firstName, String lastName, String phoneNumber,Store s);
+
 }

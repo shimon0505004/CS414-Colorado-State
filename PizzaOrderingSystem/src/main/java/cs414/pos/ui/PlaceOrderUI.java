@@ -326,6 +326,7 @@ public class PlaceOrderUI {
         	        }    
         	}
         }
+        controller.saveToFile();
     }
 
     private String verifySelectedItem() {

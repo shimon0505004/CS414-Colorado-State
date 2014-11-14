@@ -39,6 +39,21 @@ public class Customer implements Serializable {
 		initializeOrdersPointAddress();
 	}
 
+	public Customer(String firstName, String lastName, String phoneNumber, Store s) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		if(s.getLargestObjectIDofCustomer()!=-1){
+			this.objectID = s.getLargestObjectIDofCustomer()+1;
+		}else{
+			this.objectID = customerCounter++;			
+		}
+		
+		setMemberShipNumber(generateCustomerID());
+		setCustomerPhoneNumber(phoneNumber);
+		initializeOrdersPointAddress();
+	}
+	
+	
 	private void initializeOrdersPointAddress(){
 		setRewardsPoint(0);
 		setCustomerOrders(new HashSet<Order>());

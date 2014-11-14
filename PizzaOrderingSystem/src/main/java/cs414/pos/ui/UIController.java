@@ -427,15 +427,24 @@ public class UIController {
 	}
 
 	public void closeMain() {
+		saveToFile();
+		System.exit(0); // close jvm
+	}
+
+	public void saveToFile(){
 		try {
 			SaverLoader.save(SaverLoader.SAVE_FILE, store);
+			/**
+			 * Saving files to JSON also
+			 */
+	        SaverLoader.saveTestGson(store);
+
 		} catch(IOException ex) {
 			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
-		System.exit(0); // close jvm
 	}
-
+	
 	public void closeEditMenu() {
 		editMenuView.setVisible(false);
 		mainView.setVisible(true);
@@ -625,9 +634,10 @@ public class UIController {
 		return data;
 	}
 
-	public int createAccount(String firstName, String lastName, String phoneNumber) {
+	public String createAccount(String firstName, String lastName, String phoneNumber) {
 		Customer c = store.addNewMember(firstName, lastName, phoneNumber);
-		return c.objectID;
+		return c.getMemberShipNumber();
+		//return c.objectID;
 	}
 
 	private Employee getSelectedEmployee(String employeeLoginID) {
