@@ -99,7 +99,7 @@ public class Main {
 		return s;
 	}
 
-	private static Store initStore() throws IOException, ClassNotFoundException {
+	public static Store initStore() throws IOException, ClassNotFoundException {
 		Store s = null;
 		if(SaverLoader.SAVE_FILE.exists()) {
 			try {
