@@ -1,7 +1,10 @@
 package cs414.pos;
 
 import cs414.pos.ui.UIController;
+
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -114,5 +117,19 @@ public class Main {
 			SaverLoader.save(SaverLoader.SAVE_FILE, s);
 		}
 		return s;
+	}
+	
+	public static void saveToFile(Store store){
+		try {
+			SaverLoader.save(SaverLoader.SAVE_FILE, store);
+			/**
+			 * Saving files to JSON also
+			 */
+	        SaverLoader.saveTestGson(store);
+
+		} catch(IOException ex) {
+			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
 	}
 }
