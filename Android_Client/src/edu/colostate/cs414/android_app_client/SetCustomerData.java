@@ -57,7 +57,10 @@ public class SetCustomerData extends AsyncTask<JSONObject,Void,String> {
 	                Gson gson = new Gson();
 	                store = gson.fromJson(streamReader, Store.class);
 	            	*/
-	            	store += streamReader.readLine();
+	                String s = null;
+	                while((s=streamReader.readLine())!=null){
+		            	store += s;
+	                }
 	            }
 	            
 			} catch (UnsupportedEncodingException e) {

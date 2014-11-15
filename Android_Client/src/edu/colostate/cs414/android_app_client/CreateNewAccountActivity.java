@@ -7,6 +7,9 @@ import org.json.JSONObject;
 
 import cs414.pos.*;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +33,7 @@ public class CreateNewAccountActivity extends Activity {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
+	final Context context = this;
 	
 	private OnClickListener okButtonListener = new OnClickListener() {
 		
@@ -48,7 +52,7 @@ public class CreateNewAccountActivity extends Activity {
 					 * now it is safe to store customer data
 					 * replace this statement with Java RMI handling
 					 */
-					Toast.makeText(getBaseContext(), firstName+" "+lastName+" "+phoneNumber, Toast.LENGTH_LONG).show();
+					//Toast.makeText(getBaseContext(), firstName+" "+lastName+" "+phoneNumber, Toast.LENGTH_LONG).show();
 					JSONObject customerDetails = new JSONObject();
 					try {
 						customerDetails.put("firstName", firstName);
@@ -57,7 +61,44 @@ public class CreateNewAccountActivity extends Activity {
 						AsyncTask result = new SetCustomerData().execute(customerDetails);
 						try {
 							String s = (String)result.get();
-							Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+							//Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+							JSONObject  object =  new JSONObject(s);
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+							 
+							if(object.get("memberShipNumber") != null){
+							
+									// set title
+									alertDialogBuilder.setTitle("Customer Created!");
+									alertDialogBuilder.setMessage("Your Customer ID is :"+object.get("memberShipNumber"))
+									.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog,int id) {
+											// if this button is clicked, just close
+											// the dialog box and do nothing
+											dialog.cancel();
+											clearText();
+										}
+									});
+
+							}else{
+								 
+								// set title
+								alertDialogBuilder.setTitle("Customer Not Created!");
+								alertDialogBuilder.setMessage("Unfortunately your customer account could not be created. Please try again!")
+								.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										dialog.cancel();
+										clearText();
+									}
+								});
+							}
+							// create alert dialog
+							AlertDialog alertDialog = alertDialogBuilder.create();
+			 
+							// show it
+							alertDialog.show();
+
 						} 
 						catch (Exception e) {
 							//Make sure you write code to deal with exceptions
@@ -97,9 +138,7 @@ public class CreateNewAccountActivity extends Activity {
 				}else{
 					Toast.makeText(getBaseContext(), ","+firstName+","+lastName+","+phoneNumber+",", Toast.LENGTH_LONG).show();
 					
-					firstNameText.setText("");
-					lastNameText.setText("");
-					phoneNumberText.setText("");
+					clearText();
 					
 				}
 				
@@ -107,7 +146,11 @@ public class CreateNewAccountActivity extends Activity {
 		}
 	};
 	
-	
+	private void clearText(){
+		firstNameText.setText("");
+		lastNameText.setText("");
+		phoneNumberText.setText("");
+	}
 	
 	/** Called when the activity is first created. */
 	@Override
