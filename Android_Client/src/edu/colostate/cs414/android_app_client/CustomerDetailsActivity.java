@@ -32,6 +32,8 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	String customerName = "";
 	Context context;
 	String membershipID = null;
+	int rewardsPoint = 0;
+	String phoneNumber = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,8 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 					  customer =  new JSONObject(s);
 					  customerName =  customerName.concat(customer.getString("firstName"));
 					  customerName =  customerName.concat(" "+customer.getString("lastName"));
+					  rewardsPoint = customer.getInt("rewardsPoint");
+					  phoneNumber = phoneNumber.concat(customer.getString("customerPhoneNumber"));
 					  
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -101,24 +105,63 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	
 	public void initView() {
         TableLayout stk = (TableLayout) findViewById(R.id.CustomerDetailsTable1);
+        
         TableRow tbrow0 = new TableRow(this);
-        TextView tv0 = new TextView(this);
-        tv0.setText(" Order.No ");
-        tbrow0.addView(tv0);
-        TextView tv1 = new TextView(this);
-        tv1.setText(" Price ");
-        tbrow0.addView(tv1);
-        TextView tv2 = new TextView(this);
-        tv2.setText(" Is Completed? ");
-        tbrow0.addView(tv2);
-        TextView tv3 = new TextView(this);
-        tv3.setText(" OrderType: ");
-        tbrow0.addView(tv3);
-        TextView tv4 = new TextView(this);
-        tv4.setText(" Is Home Delivered? ");
-        tbrow0.addView(tv4);
+       
+        TextView tv0_tbrow0 = new TextView(this);
+        tv0_tbrow0.setText(" Name: ");
+        tbrow0.addView(tv0_tbrow0);
+        
+        TextView tv1_tbrow0 = new TextView(this);
+        tv1_tbrow0.setText(""+customerName);
+        tbrow0.addView(tv1_tbrow0);
         
         stk.addView(tbrow0);
+        
+       
+        TableRow tbrow1 = new TableRow(this);
+        
+        TextView tv0_tbrow1 = new TextView(this);
+        tv0_tbrow1.setText(" Rewards Point: ");
+        tbrow1.addView(tv0_tbrow1);
+        
+        TextView tv1_tbrow1 = new TextView(this);
+        tv1_tbrow1.setText(""+rewardsPoint);
+        tbrow1.addView(tv1_tbrow1);
+        
+        stk.addView(tbrow1);
+       
+        TableRow tbrow2 = new TableRow(this);
+        
+        TextView tv0_tbrow2 = new TextView(this);
+        tv0_tbrow2.setText(" Phone Number: ");
+        tbrow2.addView(tv0_tbrow2);
+        
+        TextView tv1_tbrow2 = new TextView(this);
+        tv1_tbrow2.setText(""+phoneNumber);
+        tbrow2.addView(tv1_tbrow2);
+        
+        stk.addView(tbrow2);
+        
+        
+        TableRow tbrow3 = new TableRow(this);
+        TextView tv0_tbrow3 = new TextView(this);
+        tv0_tbrow3.setText(" Order.No ");
+        tbrow3.addView(tv0_tbrow3);
+        TextView tv1_tbrow3 = new TextView(this);
+        tv1_tbrow3.setText(" Price ");
+        tbrow3.addView(tv1_tbrow3);
+        TextView tv2_tbrow3 = new TextView(this);
+        tv2_tbrow3.setText(" Is Completed? ");
+        tbrow3.addView(tv2_tbrow3);
+        TextView tv3_tbrow3 = new TextView(this);
+        tv3_tbrow3.setText(" OrderType: ");
+        tbrow3.addView(tv3_tbrow3);
+        TextView tv4_tbrow4 = new TextView(this);
+        tv4_tbrow4.setText(" Is Home Delivered? ");
+        tbrow3.addView(tv4_tbrow4);
+        
+        stk.addView(tbrow3);
         
         if(customer!=null){
         	
@@ -178,7 +221,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	        TextView tv1= (TextView)tr1.getChildAt(0);
 	        String extractedOrderID = tv1.getText().toString();
 
-			Toast.makeText(context, "Clicked "+extractedOrderID, Toast.LENGTH_LONG).show();
+			//Toast.makeText(context, "Clicked "+extractedOrderID, Toast.LENGTH_LONG).show();
 
 			Intent intent = new Intent(context, SpecificOrderByCustomer.class);	
 			intent.putExtra("memberShipNumber",membershipID);
