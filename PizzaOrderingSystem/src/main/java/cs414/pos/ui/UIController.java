@@ -4,6 +4,7 @@ import cs414.pos.Customer;
 import cs414.pos.Employee;
 import cs414.pos.Item;
 import cs414.pos.LoginInfo;
+import cs414.pos.Main;
 import cs414.pos.Menu;
 import cs414.pos.Order;
 import cs414.pos.OrderItem;
@@ -11,6 +12,7 @@ import cs414.pos.OrderType;
 import cs414.pos.Role;
 import cs414.pos.SaverLoader;
 import cs414.pos.Store;
+
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -269,6 +271,7 @@ public class UIController {
 
 	public int setRequiredPointForFreePizzaCertificate(int point) {
 		store.setRequiredPointsForFreePizzaCertificate(point);
+
 		return getRequiredPointForFreePizzaCertificate();
 	}
 
@@ -358,7 +361,7 @@ public class UIController {
 			 * if the payment is successful, only then the current order should
 			 * be updated. Otherwise record can be problematic.
 			 */
-			currentOrder.updateMembershipHoldingCustomer(c);
+			currentOrder.updateMembershipHoldingCustomer(c, store);
 		}
 
 		return success;
@@ -393,6 +396,8 @@ public class UIController {
 
 	public void placeOrder() {
 		store.placeOrder(currentOrder);
+		
+
 	}
 
 	public void addOrderItem(String itemName, int quantity) {
@@ -443,42 +448,111 @@ public class UIController {
 			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
+		
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory after it has been saved .");
+		}
 	}
 	
 	public void closeEditMenu() {
 		editMenuView.setVisible(false);
 		mainView.setVisible(true);
+		
+		
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Edit menu is closed");
+		}
 	}
 
 	public void closeEditMenuItem() {
 		editMenuItemView.setVisible(false);
 		mainView.setVisible(true);
+		
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Edit menu Item is closed");
+		}
+
 	}
 
 	public void closeCompleteOrder() {
 		completeOrderView.setVisible(false);
 		mainView.setVisible(true);
+
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Complete Order is closed");
+		}	
 	}
 
 	public void closePlaceOrder() {
 		placeOrderView.setVisible(false);
 		currentOrder = null;
 		mainView.setVisible(true);
+
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Place Order window is closed");
+		}		
 	}
 
 	public void closeEmployee() {
 		employeeView.setVisible(false);
 		mainView.setVisible(true);
+
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Employee window is closed");
+		}		
+	
 	}
 
 	public void closeCustomerInformation() {
 		customerInfoView.setVisible(false);
 		mainView.setVisible(true);
+
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Customer information window is closed");
+		}		
+	
 	}
 
 	public void closeDeliverOrder() {
 		deliverOrderView.setVisible(false);
 		mainView.setVisible(true);
+
+		try {
+			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Store can not be reloaded from memory when Orders Delivered window is closed");
+		}		
+	
 	}
 
 	public Iterable<String> getIncompleteOrders() {

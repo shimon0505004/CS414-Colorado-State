@@ -14,58 +14,66 @@ public class Main {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String[] args) throws Exception {
-		Store s = initStore();
-		// default values
-		boolean isKiosk = false;
-		int id = 1;
-		if(args.length >= 1) {
-			if("false".equalsIgnoreCase(args[0]) || "true".equalsIgnoreCase(args[0])) {
-				isKiosk = Boolean.valueOf(args[0]);
+	public static void main(String[] args)  {
+		try {
+			Store s = initStore();
+			// default values
+			boolean isKiosk = false;
+			int id = 1;
+			if(args.length >= 1) {
+				if("false".equalsIgnoreCase(args[0]) || "true".equalsIgnoreCase(args[0])) {
+					isKiosk = Boolean.valueOf(args[0]);
+				} else {
+					System.err.println("Error: first argument should be true or false.");
+					return;
+				}
+				if(args.length == 2) {
+					try {
+						id = Integer.parseInt(args[1]);
+					} catch(NumberFormatException e) {
+						System.err.println("Error: parsing second argument. Please enter a positive integer.");
+						return;
+					}
+					if(id <= 0) {
+						System.err.println("Error: Second argument needs to be a positive integer.");
+						return;
+					}
+				} else if(args.length > 2) {
+					System.err.println("Error: Illegal number of arguments given");
+					return;
+				}
+			}
+			boolean found = false;
+			if(isKiosk) {
+				for(Kiosk k : s.getSetOfKiosk()) {
+					if(k.getKioskID() == id) {
+						found = true;
+						break;
+					}
+				}
 			} else {
-				System.err.println("Error: first argument should be true or false.");
+				for(Register r : s.getSetOfRegister()) {
+					if(r.getRegisterID() == id) {
+						found = true;
+						break;
+					}
+				}
+			}
+			if(!found) {
+				System.err.println("Error: invalid id");
 				return;
 			}
-			if(args.length == 2) {
-				try {
-					id = Integer.parseInt(args[1]);
-				} catch(NumberFormatException e) {
-					System.err.println("Error: parsing second argument. Please enter a positive integer.");
-					return;
-				}
-				if(id <= 0) {
-					System.err.println("Error: Second argument needs to be a positive integer.");
-					return;
-				}
-			} else if(args.length > 2) {
-				System.err.println("Error: Illegal number of arguments given");
-				return;
-			}
+	        SaverLoader.saveTestGson(s);
+	        SaverLoader.openTestGson();
+			UIController controller = new UIController(s, isKiosk, id);
+			controller.start();
+		} catch (Exception e) {
+			// TODO: handle exception
+			//String s = e.toString();
+			//System.out.println(s);
+			e.printStackTrace();
 		}
-		boolean found = false;
-		if(isKiosk) {
-			for(Kiosk k : s.getSetOfKiosk()) {
-				if(k.getKioskID() == id) {
-					found = true;
-					break;
-				}
-			}
-		} else {
-			for(Register r : s.getSetOfRegister()) {
-				if(r.getRegisterID() == id) {
-					found = true;
-					break;
-				}
-			}
-		}
-		if(!found) {
-			System.err.println("Error: invalid id");
-			return;
-		}
-        SaverLoader.saveTestGson(s);
-        SaverLoader.openTestGson();
-		UIController controller = new UIController(s, isKiosk, id);
-		controller.start();
+
 	}
 
 	private static Store createDefaultStore() {
@@ -115,6 +123,7 @@ public class Main {
 			s = createDefaultStore();
 			// save Store's state
 			SaverLoader.save(SaverLoader.SAVE_FILE, s);
+			SaverLoader.saveTestGson(s);
 		}
 		return s;
 	}

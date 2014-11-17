@@ -111,6 +111,8 @@ public class EditMenuUI {
 		} else {
 			menuDescText.setText(controller.getMenuDesc((String) menuComboBox
 					.getSelectedItem()));
+	        /*saving everything to file*/
+			controller.saveToFile();
 		}
 	}
 
@@ -187,6 +189,8 @@ public class EditMenuUI {
 		updateMenus();
 		menuComboBox.setSelectedItem(name);
         JOptionPane.showMessageDialog(null, "Menu created.");
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void editMenuAction() {
@@ -205,6 +209,8 @@ public class EditMenuUI {
 		updateMenus();
         JOptionPane.showMessageDialog(null, "Menu updated.");
 		menuComboBox.setSelectedItem(name);
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void deleteMenuAction() {
@@ -215,6 +221,8 @@ public class EditMenuUI {
 		controller.deleteMenu(menu);
         JOptionPane.showMessageDialog(null, "Menu deleted.");
 		updateMenus();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void addItemAction() {
@@ -241,6 +249,8 @@ public class EditMenuUI {
 		controller.addMenuItem(menu, selectedItem);
         JOptionPane.showMessageDialog(null, "Item added.");
 		loadItemsAction();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void removeItemAction() {
@@ -258,6 +268,8 @@ public class EditMenuUI {
 		controller.removeMenuItem(menu, itemName);
         JOptionPane.showMessageDialog(null, "Item removed.");
 		loadItemsAction();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	// Used to view the interface with nothing working

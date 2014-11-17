@@ -28,7 +28,7 @@ public class Order implements Serializable {
 	private Set<OrderItem> setOfItems;
 
 	private boolean isOrderedByCustomerWithMembership;
-	private Customer customerWithMembership;
+	private String customerMembershipID;
 	
 	private Address deliveryAddress;
 	private OrderType typeOfOrder;
@@ -68,7 +68,7 @@ public class Order implements Serializable {
 		setOrderedByCustomerWithMembership(false);
 		//setCustomerWithMembership(new Customer("", ""));
 		//setDeliveryAddress(new Address());
-		setCustomerWithMembership(null);
+		setCustomerMembershipID(null);
 		setDeliveryAddress(null);
 	}
 	
@@ -311,12 +311,12 @@ public class Order implements Serializable {
 		else return false;		
 	}
 	
-	public boolean updateMembershipHoldingCustomer(Customer member){
+	public boolean updateMembershipHoldingCustomer(Customer member, Store store){
 		if(member!=null)
 		{
-			removeMembershipHoldingCustomer();
+			removeMembershipHoldingCustomer(store);
 			if(member.addOrder(this)){
-				setCustomerWithMembership(member);
+				setCustomerMembershipID(member);
 				setOrderedByCustomerWithMembership(true);
 			}
 		}
@@ -324,11 +324,11 @@ public class Order implements Serializable {
 		return isOrderedByCustomerWithMembership();
 	}
 	
-	public boolean removeMembershipHoldingCustomer(){
-			if(getCustomerWithMembership()!=null){
-				if(getCustomerWithMembership().removeOrder(this)){
+	public boolean removeMembershipHoldingCustomer(Store store){
+			if(getCustomerMembershipID()!=null){
+				if(store.getMember(getCustomerMembershipID()).removeOrder(this)){
 					//setCustomerWithMembership(new Customer("", ""));
-					setCustomerWithMembership(null);
+					setCustomerMembershipID(null);
 					setOrderedByCustomerWithMembership(false);				
 				
 				}
@@ -509,15 +509,19 @@ public class Order implements Serializable {
 	/**
 	 * @return the customerWithMembership
 	 */
-	public Customer getCustomerWithMembership() {
-		return customerWithMembership;
+	public String getCustomerMembershipID() {
+		return customerMembershipID;
 	}
 
 	/**
 	 * @param customerWithMembership the customerWithMembership to set
 	 */
-	private void setCustomerWithMembership(Customer customerWithMembership) {
-		this.customerWithMembership = customerWithMembership;
+	private void setCustomerMembershipID(Customer customerWithMembership) {
+		if(customerWithMembership!=null){
+			this.customerMembershipID = customerWithMembership.getMemberShipNumber();			
+		}else{
+			this.customerMembershipID = null;
+		}
 	}
 
 	/**

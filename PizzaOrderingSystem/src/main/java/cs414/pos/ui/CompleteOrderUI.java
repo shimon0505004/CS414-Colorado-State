@@ -1,6 +1,9 @@
 package cs414.pos.ui;
 
 import javax.swing.*;
+
+import cs414.pos.Main;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -109,6 +112,9 @@ public class CompleteOrderUI {
 		if(controller.completeOrder(orderID)){
 			JOptionPane.showMessageDialog(null, "Order "+orderID+" marked as completed.");
 			updateOrders();
+			/*Saving to file after Order is marked as completed*/
+			controller.saveToFile();
+			
 		}else{
 			JOptionPane.showMessageDialog(null, "Order "+orderID+" cannot be marked as completed. Current employee does not have priviledge to complete order.");			
 		}

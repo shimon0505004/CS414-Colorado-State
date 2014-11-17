@@ -117,6 +117,8 @@ public class DeliverOrderUI {
 		if(controller.deliverOrder(orderID)) {
 			JOptionPane.showMessageDialog(null, "Order " + orderID + " marked as delivered.");
 			updateOrders();
+	        /*saving everything to file*/
+			controller.saveToFile();
 		} else {
 			JOptionPane.showMessageDialog(null, "Order " + orderID + " cannot be marked as delivered. Current employee does not have priviledge to complete order.");
 		}

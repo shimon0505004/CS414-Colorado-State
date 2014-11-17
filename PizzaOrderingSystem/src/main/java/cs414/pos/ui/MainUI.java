@@ -186,6 +186,7 @@ public class MainUI {
 			return;
 		}
 		controller.setRequiredPointForFreePizzaCertificate(value);
+		controller.saveToFile();
 	}
 
 	private void createAccountAction() {
@@ -205,6 +206,7 @@ public class MainUI {
 			return;
 		}
 		String id = controller.createAccount(nameSplit[1].trim(), nameSplit[0].trim(), phoneNumber);
+		controller.saveToFile();
 		JOptionPane.showMessageDialog(frame, "Customer account creation successful. Your membership ID is " + id + ".");
 	}
 

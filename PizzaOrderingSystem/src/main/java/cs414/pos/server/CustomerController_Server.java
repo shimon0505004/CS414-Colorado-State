@@ -34,7 +34,14 @@ public class CustomerController_Server implements HttpHandler{
 	public void handle(HttpExchange arg0) throws IOException {
 		// TODO Auto-generated method stub
 		
-
+		try {
+			Store s = SaverLoader.load(SaverLoader.SAVE_FILE);
+			this.store = s;
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Something is wrong here");
+		}
         // Retrieve request headers
         Headers reqHeaders = arg0.getRequestHeaders ();
         Iterator<String> iterator = reqHeaders.keySet().iterator();

@@ -43,6 +43,7 @@ public class EmployeeUI {
 
 	public void updateEmployees() {
 		setEmployees(controller.getEmployees());
+
 	}
 
 	public void setEmployees(Iterable<String> employees) {
@@ -111,6 +112,8 @@ public class EmployeeUI {
 		}
 		updateEmployees();
         JOptionPane.showMessageDialog(null, "Employee created.");
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void editEmployeeAction() {
@@ -140,6 +143,8 @@ public class EmployeeUI {
 		}
 		updateEmployees();
         JOptionPane.showMessageDialog(null, "Employee edited.");
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 	
 	private String verifySelected() {

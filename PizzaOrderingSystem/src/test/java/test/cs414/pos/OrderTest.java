@@ -1,6 +1,7 @@
 package test.cs414.pos;
 
 import cs414.pos.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertNotSame;
 
 public class OrderTest {
 
+	private Store testStore1;
 	private Order testOrder1,testOrder2,testOrder3,testOrder4;
 	private int testOrder1ID,testOrder2ID,testOrder3ID,testOrder4ID;
 	
@@ -35,8 +37,11 @@ public class OrderTest {
 	private String testLastName1,testLastName2,testLastName3;
 	private String testPhoneNumber1,testPhoneNumber2,testPhoneNumber3;
 	
+	
 	@Before
 	public void setUp() throws Exception {
+		testStore1 = new Store("PizzaStore4", "206-953-5584", "Stuart St.");
+		
 		testOrder1ID = 1;
 		testOrder2ID = 2;
 		testOrder3ID = 3;
@@ -123,11 +128,12 @@ public class OrderTest {
 		testCard1 = new Card(testCardNumber1,testEXPDate_1,testCV2_1);
 		testCard2 = new Card(testCardNumber2,testEXPDate_2,testCV2_2);
 		
-		testCustomer1 = customerFactory.createCustomer(testFirstName1,testLastName1,testPhoneNumber1);
-		testCustomer2 = customerFactory.createCustomer(testFirstName2,testLastName2,testPhoneNumber2);
-		testCustomer3 = customerFactory.createCustomer(testFirstName3,testLastName3,testPhoneNumber3);
 
-		testOrder1.updateMembershipHoldingCustomer(testCustomer1);
+		testCustomer1 = testStore1.addNewMember(testFirstName1, testLastName1, testPhoneNumber1);
+		testCustomer2 = testStore1.addNewMember(testFirstName2, testLastName2, testPhoneNumber2);
+		testCustomer3 = testStore1.addNewMember(testFirstName3, testLastName3, testPhoneNumber3);
+		
+		testOrder1.updateMembershipHoldingCustomer(testCustomer1, testStore1);
 	}
 
 	@After
@@ -382,21 +388,21 @@ public class OrderTest {
 	@Test
 	public void testUpdateMembershipHoldingCustomer() {
 		
-		assertEquals(testCustomer1,testOrder1.getCustomerWithMembership());
+		assertEquals(testCustomer1.getMemberShipNumber(),testOrder1.getCustomerMembershipID());
 		assertEquals(testCustomer1.getCustomerOrders().size(), 1);
-		assertEquals(testOrder1.getCustomerWithMembership().getCustomerOrders().size(),1);
+		assertEquals(testStore1.getMember(testOrder1.getCustomerMembershipID()).getCustomerOrders().size(),1);
 
 
 		assertEquals(testCustomer2.getCustomerOrders().size(), 0);
-		testOrder2.updateMembershipHoldingCustomer(testCustomer2);
+		testOrder2.updateMembershipHoldingCustomer(testCustomer2, testStore1);
 		assertEquals(testCustomer2.getCustomerOrders().size(), 1);
-		assertEquals(testOrder2.getCustomerWithMembership().getCustomerOrders().size(),1);
+		assertEquals(testStore1.getMember(testOrder2.getCustomerMembershipID()).getCustomerOrders().size(),1);
 	
-		testOrder1.updateMembershipHoldingCustomer(testCustomer2);
+		testOrder1.updateMembershipHoldingCustomer(testCustomer2, testStore1);
 
-		assertEquals(testCustomer2,testOrder1.getCustomerWithMembership());
+		assertEquals(testCustomer2.getMemberShipNumber(),testOrder1.getCustomerMembershipID());
 		assertEquals(testCustomer1.getCustomerOrders().size(), 0);
-		assertEquals(testOrder1.getCustomerWithMembership().getCustomerOrders().size(),2);
+		assertEquals(testStore1.getMember(testOrder1.getCustomerMembershipID()).getCustomerOrders().size(),2);
 
 		
 	}
@@ -516,9 +522,9 @@ public class OrderTest {
 
 	@Test
 	public void testGetCustomerWithMembership() {
-		assertEquals(testCustomer1, testOrder1.getCustomerWithMembership());
-		assertNotSame(testCustomer2, testOrder2.getCustomerWithMembership());
-		assertNotSame(testCustomer3, testOrder3.getCustomerWithMembership());
+		assertEquals(testCustomer1.getMemberShipNumber(), testOrder1.getCustomerMembershipID());
+		assertNotSame(testCustomer2.getMemberShipNumber(), testOrder2.getCustomerMembershipID());
+		assertNotSame(testCustomer3.getMemberShipNumber(), testOrder3.getCustomerMembershipID());
 
 	}
 
@@ -581,13 +587,21 @@ public class OrderTest {
 		assertEquals(false, testOrder2.isOrderedByCustomerWithMembership());
 		assertEquals(false, testOrder3.isOrderedByCustomerWithMembership());
 		assertEquals(false, testOrder4.isOrderedByCustomerWithMembership());
-		assertEquals(testCustomer1, testOrder1.getCustomerWithMembership());
+		assertEquals(testCustomer1.getMemberShipNumber(), testOrder1.getCustomerMembershipID());
 		assertEquals(testCustomer1.getCustomerOrders().size(), 1);
 		
 		assertEquals(testCustomer2.getCustomerOrders().size(), 0);
-		testOrder2.updateMembershipHoldingCustomer(testCustomer2);
+		testOrder2.updateMembershipHoldingCustomer(testCustomer2, testStore1);
 		assertEquals(testCustomer2.getCustomerOrders().size(), 1);
-		assertEquals(testOrder2.getCustomerWithMembership().getCustomerOrders().size(),1);
+		assertEquals(testOrder2.getCustomerMembershipID(),testCustomer2.getMemberShipNumber());
+		assertNotSame(testCustomer2, null);
+		assertNotSame(testCustomer2.getMemberShipNumber(), null);
+		assertNotSame(testOrder2.getCustomerMembershipID(), null);
+	//	assertEquals(testOrder2.getCustomerMembershipID(),null);
+
+		assertEquals(testStore1.getMember(testOrder2.getCustomerMembershipID()),testCustomer2);
+		
+		assertEquals(testStore1.getMember(testOrder2.getCustomerMembershipID()).getCustomerOrders().size(),1);
 		
 		
 	}

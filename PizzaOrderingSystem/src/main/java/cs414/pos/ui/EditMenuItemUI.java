@@ -54,6 +54,7 @@ public class EditMenuItemUI {
 
 	public void updateItems() {
 		setMenuItems(controller.getAllFullMenuItems());
+
 	}
 
 	public void setMenuItems(Iterable<String> items) {
@@ -160,6 +161,8 @@ public class EditMenuItemUI {
 
         JOptionPane.showMessageDialog(null, "Item successfully edited.");
 		updateItems();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void deleteItemAction() {
@@ -171,6 +174,8 @@ public class EditMenuItemUI {
         if(controller.deleteMenuItem(itemName))
             JOptionPane.showMessageDialog(null, "Item deleted.");
 		updateItems();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void changeNameAction() {
@@ -192,6 +197,8 @@ public class EditMenuItemUI {
 		}
         JOptionPane.showMessageDialog(null, "Item name changed.");
 		updateItems();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void changeDescriptionAction() {
@@ -209,6 +216,8 @@ public class EditMenuItemUI {
 		controller.changeMenuItemDescription(itemName, description);
         JOptionPane.showMessageDialog(null, "Item description changed.");
 		updateItems();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void changePriceAction() {
@@ -232,6 +241,8 @@ public class EditMenuItemUI {
 		controller.changeItemPrice(itemName, price);
         JOptionPane.showMessageDialog(null, "Item price changed.");
 		updateItems();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private void specialAction() {
@@ -243,6 +254,8 @@ public class EditMenuItemUI {
 		controller.changeMenuItemSpecial(itemName);
         JOptionPane.showMessageDialog(null, "Item set special.");
 		updateItems();
+        /*saving everything to file*/
+		controller.saveToFile();
 	}
 
 	private String verifySelected() {

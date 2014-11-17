@@ -65,11 +65,15 @@ public class PlaceOrderUI {
 
     public void updateMenus() {
         setMenus(controller.getMenus());
+        
+
     }
 
     public void updateOrder() {
         setOrderItems(controller.getOrderItems());
         totalAmount.setText("$" + controller.getTotal());
+		
+
     }
 
     public void setMenus(Iterable<String> menus) {
@@ -194,7 +198,7 @@ public class PlaceOrderUI {
         }
 
         controller.addOrderItem(itemName, quantity);
-        updateOrder();
+        updateOrder();        
     }
 
     private void removeItemAction() {
@@ -301,12 +305,13 @@ public class PlaceOrderUI {
         }
 
         controller.placeOrder();
-
+        controller.saveToFile();
         double changeAmount = controller.getOrderChange();
         if(changeAmount > 0.0) {
             JOptionPane.showMessageDialog(frame, "Here is your change $" + changeAmount);
         }
         JOptionPane.showMessageDialog(null, "Order successfully placed.");
+        
         controller.closePlaceOrder();
         
         if(membershipID!=null && success){
