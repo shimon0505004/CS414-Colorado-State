@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -70,8 +71,9 @@ private OnClickListener okButton_Mmbr_Login_Listener = new OnClickListener() {
 												public void onClick(DialogInterface dialog,int id) {
 													// if this button is clicked, just close
 													// the dialog box and do nothing
-													dialog.cancel();
-													clearText();
+													Intent intent = new Intent(context, CustomerDetailsActivity.class);	
+													intent.putExtra("memberShipNumber",membershipID);
+													startActivity(intent);
 												}
 											});
 		

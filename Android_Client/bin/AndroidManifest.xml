@@ -45,6 +45,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.colostate.cs414.android_app_client.MembershipLoginActivity" />
         </activity>
+        <activity
+            android:name=".SpecificOrderByCustomer"
+            android:label="@string/title_activity_specific_order_by_customer"
+            android:parentActivityName=".MembershipLoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.colostate.cs414.android_app_client.MembershipLoginActivity" />
+        </activity>
     </application>
 
 </manifest>

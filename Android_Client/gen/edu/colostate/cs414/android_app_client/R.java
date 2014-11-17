@@ -1636,9 +1636,13 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020033;
     }
     public static final class id {
-        public static final int CreateCustomerAccountButton=0x7f09004e;
-        public static final int LoginWithMembershipIDButton=0x7f09004f;
-        public static final int ViewMenuAndPlaceOrderButton=0x7f090050;
+        public static final int CreateCustomerAccountButton=0x7f090052;
+        public static final int CustomerDetailsTable1=0x7f090050;
+        public static final int LoginWithMembershipIDButton=0x7f090053;
+        public static final int OrderItem_RelativeLayout1=0x7f090058;
+        public static final int OrderItem_TableLayout1=0x7f090059;
+        public static final int RelativeLayout1=0x7f09004d;
+        public static final int ViewMenuAndPlaceOrderButton=0x7f090054;
         public static final int action_bar=0x7f090033;
         public static final int action_bar_activity_content=0x7f090003;
         public static final int action_bar_container=0x7f090032;
@@ -1652,13 +1656,13 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f090030;
         public static final int action_mode_bar_stub=0x7f09002f;
         public static final int action_mode_close_button=0x7f090022;
-        public static final int action_settings=0x7f090054;
+        public static final int action_settings=0x7f09005a;
         public static final int activity_chooser_view_content=0x7f090023;
         public static final int always=0x7f090014;
         public static final int beginning=0x7f09001b;
         public static final int bottom=0x7f09001e;
         public static final int cancelButton_AccntCreate=0x7f09004c;
-        public static final int cancelButton_Mmbr_login=0x7f090053;
+        public static final int cancelButton_Mmbr_login=0x7f090057;
         public static final int checkbox=0x7f09002b;
         public static final int collapseActionView=0x7f090015;
         public static final int decor_content_parent=0x7f090031;
@@ -1667,7 +1671,7 @@ containing a value of this type.
         public static final int disableHome=0x7f09000d;
         public static final int dropdown=0x7f09001a;
         public static final int editText1=0x7f090043;
-        public static final int editText1_MembershipLogin=0x7f090051;
+        public static final int editText1_MembershipLogin=0x7f090055;
         public static final int editText2=0x7f090046;
         public static final int editText3=0x7f090049;
         public static final int edit_query=0x7f090035;
@@ -1676,10 +1680,11 @@ containing a value of this type.
         public static final int expanded_menu=0x7f09002a;
         public static final int home=0x7f090000;
         public static final int homeAsUp=0x7f09000e;
+        public static final int horizontalScrollView1=0x7f09004f;
         public static final int icon=0x7f090028;
         public static final int ifRoom=0x7f090016;
         public static final int image=0x7f090025;
-        public static final int linearLayout1=0x7f09004d;
+        public static final int linearLayout1=0x7f090051;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090027;
         public static final int middle=0x7f09001d;
@@ -1687,10 +1692,11 @@ containing a value of this type.
         public static final int none=0x7f09000f;
         public static final int normal=0x7f09000b;
         public static final int okButton_AccountCreate=0x7f09004b;
-        public static final int okButton_Mmbr_Login=0x7f090052;
+        public static final int okButton_Mmbr_Login=0x7f090056;
         public static final int progress_circular=0x7f090007;
         public static final int progress_horizontal=0x7f090008;
         public static final int radio=0x7f09002d;
+        public static final int scrollView1=0x7f09004e;
         public static final int search_badge=0x7f090037;
         public static final int search_bar=0x7f090036;
         public static final int search_button=0x7f090038;
@@ -1775,12 +1781,14 @@ containing a value of this type.
         public static final int activity_customer_details=0x7f030018;
         public static final int activity_main=0x7f030019;
         public static final int activity_membership_login=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int activity_specific_order_by_customer=0x7f03001b;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
     }
     public static final class menu {
         public static final int customer_details=0x7f0c0000;
         public static final int main=0x7f0c0001;
         public static final int membership_login=0x7f0c0002;
+        public static final int specific_order_by_customer=0x7f0c0003;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1841,6 +1849,7 @@ containing a value of this type.
         public static final int hello_world=0x7f0a0010;
         public static final int title_activity_customer_details=0x7f0a0013;
         public static final int title_activity_membership_login=0x7f0a0012;
+        public static final int title_activity_specific_order_by_customer=0x7f0a0014;
     }
     public static final class style {
         /** 
