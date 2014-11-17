@@ -40,7 +40,7 @@ public class CreateNewAccountActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(v.getId()==R.id.button1){
+			if(v.getId()==R.id.okButton_AccountCreate){
 				firstName = firstNameText.getText().toString();
 				lastName = lastNameText.getText().toString();
 				phoneNumber = phoneNumberText.getText().toString();
@@ -126,7 +126,7 @@ public class CreateNewAccountActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(v.getId()==R.id.button2){
+			if(v.getId()==R.id.cancelButton_AccntCreate){
 				firstName = firstNameText.getText().toString();
 				lastName = lastNameText.getText().toString();
 				phoneNumber = phoneNumberText.getText().toString();
@@ -161,8 +161,8 @@ public class CreateNewAccountActivity extends Activity {
 	    firstNameText = (EditText)findViewById(R.id.editText1);
 	    lastNameText = (EditText)findViewById(R.id.editText2);
 	    phoneNumberText = (EditText)findViewById(R.id.editText3);
-	    okButton = (Button)findViewById(R.id.button1);
-	    cancelButton = (Button)findViewById(R.id.button2);	
+	    okButton = (Button)findViewById(R.id.okButton_AccountCreate);
+	    cancelButton = (Button)findViewById(R.id.cancelButton_AccntCreate);	
 	    okButton.setOnClickListener(okButtonListener);
 	    cancelButton.setOnClickListener(cancelButtonListener);
 		firstName = firstNameText.getText().toString();

@@ -34,8 +34,10 @@ public class POS_Server {
 		//creates the server on port 8,000
 		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 8000);
 		CustomerController_Server customerController = new CustomerController_Server(s);
-		
+		SpecificCustomerGetterController_Server customerFinder = new SpecificCustomerGetterController_Server(s); 
 		server.createContext("/customerAccounts", customerController);
+		server.createContext("/SingleCustomerAccount", customerFinder);
+		
 		server.start();
 	}
 	

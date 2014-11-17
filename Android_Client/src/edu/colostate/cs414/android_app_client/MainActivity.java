@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			if(v.getId()==R.id.LoginWithMembershipIDButton){
 				if(c!=null){
-					Intent intent = new Intent(c, CreateNewAccountActivity.class);					
+					Intent intent = new Intent(c, MembershipLoginActivity.class);					
 					startActivity(intent);
 				}				
 			}

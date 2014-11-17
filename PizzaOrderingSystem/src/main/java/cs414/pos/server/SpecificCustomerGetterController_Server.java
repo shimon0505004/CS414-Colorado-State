@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.ws.http.HTTPBinding;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,11 +25,11 @@ import com.sun.net.httpserver.HttpHandler;
 import cs414.pos.*;
 import cs414.pos.ui.UIController;
 
-public class CustomerController_Server implements HttpHandler{
+public class SpecificCustomerGetterController_Server implements HttpHandler{
 
 	private Store store;
 	
-	public CustomerController_Server(Store s){
+	public SpecificCustomerGetterController_Server(Store s){
 		this.store = s;
 	}
 	@Override
@@ -40,8 +42,10 @@ public class CustomerController_Server implements HttpHandler{
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			System.out.println("Something is wrong in CustomerController_Server");
+			System.out.println("Something is wrong in SpecificCustomerGetterController_Server");
 		}
+		
+		
         // Retrieve request headers
         Headers reqHeaders = arg0.getRequestHeaders ();
         Iterator<String> iterator = reqHeaders.keySet().iterator();
@@ -67,38 +71,45 @@ public class CustomerController_Server implements HttpHandler{
         
         Customer c = null;
         
-	    System.out.println("Request received by Customer creating server.");
+	    System.out.println("Request received by customer specific server.");
+	   
+	    String temp = responseStrBuilder.toString();
+	    System.out.println(temp);
+	    if(temp!=null && !temp.equals("")){
+		    try {
+	            JSONObject  object =  new JSONObject(temp);
+	            String membershipID = object.get("LoginID").toString();
+	            if(membershipID!=null){
+	                c = this.store.getMember(membershipID);            
+	            }else{
+	            	c = null;
+	            }
+	            //c = new Customer(firstName, lastName, customerPhoneNumber, this.store);
+	        } catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	    	
+	    }
 
-        try {
-            JSONObject  object =  new JSONObject(responseStrBuilder.toString());
-            String firstName = object.get("firstName").toString();
-            String lastName = object.get("lastName").toString();
-            String customerPhoneNumber = object.get("customerPhoneNumber").toString();
-            
-            c = this.store.addNewMember(firstName, lastName, customerPhoneNumber);
-            //c = new Customer(firstName, lastName, customerPhoneNumber, this.store);
-        } catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-        if(c!=null)
-        {
-    	    System.out.println("Request received. Customer is created with ID:"+ c.getMemberShipNumber());
-    	    Main.saveToFile(this.store);
+	    if(c!=null){
+	    	System.out.println("Corresponding customer has been found, name: "+c.getFirstName()+" "+c.getLastName());
         	Gson gson = new GsonBuilder().create();
     		String customer = gson.toJson(c);
     	    arg0.sendResponseHeaders(200, customer.length());
     	    OutputStream os = arg0.getResponseBody();
     	    os.write(customer.getBytes());
     	    os.close();
-    	    
-        	
-        }else{
-    	    System.out.println("Request received. But no customer is created");
-        	
-        }
-	
+
+	    }else{
+	    	System.out.println("Corresponding customer has not been found.");
+        	Gson gson = new GsonBuilder().create();
+    		String customer = gson.toJson(c);
+    	    arg0.sendResponseHeaders(200, customer.length());
+    	    OutputStream os = arg0.getResponseBody();
+    	    os.write(customer.getBytes());
+    	    os.close();
+	    	
+	    }
 	    
 	}
 

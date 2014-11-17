@@ -3,7 +3,9 @@
     package="edu.colostate.cs414.android_app_client"
     android:versionCode="1"
     android:versionName="1.0" >
-	<uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
@@ -22,23 +24,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:label="CreateNewAccountActivity" 
-            android:name="CreateNewAccountActivity"
-            android:parentActivityName="MainActivity">
-            
+        <activity
+            android:name=".CreateNewAccountActivity"
+            android:label="CreateNewAccountActivity"
+            android:parentActivityName=".MainActivity" >
+        </activity>
+        <activity
+            android:name=".MembershipLoginActivity"
+            android:label="@string/title_activity_membership_login"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.colostate.cs414.android_app_client.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CustomerDetailsActivity"
+            android:label="@string/title_activity_customer_details"
+            android:parentActivityName=".MembershipLoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.colostate.cs414.android_app_client.MembershipLoginActivity" />
         </activity>
     </application>
 
 </manifest>
-
-
-
-
-
-
-
-
-
-
-
