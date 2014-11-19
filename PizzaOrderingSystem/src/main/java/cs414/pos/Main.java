@@ -1,7 +1,6 @@
 package cs414.pos;
 
 import cs414.pos.ui.UIController;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,10 +10,11 @@ import java.util.logging.Logger;
  * @author Nathan Lighthart
  */
 public class Main {
+
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String[] args)  {
+	public static void main(String[] args) {
 		try {
 			Store s = initStore();
 			// default values
@@ -63,11 +63,11 @@ public class Main {
 				System.err.println("Error: invalid id");
 				return;
 			}
-	        SaverLoader.saveTestGson(s);
-	        SaverLoader.openTestGson();
+			SaverLoader.saveTestGson(s);
+			SaverLoader.openTestGson();
 			UIController controller = new UIController(s, isKiosk, id);
 			controller.start();
-		} catch (Exception e) {
+		} catch(Exception e) {
 			// TODO: handle exception
 			//String s = e.toString();
 			//System.out.println(s);
@@ -84,7 +84,6 @@ public class Main {
 		Employee cashier = s.addEmployee("billy-bob", "billy_bob", "pw_billy_bob", Role.Cashier);
 		Employee deliveryGuy = s.addEmployee("jane", "jane", "pw_jane", Role.DeliveryMan);
 
-		
 		Kiosk k = s.addKiosk(manager, 1);
 		Register r = s.addRegister(manager, 1);
 
@@ -101,7 +100,7 @@ public class Main {
 		o1.addItemToOrderByAmount(m0.getMenuItems().iterator().next(), 1);
 		s.placeOrder(o1);
 		Order o2 = s.createOrderViaKiosk(k.getKioskID());
-		o1.addItemToOrderByAmount(m1.getMenuItems().iterator().next(), 1);
+		o2.addItemToOrderByAmount(m1.getMenuItems().iterator().next(), 1);
 		s.placeOrder(o2);
 
 		Customer c1 = s.addNewMember("john", "doe", "1234567890");
@@ -127,14 +126,14 @@ public class Main {
 		}
 		return s;
 	}
-	
-	public static void saveToFile(Store store){
+
+	public static void saveToFile(Store store) {
 		try {
 			SaverLoader.save(SaverLoader.SAVE_FILE, store);
 			/**
 			 * Saving files to JSON also
 			 */
-	        SaverLoader.saveTestGson(store);
+			SaverLoader.saveTestGson(store);
 
 		} catch(IOException ex) {
 			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,

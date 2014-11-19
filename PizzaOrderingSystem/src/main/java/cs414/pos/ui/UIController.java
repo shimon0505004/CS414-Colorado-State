@@ -4,7 +4,6 @@ import cs414.pos.Customer;
 import cs414.pos.Employee;
 import cs414.pos.Item;
 import cs414.pos.LoginInfo;
-import cs414.pos.Main;
 import cs414.pos.Menu;
 import cs414.pos.Order;
 import cs414.pos.OrderItem;
@@ -12,7 +11,6 @@ import cs414.pos.OrderType;
 import cs414.pos.Role;
 import cs414.pos.SaverLoader;
 import cs414.pos.Store;
-
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,10 +32,9 @@ public class UIController {
 	private EditMenuItemUI editMenuItemView;
 	private EditMenuUI editMenuView;
 	private PlaceOrderUI placeOrderView;
-	private CompleteOrderUI completeOrderView;
+	private CompleteDeliverOrderUI completeDeliverOrderView;
 	private EmployeeUI employeeView;
 	private CustomerInfoUI customerInfoView;
-	private DeliverOrderUI deliverOrderView;
 
 	private Store store;
 	private Employee currentEmployee;
@@ -58,10 +55,9 @@ public class UIController {
 		editMenuItemView = new EditMenuItemUI(this);
 		editMenuView = new EditMenuUI(this);
 		placeOrderView = new PlaceOrderUI(this);
-		completeOrderView = new CompleteOrderUI(this);
+		completeDeliverOrderView = new CompleteDeliverOrderUI(this);
 		employeeView = new EmployeeUI(this);
 		customerInfoView = new CustomerInfoUI(this);
-		deliverOrderView = new DeliverOrderUI(this);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -71,10 +67,9 @@ public class UIController {
 				editMenuItemView.init();
 				editMenuView.init();
 				placeOrderView.init();
-				completeOrderView.init();
+				completeDeliverOrderView.init();
 				employeeView.init();
 				customerInfoView.init();
-				deliverOrderView.init();
 
 				if(isKiosk) {
 					setPermissions(true);
@@ -127,14 +122,16 @@ public class UIController {
 
 	public void displayCompleteOrder() {
 		mainView.setVisible(false);
-		completeOrderView.updateOrders();
-		completeOrderView.setVisible(true);
+		completeDeliverOrderView.setIsDeliveryOption(false);
+		completeDeliverOrderView.updateOrders();
+		completeDeliverOrderView.setVisible(true);
 	}
 
 	public void displayDeliverOrder() {
 		mainView.setVisible(false);
-		deliverOrderView.updateOrders();
-		deliverOrderView.setVisible(true);
+		completeDeliverOrderView.setIsDeliveryOption(true);
+		completeDeliverOrderView.updateOrders();
+		completeDeliverOrderView.setVisible(true);
 	}
 
 	public void displayEmployee() {
@@ -304,11 +301,11 @@ public class UIController {
 		}
 	}
 
-	public boolean completeOrder(int id) {
+	public boolean completeOrder(int orderId) {
 		boolean returnVal = false;
 		Collection<Order> orders = getIncompleteOrdersSet();
 		for(Order order : orders) {
-			if(order.getOrderID() == id) {
+			if(order.getOrderID() == orderId) {
 				returnVal = order.setCompletedByEmployee(currentEmployee);
 			}
 		}
@@ -396,7 +393,6 @@ public class UIController {
 
 	public void placeOrder() {
 		store.placeOrder(currentOrder);
-		
 
 	}
 
@@ -436,36 +432,35 @@ public class UIController {
 		System.exit(0); // close jvm
 	}
 
-	public void saveToFile(){
+	public void saveToFile() {
 		try {
 			SaverLoader.save(SaverLoader.SAVE_FILE, store);
 			/**
 			 * Saving files to JSON also
 			 */
-	        SaverLoader.saveTestGson(store);
+			SaverLoader.saveTestGson(store);
 
 		} catch(IOException ex) {
 			Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
-		
+
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory after it has been saved .");
 		}
 	}
-	
+
 	public void closeEditMenu() {
 		editMenuView.setVisible(false);
 		mainView.setVisible(true);
-		
-		
+
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory when Edit menu is closed");
@@ -475,10 +470,10 @@ public class UIController {
 	public void closeEditMenuItem() {
 		editMenuItemView.setVisible(false);
 		mainView.setVisible(true);
-		
+
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory when Edit menu Item is closed");
@@ -486,17 +481,17 @@ public class UIController {
 
 	}
 
-	public void closeCompleteOrder() {
-		completeOrderView.setVisible(false);
+	public void closeCompleteDeliverOrder() {
+		completeDeliverOrderView.setVisible(false);
 		mainView.setVisible(true);
 
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory when Complete Order is closed");
-		}	
+		}
 	}
 
 	public void closePlaceOrder() {
@@ -506,11 +501,11 @@ public class UIController {
 
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory when Place Order window is closed");
-		}		
+		}
 	}
 
 	public void closeEmployee() {
@@ -519,12 +514,12 @@ public class UIController {
 
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory when Employee window is closed");
-		}		
-	
+		}
+
 	}
 
 	public void closeCustomerInformation() {
@@ -533,26 +528,12 @@ public class UIController {
 
 		try {
 			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch(ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Store can not be reloaded from memory when Customer information window is closed");
-		}		
-	
-	}
+		}
 
-	public void closeDeliverOrder() {
-		deliverOrderView.setVisible(false);
-		mainView.setVisible(true);
-
-		try {
-			this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Store can not be reloaded from memory when Orders Delivered window is closed");
-		}		
-	
 	}
 
 	public Iterable<String> getIncompleteOrders() {
@@ -659,11 +640,7 @@ public class UIController {
 	}
 
 	public Iterable<String> getOrderItems() {
-		List<String> items = new ArrayList<>();
-		for(OrderItem item : currentOrder.getSetOfItems()) {
-			items.add(getOrderItemString(item));
-		}
-		return items;
+		return getOrderItems(currentOrder);
 	}
 
 	public String getItemName(String itemString) {
@@ -712,6 +689,16 @@ public class UIController {
 		Customer c = store.addNewMember(firstName, lastName, phoneNumber);
 		return c.getMemberShipNumber();
 		//return c.objectID;
+	}
+
+	public Iterable<String> getItemsForOrder(int orderId) {
+		Collection<Order> orders = store.getListOfPlacedOrder();
+		for(Order order : orders) {
+			if(order.getOrderID() == orderId) {
+				return getOrderItems(order);
+			}
+		}
+		return new ArrayList<>();
 	}
 
 	private Employee getSelectedEmployee(String employeeLoginID) {
@@ -864,6 +851,14 @@ public class UIController {
 			mainView.setCanViewCustomers(currentEmployee.getRole().canViewCustomers());
 			mainView.setCanDeliverOrder(currentEmployee.getRole().canCompleteDelivery());
 		}
+	}
+
+	private Collection<String> getOrderItems(Order o) {
+		List<String> items = new ArrayList<>();
+		for(OrderItem item : o.getSetOfItems()) {
+			items.add(getOrderItemString(item));
+		}
+		return items;
 	}
 
 }
