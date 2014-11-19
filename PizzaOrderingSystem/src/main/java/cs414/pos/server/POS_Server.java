@@ -36,9 +36,11 @@ public class POS_Server {
 		CustomerController_Server customerController = new CustomerController_Server(s);
 		SpecificCustomerGetterController_Server customerFinder = new SpecificCustomerGetterController_Server(s); 
 		StoreGetterController_Server storeServer = new StoreGetterController_Server(s);
+		CustomerPointUpdate_Server customerPointServer = new CustomerPointUpdate_Server(s);
 		server.createContext("/customerAccounts", customerController);
 		server.createContext("/SingleCustomerAccount", customerFinder);
 		server.createContext("/store", storeServer);
+		server.createContext("/customerPointUpdate", customerPointServer);
 		
 		server.start();
 	}

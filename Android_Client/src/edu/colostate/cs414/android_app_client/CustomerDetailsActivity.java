@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import cs414.pos.Customer;
 import cs414.pos.Order;
+import android.R.integer;
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +41,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	String phoneNumber = "";
 	int minReqRewardsPoint = 0;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +52,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 			initView();
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			Log.d("Oncreate in CustomerDetailsActivity", e.getStackTrace().toString());
 		}
 		setTitle("Welcome: "+customerName);
 		//initView();
@@ -177,22 +180,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
             TableRow tbrow4 = new TableRow(this);
             tbrow4.addView(freePizzaButton);
             stk.addView(tbrow4);
-            freePizzaButton.setOnClickListener(new Button.OnClickListener() {
-                public void onClick(View v) {
-                	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                	alertDialogBuilder.setTitle("Free Pizza!");
-					alertDialogBuilder.setTitle("");
-					alertDialogBuilder.setMessage("Please show this to the pizza store!")
-					.setNeutralButton("OK",new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							// if this button is clicked, just close
-							// the dialog box and do nothing
-							dialog.cancel();
-							//clearText();
-						}
-					});
-            }
-        });
+            freePizzaButton.setOnClickListener(freePizzaButton_Listener);
         }
         
         
@@ -264,6 +252,45 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 			
 	        
 		}
+	};
+	
+	private OnClickListener freePizzaButton_Listener = new OnClickListener() {
+        public void onClick(View v) {
+			JSONObject customerID_Point = new JSONObject();
+			int updatedMinPoint = minReqRewardsPoint ;
+			try {
+				int point = (rewardsPoint - minReqRewardsPoint);
+				customerID_Point.put("updatedPoint", point);
+				customerID_Point.put("membershipID", membershipID);
+				AsyncTask result = new UpdateCustomerPoints().execute(customerID_Point);
+				JSONObject j = new JSONObject(((String)result.get())) ;
+				updatedMinPoint = j.getInt("rewardsPoint");
+				Log.d("App" ,j.getString("rewardsPoint"));
+			} catch (Exception e) {
+				// TODO: handle exception
+				Log.d("App" ,e.getStackTrace().toString());
+			} 
+			
+			Log.d("App" ,Integer.toString(updatedMinPoint));
+			     	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+	        	alertDialogBuilder.setTitle("Free Pizza!");
+				alertDialogBuilder.setTitle("");
+				alertDialogBuilder.setMessage("Please show this to the pizza store!")
+				.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+						//clearText();
+						
+					}
+				});
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+				
+			
+    }
 	};
 	
 }
