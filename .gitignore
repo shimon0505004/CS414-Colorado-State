@@ -11,3 +11,4 @@
 *nb-configuration.xml
 *.ser
 *.json
+*bin*
