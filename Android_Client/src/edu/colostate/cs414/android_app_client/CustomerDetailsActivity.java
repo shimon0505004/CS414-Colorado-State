@@ -10,7 +10,9 @@ import com.google.gson.Gson;
 import cs414.pos.Customer;
 import cs414.pos.Order;
 import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -21,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	String membershipID = null;
 	int rewardsPoint = 0;
 	String phoneNumber = "";
+	int minReqRewardsPoint = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,8 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		Intent i = getIntent();
 		membershipID = (String)i.getSerializableExtra("memberShipNumber");
+		minReqRewardsPoint = (int)i.getIntExtra("minReqPoints", minReqRewardsPoint);
+		
 		JSONObject loginID = new JSONObject();
 		try {
 			loginID.put("LoginID", membershipID);
@@ -145,6 +151,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
         
         
         TableRow tbrow3 = new TableRow(this);
+        
         TextView tv0_tbrow3 = new TextView(this);
         tv0_tbrow3.setText(" Order.No ");
         tbrow3.addView(tv0_tbrow3);
@@ -162,6 +169,32 @@ public class CustomerDetailsActivity extends ActionBarActivity {
         tbrow3.addView(tv4_tbrow4);
         
         stk.addView(tbrow3);
+        
+        if(rewardsPoint>=minReqRewardsPoint && minReqRewardsPoint!=0){
+        	//get free pizza certificate
+        	Button freePizzaButton = new Button(this);
+        	freePizzaButton.setText("Get your Free Pizza.");
+            TableRow tbrow4 = new TableRow(this);
+            tbrow4.addView(freePizzaButton);
+            stk.addView(tbrow4);
+            freePizzaButton.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View v) {
+                	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                	alertDialogBuilder.setTitle("Free Pizza!");
+					alertDialogBuilder.setTitle("");
+					alertDialogBuilder.setMessage("Please show this to the pizza store!")
+					.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, just close
+							// the dialog box and do nothing
+							dialog.cancel();
+							//clearText();
+						}
+					});
+            }
+        });
+        }
+        
         
         if(customer!=null){
         	
