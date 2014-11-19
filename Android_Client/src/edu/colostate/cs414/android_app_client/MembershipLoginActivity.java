@@ -58,7 +58,7 @@ private OnClickListener okButton_Mmbr_Login_Listener = new OnClickListener() {
 							if(!s.equals(null))
 							{
 								try {
-									JSONObject  object =  new JSONObject(s);
+									final JSONObject  object =  new JSONObject(s);
 									
 									if(object.get("memberShipNumber") != null){
 									
@@ -66,16 +66,39 @@ private OnClickListener okButton_Mmbr_Login_Listener = new OnClickListener() {
 										   
 										
 											alertDialogBuilder.setTitle("Customer Found!");
-											alertDialogBuilder.setMessage("Welcome :"+object.get("firstName")+" " +object.get("lastName"))
-											.setNeutralButton("OK",new DialogInterface.OnClickListener() {
-												public void onClick(DialogInterface dialog,int id) {
-													// if this button is clicked, just close
-													// the dialog box and do nothing
-													Intent intent = new Intent(context, CustomerDetailsActivity.class);	
-													intent.putExtra("memberShipNumber",membershipID);
-													startActivity(intent);
-												}
-											});
+											
+											try {
+												AsyncTask storeResult = new GetStore().execute();
+												JSONObject store = (JSONObject)storeResult.get();
+												final int  point = Integer.parseInt(store.getString("requiredPointsForFreePizzaCertificate")) ;
+											
+												alertDialogBuilder.setMessage("Welcome :"+object.get("firstName")+" " +object.get("lastName"))
+												.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+													public void onClick(DialogInterface dialog,int id) {
+														// if this button is clicked, just close
+														// the dialog box and do nothing
+														Intent intent = new Intent(context, CustomerDetailsActivity.class);	
+														intent.putExtra("memberShipNumber",membershipID);
+														intent.putExtra("minReqPoints",point);
+																
+														startActivity(intent);
+													}
+												});
+											} catch (Exception e) {
+												// TODO: handle exception
+												alertDialogBuilder.setTitle("Customer Not Found. Exception in point parsing");
+												alertDialogBuilder.setMessage("Unfortunately your customer account could not be Found. Please try again!")
+												.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+													public void onClick(DialogInterface dialog,int id) {
+														// if this button is clicked, just close
+														// the dialog box and do nothing
+														dialog.cancel();
+														clearText();
+													}
+												});
+											}
+											
+											
 		
 									}else{
 										alertDialogBuilder.setTitle("Customer Not Found");
@@ -91,7 +114,7 @@ private OnClickListener okButton_Mmbr_Login_Listener = new OnClickListener() {
 									}
 								} catch (Exception e) {
 									// set title
-									alertDialogBuilder.setTitle("Customer Not Found");
+									alertDialogBuilder.setTitle("Customer Not Found. Exception");
 									alertDialogBuilder.setMessage("Unfortunately your customer account could not be Found. Please try again!")
 									.setNeutralButton("OK",new DialogInterface.OnClickListener() {
 										public void onClick(DialogInterface dialog,int id) {
@@ -105,7 +128,7 @@ private OnClickListener okButton_Mmbr_Login_Listener = new OnClickListener() {
 								
 							}else{
 								// set title
-								alertDialogBuilder.setTitle("Customer Not Found");
+								alertDialogBuilder.setTitle("Customer Not Found.No result.");
 								alertDialogBuilder.setMessage("Unfortunately your customer account could not be Found. Please try again!")
 								.setNeutralButton("OK",new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,int id) {
