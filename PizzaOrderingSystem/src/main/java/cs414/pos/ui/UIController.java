@@ -1,23 +1,21 @@
 package cs414.pos.ui;
 
-import cs414.pos.Customer;
-import cs414.pos.Employee;
-import cs414.pos.Item;
-import cs414.pos.LoginInfo;
+import cs414.pos.*;
 import cs414.pos.Menu;
-import cs414.pos.Order;
-import cs414.pos.OrderItem;
-import cs414.pos.OrderType;
-import cs414.pos.Role;
-import cs414.pos.SaverLoader;
-import cs414.pos.Store;
-import java.awt.EventQueue;
+import cs414.pos.server.POS_Server;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
+
+import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.io.InputStreamReader;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +80,28 @@ public class UIController {
 	}
 
 	public void login(String loginID, String password) {
-		Employee temp = store.loginAttempt(loginID, password);
+        // send attempt to server
+        JSONObject object = new JSONObject();
+        object.put("loginId",loginID);
+        object.put("password", password);
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost("http://localhost:8000/login");
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+        httpPost.setEntity(new StringEntity(object.toString(), "utf-8"));
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            if(response.getEntity().getContent() != null && response.getStatusLine().getStatusCode()==200) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        response.getEntity().getContent()));
+                Employee e = POS_Server.gson.fromJson(br, Employee.class);
+                System.out.println(e.getEmployeeName());
+            }
+        } catch (IOException e) { e.printStackTrace(); }
+
+        Employee temp = store.loginAttempt(loginID, password);
 		if(temp == null) {
 			// Login Failed
 			loginView.setStatus("Invalid Username/Password");

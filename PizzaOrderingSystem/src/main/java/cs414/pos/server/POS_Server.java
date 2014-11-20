@@ -3,22 +3,13 @@
  */
 package cs414.pos.server;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpServer;
-
 import cs414.pos.Main;
-import cs414.pos.SaverLoader;
 import cs414.pos.Store;
-import cs414.pos.ui.UIController;
+
+import java.net.InetSocketAddress;
 
 
 /**
@@ -27,21 +18,31 @@ import cs414.pos.ui.UIController;
  */
 public class POS_Server {
 
+    public static final Gson gson = new GsonBuilder().create();
 	
 	//important main method is needed to run the server
 	public static void main(String[] args) throws Exception{
+
 		Store s = Main.initStore();
+
 		//creates the server on port 8,000
 		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 8000);
+
+        // android controllers
 		CustomerController_Server customerController = new CustomerController_Server(s);
 		SpecificCustomerGetterController_Server customerFinder = new SpecificCustomerGetterController_Server(s); 
 		StoreGetterController_Server storeServer = new StoreGetterController_Server(s);
 		CustomerPointUpdate_Server customerPointServer = new CustomerPointUpdate_Server(s);
+        // in-store controllers
+        LoginServerController loginServerController = new LoginServerController(s);
+
+        // set http contexts
 		server.createContext("/customerAccounts", customerController);
 		server.createContext("/SingleCustomerAccount", customerFinder);
 		server.createContext("/store", storeServer);
 		server.createContext("/customerPointUpdate", customerPointServer);
-		
+        server.createContext("/login", loginServerController);
+
 		server.start();
 	}
 	

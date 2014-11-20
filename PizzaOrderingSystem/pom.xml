@@ -101,7 +101,11 @@ http://www.w3.org/2001/XMLSchema-instance ">
 			<artifactId>json</artifactId>
 			<version>20140107</version>
 		</dependency>
-
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
 	</dependencies>
 
 	<scm>
