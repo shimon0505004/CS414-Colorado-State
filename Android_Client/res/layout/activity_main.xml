@@ -9,7 +9,7 @@
     tools:context="edu.colostate.cs414.android_app_client.MainActivity" >
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/linearLayout_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
