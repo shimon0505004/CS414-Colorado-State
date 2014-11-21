@@ -393,7 +393,6 @@ public class UIController {
 
 	public void placeOrder() {
 		store.placeOrder(currentOrder);
-
 	}
 
 	public void addOrderItem(String itemName, int quantity) {
