@@ -53,6 +53,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.colostate.cs414.android_app_client.MembershipLoginActivity" />
         </activity>
+        <activity
+            android:name=".OrderActivity"
+            android:label="@string/title_activity_order" >
+        </activity>
     </application>
 
 </manifest>

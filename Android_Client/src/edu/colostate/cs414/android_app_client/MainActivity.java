@@ -1,5 +1,6 @@
 package edu.colostate.cs414.android_app_client;
 
+import cs414.pos.Order;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -52,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			if(v.getId()==R.id.ViewMenuAndPlaceOrderButton){
 				if(c!=null){
-					Intent intent = new Intent(c, CreateNewAccountActivity.class);					
+					Intent intent = new Intent(c, OrderActivity.class);					
 					startActivity(intent);
 				}
 			}

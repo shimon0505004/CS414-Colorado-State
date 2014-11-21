@@ -1,16 +1,14 @@
 package edu.colostate.cs414.android_app_client;
 
 import java.util.Iterator;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.google.gson.Gson;
-
 import cs414.pos.Customer;
 import cs414.pos.Order;
 import android.R.integer;
 import android.support.v7.app.ActionBarActivity;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,7 +38,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	int rewardsPoint = 0;
 	String phoneNumber = "";
 	int minReqRewardsPoint = 0;
-	
+	TableLayout stk;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +111,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 	
 	
 	public void initView() {
-        TableLayout stk = (TableLayout) findViewById(R.id.CustomerDetailsTable1);
+        stk = (TableLayout) findViewById(R.id.CustomerDetailsTable1);
         
         TableRow tbrow0 = new TableRow(this);
        
@@ -254,6 +252,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 		}
 	};
 	
+	@SuppressLint("NewApi")
 	private OnClickListener freePizzaButton_Listener = new OnClickListener() {
         public void onClick(View v) {
 			JSONObject customerID_Point = new JSONObject();
@@ -266,6 +265,9 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 				JSONObject j = new JSONObject(((String)result.get())) ;
 				updatedMinPoint = j.getInt("rewardsPoint");
 				Log.d("App" ,j.getString("rewardsPoint"));
+				minReqRewardsPoint = updatedMinPoint;
+				
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 				Log.d("App" ,e.getStackTrace().toString());
@@ -275,6 +277,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 			     	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 	        	alertDialogBuilder.setTitle("Free Pizza!");
 				alertDialogBuilder.setTitle("");
+				
 				alertDialogBuilder.setMessage("Please show this to the pizza store!")
 				.setNeutralButton("OK",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
@@ -288,7 +291,7 @@ public class CustomerDetailsActivity extends ActionBarActivity {
 				// create alert dialog
 				AlertDialog alertDialog = alertDialogBuilder.create();
 				alertDialog.show();
-				
+				recreate();
 			
     }
 	};
