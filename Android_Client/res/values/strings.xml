@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Pizza Store Client</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_membership_login">MembershipLoginActivity</string>
     <string name="title_activity_customer_details">CustomerDetailsActivity</string>
