@@ -1,27 +1,23 @@
 package cs414.pos.server;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import cs414.pos.Customer;
+import cs414.pos.Main;
+import cs414.pos.SaverLoader;
+import cs414.pos.Store;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import cs414.pos.*;
-import cs414.pos.ui.UIController;
 
 public class CustomerController_Server implements HttpHandler{
 
@@ -92,8 +88,7 @@ public class CustomerController_Server implements HttpHandler{
     	    OutputStream os = arg0.getResponseBody();
     	    os.write(customer.getBytes());
     	    os.close();
-    	    
-        	
+
         }else{
     	    System.out.println("Request received. But no customer is created");
         	

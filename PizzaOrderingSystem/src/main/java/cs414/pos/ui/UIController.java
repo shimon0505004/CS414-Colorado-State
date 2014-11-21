@@ -41,6 +41,8 @@ public class UIController {
 	private int id;
 	private Order currentOrder;
 
+    private final static String baseUrl = "http://localhost:8000/";
+
 	public UIController(Store store, boolean isKiosk, int registerOrKioskId) {
 		this.store = store;
 		this.isKiosk = isKiosk;
@@ -80,27 +82,6 @@ public class UIController {
 	}
 
 	public void login(String loginID, String password) {
-        // send attempt to server
-        JSONObject object = new JSONObject();
-        object.put("loginId",loginID);
-        object.put("password", password);
-
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://localhost:8000/login");
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setHeader("Content-type", "application/json");
-        httpPost.setEntity(new StringEntity(object.toString(), "utf-8"));
-
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-            if(response.getEntity().getContent() != null && response.getStatusLine().getStatusCode()==200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        response.getEntity().getContent()));
-                Employee e = POS_Server.gson.fromJson(br, Employee.class);
-                System.out.println(e.getEmployeeName());
-            }
-        } catch (IOException e) { e.printStackTrace(); }
-
         Employee temp = store.loginAttempt(loginID, password);
 		if(temp == null) {
 			// Login Failed
@@ -704,8 +685,37 @@ public class UIController {
 		return data;
 	}
 
+    private BufferedReader postToServer(JSONObject object, String function) {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(baseUrl+function);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+        httpPost.setEntity(new StringEntity(object.toString(), "utf-8"));
+
+        BufferedReader br=null;
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            if(response.getEntity().getContent() != null && response.getStatusLine().getStatusCode()==200) {
+                br = new BufferedReader(new InputStreamReader(
+                        response.getEntity().getContent()));
+            }
+        } catch (IOException e) { e.printStackTrace(); }
+        return br;
+    }
+
 	public String createAccount(String firstName, String lastName, String phoneNumber) {
-		Customer c = store.addNewMember(firstName, lastName, phoneNumber);
+        Customer c=null;
+        if(isKiosk) {
+            JSONObject object = new JSONObject();
+            object.put("firstName",firstName);
+            object.put("lastName", lastName);
+            object.put("customerPhoneNumber", phoneNumber);
+
+            BufferedReader br = postToServer(object, "customerAccounts");
+            c = POS_Server.gson.fromJson(br, Customer.class);
+        } else {
+            c = store.addNewMember(firstName, lastName, phoneNumber);
+        }
 		return c.getMemberShipNumber();
 		//return c.objectID;
 	}
