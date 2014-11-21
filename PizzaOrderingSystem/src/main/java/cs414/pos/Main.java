@@ -1,5 +1,6 @@
 package cs414.pos;
 
+import cs414.pos.server.POS_Server;
 import cs414.pos.ui.UIController;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		try {
-			Store s = initStore();
+			final Store s = initStore();
 			// default values
 			boolean isKiosk = false;
 			int id = 1;
@@ -66,6 +67,11 @@ public class Main {
 			SaverLoader.saveTestGson(s);
 			SaverLoader.openTestGson();
 			UIController controller = new UIController(s, isKiosk, id);
+
+            if(!isKiosk) { // start server at the register
+                new POS_Server(s);
+            }
+
 			controller.start();
 		} catch(Exception e) {
 			// TODO: handle exception
