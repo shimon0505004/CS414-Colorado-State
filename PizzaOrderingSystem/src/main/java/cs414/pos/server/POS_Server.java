@@ -6,7 +6,6 @@ package cs414.pos.server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpServer;
-import cs414.pos.Main;
 import cs414.pos.Store;
 
 import java.io.IOException;
@@ -35,6 +34,7 @@ public class POS_Server {
         CustomerPointUpdate_Server customerPointServer = new CustomerPointUpdate_Server(s);
         // in-store controllers
         LoginServerController loginServerController = new LoginServerController(s);
+        MenuGetterController menuGetterController = new MenuGetterController(s);
 
         // set http contexts
         server.createContext("/customerAccounts", customerController);
@@ -42,11 +42,13 @@ public class POS_Server {
         server.createContext("/store", storeServer);
         server.createContext("/customerPointUpdate", customerPointServer);
         server.createContext("/login", loginServerController);
+        server.createContext("/getMenus", menuGetterController);
 
         server.start();
         System.out.println("Server started");
     }
-	
+
+    /*
 	//important main method is needed to run the server
 	public static void main(String[] args) throws Exception{
 
@@ -72,7 +74,5 @@ public class POS_Server {
 
 		server.start();
 	}
-	
-	
-
+    */
 }

@@ -1,5 +1,6 @@
 package cs414.pos.ui;
 
+import com.google.gson.reflect.TypeToken;
 import cs414.pos.*;
 import cs414.pos.Menu;
 import cs414.pos.server.POS_Server;
@@ -14,6 +15,8 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
@@ -564,8 +567,18 @@ public class UIController {
     }
 
     public Iterable<String> getMenus() {
-        Collection<Menu> menus = store.getSetOfMenus();
+        Collection<Menu> menus;
         List<String> menuList = new ArrayList<>();
+
+        if(isKiosk) {
+            Reader menuReader = postToServer(new JSONObject(), "getMenus");
+            Type collectionType = new TypeToken<Collection<Menu>>(){}.getType();
+            menus = POS_Server.gson.fromJson(menuReader, collectionType);
+
+        } else {
+            menus = store.getSetOfMenus();
+        }
+
         for(Menu menu : menus) {
             menuList.add(menu.getMenuName());
         }
