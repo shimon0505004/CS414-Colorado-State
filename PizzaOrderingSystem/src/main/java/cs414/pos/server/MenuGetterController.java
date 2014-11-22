@@ -20,5 +20,6 @@ public class MenuGetterController implements HttpHandler {
         httpExchange.sendResponseHeaders(200, menusJson.length());
         httpExchange.getResponseBody().write(menusJson.getBytes());
         System.out.println("Menu retrieved.");
+        httpExchange.getResponseBody().close();
     }
 }

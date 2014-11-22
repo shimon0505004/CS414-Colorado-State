@@ -35,6 +35,7 @@ public class POS_Server {
         // in-store controllers
         LoginServerController loginServerController = new LoginServerController(s);
         MenuGetterController menuGetterController = new MenuGetterController(s);
+        PlaceOrderServerController placeOrderServerController = new PlaceOrderServerController(s);
 
         // set http contexts
         server.createContext("/customerAccounts", customerController);
@@ -43,6 +44,7 @@ public class POS_Server {
         server.createContext("/customerPointUpdate", customerPointServer);
         server.createContext("/login", loginServerController);
         server.createContext("/getMenus", menuGetterController);
+        server.createContext("/placeOrder", placeOrderServerController);
 
         server.start();
         System.out.println("Server started");

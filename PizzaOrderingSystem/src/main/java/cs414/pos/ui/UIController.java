@@ -335,7 +335,13 @@ public class UIController {
 
         Customer c = null;
         if(membershipID != null) {
-            c = store.getMember(membershipID);
+            if(isKiosk) {
+                JSONObject object = new JSONObject();
+                object.put("LoginID", membershipID);
+                Reader r = postToServer(object, "login");
+                c = POS_Server.gson.fromJson(r, Customer.class);
+            } else
+                c = store.getMember(membershipID);
             if(c == null) {
                 return false;
             }
@@ -396,8 +402,12 @@ public class UIController {
     }
 
     public void placeOrder() {
-        store.placeOrder(currentOrder);
-
+        if(isKiosk) {
+            JSONObject obj = new JSONObject(POS_Server.gson.toJson(currentOrder));
+            postToServer(obj, "placeOrder");
+        } else {
+            store.placeOrder(currentOrder);
+        }
     }
 
     public void addOrderItem(String itemName, int quantity) {
@@ -424,6 +434,7 @@ public class UIController {
     }
 
     public double getOrderChange() {
+        if(isKiosk) return 0.0;
         return roundToTwo(currentOrder.getAmountReturned());
     }
 
