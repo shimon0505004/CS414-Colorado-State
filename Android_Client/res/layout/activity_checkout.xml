@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_checkout_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"/>
+
+        <EditText
+            android:id="@+id/editText_checkout_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10" >
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+		android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_checkout_cardNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card Number" />
+
+        <EditText
+            android:id="@+id/editText_checkout_cardNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10" 
+            android:inputType="number"
+			android:maxLength="16">
+        </EditText>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+		android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_checkout_expDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="expDate" />
+
+        <EditText
+            android:id="@+id/editText_checkout_expDate"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+			android:maxLength="2"
+            android:ems="10" >
+        </EditText>
+        
+        <TextView
+            android:id="@+id/textView_checkout_expDate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/" />
+
+       	<EditText
+            android:id="@+id/editText_checkout_expDate2"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+			android:maxLength="2"
+            android:ems="10" >
+        </EditText>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+		android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_checkout_CV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CV2" />
+
+        <EditText
+            android:id="@+id/editText_checkout_CV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+			android:maxLength="3"
+            android:ems="10" >
+
+        </EditText>
+
+    </LinearLayout>
+    
+
+</LinearLayout>

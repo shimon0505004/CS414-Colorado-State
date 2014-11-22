@@ -3,6 +3,7 @@ package edu.colostate.cs414.android_app_client;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.zip.Inflater;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,8 +48,10 @@ public class OrderActivity extends ActionBarActivity {
 	Spinner menuSpinner;
 	JSONArray order;
 	Button checkOutButton, viewOrderButton;
+	View orderDialogLayout;
 	double amountTotal = 0;
 	private ArrayList<String> orderList = new ArrayList<String>();
+	private String checkoutInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +59,6 @@ public class OrderActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_order);
 		context = (Context) this;
 		initializeStore();
-		// leftTableLayout = (TableLayout) findViewById(R.id.leftLayout1_Order);
-		// rightTableLayout = (TableLayout)
-		// findViewById(R.id.rightTableLayout1_Order);
 		try {
 			initView();
 		} catch (Exception e) {
@@ -144,7 +144,7 @@ public class OrderActivity extends ActionBarActivity {
 			// orderTable.addView(tr2);
 
 			viewOrderButton.setOnClickListener(new ViewOrderListener());
-
+			checkOutButton.setOnClickListener(new CheckoutListener());
 		}
 	}
 
@@ -198,7 +198,7 @@ public class OrderActivity extends ActionBarActivity {
 							tbrow.addView(tv_name);
 							tbrow.addView(tv_price);
 							tbrow.addView(tv_desc);
-							tbrow.setOnClickListener(menuItemTableRow_Listener);
+							tbrow.setOnClickListener(new menuItemTableRow_Listener());
 							menuItemTable.addView(tbrow);
 
 						}
@@ -218,9 +218,7 @@ public class OrderActivity extends ActionBarActivity {
 		}
 	}
 
-	View orderDialogLayout;
-
-	private OnClickListener menuItemTableRow_Listener = new OnClickListener() {
+	class menuItemTableRow_Listener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
@@ -490,7 +488,27 @@ public class OrderActivity extends ActionBarActivity {
 			private void updateOrderArray(ArrayList<String> l) {
 				orderList = l;
 			}
+		}
+	}
 
+	class CheckoutListener implements OnClickListener {
+
+		String addr, cardNum, cardCV2;
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			LayoutInflater inflater = getLayoutInflater();
+			View layout = inflater.inflate(R.layout.activity_checkout,
+					(ViewGroup) findViewById(R.id.dialog));
+			AlertDialog.Builder builder = new AlertDialog.Builder(OrderActivity.this);
+			builder.setView(layout);
+			builder.setTitle("Checkout");
+			builder.setPositiveButton("OK", null);
+			builder.setNegativeButton("Cancel", null);
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
 
 	}
