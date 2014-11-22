@@ -49,7 +49,7 @@ public class OrderActivity extends ActionBarActivity {
 	Button checkOutButton, viewOrderButton;
 	double amountTotal = 0;
 	private ArrayList<String> orderList = new ArrayList<String>();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,7 +101,7 @@ public class OrderActivity extends ActionBarActivity {
 		menuSpinner = (Spinner) findViewById(R.id.spinner_MenuDropList);
 		menuItemTable = (TableLayout) findViewById(R.id.tableLayout_MenuItem);
 		menuItemTable.setStretchAllColumns(true);
-		
+
 		checkOutButton = (Button) findViewById(R.id.button_checkout);
 		viewOrderButton = (Button) findViewById(R.id.button_viewOrder);
 		if (store != null) {
@@ -142,7 +142,7 @@ public class OrderActivity extends ActionBarActivity {
 			tr1.addView(r12);
 			orderTable.addView(tr1);
 			// orderTable.addView(tr2);
-			
+
 			viewOrderButton.setOnClickListener(new ViewOrderListener());
 
 		}
@@ -218,7 +218,7 @@ public class OrderActivity extends ActionBarActivity {
 		}
 	}
 
-	View dialogLayout;
+	View orderDialogLayout;
 
 	private OnClickListener menuItemTableRow_Listener = new OnClickListener() {
 
@@ -254,27 +254,25 @@ public class OrderActivity extends ActionBarActivity {
 			builder.setPositiveButton("OK", new OrderItemListener());
 			builder.setNegativeButton("Cancel", null);
 			AlertDialog dialog = builder.create();
-			dialogLayout = layout;
+			orderDialogLayout = layout;
 			dialog.show();
 
 		}
 	};
 
-
-
 	class OrderItemListener implements DialogInterface.OnClickListener {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			// TODO Auto-generated method stub
-			TextView tv_itemName = (TextView) dialogLayout
+			TextView tv_itemName = (TextView) orderDialogLayout
 					.findViewById(R.id.textView_itemName);
 			String itemName = tv_itemName.getText().toString().split(": ")[1];
-			TextView tv_price = (TextView) dialogLayout
+			TextView tv_price = (TextView) orderDialogLayout
 					.findViewById(R.id.textView_itemPrice);
 			String priceStr = tv_price.getText().toString().split(": ")[1];
 			double unitPrice = Double.parseDouble(priceStr);
 
-			NumberPicker np = (NumberPicker) dialogLayout
+			NumberPicker np = (NumberPicker) orderDialogLayout
 					.findViewById(R.id.numberPicker);
 			int amount = np.getValue();
 			double total = unitPrice * amount;
@@ -321,19 +319,18 @@ public class OrderActivity extends ActionBarActivity {
 
 	class ViewOrderListener implements OnClickListener {
 
-		ArrayList<String> oldOrder;
-		
+		View viewOrderLayout;
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			oldOrder = orderList;
 			LayoutInflater inflater = getLayoutInflater();
-			View layout = inflater.inflate(R.layout.activity_order_detail,
+			viewOrderLayout = inflater.inflate(R.layout.activity_order_detail,
 					(ViewGroup) findViewById(R.id.dialog));
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					OrderActivity.this);
 
-			TableLayout tbLayout = (TableLayout) layout
+			TableLayout tbLayout = (TableLayout) viewOrderLayout
 					.findViewById(R.id.tableLayout_orderDetail);
 			tbLayout.setStretchAllColumns(true);
 			TableRow tr1 = new TableRow(OrderActivity.this);
@@ -346,18 +343,17 @@ public class OrderActivity extends ActionBarActivity {
 			tr1.addView(tv1);
 			tr1.addView(tv2);
 			tr1.addView(tv3);
-			
+
 			tbLayout.addView(tr1);
-			
-			builder.setView(layout);
+
+			builder.setView(viewOrderLayout);
 
 			builder.setTitle("Order Detail");
 			builder.setPositiveButton("OK", new ViewOrderOKListener());
-			builder.setNegativeButton("Cancel", new ViewOrderCancelListener());
+			builder.setNegativeButton("Cancel", null);
 			addOrdertoTable(orderList, tbLayout);
 
 			AlertDialog dialog = builder.create();
-			Log.d("Debug", "HELLO");
 
 			dialog.show();
 
@@ -377,39 +373,125 @@ public class OrderActivity extends ActionBarActivity {
 					tr.addView(tv2);
 					tr.addView(tv3);
 					tl.addView(tr);
-					tr.setOnClickListener(new ViewOrderClickEditListener());
+					tr.setOnClickListener(new EditOrderListener());
 				}
 			}
 		}
 
-		class ViewOrderClickEditListener implements OnClickListener{
+		class EditOrderListener implements OnClickListener {
+			TableRow tr;
+			TextView t1v, t2v, t3v;
+			NumberPicker np;
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				tr = (TableRow) v;
+				t1v = (TextView) tr.getChildAt(0);
+				t2v = (TextView) tr.getChildAt(1);
+				t3v = (TextView) tr.getChildAt(2);
+
+				String itemName = t1v.getText().toString();
+				String itemPrice = t2v.getText().toString();
+				int itemAmount = Integer.parseInt(t3v.getText().toString());
+
+				LayoutInflater inflater = getLayoutInflater();
+				View layout = inflater.inflate(R.layout.activity_edit_order,
+						(ViewGroup) findViewById(R.id.dialog));
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						OrderActivity.this);
+
+				TextView tv_name = (TextView) layout
+						.findViewById(R.id.textView_editOrder_itemName);
+				TextView tv_price = (TextView) layout
+						.findViewById(R.id.textView_editOrder_itemPrice);
+				np = (NumberPicker) layout
+						.findViewById(R.id.numberPicker_editOrder);
+
+				tv_name.setText(itemName);
+				tv_price.setText(itemPrice);
+				np.setValue(itemAmount);
+				np.setMaxValue(100);
+
+				builder.setView(layout);
+				builder.setTitle("Edit Order");
+				builder.setPositiveButton("OK", new EditOrder_OKListener());
+				builder.setNegativeButton("Cancel", null);
+
+				AlertDialog dialog = builder.create();
+				dialog.show();
 			}
-			
+
+			class EditOrder_OKListener implements
+					android.content.DialogInterface.OnClickListener {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					int newNum = np.getValue();
+					if (newNum != 0) {
+						t3v.setText(String.valueOf(newNum));
+					} else {
+						TableLayout tbLayout = (TableLayout) viewOrderLayout
+								.findViewById(R.id.tableLayout_orderDetail);
+						tbLayout.removeView(tr);
+					}
+				}
+
+			}
+
 		}
-		
-		class ViewOrderOKListener implements android.content.DialogInterface.OnClickListener{
+
+		class ViewOrderOKListener implements
+				android.content.DialogInterface.OnClickListener {
+
+			double newTotal = 0;
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				
+				TableLayout tb_order = (TableLayout) viewOrderLayout
+						.findViewById(R.id.tableLayout_orderDetail);
+				ArrayList<String> newOrder = getOrder(tb_order);
+				updateOrderArray(newOrder);
+				TableLayout tb_orderInfo = (TableLayout) OrderActivity.this
+						.findViewById(R.id.table_orderInfo);
+				TableRow tbr = (TableRow) tb_orderInfo.getChildAt(0);
+				// Log.d("Debug", String.valueOf(tb_orderInfo.getChildCount()));
+				TextView tv_priceTotal = (TextView) tbr.getChildAt(1);
+				tv_priceTotal.setText(String.valueOf(newTotal));
 			}
-			
-		}
-		
-		class ViewOrderCancelListener implements android.content.DialogInterface.OnClickListener{
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
+			private ArrayList<String> getOrder(TableLayout tb) {
+				ArrayList<String> newOrderArray = new ArrayList<String>();
+				int orderNum = tb.getChildCount();
+				for (int i = 1; i < orderNum; i++) {
+					TableRow tr = (TableRow) tb.getChildAt(i);
+					Log.d("Debug", String.valueOf(tb.getChildCount()));
+					String name = ((TextView) tr.getChildAt(0)).getText()
+							.toString();
+					String upStr = ((TextView) tr.getChildAt(1)).getText()
+							.toString();
+					String amountStr = ((TextView) tr.getChildAt(2)).getText()
+							.toString();
+					double up = Double.parseDouble(upStr);
+					int amount = Integer.parseInt(amountStr);
+					double total = up * amount;
+					String newOrder = new StringBuilder().append(name)
+							.append("/").append(upStr).append("/")
+							.append(amountStr).append("/").append(total)
+							.toString();
+					newOrderArray.add(newOrder);
+					newTotal += total;
+				}
+				return newOrderArray;
 			}
-			
+
+			private void updateOrderArray(ArrayList<String> l) {
+				orderList = l;
+			}
+
 		}
+
 	}
 }
