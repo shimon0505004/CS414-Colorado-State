@@ -376,7 +376,14 @@ public class UIController {
 
     public int getMemberPoints(String membershipID) {
         if(membershipID != null) {
-            Customer c = store.getMember(membershipID);
+            Customer c;
+            if(isKiosk) {
+                JSONObject object = new JSONObject();
+                object.put("LoginID", membershipID);
+                Reader r = postToServer(object, "login");
+                c = POS_Server.gson.fromJson(r, Customer.class);
+            } else
+                c = store.getMember(membershipID);
             if(c == null) {
                 return 0;
             } else {
