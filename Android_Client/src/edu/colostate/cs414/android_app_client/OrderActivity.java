@@ -3,9 +3,11 @@ package edu.colostate.cs414.android_app_client;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -26,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ScrollView;
@@ -40,9 +43,13 @@ public class OrderActivity extends ActionBarActivity {
 	JSONObject store = null;
 	Context context;
 	// TableLayout leftTableLayout , rightTableLayout;
-	TableLayout menuItemTable;
+	TableLayout menuItemTable, orderTable;
 	Spinner menuSpinner;
-
+	JSONArray order;
+	Button checkOutButton, viewOrderButton;
+	double amountTotal = 0;
+	private ArrayList<String> orderList = new ArrayList<String>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,6 +101,9 @@ public class OrderActivity extends ActionBarActivity {
 		menuSpinner = (Spinner) findViewById(R.id.spinner_MenuDropList);
 		menuItemTable = (TableLayout) findViewById(R.id.tableLayout_MenuItem);
 		menuItemTable.setStretchAllColumns(true);
+		
+		checkOutButton = (Button) findViewById(R.id.button_checkout);
+		viewOrderButton = (Button) findViewById(R.id.button_viewOrder);
 		if (store != null) {
 
 			try {
@@ -115,14 +125,30 @@ public class OrderActivity extends ActionBarActivity {
 				menuSpinner.setAdapter(spinAdapter);
 
 				menuSpinner
-						.setOnItemSelectedListener(new menuSpinnerListener());
+						.setOnItemSelectedListener(new MenuSpinnerListener());
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+			orderTable = (TableLayout) findViewById(R.id.table_orderInfo);
+			orderTable.setStretchAllColumns(true);
+			TableRow tr1 = new TableRow(this);
+			TextView r11 = new TextView(this);
+			r11.setText("Your Order Total:");
+			TextView r12 = new TextView(this);
+			r12.setText("0");
+			tr1.addView(r11);
+			tr1.addView(r12);
+			orderTable.addView(tr1);
+			// orderTable.addView(tr2);
+			
+			viewOrderButton.setOnClickListener(new ViewOrderListener());
+
 		}
 	}
 
-	private class menuSpinnerListener implements OnItemSelectedListener {
+	class MenuSpinnerListener implements OnItemSelectedListener {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view,
@@ -192,6 +218,8 @@ public class OrderActivity extends ActionBarActivity {
 		}
 	}
 
+	View dialogLayout;
+
 	private OnClickListener menuItemTableRow_Listener = new OnClickListener() {
 
 		@Override
@@ -205,34 +233,183 @@ public class OrderActivity extends ActionBarActivity {
 			double itemPrice = Double.parseDouble(t2v.getText().toString());
 
 			LayoutInflater inflater = getLayoutInflater();
-			final View layout = inflater.inflate(
+			View layout = inflater.inflate(
 					R.layout.activity_customer_enter_amount,
 					(ViewGroup) findViewById(R.id.dialog));
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					OrderActivity.this);
 
-			TextView tv_name = (TextView) layout.findViewById(R.id.textView_itemName);
-			TextView tv_price = (TextView) layout.findViewById(R.id.textView_itemPrice);
-			final NumberPicker np = (NumberPicker) layout.findViewById(R.id.numberPicker);
+			TextView tv_name = (TextView) layout
+					.findViewById(R.id.textView_itemName);
+			TextView tv_price = (TextView) layout
+					.findViewById(R.id.textView_itemPrice);
+			NumberPicker np = (NumberPicker) layout
+					.findViewById(R.id.numberPicker);
 			np.setMaxValue(100);
-			tv_name.setText("Name: "+itemName);
-			tv_price.setText("Price: "+itemPrice);
+			tv_name.setText("Name: " + itemName);
+			tv_price.setText("Price: " + itemPrice);
 			builder.setView(layout);
 			builder.setTitle("Enter Amount:");
-			
-			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					int amount = np.getValue();
-				}
-			});
+
+			builder.setPositiveButton("OK", new OrderItemListener());
 			builder.setNegativeButton("Cancel", null);
 			AlertDialog dialog = builder.create();
+			dialogLayout = layout;
 			dialog.show();
-			
+
 		}
 	};
 
+
+
+	class OrderItemListener implements DialogInterface.OnClickListener {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+			TextView tv_itemName = (TextView) dialogLayout
+					.findViewById(R.id.textView_itemName);
+			String itemName = tv_itemName.getText().toString().split(": ")[1];
+			TextView tv_price = (TextView) dialogLayout
+					.findViewById(R.id.textView_itemPrice);
+			String priceStr = tv_price.getText().toString().split(": ")[1];
+			double unitPrice = Double.parseDouble(priceStr);
+
+			NumberPicker np = (NumberPicker) dialogLayout
+					.findViewById(R.id.numberPicker);
+			int amount = np.getValue();
+			double total = unitPrice * amount;
+			amountTotal += total;
+
+			TableLayout orderTable = (TableLayout) OrderActivity.this
+					.findViewById(R.id.table_orderInfo);
+
+			TableRow tbr1 = (TableRow) orderTable.getChildAt(0);
+			TextView tv_priceTotal = (TextView) tbr1.getChildAt(1);
+			tv_priceTotal.setText(String.valueOf(amountTotal));
+
+			addOrdertoArray(orderList, itemName, unitPrice, amount);
+			// Log.d("Debug", orderList.toString());
+		}
+
+		private void addOrdertoArray(ArrayList<String> l, String name,
+				double up, int amount) {
+
+			boolean exists = false;
+			if (l != null) {
+				for (int i = 0; i < l.size(); i++) {
+					String s = (String) l.get(i);
+					if (s.split("/")[0].equals(name)) {
+						int newAmount = Integer.parseInt(s.split("/")[2])
+								+ amount;
+						String ns = new StringBuilder().append(s.split("/")[0])
+								.append("/").append(s.split("/")[1])
+								.append("/").append(newAmount).append("/")
+								.append(s.split("/")[3]).toString();
+						l.set(i, ns);
+						exists = true;
+					}
+				}
+			}
+			if (!exists) {
+				String s = new StringBuilder().append(name).append("/")
+						.append(up).append("/").append(amount).append("/")
+						.append(up * amount).toString();
+				l.add(s);
+			}
+		}
+	}
+
+	class ViewOrderListener implements OnClickListener {
+
+		ArrayList<String> oldOrder;
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			oldOrder = orderList;
+			LayoutInflater inflater = getLayoutInflater();
+			View layout = inflater.inflate(R.layout.activity_order_detail,
+					(ViewGroup) findViewById(R.id.dialog));
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					OrderActivity.this);
+
+			TableLayout tbLayout = (TableLayout) layout
+					.findViewById(R.id.tableLayout_orderDetail);
+			tbLayout.setStretchAllColumns(true);
+			TableRow tr1 = new TableRow(OrderActivity.this);
+			TextView tv1 = new TextView(OrderActivity.this);
+			tv1.setText("Name");
+			TextView tv2 = new TextView(OrderActivity.this);
+			tv2.setText("Unit Price");
+			TextView tv3 = new TextView(OrderActivity.this);
+			tv3.setText("Quant.");
+			tr1.addView(tv1);
+			tr1.addView(tv2);
+			tr1.addView(tv3);
+			
+			tbLayout.addView(tr1);
+			
+			builder.setView(layout);
+
+			builder.setTitle("Order Detail");
+			builder.setPositiveButton("OK", new ViewOrderOKListener());
+			builder.setNegativeButton("Cancel", new ViewOrderCancelListener());
+			addOrdertoTable(orderList, tbLayout);
+
+			AlertDialog dialog = builder.create();
+			Log.d("Debug", "HELLO");
+
+			dialog.show();
+
+		}
+
+		private void addOrdertoTable(ArrayList<String> l, TableLayout tl) {
+			if (l != null) {
+				for (String s : l) {
+					TableRow tr = new TableRow(OrderActivity.this);
+					TextView tv1 = new TextView(OrderActivity.this);
+					TextView tv2 = new TextView(OrderActivity.this);
+					TextView tv3 = new TextView(OrderActivity.this);
+					tv1.setText(s.split("/")[0]);
+					tv2.setText(s.split("/")[1]);
+					tv3.setText(s.split("/")[2]);
+					tr.addView(tv1);
+					tr.addView(tv2);
+					tr.addView(tv3);
+					tl.addView(tr);
+					tr.setOnClickListener(new ViewOrderClickEditListener());
+				}
+			}
+		}
+
+		class ViewOrderClickEditListener implements OnClickListener{
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}
+		
+		class ViewOrderOKListener implements android.content.DialogInterface.OnClickListener{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}
+		
+		class ViewOrderCancelListener implements android.content.DialogInterface.OnClickListener{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}
+	}
 }

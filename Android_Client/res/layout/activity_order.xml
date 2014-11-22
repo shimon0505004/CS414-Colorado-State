@@ -23,40 +23,31 @@
 		<TableLayout
 		    android:id="@+id/tableLayout_MenuItem"
 		    android:layout_width="fill_parent"
-		    android:layout_height="match_parent" />"
-		    
-		<LinearLayout
-		    android:id="@+id/linearLayout2_Order"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal" >
-			
-		    <RelativeLayout
-		        android:id="@+id/relativeLayout1_Order"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content" >
-	
-				<Button
-				    android:id="@+id/checkoutButton"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:text="Checkout" />
-				
-				<Button 
-				    android:id="@+id/viewOrderButton"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:text="View Order"
-				    android:layout_below="@id/checkoutButton"/> 
-				    
-			</RelativeLayout>
+		    android:layout_height="180dp" />
 
-		    <TextView
-		        android:id="@+id/textView_checkoutInfo"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Test"/>
-		    
+	
+	    <TableLayout
+	        android:id="@+id/table_orderInfo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    
+	    <LinearLayout 
+	        android:id="@+id/relativeLayout2_OrderButton"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        		    
+	  		<Button
+			    android:id="@+id/button_checkout"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Checkout" />
+			
+			<Button 
+			    android:id="@+id/button_viewOrder"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="View Order"/> 
+				    
 		 </LinearLayout>
 
     </LinearLayout>
