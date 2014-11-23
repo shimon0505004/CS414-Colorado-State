@@ -1,11 +1,24 @@
 package cs414.pos.ui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -68,7 +81,6 @@ public class PlaceOrderUI {
     public void updateOrder() {
         setOrderItems(controller.getOrderItems());
         totalAmount.setText("$" + controller.getTotal());
-		
 
     }
 
@@ -194,7 +206,7 @@ public class PlaceOrderUI {
         }
 
         controller.addOrderItem(itemName, quantity);
-        updateOrder();        
+        updateOrder();
     }
 
     private void removeItemAction() {
@@ -215,8 +227,8 @@ public class PlaceOrderUI {
             JOptionPane.showMessageDialog(frame, "Please enter a valid quantity. Quantity can not be 0 or less.");
             return;
         }
-        if(quantity>controller.getCurrentCountOfOrderItem(itemName)){
-            JOptionPane.showMessageDialog(frame, "Please enter a valid quantity. Number of items to remove is greater than actual number of items present in current order by "+ (quantity-controller.getCurrentCountOfOrderItem(itemName)) +".");        	    
+        if(quantity > controller.getCurrentCountOfOrderItem(itemName)) {
+            JOptionPane.showMessageDialog(frame, "Please enter a valid quantity. Number of items to remove is greater than actual number of items present in current order by " + (quantity - controller.getCurrentCountOfOrderItem(itemName)) + ".");
             return;
         }
         controller.removeOrderItem(itemName, quantity);
@@ -301,33 +313,31 @@ public class PlaceOrderUI {
         }
 
         controller.placeOrder();
-        controller.saveToFile();
         double changeAmount = controller.getOrderChange();
         if(changeAmount > 0.0) {
             JOptionPane.showMessageDialog(frame, "Here is your change $" + changeAmount);
         }
         JOptionPane.showMessageDialog(null, "Order successfully placed.");
-        
+
         controller.closePlaceOrder();
-        
-        if(membershipID!=null && success){
-        	int point = controller.getMemberPoints(membershipID);
-        	JOptionPane.showMessageDialog(frame, "Dear Customer with membership number: "+membershipID+" your current reward points is: "+point);        	
-        
-        	/**
-        	 * implementation of free pizza offer
-        	 */
-        	if(point>controller.getRequiredPointForFreePizzaCertificate()){
-        	      int wantFreePizzaResult = JOptionPane.showConfirmDialog(frame, "Dear Customer with membership number: "+membershipID+" you are eligible to receive a free pizza Certificate. Would you like to use it now?" , "Question", JOptionPane.YES_NO_OPTION);
-        	        if(wantFreePizzaResult == JOptionPane.CANCEL_OPTION) {
-        	            return; // cancel
-        	        }else if(wantFreePizzaResult == JOptionPane.OK_OPTION) {
-        	        	controller.setMemberPoints(membershipID, (point-controller.getRequiredPointForFreePizzaCertificate()));
-        	        	JOptionPane.showMessageDialog(frame, "Enjoy your house special pizza! Your updated rewards point is: "+controller.getMemberPoints(membershipID));        	
-        	        }    
-        	}
+
+        if(membershipID != null && success) {
+            int point = controller.getMemberPoints(membershipID);
+            JOptionPane.showMessageDialog(frame, "Dear Customer with membership number: " + membershipID + " your current reward points is: " + point);
+
+            /**
+             * implementation of free pizza offer
+             */
+            if(point > controller.getRequiredPointForFreePizzaCertificate()) {
+                int wantFreePizzaResult = JOptionPane.showConfirmDialog(frame, "Dear Customer with membership number: " + membershipID + " you are eligible to receive a free pizza Certificate. Would you like to use it now?", "Question", JOptionPane.YES_NO_OPTION);
+                if(wantFreePizzaResult == JOptionPane.CANCEL_OPTION) {
+                    return; // cancel
+                } else if(wantFreePizzaResult == JOptionPane.OK_OPTION) {
+                    controller.setMemberPoints(membershipID, (point - controller.getRequiredPointForFreePizzaCertificate()));
+                    JOptionPane.showMessageDialog(frame, "Enjoy your house special pizza! Your updated rewards point is: " + controller.getMemberPoints(membershipID));
+                }
+            }
         }
-        controller.saveToFile();
     }
 
     private String verifySelectedItem() {

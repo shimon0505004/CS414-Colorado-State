@@ -1,26 +1,37 @@
 package cs414.pos.ui;
 
 import com.google.gson.reflect.TypeToken;
-import cs414.pos.*;
+import cs414.pos.Customer;
+import cs414.pos.Employee;
+import cs414.pos.Item;
+import cs414.pos.LoginInfo;
 import cs414.pos.Menu;
+import cs414.pos.Order;
+import cs414.pos.OrderItem;
+import cs414.pos.OrderType;
+import cs414.pos.Role;
+import cs414.pos.SaverLoader;
+import cs414.pos.Store;
 import cs414.pos.server.POS_Server;
+import java.awt.EventQueue;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
-
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -343,8 +354,9 @@ public class UIController {
                 object.put("LoginID", membershipID);
                 Reader r = postToServer(object, "login");
                 c = POS_Server.gson.fromJson(r, Customer.class);
-            } else
+            } else {
                 c = store.getMember(membershipID);
+            }
             if(c == null) {
                 return false;
             }
@@ -385,8 +397,9 @@ public class UIController {
                 object.put("LoginID", membershipID);
                 Reader r = postToServer(object, "login");
                 c = POS_Server.gson.fromJson(r, Customer.class);
-            } else
+            } else {
                 c = store.getMember(membershipID);
+            }
             if(c == null) {
                 return 0;
             } else {
@@ -444,7 +457,9 @@ public class UIController {
     }
 
     public double getOrderChange() {
-        if(isKiosk) return 0.0;
+        if(isKiosk) {
+            return 0.0;
+        }
         return roundToTwo(currentOrder.getAmountReturned());
     }
 
@@ -459,11 +474,13 @@ public class UIController {
     }
 
     public void closeProgram() {
-        saveToFile();
+        if(!isKiosk) {
+            saveToFile();
+        }
         System.exit(0); // close jvm
     }
 
-    public void saveToFile() {
+    private void saveToFile() {
         try {
             SaverLoader.save(SaverLoader.SAVE_FILE, store);
             /**
@@ -475,96 +492,37 @@ public class UIController {
             Logger.getLogger(UIController.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory after it has been saved .");
-        }
     }
 
     public void closeEditMenu() {
         editMenuView.setVisible(false);
         mainView.setVisible(true);
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory when Edit menu is closed");
-        }
     }
 
     public void closeEditMenuItem() {
         editMenuItemView.setVisible(false);
         mainView.setVisible(true);
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory when Edit menu Item is closed");
-        }
-
     }
 
     public void closeCompleteDeliverOrder() {
         completeDeliverOrderView.setVisible(false);
         mainView.setVisible(true);
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory when Complete Order is closed");
-        }
     }
 
     public void closePlaceOrder() {
         placeOrderView.setVisible(false);
         currentOrder = null;
         mainView.setVisible(true);
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory when Place Order window is closed");
-        }
     }
 
     public void closeEmployee() {
         employeeView.setVisible(false);
         mainView.setVisible(true);
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory when Employee window is closed");
-        }
-
     }
 
     public void closeCustomerInformation() {
         customerInfoView.setVisible(false);
         mainView.setVisible(true);
-
-        try {
-            this.store = SaverLoader.load(SaverLoader.SAVE_FILE);
-        } catch(ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("Store can not be reloaded from memory when Customer information window is closed");
-        }
-
     }
 
     public Iterable<String> getIncompleteOrders() {
@@ -593,7 +551,8 @@ public class UIController {
 
         if(isKiosk) {
             Reader menuReader = postToServer(new JSONObject(), "getMenus");
-            Type collectionType = new TypeToken<Collection<Menu>>(){}.getType();
+            Type collectionType = new TypeToken<Collection<Menu>>() {
+            }.getType();
             menus = POS_Server.gson.fromJson(menuReader, collectionType);
 
         } else {
@@ -662,8 +621,8 @@ public class UIController {
                 role = "Chef";
                 break;
             case DeliveryMan:
-            	role = "DeliveryMan";
-            	break;
+                role = "DeliveryMan";
+                break;
             default:
                 role = "Cashier";
         }
