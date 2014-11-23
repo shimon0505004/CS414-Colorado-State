@@ -43,7 +43,6 @@ public class EmployeeUI {
 
 	public void updateEmployees() {
 		setEmployees(controller.getEmployees());
-
 	}
 
 	public void setEmployees(Iterable<String> employees) {
@@ -52,6 +51,7 @@ public class EmployeeUI {
 		model.removeAllElements();
 		for (String employee : employees) {
 			model.addElement(employee);
+			System.out.println(employee);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class EmployeeUI {
 
 	}
 
-	public void addListeners() {
+	private void addListeners() {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -95,7 +95,7 @@ public class EmployeeUI {
 		if (name == null) {
 			return;
 		}
-		String[] roleList = { "Manager", "Chef", "Cashier" };
+		String[] roleList = { "Manager", "Chef", "Cashier", "DeliveryMan" };
 		String loginID = JOptionPane.showInputDialog("Set the loginID:");
 		String role = (String) JOptionPane.showInputDialog(null,
 				"Choose the role", "Role", JOptionPane.QUESTION_MESSAGE, null,
@@ -126,7 +126,7 @@ public class EmployeeUI {
 		if (name == null) {
 			return;
 		}
-		String[] roleList = { "Manager", "Chef", "Cashier" };
+		String[] roleList = { "Manager", "Chef", "Cashier", "DeliveryMan" };
 		String loginID = JOptionPane.showInputDialog("Set the loginID:");
 		String role = (String) JOptionPane.showInputDialog(null,
 				"Choose the role", "Role", JOptionPane.QUESTION_MESSAGE, null,

@@ -117,9 +117,9 @@ public class Employee implements Serializable {
 	 * @param role the new privilege of the employee
 	 */
 	public void setRole(Role role) {
-		if(role == null) {
-			role = Role.Cashier;
-		}
+//		if(role == null) {
+//			role = Role.Cashier;
+//		}
 		this.role = role;
 	}
 }
