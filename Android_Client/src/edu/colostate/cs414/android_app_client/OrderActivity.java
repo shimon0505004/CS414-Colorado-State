@@ -284,7 +284,6 @@ public class OrderActivity extends ActionBarActivity {
 			tv_priceTotal.setText(String.valueOf(amountTotal));
 
 			addOrdertoArray(orderList, itemName, unitPrice, amount);
-			// Log.d("Debug", orderList.toString());
 		}
 
 		private void addOrdertoArray(ArrayList<String> l, String name,
@@ -453,7 +452,6 @@ public class OrderActivity extends ActionBarActivity {
 				TableLayout tb_orderInfo = (TableLayout) OrderActivity.this
 						.findViewById(R.id.table_orderInfo);
 				TableRow tbr = (TableRow) tb_orderInfo.getChildAt(0);
-				// Log.d("Debug", String.valueOf(tb_orderInfo.getChildCount()));
 				TextView tv_priceTotal = (TextView) tbr.getChildAt(1);
 				tv_priceTotal.setText(String.valueOf(newTotal));
 			}
@@ -463,7 +461,6 @@ public class OrderActivity extends ActionBarActivity {
 				int orderNum = tb.getChildCount();
 				for (int i = 1; i < orderNum; i++) {
 					TableRow tr = (TableRow) tb.getChildAt(i);
-					Log.d("Debug", String.valueOf(tb.getChildCount()));
 					String name = ((TextView) tr.getChildAt(0)).getText()
 							.toString();
 					String upStr = ((TextView) tr.getChildAt(1)).getText()
@@ -696,7 +693,6 @@ public class OrderActivity extends ActionBarActivity {
 							order.put(tmpOrder);
 						}
 
-						// Log.d("Debug", order.toString());
 
 						customerOrder.put("orderList", order);
 						AsyncTask result = new SetOrderData()
