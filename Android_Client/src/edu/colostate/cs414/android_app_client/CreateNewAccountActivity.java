@@ -5,7 +5,7 @@ package edu.colostate.cs414.android_app_client;
 
 import org.json.JSONObject;
 
-import cs414.pos.*;
+import cs414.a5.eid.*;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

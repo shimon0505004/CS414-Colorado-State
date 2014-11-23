@@ -1,6 +1,6 @@
 package edu.colostate.cs414.android_app_client;
 
-import cs414.pos.Order;
+import cs414.a5.eid.Order;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.content.Intent;

@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import cs414.pos.*;
+import cs414.a5.eid.*;
 import android.os.AsyncTask;
 
 /**

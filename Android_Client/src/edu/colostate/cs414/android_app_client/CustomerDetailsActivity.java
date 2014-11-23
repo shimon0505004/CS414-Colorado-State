@@ -1,11 +1,14 @@
 package edu.colostate.cs414.android_app_client;
 
 import java.util.Iterator;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import com.google.gson.Gson;
-import cs414.pos.Customer;
-import cs414.pos.Order;
+
+import cs414.a5.eid.Customer;
+import cs414.a5.eid.Order;
 import android.R.integer;
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
