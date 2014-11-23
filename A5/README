@@ -32,4 +32,14 @@ Deliver Man
 Username: jane
 Password: pw_jane
 
-4)
+4) Strenghts/Weakness/Features
+The program is fairly decoupled from the internal logic. The controller class for the UI only make use of the Store and Order classes. The Store class performs
+all of the operations on the data so it was easy to manipulate the data and different UI's.
+Right the now the program runs the server with the main UI as to prevent concurrent access to the saved file making it hard to have multiple registers.
+The program should perform the required operations on the android, kiosk, and local register side.
+
+5) Patterns
+Facade
+Factory
+Adapter
+Model View Controller
