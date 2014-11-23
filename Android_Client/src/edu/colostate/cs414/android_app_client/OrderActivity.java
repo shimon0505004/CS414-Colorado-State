@@ -498,20 +498,83 @@ public class OrderActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			LayoutInflater inflater = getLayoutInflater();
-			layout = inflater.inflate(R.layout.activity_checkout,
-					(ViewGroup) findViewById(R.id.dialog));
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			builder.setView(layout);
-			builder.setTitle("Checkout");
-			builder.setPositiveButton("OK", null);
-			builder.setNegativeButton("Cancel", null);
-			dialog = builder.create();
-			dialog.show();
+			if (orderList.size() != 0) {
 
-			// remain the previous dialog
-			dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(
-					new checkoutOKListener());
+				new AlertDialog.Builder(context)
+						.setIcon(android.R.drawable.ic_dialog_info)
+						.setMessage("Do you want to use membership account?")
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface d,
+											int which) {
+										// TODO Auto-generated method stub
+										LayoutInflater inflater = getLayoutInflater();
+										layout = inflater
+												.inflate(
+														R.layout.activity_checkout,
+														(ViewGroup) findViewById(R.id.dialog));
+										TextView tv_memID = (TextView) layout
+												.findViewById(R.id.textView_checkout_memID);
+										EditText et_memID = (EditText) layout
+												.findViewById(R.id.editText_checkout_memID);
+										tv_memID.setVisibility(View.VISIBLE);
+										et_memID.setVisibility(View.VISIBLE);
+										AlertDialog.Builder builder = new AlertDialog.Builder(
+												context);
+										builder.setView(layout);
+										builder.setTitle("Checkout");
+										builder.setPositiveButton("OK", null);
+										builder.setNegativeButton("Cancel",
+												null);
+										dialog = builder.create();
+										dialog.show();
+
+										// remain the previous dialog
+										dialog.getButton(
+												AlertDialog.BUTTON_POSITIVE)
+												.setOnClickListener(
+														new checkoutOKListener());
+									}
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface d,
+											int which) {
+										// TODO Auto-generated method stub
+										LayoutInflater inflater = getLayoutInflater();
+										layout = inflater
+												.inflate(
+														R.layout.activity_checkout,
+														(ViewGroup) findViewById(R.id.dialog));
+										AlertDialog.Builder builder = new AlertDialog.Builder(
+												context);
+										builder.setView(layout);
+										builder.setTitle("Checkout");
+										builder.setPositiveButton("OK", null);
+										builder.setNegativeButton("Cancel",
+												null);
+										dialog = builder.create();
+										dialog.show();
+
+										// remain the previous dialog
+										dialog.getButton(
+												AlertDialog.BUTTON_POSITIVE)
+												.setOnClickListener(
+														new checkoutOKListener());
+									}
+								}).show();
+
+			} else {
+				new AlertDialog.Builder(context)
+						.setIcon(android.R.drawable.ic_dialog_info)
+						.setMessage("You havn't ordered yet!")
+						.setPositiveButton("OK", null).show();
+			}
+
 		}
 
 		class checkoutOKListener implements OnClickListener {
@@ -552,25 +615,54 @@ public class OrderActivity extends ActionBarActivity {
 				EditText input_CV2 = (EditText) layout
 						.findViewById(R.id.editText_checkout_CV2);
 
-				if (input_addr.length() != 0 && input_cardNum.length() == 16
-						&& input_expDate1.length() == 2
-						&& input_expDate2.length() == 2
-						&& input_CV2.length() == 3) {
-					paymentInfo = new StringBuilder()
-							.append(input_memID.getText().toString())
-							.append("/")
-							.append(input_addr.getText().toString())
-							.append("/")
-							.append(input_cardNum.getText().toString())
-							.append("/")
-							.append(input_expDate1.getText().toString())
-							.append("/")
-							.append(input_expDate2.getText().toString())
-							.append("/").append(input_CV2.getText().toString())
-							.toString();
-					return true;
+				if (input_memID.getVisibility() == View.VISIBLE) {
+
+					if (input_memID.length() > 0 && input_addr.length() != 0
+							&& input_cardNum.length() == 16
+							&& input_expDate1.length() == 2
+							&& input_expDate2.length() == 2
+							&& input_CV2.length() == 3) {
+						paymentInfo = new StringBuilder()
+								.append(input_memID.getText().toString())
+								.append("/")
+								.append(input_addr.getText().toString())
+								.append("/")
+								.append(input_cardNum.getText().toString())
+								.append("/")
+								.append(input_expDate1.getText().toString())
+								.append("/")
+								.append(input_expDate2.getText().toString())
+								.append("/")
+								.append(input_CV2.getText().toString())
+								.toString();
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					if (input_addr.length() != 0
+							&& input_cardNum.length() == 16
+							&& input_expDate1.length() == 2
+							&& input_expDate2.length() == 2
+							&& input_CV2.length() == 3) {
+						paymentInfo = new StringBuilder()
+								.append(input_memID.getText().toString())
+								.append("/")
+								.append(input_addr.getText().toString())
+								.append("/")
+								.append(input_cardNum.getText().toString())
+								.append("/")
+								.append(input_expDate1.getText().toString())
+								.append("/")
+								.append(input_expDate2.getText().toString())
+								.append("/")
+								.append(input_CV2.getText().toString())
+								.toString();
+						return true;
+					} else {
+						return false;
+					}
 				}
-				return false;
 			}
 
 			class confirmPayListener implements DialogInterface.OnClickListener {
@@ -593,31 +685,44 @@ public class OrderActivity extends ActionBarActivity {
 						customerOrder.put("address", addr);
 						customerOrder.put("cardNumber", cardNum);
 						customerOrder.put("expDate", expDate);
-						//ArrayList<String> order = new ArrayList<String>();
+						// ArrayList<String> order = new ArrayList<String>();
 						JSONArray order = new JSONArray();
 						for (int i = 0; i < orderList.size(); i++) {
 							String tmpOrder = new StringBuilder()
-												.append(orderList.get(i).split("/")[0])
-												.append("/")
-												.append(orderList.get(i).split("/")[2])
-												.toString();
+									.append(orderList.get(i).split("/")[0])
+									.append("/")
+									.append(orderList.get(i).split("/")[2])
+									.toString();
 							order.put(tmpOrder);
 						}
-						
-//						Log.d("Debug", order.toString());
+
+						// Log.d("Debug", order.toString());
 
 						customerOrder.put("orderList", order);
-						AsyncTask result = new SetOrderData().execute(customerOrder);
-						
+						AsyncTask result = new SetOrderData()
+								.execute(customerOrder);
+
 						String s = (String) result.get();
 
-						Log.d("Debug", s);
+						JSONObject object = new JSONObject(s);
 
-						new AlertDialog.Builder(context)
-								.setIcon(android.R.drawable.ic_dialog_info)
-								.setMessage("Payment Success!")
-								.setPositiveButton("OK", null).show();
-						
+						if (layout.findViewById(R.id.textView_checkout_memID)
+								.getVisibility() == View.VISIBLE) {
+
+							if (object.get("isOrderedByCustomerWithMembership")
+									.toString() == "true") {
+								successDiag();
+							} else {
+								new AlertDialog.Builder(context)
+										.setIcon(
+												android.R.drawable.ic_dialog_info)
+										.setMessage(
+												"Invalid Customer ID. Please try again!")
+										.setPositiveButton("OK", null).show();
+							}
+						} else{
+							successDiag();
+						}
 
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -635,11 +740,41 @@ public class OrderActivity extends ActionBarActivity {
 
 				}
 
-				private void errorDiag(){
+				private void successDiag() {
+
 					new AlertDialog.Builder(context)
-					.setIcon(android.R.drawable.ic_dialog_info)
-					.setMessage("Payment Unsuccessful. Please try again!")
-					.setPositiveButton("OK", null).show();
+							.setIcon(android.R.drawable.ic_dialog_info)
+							.setMessage("Payment Success!")
+							.setPositiveButton("OK",
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											// TODO Auto-generated method stub
+											orderList = new ArrayList<String>();
+											amountTotal = 0;
+											TableLayout orderTable = (TableLayout) OrderActivity.this
+													.findViewById(R.id.table_orderInfo);
+
+											TableRow tbr1 = (TableRow) orderTable
+													.getChildAt(0);
+											TextView tv_priceTotal = (TextView) tbr1
+													.getChildAt(1);
+											tv_priceTotal.setText(String
+													.valueOf(amountTotal));
+										}
+									}).show();
+
+				}
+
+				private void errorDiag() {
+					new AlertDialog.Builder(context)
+							.setIcon(android.R.drawable.ic_dialog_info)
+							.setMessage(
+									"Payment Unsuccessful. Please try again!")
+							.setPositiveButton("OK", null).show();
 				}
 			}
 		}

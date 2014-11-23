@@ -13,14 +13,16 @@
             android:id="@+id/textView_checkout_memID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Membership ID" />
+            android:text="Membership ID" 
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/editText_checkout_memID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" >
+            android:inputType="text" 
+            android:visibility="gone">
 
             <requestFocus />
         </EditText>

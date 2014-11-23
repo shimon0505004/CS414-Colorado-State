@@ -19,7 +19,6 @@ public class Order implements Serializable {
 	
 	private boolean isDelivered;
 	private Employee deliveredBy;
-	
 
 	private double totalPrice;
 	private double amountReceived;
@@ -68,7 +67,6 @@ public class Order implements Serializable {
 		this.setCardPayment(true);
 		this.setComplete(false);
 		this.setDelivered(false);
-		
 		
 	}
 	
