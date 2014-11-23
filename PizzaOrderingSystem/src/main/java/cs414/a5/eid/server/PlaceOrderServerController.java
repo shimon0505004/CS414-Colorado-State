@@ -6,8 +6,6 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import cs414.a5.eid.Customer;
-import cs414.a5.eid.Item;
 import cs414.a5.eid.Order;
 import cs414.a5.eid.Store;
 
@@ -15,11 +13,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.Iterator;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * @author ct.

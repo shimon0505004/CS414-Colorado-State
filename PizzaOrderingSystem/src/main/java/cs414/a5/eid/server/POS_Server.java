@@ -33,11 +33,12 @@ public class POS_Server {
         SpecificCustomerGetterController_Server customerFinder = new SpecificCustomerGetterController_Server(s);
         StoreGetterController_Server storeServer = new StoreGetterController_Server(s);
         CustomerPointUpdate_Server customerPointServer = new CustomerPointUpdate_Server(s);
+        PlaceOrderFromAndroidController androidPlaceOrderServer = new PlaceOrderFromAndroidController(s);
         // in-store controllers
         LoginServerController loginServerController = new LoginServerController(s);
         MenuGetterController menuGetterController = new MenuGetterController(s);
         PlaceOrderServerController placeOrderServerController = new PlaceOrderServerController(s);
-
+        
         // set http contexts
         server.createContext("/customerAccounts", customerController);
         server.createContext("/SingleCustomerAccount", customerFinder);
@@ -46,6 +47,7 @@ public class POS_Server {
         server.createContext("/login", loginServerController);
         server.createContext("/getMenus", menuGetterController);
         server.createContext("/placeOrder", placeOrderServerController);
+        server.createContext("/androidOrder", androidPlaceOrderServer);
         server.start();
         System.out.println("Server started");
     }
