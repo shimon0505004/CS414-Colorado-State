@@ -1,7 +1,6 @@
 package cs414.a5.eid.ui;
 
 import com.google.gson.reflect.TypeToken;
-
 import cs414.a5.eid.Customer;
 import cs414.a5.eid.Employee;
 import cs414.a5.eid.Item;
@@ -14,7 +13,6 @@ import cs414.a5.eid.Role;
 import cs414.a5.eid.SaverLoader;
 import cs414.a5.eid.Store;
 import cs414.a5.eid.server.POS_Server;
-
 import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -355,7 +352,7 @@ public class UIController {
             if(isKiosk) {
                 JSONObject object = new JSONObject();
                 object.put("LoginID", membershipID);
-                Reader r = postToServer(object, "login");
+                Reader r = postToServer(object, "SingleCustomerAccount");
                 c = POS_Server.gson.fromJson(r, Customer.class);
             } else {
                 c = store.getMember(membershipID);
@@ -398,7 +395,7 @@ public class UIController {
             if(isKiosk) {
                 JSONObject object = new JSONObject();
                 object.put("LoginID", membershipID);
-                Reader r = postToServer(object, "login");
+                Reader r = postToServer(object, "SingleCustomerAccount");
                 c = POS_Server.gson.fromJson(r, Customer.class);
             } else {
                 c = store.getMember(membershipID);
