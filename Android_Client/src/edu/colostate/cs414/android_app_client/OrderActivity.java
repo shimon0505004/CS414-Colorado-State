@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,7 +52,7 @@ public class OrderActivity extends ActionBarActivity {
 	View orderDialogLayout;
 	double amountTotal = 0;
 	private ArrayList<String> orderList = new ArrayList<String>();
-	private String checkoutInfo;
+	private String paymentInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -157,12 +158,12 @@ public class OrderActivity extends ActionBarActivity {
 			JSONArray menuArray;
 
 			menuItemTable.removeAllViews();
-			TableRow tbrow0 = new TableRow(OrderActivity.this);
-			TextView t1v = new TextView(OrderActivity.this);
+			TableRow tbrow0 = new TableRow(context);
+			TextView t1v = new TextView(context);
 			t1v.setText("Name");
-			TextView t2v = new TextView(OrderActivity.this);
+			TextView t2v = new TextView(context);
 			t2v.setText("Price");
-			TextView t3v = new TextView(OrderActivity.this);
+			TextView t3v = new TextView(context);
 			t3v.setText("Description");
 			tbrow0.addView(t1v);
 			tbrow0.addView(t2v);
@@ -188,12 +189,12 @@ public class OrderActivity extends ActionBarActivity {
 									.getDouble("itemPrice");
 							String menuItemDesc = menuItem
 									.getString("itemDescription");
-							TableRow tbrow = new TableRow(OrderActivity.this);
-							TextView tv_name = new TextView(OrderActivity.this);
+							TableRow tbrow = new TableRow(context);
+							TextView tv_name = new TextView(context);
 							tv_name.setText(menuItemName);
-							TextView tv_price = new TextView(OrderActivity.this);
+							TextView tv_price = new TextView(context);
 							tv_price.setText(Double.toString(menuItemPrice));
-							TextView tv_desc = new TextView(OrderActivity.this);
+							TextView tv_desc = new TextView(context);
 							tv_desc.setText(menuItemDesc);
 							tbrow.addView(tv_name);
 							tbrow.addView(tv_price);
@@ -234,8 +235,7 @@ public class OrderActivity extends ActionBarActivity {
 			View layout = inflater.inflate(
 					R.layout.activity_customer_enter_amount,
 					(ViewGroup) findViewById(R.id.dialog));
-			AlertDialog.Builder builder = new AlertDialog.Builder(
-					OrderActivity.this);
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 			TextView tv_name = (TextView) layout
 					.findViewById(R.id.textView_itemName);
@@ -325,18 +325,17 @@ public class OrderActivity extends ActionBarActivity {
 			LayoutInflater inflater = getLayoutInflater();
 			viewOrderLayout = inflater.inflate(R.layout.activity_order_detail,
 					(ViewGroup) findViewById(R.id.dialog));
-			AlertDialog.Builder builder = new AlertDialog.Builder(
-					OrderActivity.this);
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 			TableLayout tbLayout = (TableLayout) viewOrderLayout
 					.findViewById(R.id.tableLayout_orderDetail);
 			tbLayout.setStretchAllColumns(true);
-			TableRow tr1 = new TableRow(OrderActivity.this);
-			TextView tv1 = new TextView(OrderActivity.this);
+			TableRow tr1 = new TableRow(context);
+			TextView tv1 = new TextView(context);
 			tv1.setText("Name");
-			TextView tv2 = new TextView(OrderActivity.this);
+			TextView tv2 = new TextView(context);
 			tv2.setText("Unit Price");
-			TextView tv3 = new TextView(OrderActivity.this);
+			TextView tv3 = new TextView(context);
 			tv3.setText("Quant.");
 			tr1.addView(tv1);
 			tr1.addView(tv2);
@@ -360,10 +359,10 @@ public class OrderActivity extends ActionBarActivity {
 		private void addOrdertoTable(ArrayList<String> l, TableLayout tl) {
 			if (l != null) {
 				for (String s : l) {
-					TableRow tr = new TableRow(OrderActivity.this);
-					TextView tv1 = new TextView(OrderActivity.this);
-					TextView tv2 = new TextView(OrderActivity.this);
-					TextView tv3 = new TextView(OrderActivity.this);
+					TableRow tr = new TableRow(context);
+					TextView tv1 = new TextView(context);
+					TextView tv2 = new TextView(context);
+					TextView tv3 = new TextView(context);
 					tv1.setText(s.split("/")[0]);
 					tv2.setText(s.split("/")[1]);
 					tv3.setText(s.split("/")[2]);
@@ -396,8 +395,7 @@ public class OrderActivity extends ActionBarActivity {
 				LayoutInflater inflater = getLayoutInflater();
 				View layout = inflater.inflate(R.layout.activity_edit_order,
 						(ViewGroup) findViewById(R.id.dialog));
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						OrderActivity.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 				TextView tv_name = (TextView) layout
 						.findViewById(R.id.textView_editOrder_itemName);
@@ -494,22 +492,156 @@ public class OrderActivity extends ActionBarActivity {
 	class CheckoutListener implements OnClickListener {
 
 		String addr, cardNum, cardCV2;
+		View layout;
+		AlertDialog dialog;
 
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			LayoutInflater inflater = getLayoutInflater();
-			View layout = inflater.inflate(R.layout.activity_checkout,
+			layout = inflater.inflate(R.layout.activity_checkout,
 					(ViewGroup) findViewById(R.id.dialog));
-			AlertDialog.Builder builder = new AlertDialog.Builder(OrderActivity.this);
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setView(layout);
 			builder.setTitle("Checkout");
 			builder.setPositiveButton("OK", null);
 			builder.setNegativeButton("Cancel", null);
-
-			AlertDialog dialog = builder.create();
+			dialog = builder.create();
 			dialog.show();
+
+			// remain the previous dialog
+			dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(
+					new checkoutOKListener());
 		}
 
+		class checkoutOKListener implements OnClickListener {
+
+			@Override
+			public void onClick(View v) {// DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+
+				if (valid()) {
+					new AlertDialog.Builder(context).setTitle(null)
+							.setIcon(android.R.drawable.ic_dialog_info)
+							.setMessage("Pay for " + amountTotal + "?")
+							.setPositiveButton("Pay", new confirmPayListener())
+							.setNegativeButton("Cancel", null).show();
+				} else {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							context);
+					builder.setTitle("Warning")
+							.setIcon(android.R.drawable.ic_dialog_alert)
+							.setMessage(
+									"The information you entered is not valid. Please try again.")
+							.setPositiveButton("OK", null).show();
+
+				}
+			}
+
+			private boolean valid() {
+				EditText input_memID = (EditText) layout
+						.findViewById(R.id.editText_checkout_memID);
+				EditText input_addr = (EditText) layout
+						.findViewById(R.id.editText_checkout_address);
+				EditText input_cardNum = (EditText) layout
+						.findViewById(R.id.editText_checkout_cardNum);
+				EditText input_expDate1 = (EditText) layout
+						.findViewById(R.id.editText_checkout_expDate);
+				EditText input_expDate2 = (EditText) layout
+						.findViewById(R.id.editText_checkout_expDate2);
+				EditText input_CV2 = (EditText) layout
+						.findViewById(R.id.editText_checkout_CV2);
+
+				if (input_addr.length() != 0 && input_cardNum.length() == 16
+						&& input_expDate1.length() == 2
+						&& input_expDate2.length() == 2
+						&& input_CV2.length() == 3) {
+					paymentInfo = new StringBuilder()
+							.append(input_memID.getText().toString())
+							.append("/")
+							.append(input_addr.getText().toString())
+							.append("/")
+							.append(input_cardNum.getText().toString())
+							.append("/")
+							.append(input_expDate1.getText().toString())
+							.append("/")
+							.append(input_expDate2.getText().toString())
+							.append("/").append(input_CV2.getText().toString())
+							.toString();
+					return true;
+				}
+				return false;
+			}
+
+			class confirmPayListener implements DialogInterface.OnClickListener {
+
+				@Override
+				public void onClick(DialogInterface d, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+
+					JSONObject customerOrder = new JSONObject();
+
+					String memID = paymentInfo.split("/")[0];
+					String addr = paymentInfo.split("/")[1];
+					String cardNum = paymentInfo.split("/")[2];
+					String expDate = paymentInfo.split("/")[3].concat("/")
+							.concat(paymentInfo.split("/")[4]);
+
+					try {
+						customerOrder.put("memberID", memID);
+						customerOrder.put("address", addr);
+						customerOrder.put("cardNumber", cardNum);
+						customerOrder.put("expDate", expDate);
+						//ArrayList<String> order = new ArrayList<String>();
+						JSONArray order = new JSONArray();
+						for (int i = 0; i < orderList.size(); i++) {
+							String tmpOrder = new StringBuilder()
+												.append(orderList.get(i).split("/")[0])
+												.append("/")
+												.append(orderList.get(i).split("/")[2])
+												.toString();
+							order.put(tmpOrder);
+						}
+						
+//						Log.d("Debug", order.toString());
+
+						customerOrder.put("orderList", order);
+						AsyncTask result = new SetOrderData().execute(customerOrder);
+						
+						String s = (String) result.get();
+
+						Log.d("Debug", s);
+
+						new AlertDialog.Builder(context)
+								.setIcon(android.R.drawable.ic_dialog_info)
+								.setMessage("Payment Success!")
+								.setPositiveButton("OK", null).show();
+						
+
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						errorDiag();
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						errorDiag();
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						errorDiag();
+						e.printStackTrace();
+					}
+
+				}
+
+				private void errorDiag(){
+					new AlertDialog.Builder(context)
+					.setIcon(android.R.drawable.ic_dialog_info)
+					.setMessage("Payment Unsuccessful. Please try again!")
+					.setPositiveButton("OK", null).show();
+				}
+			}
+		}
 	}
 }

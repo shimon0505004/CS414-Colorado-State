@@ -446,6 +446,9 @@ public class Store implements Serializable {
 		}
 	}
 
+	public void placeOrderViaApp(Order o){
+		this.getListOfPlacedOrder().add(o);
+	}
 	/**
 	 * This method only creates an order for that store via that register
 	 * until method placeOrder() is not called, the created order is not stored
@@ -557,7 +560,7 @@ public class Store implements Serializable {
 			while(itemIter.hasNext())
 			{
 				Item item = itemIter.next();
-				if(item.getItemName() == itemName){
+				if(item.getItemName().equals(itemName)){
 					return item;
 				}
 			}

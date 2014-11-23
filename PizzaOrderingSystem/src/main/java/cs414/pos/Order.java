@@ -63,6 +63,15 @@ public class Order implements Serializable {
 		setIsPaid(false);
 	}
 
+	public void setOrderPlacedByApp(){
+		this.setIsPaid(true);
+		this.setCardPayment(true);
+		this.setComplete(false);
+		this.setDelivered(false);
+		
+		
+	}
+	
 	private void createAsInHouseOrder(){
 		setTypeOfOrder(OrderType.Inhouse);
 		setOrderedByCustomerWithMembership(false);

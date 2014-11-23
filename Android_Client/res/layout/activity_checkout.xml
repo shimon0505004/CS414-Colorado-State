@@ -6,30 +6,50 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_checkout_memID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Membership ID" />
+
+        <EditText
+            android:id="@+id/editText_checkout_memID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/textView_checkout_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address"/>
+            android:text="Address" />
 
         <EditText
             android:id="@+id/editText_checkout_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:ems="10" >
-            <requestFocus />
+            android:ems="10"
+            android:inputType="text" >
         </EditText>
-
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-		android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/textView_checkout_cardNum"
@@ -41,17 +61,16 @@
             android:id="@+id/editText_checkout_cardNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10" 
+            android:ems="10"
             android:inputType="number"
-			android:maxLength="16">
+            android:maxLength="16" >
         </EditText>
-
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-		android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/textView_checkout_expDate"
@@ -63,31 +82,25 @@
             android:id="@+id/editText_checkout_expDate"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:inputType="date"
-			android:maxLength="2"
-            android:ems="10" >
+            android:maxLength="2" >
         </EditText>
-        
+
         <TextView
             android:id="@+id/textView_checkout_expDate2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="/" />
 
-       	<EditText
+        <EditText
             android:id="@+id/editText_checkout_expDate2"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:inputType="date"
-			android:maxLength="2"
-            android:ems="10" >
+            android:maxLength="2" >
         </EditText>
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-		android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView_checkout_CV2"
@@ -99,13 +112,10 @@
             android:id="@+id/editText_checkout_CV2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:inputType="number"
-			android:maxLength="3"
-            android:ems="10" >
-
+            android:maxLength="3" >
         </EditText>
-
     </LinearLayout>
-    
 
 </LinearLayout>

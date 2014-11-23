@@ -45,7 +45,6 @@ public class POS_Server {
         server.createContext("/login", loginServerController);
         server.createContext("/getMenus", menuGetterController);
         server.createContext("/placeOrder", placeOrderServerController);
-
         server.start();
         System.out.println("Server started");
     }
