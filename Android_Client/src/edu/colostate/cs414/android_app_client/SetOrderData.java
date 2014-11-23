@@ -25,7 +25,7 @@ public class SetOrderData extends AsyncTask<JSONObject, Void, String> {
 		int count = params.length;
 
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost("http://10.0.2.2:8000/placeOrder");
+		HttpPost httpPost = new HttpPost("http://10.0.2.2:8000/androidOrder");
 		InputStream inputStream = null;
 		String order = "";
 
