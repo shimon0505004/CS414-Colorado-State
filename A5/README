@@ -1,0 +1,35 @@
+1) External Dependencies
+commons-codec-1.6
+commons-logging-1.1.3
+gson-2.3
+hamcrest-core-1.1
+httpclient-4.3.5
+httpcore-4.3.2
+json-20140107
+junit-4.10
+
+2) How to Run
+Register/Server
+java -cp ".:lib" cs414.a5.eid.Main
+
+Kiosk
+java -c ".:lib" cs414.a5.eid.Main true
+
+3) Usernames/Passwords
+Manager
+Username: bob
+Password: pw_bob
+
+Cashier
+Username: billy_bob
+Password: pw_billy_bob
+
+Chef
+Username: billy
+Password: pw_billy
+
+Deliver Man
+Username: jane
+Password: pw_jane
+
+4)
