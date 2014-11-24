@@ -1,6 +1,6 @@
 package cs414.a5.eid;
 
-import cs414.a5.eid.*;
+import cs414.a5.nlighth1.*;
 
 import org.junit.Before;
 import org.junit.Test;

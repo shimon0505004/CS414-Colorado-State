@@ -1,8 +1,8 @@
 package cs414.a5.eid;
 
 import static org.junit.Assert.*;
-import cs414.a5.eid.Item;
-import cs414.a5.eid.OrderItem;
+import cs414.a5.nlighth1.Item;
+import cs414.a5.nlighth1.OrderItem;
 
 import org.junit.After;
 import org.junit.Before;

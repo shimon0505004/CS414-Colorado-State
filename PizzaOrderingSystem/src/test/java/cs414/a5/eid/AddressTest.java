@@ -1,8 +1,8 @@
 package cs414.a5.eid;
 
 import static org.junit.Assert.*;
-import cs414.a5.eid.Address;
-import cs414.a5.eid.AddressType;
+import cs414.a5.nlighth1.Address;
+import cs414.a5.nlighth1.AddressType;
 
 import org.junit.After;
 import org.junit.Before;

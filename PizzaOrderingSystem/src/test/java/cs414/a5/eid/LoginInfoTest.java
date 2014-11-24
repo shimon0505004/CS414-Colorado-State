@@ -1,8 +1,8 @@
 package cs414.a5.eid;
 
-import cs414.a5.eid.Employee;
-import cs414.a5.eid.LoginInfo;
-import cs414.a5.eid.Role;
+import cs414.a5.nlighth1.Employee;
+import cs414.a5.nlighth1.LoginInfo;
+import cs414.a5.nlighth1.Role;
 
 import org.junit.After;
 import org.junit.Before;

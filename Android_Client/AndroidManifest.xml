@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="cs414.a5.nlighth1.android.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,36 +25,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateNewAccountActivity"
+            android:name="cs414.a5.nlighth1.android.CreateNewAccountActivity"
             android:label="CreateNewAccountActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="cs414.a5.nlighth1.android.MainActivity" >
         </activity>
         <activity
-            android:name=".MembershipLoginActivity"
+            android:name="cs414.a5.nlighth1.android.MembershipLoginActivity"
             android:label="@string/title_activity_membership_login"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="cs414.a5.nlighth1.android.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.colostate.cs414.android_app_client.MainActivity" />
         </activity>
         <activity
-            android:name=".CustomerDetailsActivity"
+            android:name="cs414.a5.nlighth1.android.CustomerDetailsActivity"
             android:label="@string/title_activity_customer_details"
-            android:parentActivityName=".MembershipLoginActivity" >
+            android:parentActivityName="cs414.a5.nlighth1.android.MembershipLoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.colostate.cs414.android_app_client.MembershipLoginActivity" />
         </activity>
         <activity
-            android:name=".SpecificOrderByCustomer"
+            android:name="cs414.a5.nlighth1.android.SpecificOrderByCustomer"
             android:label="@string/title_activity_specific_order_by_customer"
-            android:parentActivityName=".MembershipLoginActivity" >
+            android:parentActivityName="cs414.a5.nlighth1.android.MembershipLoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.colostate.cs414.android_app_client.MembershipLoginActivity" />
         </activity>
         <activity
-            android:name=".OrderActivity"
+            android:name="cs414.a5.nlighth1.android.OrderActivity"
             android:label="@string/title_activity_order" >
         </activity>
     </application>

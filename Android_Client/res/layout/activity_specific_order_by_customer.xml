@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.colostate.cs414.android_app_client.SpecificOrderByCustomer" >
+    tools:context="cs414.a5.nlighth1.android.SpecificOrderByCustomer" >
 
     <ScrollView
         android:id="@+id/scrollView1"
