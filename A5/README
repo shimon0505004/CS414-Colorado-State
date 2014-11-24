@@ -9,11 +9,15 @@ json-20140107
 junit-4.10
 
 2) How to Run
+Compile Notes
+find . -name "*.java" | grep -vi /android/ > sources.txt
+javac -cp "lib/*" @sources.txt
+
 Register/Server
-java -cp ".:lib" cs414.a5.eid.Main
+java -cp ".:lib/*" cs414.a5.nlighth1.Main
 
 Kiosk
-java -c ".:lib" cs414.a5.eid.Main true
+java -c ".:lib/*" cs414.a5.nlighth1.Main true
 
 3) Usernames/Passwords
 Manager
