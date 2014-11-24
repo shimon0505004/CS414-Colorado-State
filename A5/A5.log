@@ -1,0 +1,1901 @@
+commit e7bb6d5f5dbd83c60a785fc94981db39958155d6
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 17:11:30 2014 -0700
+
+    Added the required to libraries to the A5 folder.
+
+commit 660585387db869a5a84a13e4d07f24a7aa0c62b6
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 17:07:42 2014 -0700
+
+    Copied the source files to the A5 folder. Refactored the test cases packages.
+
+commit 6cdb327245382894b5c02a89075dddf1479393cb
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 17:03:48 2014 -0700
+
+    Refactored the code to use my eid as the package names.
+
+commit 8d3cb26207f1ef626b57845864a3d143299c17b0
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 16:50:53 2014 -0700
+
+    Updates to the README.
+
+commit 775cf06275c9b5b14eeef169d2bd8dd6d8d215d4
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 16:40:31 2014 -0700
+
+    Fixed bug where paying through kiosk with a customer id was not working. The UIController was trying to get the customer to login instead of looking up the member.
+
+commit 0f866a545b44fabdf8cdcb9087b4f1585f467d3e
+Merge: 913d5df 0ba8d65
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 13:13:22 2014 -0700
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 913d5dfbfa6d20bf5465fac5af34c83be69a1131
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 13:12:46 2014 -0700
+
+    Started the README file. It is still missing part 4 and 5
+
+commit 0ba8d65ed205f44324ff19d4384f76356c9890b2
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sun Nov 23 13:12:20 2014 -0700
+
+    Fixed place order from android
+
+commit 3f8a14db09e28a8d9d3fea251c297303c4835149
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sun Nov 23 12:54:17 2014 -0700
+
+    Revert place order server
+
+commit 4042379ec330609b6e5efa7ff407d74f797a2e2c
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 12:35:22 2014 -0700
+
+    Refactored the package structure to project specs. We will probably need someones specific eid but this is a start.
+
+commit d02c5bc26b9e5265c374f5cb278108a832837780
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 23 12:24:48 2014 -0700
+
+    1. Removed the saving/loading except for when the register exits.
+    2. Synchronized the methods of Store.
+
+commit 6ea1004c70fe6c4584765d020320270a59289ca8
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sun Nov 23 10:57:55 2014 -0700
+
+    Some cleaning
+
+commit 08823cc60c3f50dcb9224f1174ff78a507c7d540
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sun Nov 23 10:38:47 2014 -0700
+
+    Fixed DeliveryMan Bug
+
+commit 413789ea2ccc8285b01acd1b6b27cc3fcc2c36dc
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sun Nov 23 10:11:05 2014 -0700
+
+    Finished Android Checkout
+
+commit cd4608ce285a118c94464a069be0d6c7e484dad6
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sun Nov 23 08:19:07 2014 -0700
+
+    Some more Checkout action between android and server
+    
+    to be continued
+
+commit 140586895ebad3d46459353da626af6a7660fe10
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 22 16:47:34 2014 -0700
+
+    kiosk to server functionality added
+
+commit 8a2879eb82fa21ac6343ddc392dcaeb3efd86581
+Merge: 5cbc569 e193153
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 22 14:21:01 2014 -0700
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 5cbc5696ed3ff6fb2bb836c96d06a26cff9c5bb1
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 22 14:20:45 2014 -0700
+
+    can now place order via kiosk through server
+
+commit 18ae4eaabeb5c16a6dd62a63175d2935eb8818fc
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 22 11:02:01 2014 -0700
+
+    kiosk pulls menu via server to place an order
+
+commit e193153012d1ae43cc54233ee31cb8710f0f2910
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Nov 22 10:40:45 2014 -0700
+
+    Checkout UI
+    
+    To be continued...
+
+commit 0cf4b203348fcb03a2e7f1833a8651239a09fc1d
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Nov 22 08:42:28 2014 -0700
+
+    Finish Edit Order UI
+
+commit 13ccc7ea08c309f6e9497e24781f3c9fb74c2307
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Nov 22 06:55:42 2014 -0700
+
+    Add Edit Order UI
+
+commit 2d0ca2859966e2f4ffc1800176b7bf657b96bf8c
+Merge: 0eacd35 342fdd0
+Author: ct <calebtebbe@gmail.com>
+Date:   Fri Nov 21 13:51:58 2014 -0700
+
+    fixed conflict by accepting changes
+
+commit 0eacd35a90c8e33ebb7dfb9b534fcb07c25d62ea
+Author: ct <calebtebbe@gmail.com>
+Date:   Fri Nov 21 13:49:11 2014 -0700
+
+    server is now started when a register is initiated through Main
+
+commit baac0627c8325c22fc9d82554c75f8a02f218bcf
+Author: ct <calebtebbe@gmail.com>
+Date:   Fri Nov 21 13:24:23 2014 -0700
+
+    commit to merge
+
+commit 342fdd01d5642d3ce4429cfd47d4e40a247176cb
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Fri Nov 21 08:27:00 2014 -0700
+
+    Added the ability to logout when the program is a register.
+
+commit 8554b5c4583c9cdb05b9470e56a4b0ac042cdfb7
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Fri Nov 21 04:18:26 2014 -0700
+
+    Some more Make Order UI
+
+commit 3d3fb9f1539fde0d033ab7ec53bc690f3b4735cb
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Fri Nov 21 00:13:12 2014 -0700
+
+    Add Make Order UI
+    
+    To be continued...
+
+commit 087ac3e70b9158b9cc6a967acdc7cedf79421368
+Merge: 167716e f281005
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Nov 20 19:19:14 2014 -0700
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 167716e98eb2a15565054eb0d0d831e33129958e
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Nov 20 19:18:39 2014 -0700
+
+    kiosk can now register a customer through the UI
+
+commit f281005928ac9a728e0871aaa6cb034b23e28259
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 20 16:42:19 2014 -0700
+
+    Created a order activity to take in orders.
+    
+    Created a order activity to take in the orders. This order activity is
+    going to read the store json object from the server from the /store
+    address in the server, and going to populate the list of available items
+    and menus. Peter is going to take care of this part from now on. The
+    rest of the things in the android app is implemented.
+
+commit ee28d59d10a1d13e5d789d90b7424209298b7ae5
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Nov 20 10:43:30 2014 -0700
+
+    added rough code to login via the server
+
+commit 1779d1d1f60ff261ce73df84a3932cd57ef05c4e
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Nov 19 13:54:58 2014 -0700
+
+    Update points when free pizza is used
+    
+    Update points in android app when pizza app is used
+
+commit c0fd0a28c6ab33d6b1c3746f839472b89d885749
+Merge: 03a431b a7f0797
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Nov 19 08:23:34 2014 -0700
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 03a431bd5b28b0bb79df405f4eea6c8c26fef7d7
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Nov 19 08:22:47 2014 -0700
+
+    1. Added ignore to bin folders which affects the android projects.
+    2. Added the json jar to the libs folder since it was missing.
+
+commit a7f0797bbf8bc9e4b8dd8b46849262e69a967f61
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Nov 18 22:47:25 2014 -0700
+
+    Updating the android app to show the free pizza
+    
+    Updating the android app to show the free pizza
+
+commit 9fe50c65372dc6ab4d3b12f3ae7501803134ae11
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Nov 18 20:41:08 2014 -0700
+
+    Update the complete and deliver order UI to show the order items as well as making them one screen.
+
+commit 0c184956593a65e1a733c79a8a594d5665d8310e
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Nov 18 15:54:22 2014 -0700
+
+    Updated pom.xml that was reporting that JSON objects could not be found. Added the json dependency.
+
+commit 53ee5c6f5a9e760bee1aafc77809d300ff842ceb
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Tue Nov 18 00:16:46 2014 -0700
+
+    Commit android-support-v7-appcompat library
+    
+    In order to run the android app, you have to import android support v7
+    appcompat library with resources. And this library should be in the same
+    drive. To be convenient, I committed this library to Github.
+
+commit c704fb5cd9dec891365b3d85a9a8f99a0f5a4c30
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Nov 17 13:55:40 2014 -0700
+
+    Android project is updated.
+    
+    We may need to import appcompat library project into our github
+
+commit 47b6667c416e7c89195df97de6462707ebf94299
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Nov 17 13:00:16 2014 -0700
+
+    Uploading the appcompat jar into project
+    
+    Uploading the appcompat jar into the project
+
+commit 3c93a92136ed577b5c72d3cb28ff1d1ce68ca92e
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Nov 17 05:44:39 2014 -0700
+
+    Customer Tracking purchase UI
+    
+    Customer tracking purchase UI in the android app
+
+commit 391e5ae04c61de45b584fe077e4536a143717127
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Nov 17 01:33:40 2014 -0700
+
+    Customer Login confirmation page created
+    
+    Created a Customer Login confirmation page
+
+commit 900abd844bc727be9534bf58c48986434fbc94db
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Sun Nov 16 22:49:58 2014 -0700
+
+    Fixed major issues in App, server and main application
+    
+    Fixed back link related issues in Android app, Server and main
+    application
+
+commit e4e8f55d3cba3c9a1052da2005be78db1347d918
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 19:12:52 2014 -0700
+
+    Android app successfully can create customer account
+    
+    Android app can successfully create customer account now. The server
+    stores the change and the client andrroid app is shown the reflection.
+
+commit 8fe197941aa1def46335edaacd8ec907ca9a245e
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 17:17:38 2014 -0700
+
+    Removed Excess server project
+    
+    Removed excess server project
+
+commit e76b04f9d941d7e30b0770918b45f51208f8a4db
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 17:11:20 2014 -0700
+
+    Moved Server files from Separate project
+    
+    Moved Server files from separate project to the main project.
+
+commit dac3394e9d17aa71b4d06754f8b56f1d429d8a4c
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 17:10:04 2014 -0700
+
+    Moved Server into main project instead of separate project
+    
+    Created a new package for server. Deleted old project for server.
+
+commit 0228848a024a6a5be6abd28ec63939aa09b19029
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 15:59:59 2014 -0700
+
+    adding customer to store from the server
+    
+    adding customer to store from the server
+
+commit 3ca0eec94b3335efef99ef0a86b18a430f899a6c
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 14:47:31 2014 -0700
+
+    Made the initStore method public to reuse the code
+    
+    Made the initStore method public to make it accessible from the Server
+    project.
+
+commit 8c9864dc2e8cec51e2e1eeae3dd86845dce918be
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 14:46:16 2014 -0700
+
+    Made minor changes in Server side for checking
+    
+    This is a intermediate change. This checks if we receive a connection
+    properly, if we are able to receive the reqest from the android app.
+
+commit 8b12adfb40476f83a797be1cd536c86922cac315
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 14:44:02 2014 -0700
+
+    Updated the android application for customer creation
+    
+    Right now the Android application can create a new customer and when it
+    does, the customer is saved in the server.
+
+commit 215f3ae57a6b00f0199bb84bcb50c2a117dc304b
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Nov 14 11:58:44 2014 -0700
+
+    Creating a server application
+    
+    Creating a separate server application that opens up a server for
+    android communication.
+
+commit b06b5696c4b1d7c608f482555596061ded546b9d
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 13 21:05:09 2014 -0700
+
+    Fixed customer Unique ID issue
+    
+    Fixed customer unique ID issue.
+
+commit 0d9ee8c94ad0c9794c1897698803c4157191930d
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 13 18:35:36 2014 -0700
+
+    updating order class
+    
+    A order should not have any customer if it is not ordered by any
+    customer
+
+commit ddc7379f31835820f7d162046bc0367638123b26
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Nov 12 14:52:59 2014 -0700
+
+    Impleamented creating a new membership ID
+    
+    Implemented creating a new membership ID
+
+commit 74f8ecfbadbd580b871793076023a0b018da1302
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Nov 11 19:10:53 2014 -0700
+
+    Updated android application
+    
+    Updated android application.
+
+commit f605229eed834dd52a1fce44d23b2a290940a2f2
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Nov 11 19:09:12 2014 -0700
+
+    Fixed Customer ID view
+    
+    Cusomer ID display was wrong before. Fixed it.
+
+commit f49ac29059d6d10a627c301f66bf9ea832f380c6
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Nov 11 13:46:13 2014 -0700
+
+    Created an Eclipes based android application
+    
+    In the main program directory, an application is created in android.
+
+commit 84ab9146adfe0022a97e7d0c856a6a6784a135bb
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 9 21:08:46 2014 -0700
+
+    Added Deliver Order UI.
+
+commit 84aceac25968ee4540e1425f025dbd1170265c09
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 9 20:51:48 2014 -0700
+
+    Added the ability to create account at register and kiosk.
+    Made information in view customer UI uneditable.
+
+commit bfbad8f6f17d41f32cf6db5cc9c311eb906f11f2
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 9 20:11:31 2014 -0700
+
+    Added UI for entering required points for free pizza.
+
+commit 7753f96635e8ac1359d8ebea99f19807655330d4
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 9 19:56:11 2014 -0700
+
+    Added ability to view customers if manager.
+
+commit 7be28313990ae6d1de5ce2fc01b27227ddc1956c
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 9 16:03:34 2014 -0700
+
+    Updated maven to copy dependency to lib folder in the target directory.
+
+commit c62ce7f223c1596e0022483eaf3948be4d1d5e47
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sun Nov 9 15:32:12 2014 -0700
+
+    Fixed manage employees from kiosk.
+
+commit 39a9f1688a6175ba5840fb9d45d71858a70e5776
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 22:35:56 2014 -0700
+
+    added interface adapters. Store now serializing/deserializing to/from json
+
+commit db038f8c48dba28cc20760be75ab3f9875f4d8e5
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 22:06:01 2014 -0700
+
+    organized repo and added json to gitignore
+
+commit ff57a40083127f61425d8a37e9b553e3a90c7591
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 22:00:09 2014 -0700
+
+    store now serializing to json
+
+commit 0cc2f579af6cb844cc359112ade1e5921445405b
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 21:53:06 2014 -0700
+
+    started testing gson serialization. refactored how order handled dates for clarity
+
+commit a2fac6158c6c8bc34222c58d1f3c70c286bbd1fc
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 21:30:07 2014 -0700
+
+    removed register-store backlink
+
+commit e25c478734587deba2cbb43890991c62951ce6cb
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 21:11:27 2014 -0700
+
+    removed kiosk-store backlink
+
+commit fd7dedc5a1e92f7f2747f811fe77344ffdb7e5c5
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 20:53:10 2014 -0700
+
+    removed Employee backlink to login info
+
+commit 3d514290f1957685eab0448da77d43b1ce9263e8
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 20:46:17 2014 -0700
+
+    removed Store backlink in Employee and related code
+
+commit 2073cdb0f20cdac0052b567272fed7e880e74ae3
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Nov 8 20:38:22 2014 -0700
+
+    added gson dependency
+
+commit 88db64bcea71190d1b00b9e5568ed6203e27fd40
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 6 23:45:36 2014 -0700
+
+    Implemented Free pizza certificate system
+    
+    Successfully implemented and tested free pizza certificate system based
+    on rewards point. Default rewards point set to 150 for free pizza
+    certificate. This can be changes by the manager. The manager UI for
+    changing the certain defined amount for getting a free pizza (the
+    minimum points required is not set yet).
+    
+    By using setRequiredPointForFreePizzaCertificate(int point), this UI can
+    be built. We have to build a UI with only manager access which calls
+    this function with the value the manager sets. The internal records will
+    be updated accordingly.
+    
+    Frequent buyer account is implemented internally. A UI for it has to be
+    developed.
+
+commit 997e63edd208e2a02fb33da2573a376bfe3b8a06
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 6 23:03:24 2014 -0700
+
+    Implemented card number format checker.
+    
+    Implemented card number format checker.
+
+commit dc0641e0ee49176a86845002a752e75f42875ce5
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 6 22:18:26 2014 -0700
+
+    Implemented Customer Reward point system
+    
+    If a order is associated with a valid customer ID, his reward points
+    will be updated and shown at the end of the order. Necessary to
+    implement the pizza certificate requirement.
+
+commit e1456ad907a24a931a0ab0847a8ae5551decdb20
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 6 21:33:39 2014 -0700
+
+    Created a warning prompt for order
+    
+    If number of items to remove is greater than the number of items in the
+    order, then a denial prompt window will be shown.
+
+commit 52c4c42fc889cfbe98a13be32322250a331ff7e5
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Nov 6 21:04:04 2014 -0700
+
+    Updating reward point rule for version 2.
+    
+    Need to implement free pizza certificate distribution option - step 1.
+
+commit c522965eec03f9488d36cecb98b4272bfec22905
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Nov 5 20:19:39 2014 -0700
+
+    Added another role for the delivery person in roles.
+    
+    Added another role for the delivery person in roles. Main function now
+    has another employee as the delivery guy. Associated UIHandler functions
+    and other functions have been updated for this role. Now a UI has to be
+    implemented for this role.
+
+commit e1b80e67e1c0cf022a0950fa274e731c53e734df
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Nov 4 19:32:29 2014 -0700
+
+    added confirmation dialogs to the UI per the TA
+
+commit cc9ee82d2e9cc2041afef1e2f3361ca4d4799202
+Merge: abda191 9ec8fe3
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Oct 29 23:49:42 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit abda191060754f3950f2a5420df6abbd2bd59532
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Oct 29 23:49:18 2014 -0600
+
+    update submission folder.
+
+commit 9ec8fe3c62840e5976a3b2c854688a1ded7999e0
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:48:23 2014 -0600
+
+    Final jar again
+
+commit 555cbc868b65d9c1480605534f1d76268aacefdf
+Merge: 94c195e d7eba0f
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Oct 29 23:47:36 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 94c195e5a167d6139ef8895293023d395c5db684
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Oct 29 23:46:21 2014 -0600
+
+    Added submission folder. The final jar is called A4.jar.
+
+commit d7eba0f67495b19bdd55abfdc86efd46104d1d60
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:42:55 2014 -0600
+
+    Final Jar
+
+commit 7939c7fa4ed810faae6192a52d396ef4a9eb4bc5
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:40:57 2014 -0600
+
+    Combined
+
+commit 7179327a8a9926ca48fc2a08b2d4fa8a5bd3fb5a
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 23:36:32 2014 -0600
+
+    System test  plan
+
+commit 2cebc5b4dce909dd8d61abd9c3b345c1eabaf645
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:25:15 2014 -0600
+
+    Jar with System Instruction
+
+commit ab07b75fe165fb592477760bf2f9ac52d0a2a509
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:21:14 2014 -0600
+
+    Jar file
+
+commit 50dbb537cdf0f810ac3d88646650056ff89cde57
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:12:59 2014 -0600
+
+    System Instruction(Word)
+
+commit 0390bda024fd5a02816efd2b3d30a13e3cf8fd36
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 23:08:52 2014 -0600
+
+    System Instruction
+
+commit 66c4c0f0ee14a119059969af8fa3a63f1eaa02b0
+Merge: fd98fdb a96cd3d
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 22:42:30 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit fd98fdb4bc5e3190cc946fb933208e8fc3662567
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 22:42:23 2014 -0600
+
+    Fixed UI error in Edit menu
+
+commit a96cd3d83e746bffa3bcc924427ead686a40dbf3
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 22:27:18 2014 -0600
+
+    Runnable Jar file
+
+commit eb739f78b9c457b2665d88593a339daaf3ac95d8
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 22:17:26 2014 -0600
+
+    Fixed merge error
+
+commit a4ad123c3566d42f18127c2a668f8adc3b0479a3
+Merge: 246fa45 1e1170e
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 22:15:41 2014 -0600
+
+    MainUI
+
+commit 246fa45d8d1734766877111591d3e2f5db12e073
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 22:15:04 2014 -0600
+
+    Change Price UI
+
+commit 1e1170e9e34face501d39c22aa4f127d27c2a9f5
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 22:05:55 2014 -0600
+
+    Fixed merge error
+
+commit 2f72309c89fc063ad4796216099dd39449a07a27
+Merge: a828489 8ff50f6
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 22:04:36 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    Conflicts:
+    	PizzaOrderingSystem/src/main/java/cs414/pos/ui/MainUI.java
+
+commit a828489c55b133f9cea893336f57362fa9daef34
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 22:03:36 2014 -0600
+
+    Edit Price
+
+commit 1a188a7a860d73ea0f5c4036e5d974033f88d883
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 22:01:30 2014 -0600
+
+    Employee UI finished
+
+commit 8ff50f660763bf29f57747b62f04e28cda1a1954
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 21:36:59 2014 -0600
+
+    changed Edit employee access to only manager
+
+commit b3c9fc12b798894a0866f995db34943cf37ff9f5
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 21:29:48 2014 -0600
+
+    EmployeeUI
+
+commit 27f9c249c39452a2d29dd816aa0679e6d0266116
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 21:03:28 2014 -0600
+
+    Employee UI not fined
+
+commit 31486ab67940fc5f1ac772bf33e40a65530c055b
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 21:02:15 2014 -0600
+
+    EditMenu UI bug fixed
+
+commit 78f24285ed9b37f82ceb00128cafbcf1b8ea48e6
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 20:18:52 2014 -0600
+
+    Updating System test plan and how to run the system doc
+
+commit 9fbd58f13bee200cf056a7a47a5d6a3baf145d59
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 20:08:49 2014 -0600
+
+    Created diagram and log in a PDF file.
+
+commit 939c82ddbcc1e2fcffb5fead94f60abc1c01cc96
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 20:03:39 2014 -0600
+
+    Fixed error in code
+
+commit 9df226e9a5fa7f7571afdfb7e64e13c8fe1fd435
+Merge: 66da4f4 e892c23
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 19:55:40 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState.git
+
+commit e892c231a43fea0af006c8eaac7ad6aeb0a99190
+Author: ct <calebtebbe@gmail.com>
+Date:   Wed Oct 29 19:47:18 2014 -0600
+
+    refactored test package name and fixed some errors that arised in test cases from that
+
+commit 9d164b5666cd0bbf6b3fcd8e42ba7e17013634c1
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 19:34:33 2014 -0600
+
+    Updated the diagrams
+    
+    updated diagrams based on how UI actually works.
+
+commit 66da4f4696cb8c0a9412dca7d7e09dfb1a7ef79d
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 18:28:29 2014 -0600
+
+    Add menu description UI
+
+commit 8de5447f4117ad48d1a127f8c5640a2951c11ea4
+Merge: ef32003 6762f89
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 17:48:50 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit ef320032ecd8a2da1c5a12cacf0baca87f68ee5d
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 17:48:43 2014 -0600
+
+    Edited sequence diagrams as per UI
+
+commit 6762f892300cdf0c9a4ff8abc2b5e90c87a9fb1a
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 29 17:43:50 2014 -0600
+
+    Add edit menu button
+
+commit d16466e1c62c83eafa2d5005a46b69dd8caeb7be
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Wed Oct 29 16:36:55 2014 -0600
+
+    Bug fix when pay amount dialog is closed and exception is thrown.
+
+commit 978745129091be52eaa5b51c3d4436b03e34a29c
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 16:22:05 2014 -0600
+
+    Commit Log updated.
+
+commit ee215b8bd41c0199346400b965912ad8962849aa
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 16:05:56 2014 -0600
+
+    Created RegisterTest and tested the Junit tests
+
+commit ca7ead4d808ceb1462cb8d956fc86dee6ab350ec
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 15:57:38 2014 -0600
+
+    Uploading Sequence and Class diagram PDF
+    
+    Uploading Sequence and class diagram PDF. thats 14 marks done. :dancers:
+
+commit 730b0c08c436a9587d5ec639f98aab4363b8f6e9
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 15:55:06 2014 -0600
+
+    Created KioskTest class
+
+commit 4910a5c7462fa7497677423168ba78d9feb2a644
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 15:39:47 2014 -0600
+
+    Commit Log
+
+commit 5e261e4e5ce76ab48cf96b73a1ad48ff8a5838de
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 15:22:23 2014 -0600
+
+    Made changes to the jpeg images of Sequence diagram
+
+commit 856e5567120b09afd5579804013d804f8b9aecaf
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 15:06:28 2014 -0600
+
+    Update Class diagram and Sequence diagram
+
+commit 9a3b727cc76d0330205b44a4e45f8ddfe4cf169a
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 14:27:00 2014 -0600
+
+    Changed System Test plan document extension
+
+commit 15b583382962f712ea62193ee8820f15dd7c3204
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 29 00:28:37 2014 -0600
+
+    Uploading Design class diagram and some updated classes
+    
+    Uploading Design class diagram and some updated classes
+
+commit d6d512224bd1d97d38fb25f667642e57514bd64f
+Merge: c50e3fe 88f3091
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 23:49:46 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit c50e3fed71efaf9593d48f54c30f26477fe67db8
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 23:49:31 2014 -0600
+
+    added one method in Store class
+
+commit 88f30912d88b762552e86cc5275b8d45492352fd
+Merge: d8fa187 cca14ff
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 23:24:29 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit d8fa187fa624e5bcd6c12b07d90fb0aace89d8e6
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 23:24:12 2014 -0600
+
+    updated the how-to-run file to coincide with main
+
+commit cca14fff119ffc8cd969016350109b86fa8707c5
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 23:12:31 2014 -0600
+
+    Changed name of sequence diagram
+    
+    changed name of sequence diagram
+
+commit abc6c7c12fb05a212fa6b3a8f5bcb500f06668a3
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 23:10:27 2014 -0600
+
+    updated sequence Diagram AddMenuItem_ViaMenu
+
+commit 8cff7db6e721e24f92a27499149e4d7ee010826b
+Merge: 1cf450c 35211df
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 23:05:17 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 1cf450c281ab5c86c427c44bd5dab3c90ae86acf
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 23:05:08 2014 -0600
+
+    Return type of method changed in Store
+    
+    method:
+    addMenuItem() return type modified.
+
+commit 35211df95e1690528cca62e8b5b27bf7dd6a3247
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 23:01:13 2014 -0600
+
+    Fix bug with one argument in command line.
+    Added main class to the the built jar.
+
+commit 4c2ba42dd72794b516e2e757c051c03de6e71be8
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 22:50:50 2014 -0600
+
+    Fixed bug during placeOrder that allowed incomplete payments.
+
+commit a1d5f491f4ab39012628ac67e9480fc5e8d4e521
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 22:31:30 2014 -0600
+
+    Fixed method signature in SaverLoderTest
+    
+    updated method signature in SaverLoaderTest
+
+commit c0c0e8591c0e46a2e39a20792823e94ef18ad675
+Merge: 044bc87 0d2f568
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 22:30:23 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 044bc87433bb4e164c2d5e56684a56549396dd2e
+Merge: 111a230 78458e7
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 22:30:16 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    Conflicts:
+    	PizzaOrderingSystem/src/main/java/cs414/pos/ui/UIController.java
+
+commit 0d2f56885f38d5ce18c77ee4d2a3db1e5aedc7c3
+Merge: a302a75 f3f1b19
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 22:26:35 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit a302a75b97fab75454e98620be97263a2c847bab
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 22:26:10 2014 -0600
+
+    added SaverLoaderTest
+
+commit 111a2309186acc1bf800aa31468bb7cee3f1da9b
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 22:22:35 2014 -0600
+
+    Changed how Orders are created and stored in Store.
+    
+    Changed Orders in Store from Set to ArrayList
+
+commit f3f1b194adb6a5526569304fed8612f7a6668b0f
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 22:22:15 2014 -0600
+
+    Changes to functionality. Still needs changes to Order.
+
+commit 78458e76a74571a1d11c4e9e5aa06ce5fc947cd6
+Merge: a41fbb0 254b0ca
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 22:06:55 2014 -0600
+
+    Merge branch 'ui'
+
+commit 254b0ca3fa44b39a233b9ce15aaeb08d7e4dd024
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 22:06:12 2014 -0600
+
+    Added customers to default store. Customer3 and Customer4 are the ids but cannot guarantee these are the ids.
+    PlaceOrderUI should be ready for use except for removing item.
+
+commit a41fbb0d4c097ded8aa67ed60f46bd1d54148e80
+Merge: e334266 8654247
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 21:28:34 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit e3342660c901786b3d5f1a4164453bd6a30f2ad1
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 21:28:25 2014 -0600
+
+    Edited Sequence Diagram placeOrderViaRegister_Final
+
+commit 86542472e8a70cf1c164badd1b35fdc466ab66c3
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 21:26:00 2014 -0600
+
+    PlaceOrderUI changes.
+
+commit 83328c4e224e0fe5213e0e4aed73176c6b98dfcf
+Merge: db5d652 fbfdb46
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 21:20:27 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit db5d652b5deed4293e81708ed49763fdc7381df9
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 21:19:34 2014 -0600
+
+    Updated main saving logic to load default store if file loading does not work. Made CustomerFactory Serializable so the store can be saved.
+
+commit fbfdb468024e83c5bf03d096fc7d06ff28d279db
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 20:54:26 2014 -0600
+
+    added two methods - getMenu() and getItem() in Store
+
+commit 60058f039020ece37cf3153a274bbe974a138c39
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 19:15:25 2014 -0600
+
+    refactored all instances of creating Customer to be directed through the factory
+
+commit 50fff16553312d75c436d1d835cbcd696ec7d480
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 19:07:49 2014 -0600
+
+    added customerfactory instance to Store and fixed some javadoc tags
+
+commit 52eea38617efd0912c560f060e076ec164d6761d
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 18:28:31 2014 -0600
+
+    Fixed placeOrder method in Store
+    
+    updated and fixed placeOrder method in Store
+
+commit 739f5b132e7ed9b371f1e2c852b2531f6604e712
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 18:10:23 2014 -0600
+
+    Update to PlaceOrderUI no actions taken but dialog options are asked.
+
+commit db11967086ad140012054479a7994c7a01ccfb82
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 15:32:25 2014 -0600
+
+    fixed indenting of Menu class
+    
+    fixed indenting of Menu class
+
+commit 8259d3884a40c89904257ed892de9c896a647297
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 28 13:33:04 2014 -0600
+
+    changed createOrderViaKiosk and createOrderViaRegister
+    
+    Changed Store class. now createOrderViaKiosk and createOrderViaRegister
+    only creates orders without storing them in the Store. the method
+    placeOrder() actually stores them. @Nathan
+
+commit d4e8730f7dee88e8343e4bf66c3096558cc3530e
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 12:16:26 2014 -0600
+
+    Minor changes to the look of the PlaceOrderUI.
+
+commit fb903aa11b47fe1f5ab695ef559d3c0003c53ddc
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 12:04:38 2014 -0600
+
+    Fix StoreTest compilation that came from the merge.
+
+commit ac1db4d11dd4c55036c2980d69d545bde541ed72
+Merge: a86a62f 2b42080
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 11:58:57 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    Conflicts:
+    	PizzaOrderingSystem/src/main/java/cs414/pos/Main.java
+
+commit a86a62fcb6e29d8a3426cffc6ac5276c66f56089
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 11:56:41 2014 -0600
+
+    Added Save and load functionality from a file which uses a default store if no file is found but will load the file and consecutive runs.
+
+commit 2b42080e609c05164bb13d6b350a1f4d9f262e20
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Tue Oct 28 09:10:51 2014 -0600
+
+    System Test Plan_V1
+
+commit 05b920a45ab3da1fd90d40bf6a2fd61db7f946ae
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 28 08:54:07 2014 -0600
+
+    testing ui on loading from a saved state
+
+commit e957f2bf91faae40d925ed41329b305a3711c163
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 28 06:59:27 2014 -0600
+
+    Deleted testSave.ser
+
+commit 09ee86b924735e3da873714929d0692310d583d0
+Merge: 708242a 9446fa8
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 27 23:39:21 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    Resolved merge branch
+
+commit 708242ad1553a58bbc75dfea0f792f5192d8db2a
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 27 23:14:00 2014 -0600
+
+    Major Change in Kiosk, Register and Store class.
+    
+    Major Change in Kiosk, Register and Store class. Orders are created via
+    Kiosks and Registers, and Orders can be created by a customer if he is
+    sitting on a kiosk according to business rule. Removing createOrder()
+    method in store and adding createOrderViaKiosk() method and
+    createOrderViaRegister() method in Store, and making subsequent changes
+    in the related classes.
+
+commit 9446fa8645e2ab6dc33619555963f049dcd63c98
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 27 23:06:31 2014 -0600
+
+    PlaceOrderUI changes orders still cannot be built and added *.ser to gitignore
+
+commit b9b43d61e774e4e276ff8c50dd2651420656ddf4
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 27 21:02:57 2014 -0600
+
+    Setup CompleteOrderUI.
+
+commit 9bfb02ebd23694ce79af94501eae27443260d54c
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 27 17:17:32 2014 -0600
+
+    Added EditMenuItemUI and its actions.
+
+commit 1344da8d19a8c2310e45dbc6a02fc8393b1528a3
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 27 14:00:53 2014 -0600
+
+    EditMenuUI changes to add actions.
+
+commit 806c29d66e8d95d581448da402edcc0caed8cd8a
+Merge: 6c6a8cc 62c11c0
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 27 20:11:00 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    Conflicts:
+    	PizzaOrderingSystem/src/test/java/cs414/pos/StoreTest.java
+
+commit 6c6a8cce9cc56dc462669d8956c6280d010983ca
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 27 20:04:45 2014 -0600
+
+    All tests passed
+    
+    Fixed all test classes to stabilize unit tests.
+
+commit 62c11c0025c0bbca0f778b74a10a320c360d1ad6
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Mon Oct 27 18:34:46 2014 -0600
+
+    Delete test open & save state method
+
+commit 9ee52f88323273edb53e30a9fe7c8bd0ef4aa35f
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 27 14:06:37 2014 -0600
+
+    Fixed project error. Added all test suite
+    
+    Fixed project error in StoreTest. Added a test suite for testing all
+    classes.
+
+commit 048e0b66f73c3958d93877df20767b015e7cd519
+Merge: f15d95d ab76dd7
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 27 11:04:16 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit f15d95d7c94b3071a860752d666723438acd0ca6
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 27 11:03:52 2014 -0600
+
+    updates to UI.
+
+commit ab76dd7653208ab7a3bfb9ade5f94172dfe986bc
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Mon Oct 27 09:22:32 2014 -0600
+
+    System Test Plan(To be continued)
+    
+    Part of system test plan
+
+commit c08b83c360e580b20be057f8868c4b29a4e1d439
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Mon Oct 27 08:23:37 2014 -0600
+
+    System Test Plan (To be continued...)
+    
+    Part of the system test plan
+
+commit 0fca449dc5ead4c35750d47acd9e9da9a19b79f4
+Author: ct <calebtebbe@gmail.com>
+Date:   Sun Oct 26 17:20:19 2014 -0600
+
+    added a how-to to run our system draft and made some minor fixes in Store
+
+commit 34a922d74a23ccec65c20977d6165fd6622b3b86
+Author: ct <calebtebbe@gmail.com>
+Date:   Sun Oct 26 13:44:09 2014 -0600
+
+    changed Priv to Role to coincide with our diagrams
+
+commit 1277e31187bfab5a0b7d7566eb1a444b4f6703e3
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sat Oct 25 19:49:20 2014 -0600
+
+    Added shell for CompleteOrderUI.
+
+commit ca7fadf41e476e85050fd73e1c52c335806ab257
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sat Oct 25 18:36:24 2014 -0600
+
+    Added PlaceOrderUI shell.
+
+commit 00f0f0d2cd2e8901343c2f179defd38153048ad2
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sat Oct 25 16:57:31 2014 -0600
+
+    Redesigned MainUI for simplicity sake. Minor changes to EditMenuUI.
+
+commit 61746be95953673c05723f63bd6a995bb8f911fd
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Sat Oct 25 16:34:11 2014 -0600
+
+    Added shell for editing menu UI
+
+commit e36532339fb556ff6af6fc96361c33cce25f05d6
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Fri Oct 24 01:26:40 2014 -0600
+
+    UI layout skeleton files.
+
+commit c6683b23624e11fb28ca2b17355a6dbb0b4180a7
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Oct 25 12:07:09 2014 -0600
+
+    serialized some more things. fixed most of the store tests and added a basic tester for saving/opening
+
+commit 59c24a3d7853c1ff0a292c40d538215031407243
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Oct 25 03:55:39 2014 -0600
+
+    Finished StoreTest except test saveState & openState. Don't know how...
+
+commit 7f5c75439daed3b6379a54cfe0f31ae47e0df94b
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Oct 25 03:54:43 2014 -0600
+
+    Slightly changes and also some questions
+
+commit a648192d4cf49a815fdea4452bc4db0c0037f6a7
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Oct 25 03:54:18 2014 -0600
+
+    Add a method to check if a empolyee can add order
+
+commit b7de5c826431632381ae7c400c576cf95d157a58
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Oct 24 20:42:22 2014 -0600
+
+    Updated Customer class
+
+commit 5873887ceebfa6ac7c777749467c225a3d238d4e
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Fri Oct 24 13:52:07 2014 -0600
+
+    Updated Order Class and test class for Order
+    
+    Updated Order Class and test class for Order
+
+commit 2f859929734764515c65b51edd622e74ab4f6890
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Fri Oct 24 09:26:43 2014 -0600
+
+    StoreTest...Correct Some mistakes...
+
+commit bbc1b9ffb23eea4a62f2f3dde228bae93603d375
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Fri Oct 24 09:07:57 2014 -0600
+
+    StoreTest
+
+commit d44cd27a0e2792f830a054145f1d1550bbc9b27b
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Fri Oct 24 04:01:54 2014 -0600
+
+    Part of StoreTest
+
+commit 60491c52a7308a6e95d3b32b0fdbd5d4685621cc
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Oct 23 23:21:34 2014 -0600
+
+    Updated Test Class for order.  Made some public methods private in Order
+    
+    made some public methods private in Order and created a test class.
+
+commit 5ee046141e039b54440c32e4f218240dfd100b30
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Oct 23 20:08:01 2014 -0600
+
+    Creating test class for Order
+    
+    Partial test class for Order. Made minor change to Order Class
+
+commit 074f06e9627904b044b15df055136b6c14d34557
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Oct 23 17:24:35 2014 -0600
+
+    updated ItemTest and OrderItemTest classes
+    
+    updated ItemTest and OrderItemTest classes
+
+commit 5e3bc5ec4dca703f29c4cb063853982c150e2daa
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Oct 23 16:14:22 2014 -0600
+
+    updated Kiosk and StoreTest
+    
+    Updated Kiosk and StoreTest
+
+commit 8d011f6bb3b570e91c956168a3a1c884b0c7c6db
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Thu Oct 23 01:07:27 2014 -0600
+
+    OrderItemTest v1
+
+commit 1dbe54aa9d9adbcde128c60a75902393ead64218
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Thu Oct 23 01:06:52 2014 -0600
+
+    Auto-
+    generated Class Diagram
+
+commit 91ff2aff598280edf92f7623869b47896f83af75
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 22 19:03:37 2014 -0600
+
+    Finished ItemTest
+
+commit 868a3b0d53d83428e30739eaa3e7fb184398c098
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 18:24:31 2014 -0600
+
+    Updated operation of creating unique customer ID
+    
+    Update Customer class. Updated all classes and all test classes
+    dependent on Customer.
+
+commit 05d8640aa900ed1a5b28015aaa08b4de0e232050
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 16:23:36 2014 -0600
+
+    Updated Store test class
+    
+    Made updates in Store test class
+
+commit 684389042d39ab0bb9d89d71033ed1605f550ee4
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 16:14:42 2014 -0600
+
+    Revert "Revert "Updated Store class and associated Class files""
+    
+    This reverts commit 84d2a9781f446ee8c5a1cc42a3d6d419139a1dda.
+    
+    Conflicts:
+    	PizzaOrderingSystem/src/main/java/cs414/pos/Store.java
+    	PizzaOrderingSystem/src/test/java/cs414/pos/StoreTest.java
+    	PizzaOrderingSystem/testSave.ser
+
+commit 08bc15906fd7c897b690a76eba903965a65b30cf
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 15:53:35 2014 -0600
+
+    Fixed errors in itemtest
+    
+    Fixed errors in itemtest
+
+commit 072f377b64e6c3805b70aa166437af2d0dfcbe42
+Merge: 84d2a97 8020fac
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 15:51:48 2014 -0600
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 84d2a9781f446ee8c5a1cc42a3d6d419139a1dda
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 15:50:26 2014 -0600
+
+    Revert "Updated Store class and associated Class files"
+    
+    This reverts commit b62d5cad773bd469add566345d216c085b2f1915.
+
+commit b62d5cad773bd469add566345d216c085b2f1915
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 22 15:50:14 2014 -0600
+
+    Updated Store class and associated Class files
+    
+    Added partial unit test for Store. updated other classes.
+
+commit 8020fac7d4e242c0aa5b63a44b3caed922de6d49
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Wed Oct 22 03:53:31 2014 -0600
+
+    ItemTest
+
+commit 3d5aacd4deaac070ee16766b0dec61f60ad5525b
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 21:22:00 2014 -0600
+
+    added register/kiosk hooks for Store. started a small store scenario in main
+
+commit 9d5843e9344b18fe54d71197ebc2107ea2c5aff6
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 21:06:09 2014 -0600
+
+    changed de/serializer to buffered streams
+
+commit d3c91680d04e56633c0eac8323bdefed06d1394d
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 20:52:41 2014 -0600
+
+    testing more de/serializing. changed Store employee creation to properly use the factory and return an Employee rather than an ID
+
+commit b3ad2986d3335db87b1333f0341a2cc209e4a9f5
+Merge: 413f3c9 8bb65ad
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 20:29:59 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    adding serializable objects from Store
+
+commit 413f3c93f1dad792c55c012e8771a1bed20064e9
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 20:27:21 2014 -0600
+
+    serialized all classes Store deals with directly
+
+commit 8bb65ad353ae480cb4836909d7782c12ead4cb05
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 21 20:08:21 2014 -0600
+
+    Updated StoreTest junit class
+    
+    Updated StoreTest
+
+commit 01cdb4b8eecf41137eb807791beac470d5725ed3
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 20:02:27 2014 -0600
+
+    switched de/serializer to use output/input streams
+
+commit 9f293aba4098f1024fee274ee154a8519eed395b
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 21 19:50:06 2014 -0600
+
+    Updated Employee Class, LoginInfo Class and their Unit tests
+    
+    Updated Employee Class, LoginInfo Class and their Unit tests
+
+commit 560cf2c70c64fa251e5c177efa886f73602edbff
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 21 17:26:48 2014 -0600
+
+    Created unit test for Customer Class
+    
+    Created unit test for Customer Class
+
+commit 9e48aa1d417a0c130229f27962520b43cc8d0f4c
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 21 17:25:27 2014 -0600
+
+    Updated class Order and Customer
+    
+    Made updates to class Order and Customer
+
+commit fd0ec69ac6c51223d83b13b5d09afa8f4cface75
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 09:49:30 2014 -0600
+
+    re-added serializing code
+
+commit bb03a3c6e1fc54d760707d7c631269fc0bc999f9
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 09:44:38 2014 -0600
+
+    implemented using privledges for access control in Store
+
+commit 7c1a970220b7be4014cf34f1eab39d510fb7d2f3
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 09:38:53 2014 -0600
+
+    fixed a merge conflict in Store
+
+commit de74ebc8ce1cc957443085f407e4f778a7b85efb
+Merge: e2d9406 d2e4f0e
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 09:34:06 2014 -0600
+
+    merging
+
+commit e2d9406a6044ae9d1f3c72008e327a211be845a1
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 09:26:23 2014 -0600
+
+    started playing with a serializer saving scheme
+
+commit 9a68fbcb8d00102dc6a4af13774b3a5e308225df
+Author: ct <calebtebbe@gmail.com>
+Date:   Tue Oct 21 08:53:10 2014 -0600
+
+    javadoc all the things!
+
+commit d2e4f0e6901ba7042f0dc796630275668e68dc46
+Merge: 9c0daee 14be332
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 20 23:26:01 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+    
+    Conflicts:
+    	PizzaOrderingSystem/src/main/java/cs414/pos/Store.java
+
+commit 9c0daee437a63ca70076941cdc7fc47ff1c7261e
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 20 23:20:50 2014 -0600
+
+    1. Removed Role and its inherited classes. Replaced with Privilege enum.
+    2. Implement EmployeeFactory and CustomerFactory.
+    3. Updated Store to use new factory. However it should use the database which is yet to be implemented.
+    4. Updated .gitignore file for netbeans files.
+
+commit 14be3321585fd24abfd2a98922aaf2c8a05e541d
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 20 21:17:42 2014 -0600
+
+    Updated Class Card and Unit test class CardTest that tests Card.
+    
+    Made minor changes to Class Card and created unittest for Class Card.
+
+commit b6ff6b2deb681625437b27d37a35b963aa6ddf73
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 20 20:30:07 2014 -0600
+
+    Added Unit test file for Address Class
+    
+    Added unit test file for Address Class. Made minor changes to Address
+    Class.
+
+commit 4e848a2a31267d469df85c9e2756494729307954
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 20 19:43:06 2014 -0600
+
+    Adding Javadoc Tag to Store class
+    
+    Adding Javadoc tag to store class
+
+commit 10a60c714163f2cc712d163fba90617b4dafde19
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 20 18:06:18 2014 -0600
+
+    1. Made the constructors of Customer public.
+    2. Added interfaces for the factories to create an Employee and a Customer.
+
+commit 67e180ef5c7e9fb981109b379fa7bea8f25dfe7f
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Mon Oct 20 15:58:24 2014 -0600
+
+    Removed the javadoc that was preventing the javadoc jar from being created.
+
+commit 63f40d8f60143fe686e512307d49bdbdef740b2e
+Author: ct <calebtebbe@gmail.com>
+Date:   Mon Oct 20 15:45:26 2014 -0600
+
+    minor changes
+
+commit 2ffb8699cfb235454b1cf4671acaca5b95ab0788
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 20 09:05:13 2014 -0600
+
+    Updated classes to associate roles with employees
+    
+    Modified existing code so that Store class has an array of Role object -
+    one of which can be assigned to the employee.
+
+commit 3f86aae0f8502f71a08cf110dbd3771966ea936b
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 20 01:36:15 2014 -0600
+
+    Updated old classes and added new classes.
+    
+    Created abstract class Role, and class Manager, Chef and Cashier that
+    extends the abstract class Role.
+    Added a field in Employee for storing role.
+    Added a reference to pizza store in Kiosk and Register.
+    
+    So far all the classes in our class diagram has been written.
+
+commit dfda7db80c4b6e2c2dda995132e57e0d8e61ce4e
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Sun Oct 19 23:54:50 2014 -0600
+
+    Added JPEG image for Sequence Diagram PlaceOrder
+    
+    Added JPEG image for Sequence Diagram PlaceOrder
+
+commit e6ef61be32c4422862da9e1b99ed2b415c9ca65b
+Author: ct <calebtebbe@gmail.com>
+Date:   Sun Oct 19 15:30:55 2014 -0600
+
+    change some methods in orderitem to private which should not be mutable. also fixed it to include the special price if an item is special
+
+commit aefada44336f6d65039ff0e25453d55390487d61
+Author: ct <calebtebbe@gmail.com>
+Date:   Sun Oct 19 15:23:54 2014 -0600
+
+    added setSpecial functionality
+
+commit a83f12795269a673582d64da4ce22ec141cf03f0
+Author: ct <calebtebbe@gmail.com>
+Date:   Sun Oct 19 15:18:38 2014 -0600
+
+    changed the Item special schema to make it more flexible/readable
+
+commit a45aad6f0a7190d6639ebba1bd3ff55ddc257fbd
+Author: ct <calebtebbe@gmail.com>
+Date:   Sun Oct 19 14:33:33 2014 -0600
+
+    added Menu equal method. added define menu functionality
+
+commit 4f5c06cf7fc7f00bfbce1e282c098c962ade3d39
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Oct 18 11:01:15 2014 -0600
+
+    Define Menu & Add Menu Item sequence diagram added
+
+commit 16eefdaa865aef34a7c4f6338c738575a9a8a116
+Author: tcqiuyu <tcqiuyu2@gmail.com>
+Date:   Sat Oct 18 09:13:00 2014 -0600
+
+    DefineMenu Sequence Diagram Added
+
+commit 9198a49b0eb271e0a1350628b15a4c09dc2ba7ad
+Author: ct <calebtebbe@gmail.com>
+Date:   Sat Oct 18 01:30:36 2014 -0600
+
+    began adding menu functionality from sequence diagrams
+
+commit c0434220c572eb72f42074340e4bcbecc0c3d601
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Thu Oct 16 21:37:28 2014 -0600
+
+    Edit pom.xml to have the build still build jar files when a tests fails. Test fails will still be displayed but for now the tests are not implemented. Fixed error in javadoc in Employee that was preventing the javadoc from being produced.
+
+commit 5d39521aa9ec19e3cbd023f87804308915c8e978
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Thu Oct 16 20:25:53 2014 -0600
+
+    Class files according to design class diagram
+    
+    Contains most of the class files in the design class diagram. Methods
+    have been implemented keeping most functionalities in mind. Sequence
+    diagrams may need to be revised according to the method signatures - or
+    method signatures have to be changed here.
+
+commit bf691bf3fe7f3e56a99d38ef1339a0055ccface4
+Merge: 96bea18 b90912f
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 19:26:36 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit 96bea1833f7e53be0a2074fc8b2d8a43f6214a63
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 19:25:34 2014 -0600
+
+    rebasing with project files for IDE
+
+commit b90912f5744914e4de2b127c0d7c85228982162c
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Thu Oct 16 12:08:46 2014 -0600
+
+    Added Sequence Diagrams for Complete Order, Edit Menu Item, and Make Special.
+
+commit 56a86eac729393de2451bb9a4e51d032e924ee17
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 10:28:07 2014 -0600
+
+    adding DS Store to gitignore
+
+commit fa2c4c0d3ec8c83f4d5f56801af8683d68b99f53
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 10:27:21 2014 -0600
+
+    removing DS store file
+
+commit e30d02424cc725e63cbfb4395604338cbc3da0b4
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 10:26:13 2014 -0600
+
+    readme update
+
+commit 880881ddb716f2bc4aafc4cc87315ec6bdb5527b
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 10:25:07 2014 -0600
+
+    readme update
+
+commit 74ef9cc9be4babc8c3d0ffe47de4fe0e2718f506
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 10:22:32 2014 -0600
+
+    readme update
+
+commit cbe6c658d7681fc1935d3fb605b7d15c9ad40861
+Author: ct <calebtebbe@gmail.com>
+Date:   Thu Oct 16 10:20:41 2014 -0600
+
+    cleaned up directories and added sequence diagrams for delete menu and delete menu item
+
+commit 517b089f915e21d85e8f656563d5ff93ae9743ab
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Wed Oct 15 22:08:30 2014 -0600
+
+    Added Sequence Diagram of PlaceOrder
+    
+    Sequence Diagram of Use Case UC1: PlaceOrder - Main Success Scenario.
+
+commit 46def4ab803333a88dc8b5f6217317dc63b85a42
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 14 19:20:22 2014 -0600
+
+    Updated Sequence class diagram
+    
+    Previous class diagram has some problems. Updated class diagram
+
+commit 25efb70c9f97b02a52ad6efeb09d918cf55aa2bf
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 14 19:06:12 2014 -0600
+
+    created sequence diagram for login.
+
+commit e370adcfd959234489c4d0570922b7312cbdd1d2
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Tue Oct 14 15:53:56 2014 -0600
+
+    Updated sequence diagram and class diagram. Added JPEG for diagrams for better viewing.
+
+commit 596ea7528af81f87fc97c38752d9719521017fc2
+Author: Nathan Lighthart <nlighthart@gmail.com>
+Date:   Tue Oct 7 12:05:52 2014 -0600
+
+    Added Skeleton maven project. I have tested it in netbeans and eclipse. Added to the .gitignore file the eclipse and netbeans project files.
+
+commit a82d20f8d97b75694813dfd931d2ef8b04293d8c
+Merge: d2734e2 b998072
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 18:27:40 2014 -0600
+
+    Merge branch 'master' of https://github.com/shimon0505004/CS414_ColoState
+
+commit d2734e2882c5fee8b5df1b0ac3ccb8369437f52a
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 18:27:01 2014 -0600
+
+    Updated Sequence Diagram Add Employee
+    
+    Updated method names of sequence diagram add employee
+
+commit b9980720188f0569fab46e7bc09c3a24ed409391
+Author: ct <calebtebbe@gmail.com>
+Date:   Mon Oct 6 18:06:16 2014 -0600
+
+    adding more init files
+
+commit 0b48452be66a51ffb1b1c083180d23868ee587bb
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 18:02:39 2014 -0600
+
+    Updated Sequence Diagram Add Employee
+    
+    Updated list of Login and Employee to Set.
+
+commit f99798fe053858a92f465c237d040a9f2109d57e
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 17:56:52 2014 -0600
+
+    updated className of loginInfo to LoginInfo
+    
+    corrected class name .
+
+commit aacff0238e0c32ae2c305a82040d5b1ddb41ea83
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 17:53:25 2014 -0600
+
+    updated class name of loginInfo
+
+commit ff75f65706c058559ce6810be53a17348bd58ca2
+Author: SHAIKH SHAWON AREFIN SHIMON <shimon0505004@gmail.com>
+Date:   Mon Oct 6 16:30:55 2014 -0600
+
+    Delete ~$$Sequence_Diagram_Add_Employee.~vsdx
+
+commit ac20a8c886be50202af5b30c2e5c5b248179e711
+Author: SHAIKH SHAWON AREFIN SHIMON <shimon0505004@gmail.com>
+Date:   Mon Oct 6 16:30:49 2014 -0600
+
+    Delete ~$$PizzaOrderingSystem Class Diagram_updated_5.~vsdx
+
+commit 64278b2e99cbe3dc42d69c50c20bec711dacd580
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 16:22:17 2014 -0600
+
+    New Sequence diagram for creating an employee in the system.
+
+commit bb7469df1acd95d968ad0c83bcfa9abe73677f1c
+Author: Shaikh Shawon Arefin Shimon <shimon0505004@gmail.com>
+Date:   Mon Oct 6 09:35:11 2014 -0600
+
+    Pizza ordering system initial files
+    
+    Pizza ordering system files, A2, A3, Class diagram and others.
+
+commit 22ced3fec657001ece9ce81ce26acea2a93c2bce
+Author: shimon0505004 <shimon0505004@gmail.com>
+Date:   Mon Oct 6 07:39:26 2014 -0600
+
+    Update README.md
+    
+    Made update about description of CS414_ColoState
+
+commit 10ea032f1ef7e76120cbc52ff40f77480e980302
+Author: shimon0505004 <shimon0505004@gmail.com>
+Date:   Mon Oct 6 07:37:29 2014 -0600
+
+    Initial commit
