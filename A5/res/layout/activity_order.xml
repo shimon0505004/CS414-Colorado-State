@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="cs414.a5.nlighth1.android.OrderActivity" >
+
+   <LinearLayout
+        android:id="@+id/linearLayout_Order"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    	
+    	<Spinner
+	        android:id="@+id/spinner_MenuDropList"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" 
+			android:popupBackground="#9C9998" />
+				        
+		<TableLayout
+		    android:id="@+id/tableLayout_MenuItem"
+		    android:layout_width="fill_parent"
+		    android:layout_height="180dp" />
+
+	
+	    <TableLayout
+	        android:id="@+id/table_orderInfo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    
+	    <LinearLayout 
+	        android:id="@+id/relativeLayout2_OrderButton"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        		    
+	  		<Button
+			    android:id="@+id/button_checkout"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Checkout" />
+			
+			<Button 
+			    android:id="@+id/button_viewOrder"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="View Order"/> 
+				    
+		 </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

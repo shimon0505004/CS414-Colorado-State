@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Pizza Store Client</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_membership_login">MembershipLoginActivity</string>
+    <string name="title_activity_customer_details">CustomerDetailsActivity</string>
+    <string name="title_activity_specific_order_by_customer">SpecificOrderByCustomer</string>
+    <string name="title_activity_order">OrderActivity</string>
+
+</resources>
