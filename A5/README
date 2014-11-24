@@ -8,6 +8,8 @@ httpcore-4.3.2
 json-20140107
 junit-4.10
 
+appcompact library should also be configured in build path for android project. The project won't run without it.
+
 2) How to Run
 Compile Notes
 find . -name "*.java" | grep -vi /android/ > sources.txt
