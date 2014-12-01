@@ -677,12 +677,14 @@ public class OrderActivity extends ActionBarActivity {
 					String cardNum = paymentInfo.split("/")[2];
 					String expDate = paymentInfo.split("/")[3].concat("/")
 							.concat(paymentInfo.split("/")[4]);
+					String cv = paymentInfo.split("/")[5];
 
 					try {
 						customerOrder.put("memberID", memID);
 						customerOrder.put("address", addr);
 						customerOrder.put("cardNumber", cardNum);
 						customerOrder.put("expDate", expDate);
+						customerOrder.put("cv2", cv);
 						// ArrayList<String> order = new ArrayList<String>();
 						JSONArray order = new JSONArray();
 						for (int i = 0; i < orderList.size(); i++) {

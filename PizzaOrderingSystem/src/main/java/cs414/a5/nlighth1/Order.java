@@ -62,11 +62,14 @@ public class Order implements Serializable {
 		setIsPaid(false);
 	}
 
-	public void setOrderPlacedByApp(){
+	public void setOrderPlacedByApp(Card card, Address a){
 		this.setIsPaid(true);
 		this.setCardPayment(true);
 		this.setComplete(false);
 		this.setDelivered(false);
+		this.setPaysWithCard(card);
+		this.setDeliveryAddress(a);
+		this.setTypeOfOrder(OrderType.HomeDelivery);
 		
 	}
 	

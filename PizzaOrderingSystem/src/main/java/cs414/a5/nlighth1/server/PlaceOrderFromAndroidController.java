@@ -6,6 +6,8 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import cs414.a5.nlighth1.Address;
+import cs414.a5.nlighth1.Card;
 import cs414.a5.nlighth1.Customer;
 import cs414.a5.nlighth1.Item;
 import cs414.a5.nlighth1.Order;
@@ -58,14 +60,22 @@ public class PlaceOrderFromAndroidController implements HttpHandler {
 
 		Customer c = null;
 		Order o = null;
-
+		Card card = null;
+		
 		System.out.println("Request received by Place order sever");
 
 		JSONObject object = new JSONObject(responseStrBuilder.toString());
 		String customerID = object.get("memberID").toString();
-
+		String address = object.get("address").toString();
+		String cardNum = object.get("cardNumber").toString();
+		String cardExpDate = object.get("expDate").toString();
+		String cv = object.get("cv2").toString();
+		
 		o = new Order(this.store.getListOfPlacedOrder().size());
-		o.setOrderPlacedByApp();
+
+		card = new Card(cardNum, cardExpDate, cv);
+		Address a = new Address(address);
+		o.setOrderPlacedByApp(card, a);
 
 		JSONArray orderList = object.getJSONArray("orderList");
 
@@ -86,7 +96,7 @@ public class PlaceOrderFromAndroidController implements HttpHandler {
 
 		c = this.store.getMember(customerID);
 		o.updateMembershipHoldingCustomer(c, this.store);
-
+		
 		if (customerID.length() != 0 && c != null) {// with membership
 			System.out.println("Find customer ID: " + customerID);
 			if (o != null) {
